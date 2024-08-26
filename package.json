@@ -1,0 +1,17 @@
+{
+  "name": "json2md",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run delete-dist-files && npx tsc && node dist/source/json2md.js",
+    "delete-dist-files": "rm -rf ./dist/content/*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "typescript": "^5.5.4"
+  }
+}
