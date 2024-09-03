@@ -42,15 +42,31 @@ const writePage = async (page: Page) => {
 
   // If this is an SDK page and there isn't a directory, create one.
   if (sdk) {
-    try {
-      fs.access(directory);
-      console.log(directory, constants.R_OK | constants.W_OK);
-      console.log(">>>> Directory exists");
-    } catch (error) {
-      console.log(">>>> Directory does not exist");
-      await fs.mkdir(directory);
+    // try {
+    //   fs.access(directory);
+    //   console.log(directory, constants.R_OK | constants.W_OK);
+    //   console.log(">>>> Directory exists");
+    // } catch (error) {
+    //   console.log(">>>> Directory does not exist");
+    //   await fs.mkdir(directory);
 
-      console.log(error);
+    //   console.log(error);
+    // }
+
+    try {
+      await fs.writeFile(filepath, page.body);
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes("ENOENT")) {
+          await fs.mkdir(directory);
+
+          writePage(page);
+
+          // setTimeout(() => {
+          //   writePage(page);
+          // }, 500);
+        }
+      }
     }
   }
 
