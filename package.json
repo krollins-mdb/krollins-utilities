@@ -5,13 +5,18 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run delete-dist-files && npx tsc && node dist/source/json2md.js",
-    "delete-dist-files": "rm -rf ./dist/content/*"
+    "delete-dist-files": "rm -rf ./dist/content/*",
+    "run-update-script": "npx ts-node source/addNoRobots.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.5.0",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0"
   }
 }
