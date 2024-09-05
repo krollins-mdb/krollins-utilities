@@ -1,21 +1,20 @@
 import * as fs from "fs-extra";
 import * as path from "path";
 
-const directoryPath = path.join(
-  __dirname,
-  "../../docs-realm/source/sdk/node/crud"
-);
-const textToAdd = `
-.. meta::
+const directoryPath = path.join(__dirname, "../../docs-realm/source/sdk");
+const textToAdd = `.. meta::
    :robots: noindex, nosnippet
+
 `;
 
-async function addTextToFile(filePath: string) {
+async function prependTextToFile(filePath: string) {
   try {
-    await fs.appendFile(filePath, textToAdd);
-    console.log(`Text added to ${filePath}`);
+    const fileContent = await fs.readFile(filePath, "utf8");
+    const updatedContent = textToAdd + fileContent;
+    await fs.writeFile(filePath, updatedContent, "utf8");
+    console.log(`Text prepended to ${filePath}`);
   } catch (error) {
-    console.error(`Error adding text to ${filePath}:`, error);
+    console.error(`Error prepending text to ${filePath}:`, error);
   }
 }
 
@@ -30,7 +29,7 @@ async function iterateDirectory(dir: string) {
       if (stat.isDirectory()) {
         await iterateDirectory(filePath);
       } else if (stat.isFile()) {
-        await addTextToFile(filePath);
+        await prependTextToFile(filePath);
       }
     }
   } catch (error) {
