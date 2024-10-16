@@ -1,0 +1,3722 @@
+[
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/10.0.0-beta.3/javadoc/io/realm/mongodb/auth/GoogleAuthType.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/10.0.0-beta.3/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/10.0.0-beta.3/javadoc/io/realm/mongodb/Credentials.Provider.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/10.0.0-beta.3/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/10.0.0-beta.3/javadoc/io/realm/mongodb/log/obfuscator/HttpLogObfuscator.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/10.0.0-beta.3/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/10.0.0-beta.3/javadoc/io/realm/mongodb/RealmResultTask.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/10.0.0-beta.3/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/10.0.0-beta.3/javadoc/io/realm/mongodb/sync/SyncSession.ClientResetHandler.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/10.0.0-beta.3/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/10.0.0-beta.3/javadoc/io/realm/mongodb/UserProfile.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/10.0.0-beta.3/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/10.0.0-beta.4/javadoc/io/realm/coroutines/package-summary.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/10.0.0-beta.4/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/10.0.0-beta.4/javadoc/io/realm/DynamicRealm.Transaction.Callback.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/10.0.0-beta.4/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/10.0.0-beta.4/javadoc/io/realm/DynamicRealm.Transaction.OnError.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/10.0.0-beta.4/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/10.0.0-beta.4/javadoc/io/realm/DynamicRealm.Transaction.OnSuccess.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/10.0.0-beta.4/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/10.0.0-beta.4/javadoc/io/realm/mongodb/auth/ApiKey.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/10.0.0-beta.4/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/latest/javadoc/io/realm/DynamicRealm.Transaction.Callback.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/latest/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/latest/javadoc/io/realm/DynamicRealm.Transaction.OnError.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/latest/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/latest/javadoc/io/realm/DynamicRealm.Transaction.OnSuccess.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/latest/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/android/latest/javadoc/io/realm/mongodb/mongo/events/package-tree.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/android/latest/javadoc/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/asymmetric__object_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1experimental_1_1managed_3_01std_1_1map_3_01std_1_1string_00_01T_01_4_00_01void_01_4_1_1iterator-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1experimental_1_1managed_3_01std_1_1map_3_01std_1_1string_00_01T_01_4_00_01void_01_4_1_1iterator.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1experimental_1_1managed_3_01std_1_1set_3_01T_01_4_00_01std_1_1enable__if__t_3_01in60bb6e72323fa7824172ea7bbcee00c7.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1experimental_1_1managed_3_01std_1_1set_3_01T_01_4_00_01std_1_1enable__if__t_3_01in6ca5206867878cc8bee0978e3e875177.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1experimental_1_1managed_3_01std_1_1set_3_01T_01_5_01_4_01_4_1_1iterator.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1experimental_1_1managed_3_01std_1_1vector_3_01T_01_4_00_01std_1_1enable__if__t_3_003b14a406d09c6471fee86cc5167476c.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1experimental_1_1managed_3_01std_1_1vector_3_01T_01_4_00_01std_1_1enable__if__t_3_034293531d381de59edc2c536ca543559.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1experimental_1_1managed_3_01std_1_1vector_3_01T_01_5_01_4_01_4_1_1iterator-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1experimental_1_1managed_3_01std_1_1vector_3_01T_01_5_01_4_01_4_1_1iterator.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1experimental_1_1results__common__base_1_1iterator.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1experimental_1_1results_1_1iterator-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1experimental_1_1results_1_1iterator.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1internal_1_1DefaultTransport.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1internal_1_1persisted__list__base_1_1iterator-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1internal_1_1persisted__list__base_1_1iterator.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1persisted__map__base_1_1iterator-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1persisted__map__base_1_1iterator.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1persisted__map__base-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1persisted__map__base.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1persisted__primitive__map__base-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1persisted__primitive__map__base.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1results__base_1_1iterator-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1results__base_1_1iterator.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1results__common__base_1_1iterator-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1results__common__base_1_1iterator.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1util_1_1TaggedString.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/classrealm_1_1util_1_1UniqueFunction.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/dir_370bb47c5356d209d4e1c21a4f2cf379.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/dir_3ebdccfaa322f2f50cfa7c9814ab4e90.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/dir_b79b2eba295e37cc6dae7d214bf16892.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/experimental_2db_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/experimental_2results_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/experimental_2sdk_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/internal_2bridge_2object_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__binary_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__bool_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__custom_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__decimal128_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__double_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__embedded_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__enum_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__int_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__list_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__map_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__mixed_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__object__id_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__optional_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__string_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__timestamp_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted__uuid_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/persisted_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structconstant__index.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1asymmetric__object-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1asymmetric__object.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1async__open__promise-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1async__open__promise.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1box_3_01realm_1_1mixed_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1box_3_01realm_1_1mixed_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1box_3_01std_1_1optional_3_01double_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1box_3_01std_1_1optional_3_01double_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1box_3_01std_1_1optional_3_01int64__t_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1box_3_01std_1_1optional_3_01int64__t_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1box_3_01std_1_1optional_3_01object__id_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1box_3_01std_1_1optional_3_01std_1_1chrono_1_1time__point_3_01std_1_1chrono_1_1sys88a4f0ce77d70b90bd32182fb5db3819.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1box_3_01std_1_1optional_3_01std_1_1chrono_1_1time__point_3_01std_1_1chrono_1_1system__clock_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1box_3_01std_1_1optional_3_01std_1_1vector_3_01uint8__t_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1box_3_01std_1_1optional_3_01uuid_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1box_3_01std_1_1optional_3_01V_01_4_00_01std_1_1enable__if__t_3_01std_1_1is__base_34cb5e8f62fea1fc53171f393616622a.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1box_3_01V_00_01std_1_1enable__if__t_3_01std_1_1is__enum__v_3_01typename_01V_1_1va51b9adf8cb82b067ed110d9ab52a2730.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1box_3_01V_00_01std_1_1enable__if__t_3_01std_1_1is__enum__v_3_01typename_01V_1_1value__type_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1collection__change-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1embedded__object-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1embedded__object.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01bool_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01decimal128_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01decimal128_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01double_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01double_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01int64__t_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01linking__objects_3_01T_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01object__id_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01primary__key_3_01T_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01primary__key_3_01T_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1chrono_1_1time__point_3_01std_1_1chrono_1_1system__clock_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1chrono_1_1time__point_3_01std_1_1chrono_1_1system__clock_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1map_3_01std_1_1string_00_01T_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1map_3_01std_1_1string_00_01T_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1map_3_01std_1_1string_00_01T_01_5_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1map_3_01std_1_1string_00_01T_01_5_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1optional_3_01bool_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1optional_3_01bool_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1optional_3_01decimal128_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1optional_3_01decimal128_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1optional_3_01double_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1optional_3_01double_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1optional_3_01int64__t_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1optional_3_01int64__t_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1optional_3_01object__id_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1optional_3_01std_1_1chrono_1_1time__point_3_009a363d8110f7679a647ef8c5ab55018.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1optional_3_01std_1_1chrono_1_1time__point_3_0eafab4d83f00488e3b110d4eefbc445a.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1optional_3_01std_1_1string_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1optional_3_01std_1_1vector_3_01uint8__t_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1optional_3_01uuid_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1set_3_01T_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1set_3_01T_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1string_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1string_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1vector_3_01T_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1vector_3_01T_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1vector_3_01T_01_5_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1vector_3_01T_01_5_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01std_1_1vector_3_01uint8__t_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01T_00_01std_1_1enable__if__t_3_01internal_1_1type__in22865e3e08603f3b74a555e62511dd07.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01T_00_01std_1_1enable__if__t_3_01internal_1_1type__ine86b8228074cd22b5cc225543b67964e.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01T_00_01std_1_1enable__if__t_3_01std_1_1conjunction__6b42e2c2d369473e57e791361617f0d1.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__enum__v_3_01T_01_4_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__enum__v_3_01T_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__enum__v_3a883318965e4b726d6c753fd58e658cf.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__enum__v_3c5b9df8d608ac0913dae7ae60bc844d8.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01T_01_5_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01T_01_5_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01uuid_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor_3_01uuid_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1accessor.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box__base-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box__base.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01bool_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01decimal128_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01decimal128_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01double_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01double_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01int64__t_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01int64__t_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01managed_3_01V_01_5_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01Mixed_00_01std_1_1enable__if__t_3_01internal_1_1type__inf2d25ea83c5f75cffe35babb2bbea39b3.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01Mixed_00_01std_1_1enable__if__t_3_01internal_1_1type__inf3387aef44ad4573194d45d3684a2eace.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01object__id_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01object__id_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1chrono_1_1time__point_3_01std_1_1chrono_1_1system__clock_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1chrono_1_1time__point_3_01std_1_1chrono_1_1system__clock_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01bool_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01bool_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01decimal128_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01decimal128_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01double_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01double_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01int64__t_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01int64__t_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01object__id_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01object__id_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01std_1_1chrono_1_1time__point_3_01std_34cf8baf35585a4b5a8526886fcb80be.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01std_1_1string_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01std_1_1string_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01std_1_1vector_3_01uint8__t_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01uuid_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1optional_3_01uuid_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1string_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1vector_3_01uint8__t_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01std_1_1vector_3_01uint8__t_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01uuid_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01uuid_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01V_00_01std_1_1enable__if__t_3_01std_1_1is__enum__v_3_01ty2b53915368195f2b32603968cd74c6e2.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01V_00_01std_1_1enable__if__t_3_01std_1_1is__enum__v_3_01tye62219f44a5f4a6d2986d03fdd331760.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01V_00_01std_1_1enable__if__t_3_01std_1_1is__enum__v_3_01V_01_4_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box_3_01V_00_01std_1_1enable__if__t_3_01std_1_1is__enum__v_3_01V_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1box.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1char__pointer.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1char__reference.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1collection__change-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1collection__change.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1const__char__pointer-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1const__char__pointer.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1db.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1dump__db-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1dump__db.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1linking__objects-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1linking__objects.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed__base-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed__base.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01bool_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01bool_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01double_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01double_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01int64__t_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01linking__objects_3_01ptr_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01linking__objects_3_01ptr_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01int64__t_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01realm_1_1object__id_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01realm_1_1uuid_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01realm_1_1uuid_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01std_1_1optional_3_01int64__t_01_4_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01std_1_1optional_3_01int64__t_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01std_1_1optional_3_01realm_1_1object__id_01_4_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01std_1_1optional_3_01realm_1_1object__id_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01std_1_1optional_3_01realm_1_1uuid_01_4_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01std_1_1optional_3_01realm_1_1uuid_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01std_1_1optional_3_01std_1_1string_01_4_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01std_1_1optional_3_01std_1_1string_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01std_1_1string_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01std_1_1string_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01T_01_4_00_01std_1_1enable__if__t_3_055c145547f9dbabcf3436b9b2e4d09ac.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01T_01_4_00_01std_1_1enable__if__t_3_0aa0496bf60bfa597a133b7fd475b1012.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01primary__key_3_01T_01_4_00_01std_1_1enable__if__t_3_0ee6c715899dc3582f6f90244a410267a.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01realm_1_1decimal128_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01realm_1_1object__id_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01realm_1_1uuid_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1chrono_1_1time__point_3_01std_1_1chrono_1_1system__clock_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1chrono_1_1time__point_3_01std_1_1chrono_1_1system__clock_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1map_3_01std_1_1string_00_01T_01_4_00_01void_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1map_3_01std_1_1string_00_01T_01_4_00_01void_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01bool_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01realm_1_1decimal128_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01realm_1_1decimal128_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01realm_1_1object__id_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01realm_1_1object__id_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01realm_1_1uuid_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01std_1_1chrono_1_1time__point_3_0152f57b26fccad788528bbad91ebd1230.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01std_1_1chrono_1_1time__point_3_01a7ba36d05ca3feb5027ba0d2020d5f7a.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01std_1_1chrono_1_1time__point_3_01db0467d4f97408b2b63b318b866fabda.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01std_1_1string_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01std_1_1string_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01std_1_1vector_3_01uint8__t_01_4_01_4_01_4_1_1box-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01std_1_1vector_3_01uint8__t_01_4_01_4_01_4_1_1box.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01std_1_1vector_3_01uint8__t_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01T_01_4_00_01std_1_1enable__if__t_d40001433d630bf2c7acc373377d64b9.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1optional_3_01T_01_4_00_01std_1_1enable__if__t_ea26d8dfb0f45a16aca0eba5d43428b1.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1set_3_01T_01_4_00_01std_1_1enable__if__t_3_01i76c21008770f796e62a3d0790b29eaa6.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1set_3_01T_01_4_00_01std_1_1enable__if__t_3_01i94ee713587670ce9e57f76313be97a26.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1string_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1string_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1vector_3_01T_01_4_00_01std_1_1enable__if__t_3_c8193677e2b1c71afd6244690c172689.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1vector_3_01T_01_4_00_01std_1_1enable__if__t_3_e1a7e65607433e19623a48d4443e2514.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1vector_3_01T_01_5_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1vector_3_01T_01_5_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1vector_3_01uint8__t_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01std_1_1vector_3_01uint8__t_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01T_00_01std_1_1enable__if__t_3_01realm_1_1internal_1_17024c99b1610c6e2cab60fc8fa63667e.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01T_00_01std_1_1enable__if__t_3_01realm_1_1internal_1_17b28aba20cfc3882e8fa32a6b9f1fede.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__enum__v_3_01T_01_4_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__enum__v_3_01T_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01T_01_5_01_4_1_1ref__type-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01T_01_5_01_4_1_1ref__type.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01T_01_5_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed_3_01T_01_5_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1managed.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1object__change.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1ObjectChangeCallbackWrapper.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key_3_01int64__t_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key_3_01object__id_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key_3_01std_1_1optional_3_01int64__t_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key_3_01std_1_1optional_3_01int64__t_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key_3_01std_1_1optional_3_01object__id_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key_3_01std_1_1optional_3_01object__id_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key_3_01std_1_1optional_3_01std_1_1string_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key_3_01std_1_1optional_3_01std_1_1string_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key_3_01std_1_1optional_3_01uuid_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key_3_01std_1_1optional_3_01uuid_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key_3_01std_1_1string_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key_3_01std_1_1string_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key_3_01uuid_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key_3_01uuid_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1primary__key.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1PropertyChange-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1PropertyChange.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1query-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1query.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1results__base_3_01T_00_01Derived_00_01results__is__mixed_3_01T_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1results__base.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1results__common__base_1_1results__change-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1results__common__base_1_1results__change.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1results_1_1results__callback__wrapper-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1results_1_1results__callback__wrapper.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1results_1_1results__change.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1results-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1experimental_1_1results.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1AndroidSocket-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1AndroidSocket.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1bridge_1_1core__binding-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1bridge_1_1core__binding.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1bridge_1_1external__scheduler-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1bridge_1_1external__scheduler.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1bridge_1_1internal__scheduler-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1bridge_1_1internal__scheduler.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1bridge_1_1SizeCheck_3_01lhs_00_01rhs_00_01std_1_1enable__if__t_3_07lhs_0a_0arhs_08_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1bridge_1_1SizeCheck.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1CoreTransport.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1persisted__list__base-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1persisted__list__base.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1is__backlink_3_01experimental_1_1linking__objects_3_01T_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1is__backlink_3_01experimental_1_1linking__objects_3_01T_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1is__experimental__primary__key_3_01experimental_1_1primary__key_3_01T_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1is__experimental__primary__key_3_01experimental_1_1primed3fe3eb265d826981ab7f5d19b3f0ac.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1is__experimental__primary__key-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1is__persisted_3_01persisted_3_01T_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1is__persisted.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1persisted.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1type__info_3_01experimental_1_1linking__objects_3_01T_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1type__info_3_01experimental_1_1linking__objects_3_01T_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1type__info_3_01experimental_1_1primary__key_3_01T_01_4_00_01void_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1type__info_3_01experimental_1_1primary__key_3_01T_01_4_00_01void_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1type__info_3_01T_00_01std_1_1enable__if__t_3_01is__cust3fe86c993528fee3ae05afe932898442.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1type__info_3_01T_00_01std_1_1enable__if__t_3_01std_1_1i4e04810f993b3ce0f8c4787ca623131c.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1internal_1_1type__info_1_1type__info_3_01T_00_01std_1_1enable__if__t_3_01std_1_1ic1ed90406d76945ed300ed7a09ce7034.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1looper-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1looper.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1NoPlatformScheduler.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1object__base-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1object__base.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1object-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1ObjectChangeCallbackWrapper-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1ObjectChangeCallbackWrapper.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted__base-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted__base.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01bool_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01bool_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01decimal128_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01double_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01double_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01int64__t_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01int64__t_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01object__id_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01object__id_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1map_3_01std_1_1string_00_01T_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1map_3_01std_1_1string_00_01T_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1optional_3_01T_01_4_00_01std_1_1enable__if__t_3_01internal_1393cb67138527fe8e9279b199c356170.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1optional_3_01T_01_4_00_01std_1_1enable__if__t_3_01internal_14aff04da7eb9f3a2c074892d233f1cf5.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1optional_3_01T_01_4_00_01std_1_1enable__if__t_3_01std_1_1is_64a9fdab15589ecf79bcc58cd34e5405.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1optional_3_01T_01_4_00_01std_1_1enable__if__t_3_01std_1_1is_6f2f5c70e9264381810cf468eed64494.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1string_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1string_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1vector_3_01T_01_4_00_01std_1_1enable__if__t_3_01internal_1_158fca1c71538ce22aad22d574874b931.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1vector_3_01T_01_4_00_01std_1_1enable__if__t_3_01internal_1_175e7f48e96bf74d8b032a806a9d6c1a6.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1vector_3_01T_01_4_00_01std_1_1enable__if__t_3_01std_1_1is__b4844ef0e3ff944a53f3e981b5fbebded.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1vector_3_01T_01_4_00_01std_1_1enable__if__t_3_01std_1_1is__b9e93039d2216b9a3741f821bc090ef39.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1vector_3_01T_01_4_00_01std_1_1enable__if__t_3_01std_1_1is__be0d3663e9bc65b3d38541b6bb7df0364.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1vector_3_01T_01_4_00_01std_1_1enable__if__t_3_01std_1_1is__bf25bc7461a39304fb47e25c96413fa0e.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1vector_3_01uint8__t_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01std_1_1vector_3_01uint8__t_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01T_00_01std_1_1enable__if__t_3_01realm_1_1internal_1_1type__info_1_188c9bee3c381b56b3b64ee8692bd39c6.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01T_00_01std_1_1enable__if__t_3_01realm_1_1internal_1_1type__info_1_1e592b01b0562fc470de5628b0fca2e13.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__base__of__v_3_01object__01693576749111d349e3eb1769a85c74.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__base__of__v_3_01object__d8e61843a3e96521e6a0e86934334a78.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__enum__v_3_01T_01_4_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__enum__v_3_01T_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01T_00_01type__info_1_1OptionalPersistable_3_01T_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01time__point_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01time__point_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01uuid_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted_3_01uuid_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1persisted.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1platform__default__scheduler-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1platform__default__scheduler.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1query-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1query.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1results__base_1_1results__callback__wrapper.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1results__base_1_1results__change-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1results__base_1_1results__change.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1results_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__base__of__v_3_01QObject_00_01T_01_4_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1results_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__base__of__v_3_01QObject_00_01T_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1results_3_01T_00_01std_1_1enable__if__t_3_9std_1_1is__base__of__v_3_01QObject_00_01T_01_4_01_4_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1results_3_01T_00_01std_1_1enable__if__t_3_9std_1_1is__base__of__v_3_01QObject_00_01T_01_4_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1this__thread__scheduler.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1thread__safe__reference_3_01db_3_01Ts_8_8_8_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1thread__safe__reference_3_01experimental_1_1db_01_4-members.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1thread__safe__reference_3_01experimental_1_1db_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1thread__safe__reference_3_01T_00_01std_1_1enable__if__t_3_01sizeof_07experimental4c6416ea19c4d76df48da8aa4440bd27.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1thread__safe__reference_3_01T_00_01std_1_1enable__if__t_3_01sizeof_07experimentalb63d2d41137ce4dcab7f35386c20d727.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1thread__safe__reference_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__base__of__48c3ba3e14c6e0df174a5ff9c9a5fb4f.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1thread__safe__reference_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__base__of__f14a7ca5c4b8ab078a38227d6e545397.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/structrealm_1_1type__info_1_1persisted__type_3_01T_00_01BinaryPersistable_3_01T_01_4_01_4.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/cpp/latest/task_8hpp_source.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/cpp/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/dotnet/latest/reference/Realms.Sync.ErrorHandling.DiscardLocalResetHandler.BeforeResetCallback.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/dotnet/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/dotnet/latest/reference/Realms.Sync.LogLevel.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/dotnet/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/dotnet/latest/reference/System.Diagnostics.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/dotnet/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/dotnet/latest/reference/System.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/dotnet/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.0.0-BETA.6/io/realm/DynamicRealm.Transaction.Callback.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.0.0-BETA.6/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.0.0-BETA.6/io/realm/DynamicRealm.Transaction.OnError.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.0.0-BETA.6/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.0.0-BETA.6/io/realm/DynamicRealm.Transaction.OnSuccess.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.0.0-BETA.6/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.0.0-BETA.6/io/realm/mongodb/auth/ApiKey.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.0.0-BETA.6/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.0.0-BETA.6/io/realm/mongodb/Credentials.Provider.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.0.0-BETA.6/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.0.0-BETA.6/io/realm/mongodb/mongo/events/package-summary.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.0.0-BETA.6/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.0.0-BETA.6/io/realm/mongodb/mongo/events/package-tree.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.0.0-BETA.6/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.0.0-BETA.6/io/realm/mongodb/RealmEventStreamAsyncTask.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.0.0-BETA.6/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.0.0-BETA.6/io/realm/mongodb/RealmEventStreamTask.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.0.0-BETA.6/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.0.0-BETA.6/io/realm/mongodb/sync/SyncSession.ClientResetHandler.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.0.0-BETA.6/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.0.0-BETA.6/io/realm/mongodb/UserProfile.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.0.0-BETA.6/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.0.0-BETA.8/io/realm/mongodb/auth/GoogleAuthType.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.0.0-BETA.8/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.0.0-BETA.8/io/realm/mongodb/Credentials.IdentityProvider.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.0.0-BETA.8/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.0.1/io/realm/mongodb/Credentials.IdentityProvider.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.0.1/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.2.0/io/realm/mongodb/auth/UserApiKey.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.2.0/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/java/10.3.0/io/realm/mongodb/Credentials.IdentityProvider.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/java/10.3.0/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/js/10.0.0-beta.11/Realm.User-Push.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/js/10.0.0-beta.11/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/js/latest/classes/Realm.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/js/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/js/latest/contrib/building.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/js/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/js/latest/Realm.User-Push.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/js/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.0.0/library-base/io.realm.kotlin.query/-realm-query/find.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.0.0/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.0.0/library-base/io.realm.kotlin/-configuration/-shared-builder/log-level.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.0.0/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.0.0/library-base/io.realm.kotlin/-realm-configuration/-builder/initial-data-callback.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.0.0/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.0.1/library-base/io.realm.kotlin.query/-realm-query/as-flow.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.0.1/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.0.1/library-base/io.realm.kotlin.query/-realm-query/find.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.0.1/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.0.1/library-base/io.realm.kotlin/-realm-configuration/-builder/compact-on-launch.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.0.1/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.0.1/library-base/io.realm.kotlin/-realm-configuration/-builder/initial-data-callback.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.0.1/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.0.1/library-sync/io.realm.kotlin.mongodb.sync/-sync-configuration/-builder/partition-value.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.0.1/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.0.2/library-base/io.realm.kotlin.query/-realm-query/as-flow.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.0.2/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.0.2/library-base/io.realm.kotlin.query/-realm-query/find.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.0.2/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.0.2/library-base/io.realm.kotlin.query/-realm-scalar-nullable-query/find.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.0.2/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.0.2/library-base/io.realm.kotlin/-realm-configuration/-builder/initial-data-callback.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.0.2/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.2.0/library-base/io.realm.kotlin.query/-realm-query/as-flow.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.2.0/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.2.0/library-base/io.realm.kotlin.query/-realm-query/find.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.2.0/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.2.0/library-base/io.realm.kotlin/-realm-configuration/-builder/initial-data-callback.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.2.0/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.2.0/library-base/io.realm.kotlin/-realm-configuration/-builder/notification-dispatcher.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.2.0/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.2.0/library-sync/io.realm.kotlin.mongodb.sync/-sync-configuration/-builder/partition-value.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.2.0/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.4.0/library-base/io.realm.kotlin.query/-realm-query/find.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.4.0/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.4.0/library-base/io.realm.kotlin.query/-realm-scalar-nullable-query/find.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.4.0/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.4.0/library-base/io.realm.kotlin/-realm-configuration/-builder/initial-data-callback.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.4.0/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/1.4.0/library-sync/io.realm.kotlin.mongodb.sync/-sync-configuration/-builder/partition-value.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/1.4.0/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-base/io.realm.kotlin.query/-realm-query/as-flow.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-base/io.realm.kotlin/-realm-configuration/-builder/notification-dispatcher.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-base/io.realm.query/-realm-query/as-flow.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-base/io.realm.query/-realm-query/find.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-base/io.realm/-realm-configuration/-builder/build.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-base/io.realm/-realm-configuration/-builder/log.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-base/io.realm/-realm-configuration/-builder/max-number-of-active-versions.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-base/io.realm/-realm-configuration/-builder/name.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-base/io.realm/-realm-configuration/-builder/notification-dispatcher.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-sync/io.realm.kotlin.mongodb.sync/-discard-unsynced-changes-strategy/on-before-reset.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-sync/io.realm.kotlin.mongodb.sync/-discard-unsynced-changes-strategy/on-manual-reset-fallback.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-sync/io.realm.kotlin.mongodb.sync/-recover-or-discard-unsynced-changes-strategy/on-before-reset.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-sync/io.realm.kotlin.mongodb.sync/-recover-or-discard-unsynced-changes-strategy/on-manual-reset-fallback.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-sync/io.realm.kotlin.mongodb.sync/-recover-unsynced-changes-strategy/on-before-reset.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/kotlin/latest/library-sync/io.realm.kotlin.mongodb.sync/-sync-configuration/-builder/partition-value.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/kotlin/latest/library-base/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/objc/10.0.0-beta.2/CONTRIBUTING.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/objc/10.0.0-beta.2/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/objc/10.0.0-beta.5/CONTRIBUTING.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/objc/10.0.0-beta.5/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/objc/10.0.0-beta.6/CONTRIBUTING.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/objc/10.0.0-beta.6/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/objc/10.2.0/CONTRIBUTING.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/objc/10.2.0/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/objc/latest/objc/latest/Classes/RLMSyncManager.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/objc/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/objc/latest/objc/latest/Classes/RLMSyncSession.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/objc/latest/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/swift/10.0.0-beta.2/CONTRIBUTING.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/swift/10.0.0-beta.2/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/swift/10.0.0-beta.3/CONTRIBUTING.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/swift/10.0.0-beta.3/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/swift/10.0.0-beta.5/CONTRIBUTING.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/swift/10.0.0-beta.5/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/swift/10.0.0-beta.6/CONTRIBUTING.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/swift/10.0.0-beta.6/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/swift/10.0.0/CONTRIBUTING.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/swift/10.0.0/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/swift/10.1.4/CONTRIBUTING.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/swift/10.1.4/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/swift/10.3.0/CONTRIBUTING.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/swift/10.3.0/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/swift/10.47.0/CONTRIBUTING.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/swift/10.47.0/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/swift/10.7.0/CONTRIBUTING.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/swift/10.7.0/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/swift/10.9.0/CONTRIBUTING.md"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/swift/10.9.0/"
+    }
+  },
+  {
+    "Condition": {
+      "KeyPrefixEquals": "realm-sdks/swift/latest/classes/object.html"
+    },
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "realm-sdks/swift/latest/"
+    }
+  }
+]

@@ -1,20 +1,23 @@
 import * as fs from "fs-extra";
 import * as path from "path";
 
-const directoryPath = path.join(__dirname, "../../docs-app-services/source/");
-const textToAdd = `.. meta::
-   :robots: noindex, nosnippet
+// TODO: make path and textToRemove CLI arguments
+const directoryPath = path.join(
+  __dirname,
+  "../../docs-app-services/source/users"
+);
+const textToRemove = "noindex, ";
 
-`;
-
-async function prependTextToFile(filePath: string) {
+// create async function that reads a file, then finds and removes a string from it
+async function removeTextFromFile(filePath: string) {
   try {
     const fileContent = await fs.readFile(filePath, "utf8");
-    const updatedContent = textToAdd + fileContent;
+    const updatedContent = fileContent.replace(textToRemove, "");
+
     await fs.writeFile(filePath, updatedContent, "utf8");
-    console.log(`Text prepended to ${filePath}`);
+    console.log(`Text removed from ${filePath}`);
   } catch (error) {
-    console.error(`Error prepending text to ${filePath}:`, error);
+    console.error(`Error removing text from ${filePath}:`, error);
   }
 }
 
@@ -36,7 +39,7 @@ async function iterateDirectory(dir: string) {
           await iterateDirectory(filePath);
         }
       } else if (stat.isFile() && path.extname(file) === ".txt") {
-        await prependTextToFile(filePath);
+        await removeTextFromFile(filePath);
       }
     }
   } catch (error) {

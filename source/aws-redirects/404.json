@@ -1,0 +1,12 @@
+[
+  {
+    "Condition": {
+      "HttpErrorCodeReturnedEquals": "403"
+    },
+    "Redirect": {
+      "HostName": "www.mongodb.com",
+      "Protocol": "https",
+      "ReplaceKeyWith": "docs/realm-sdks/"
+    }
+  }
+]

@@ -6,7 +6,9 @@
   "scripts": {
     "build": "npm run delete-dist-files && npx tsc && node dist/source/json2md.js",
     "delete-dist-files": "rm -rf ./dist/content/*",
-    "run-update-script": "npx ts-node source/addNoRobots.ts"
+    "rupdate-script": "npx ts-node source/addNoRobots.ts",
+    "remove-noindex-script": "npx ts-node source/removeNoIndex.ts",
+    "create-aws-redirects": "npx ts-node source/createAwsRedirects.ts"
   },
   "keywords": [],
   "author": "",
