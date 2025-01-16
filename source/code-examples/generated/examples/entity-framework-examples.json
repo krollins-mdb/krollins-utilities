@@ -1,0 +1,240 @@
+[
+  {
+    "code": "   :language: csharp\n   :copyable:\n\n.. tip::\n\n   To learn more about POCOs, see the :driver:`POCO guide\n   </csharp/current/fundamentals/serialization/poco/>` in the\n   {+csharp-driver-short+} documentation.\n\n.. _entity-framework-db-context:\n\nCreate a DB Context Class\n-------------------------\n\nTo begin using {+framework-core+}, create a context class that derives from \n`DBContext <https://learn.microsoft.com/en-us/dotnet/api/system.data.entity.dbcontext>`__.\nThe ``DbContext`` derived class instance represents a database session and is used to\nquery and save instances of your entities.\n\nThe ``DBContext`` class exposes ``DBSet`` properties that specify the entities you\ncan interact with while using that context.\n\nThe following example creates an instance of a ``DBContext`` derived class and\nspecifies the ``Customer`` object as a ``DBSet`` property:\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/configure.txt"
+  },
+  {
+    "code": "   :language: csharp\n   :copyable:\n\nThe previous code example overrides the ``OnModelCreating()`` method. Overriding\nthe ``OnModelCreating()`` method allows you to specify configuration details for your\nmodel and its properties. This example uses the ``ToCollection()`` method to\nspecify that the ``Customer`` entities in your application map to the\n``customers`` collection in MongoDB.\n\n.. TODO: Link to a page that goes over methods available to use in OnModelCreating\n\nUse MongoDB\n-----------\n\nOnce you've created a ``DBContext`` class, construct a\n``DbContextOptionsBuilder`` object and call its ``UseMongoDB()`` method. This\nmethod takes two parameters: a ``MongoClient`` instance and\nthe name of the database that stores the collections you are working with.\n\nThe ``UseMongoDB()`` method returns a ``DbContextOptions`` object. Pass the\n``Options`` property of this object to the constructor for your ``DBContext``\nclass.\n\nThe following example shows how to construct a ``DBContext`` object in\nthis way:\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/configure.txt"
+  },
+  {
+    "code": "   :language: csharp\n   :copyable:\n\n.. tip:: Creating a MongoClient\n\n   You can call methods from the {+csharp-driver-long+} when using\n   the {+provider-short+}. The previous example uses the\n   ``MongoClient()`` method from the {+csharp-driver-short+} to create a MongoDB\n   client that connects to a MongoDB instance. \n   \n   To learn more about using the {+csharp-driver-long+}\n   to connect to MongoDB, see the \n   :driver:`Connection guide </csharp/current/fundamentals/connection/connect/>`\n   in the {+csharp-driver-short+} documentation.\n\nExample\n-------\n\nThe following code example shows how to configure the\n{+provider-short+} and insert a document into the database:\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/configure.txt"
+  },
+  {
+    "code": "   :language: csharp\n   :copyable:\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/configure.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 6-7\n\n   public class Customer\n   {\n       public ObjectId Id { get; set; }\n       public String Name { get; set; }\n       public String Order { get; set; }\n       [ConcurrencyCheck]\n       public DateTimeOffset LastModified { get; set; }\n   }\n\nYou can also configure a concurrency token by using the\n``IsConcurrencyToken()`` method. Call the ``IsConcurrencyToken()`` method in the\n``OnModelCreating()`` method of the ``DbContext`` class, as shown in the\nfollowing example:\n\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/optimistic-concurrency.txt"
+  },
+  {
+    "code": "   :start-after: // start-concurrency-token\n   :end-before: // end-concurrency-token\n   :language: csharp\n   :emphasize-lines: 4-6\n\nThe {+provider-short+} supports setting concurrency tokens on any property type\nsupported by the driver. You can also set multiple concurrency tokens on a\nsingle entity. If you need to update a concurrency token, you must do so\nmanually.\n\nRow Versioning\n--------------\n\nYou can ensure optimistic concurrency by using row versioning. Row\nversioning allows you to track changes to an entity by specifying a version field that\nincrements automatically when the entity changes. You can configure row\nversioning by specifying the ``Timestamp`` attribute when defining a class. The\nfollowing example shows how to specify the ``Timestamp`` attribute on the\n``Version`` property of a ``Customer`` class:\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/optimistic-concurrency.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 6-7\n\n   public class Customer\n   {\n       public ObjectId Id { get; set; }\n       public String Name { get; set; }\n       public String Order { get; set; }\n       [Timestamp]\n       public long Version { get; set; }\n   }\n\nYou can also configure row versioning by using the ``IsRowVersion()`` method.\nCall the ``IsRowVersion()`` method in the ``OnModelCreating()`` method of the\n``DbContext`` class, as shown in the following example:\n\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/optimistic-concurrency.txt"
+  },
+  {
+    "code": "   :start-after: // start-row-version\n   :end-before: // end-row-version\n   :language: csharp\n   :emphasize-lines: 4-6\n\nThe {+provider-short+} supports row versioning on only a single property\nof an entity. The property must be of type ``long``, ``int``, ``ulong``, or\n``uint``.\n\nLimitations\n-----------\n\nConsider the following limitations when configuring optimistic concurrency\ncontrol on a database that shares data with other applications:\n\n- Other applications must support the same mechanisms you are using for\n  optimistic concurrency control in your {+framework-core+} application.\n- Other applications must support checks for concurrency tokens and row version\n  fields during any update or delete operation.\n- If you are using row versioning, other applications must map row versioned\n  fields to the property's name followed by the string: ``_version``. The\n  application must increment the field's value by 1 for each update.\n\nAdditional Information\n----------------------\n\nFor more information about optimistic concurrency control with\n{+framework-core+}, see `Optimistic Concurrency\n<https://learn.microsoft.com/en-us/ef/core/saving/concurrency?tabs=data-annotations#optimistic-concurrency>`__\nin the Microsoft {+framework-core+} documentation.\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/optimistic-concurrency.txt"
+  },
+  {
+    "code": "   :start-after: // start-find-one\n   :end-before: // end-find-one\n   :language: csharp\n   :dedent:\n\n.. _entity-framework-find-multiple:\n\nFind Multiple Entities\n~~~~~~~~~~~~~~~~~~~~~~\n\nYou can use the ``Where()`` method to retrieve multiple entities from your\ncollections. ``Where()`` returns all entities that match the search\ncriteria.\n\nThe following code uses the ``Where()`` method to find all planets that have the\n``hasRings`` field set to ``true`` and prints the planet names to the console.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/query-data.txt"
+  },
+  {
+    "code": "   :start-after: // start-find-many\n   :end-before: // end-find-many\n   :language: csharp\n   :dedent:\n\n.. _entity-framework-sort:\n\nSort Entities\n-------------\n\nUse the ``OrderBy()`` method to specify an order in which to return entities\nfrom a query. ``OrderBy()`` sorts the elements in ascending order based on a\nspecified sort criteria.\n\nThe following code uses the ``OrderBy()`` method to find all planets and sort\nthem by the value of the ``orderFromSun`` field in ascending order. It then\nprints the results to the console.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/query-data.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input::\n      :language: csharp\n\n      var planetList = db.Planets.OrderBy(p => p.orderFromSun);\n    \n      foreach (var p in planetList)\n      {\n         Console.WriteLine(p.name);\n      }\n\n   .. output::\n      :language: json\n      :visible: false\n\n      Mercury\n      Venus\n      Earth\n      Mars\n      Jupiter\n      Saturn\n      Uranus\n      Neptune\n\n.. tip:: Sort in Descending Order\n\n   You can sort the results of a query in descending order by using the\n   ``OrderByDescending()`` method.\n\nYou can perform a secondary sort on your query by using the ``ThenBy()`` method. The\n``ThenBy()`` method sorts the results of the ``OrderBy()`` method in ascending\norder based on a specified sort criteria. The ``ThenBy()`` method should be\nchained to the ``OrderBy()`` method.\n\n.. tip:: Secondary Sort in Descending Order\n\n   You can perform a secondary sort in descending order by using the\n   ``ThenByDescending()`` method.\n\nThe following code uses the ``OrderBy()`` and ``ThenBy()`` methods to find all\nplanets and sort them by the ``hasRings()`` field, with a secondary sort\non the ``name`` field.\n\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/query-data.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input::\n      :language: csharp\n\n      var planetList = db.Planets.OrderBy(o => o.hasRings).ThenBy(o => o.name);\n    \n      foreach (var p in planetList)\n      {\n         Console.WriteLine(\"Has rings: \" + p.hasRings + \", Name: \" + p.name);\n      }\n\n   .. output::\n      :language: json\n      :visible: false\n\n      Has rings: False, Name: Earth\n      Has rings: False, Name: Mars\n      Has rings: False, Name: Mercury\n      Has rings: False, Name: Venus\n      Has rings: True, Name: Jupiter\n      Has rings: True, Name: Neptune\n      Has rings: True, Name: Saturn\n      Has rings: True, Name: Uranus\n\n.. tip::\n\n   When sorting on fields with a boolean value, entities with a field value of\n   ``false`` show before those with a value of ``true``.\n\nAdditional Information\n----------------------\n\nTo learn more about the methods discussed in this guide, see the following .NET API\ndocumentation links:\n\n- `FirstOrDefault() <https://learn.microsoft.com/en-us/dotnet/api/system.linq.queryable.firstordefault>`__\n- `Where() <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.query.queryablemethods.where>`__\n- `OrderBy() <https://learn.microsoft.com/en-us/dotnet/api/system.linq.queryable.orderby>`__\n- `OrderByDescending() <https://learn.microsoft.com/en-us/dotnet/api/system.linq.queryable.orderbydescending>`__\n- `ThenBy() <https://learn.microsoft.com/en-us/dotnet/api/system.linq.queryable.thenby>`__\n- `ThenByDescending() <https://learn.microsoft.com/en-us/dotnet/api/system.linq.queryable.thenbydescending>`__\n\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/query-data.txt"
+  },
+  {
+    "code": "   :start-after: // start-insert-one\n   :end-before: // end-insert-one\n   :language: csharp\n   :dedent:\n\n\n.. _entity-framework-insert-multiple:\n\nInsert Multiple Entities\n~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe ``AddRange()`` method accepts an array of entities that you want to add to the ``DbSet``. \n\nThe following code uses the ``AddRange()`` method to add an array of ``Planet``\nobjects to the ``DbSet`` called ``Planets``. It then calls the ``SaveChanges()``\nmethod to insert those entities into the MongoDB collection.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/write-data.txt"
+  },
+  {
+    "code": "   :start-after: // start-insert-many\n   :end-before: // end-insert-many\n   :language: csharp\n   :dedent:\n\n.. _entity-framework-update:\n\nUpdate\n------\n\nTo update an entity, first retrieve the entity that you want to update. Then\nmake the changes to that entity. The provider tracks any changes made to the entity, such as setting\nproperties or adding and removing items from fields with list values. To save the update to\nMongoDB, call the ``SaveChanges()`` method. The {+provider-short+} compares the updated entity with a\nsnapshot of the entity before the change and automatically updates the collection\nby using the MongoDB Query API.\n\nThe following code retrieves an entity in which the ``name`` value is\n``\"Mercury\"``, then updates the ``name`` field. The code then calls the ``SaveChanges()``\nmethod to persist that change to the collection.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/write-data.txt"
+  },
+  {
+    "code": "   :start-after: // start-update-one\n   :end-before: // end-update-one\n   :language: csharp\n   :dedent:\n\nDelete\n------\n\nYou can use the ``Remove()`` method to delete a single entity from your\ncollection, or the ``RemoveRange()`` method to delete multiple entities at\nonce.\n\n.. _entity-framework-delete-one:\n\nDelete One Entity\n~~~~~~~~~~~~~~~~~\n\nThe ``Remove()`` method accepts a single entity of the same type that you\nspecified on the ``DbSet`` instance that you are modifying.\n\nThe following code removes a ``Planet`` entity in which the ``name`` value is\n``\"Pluto\"``. It then calls the ``SaveChanges()`` method to delete that entity from\nthe MongoDB collection.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/write-data.txt"
+  },
+  {
+    "code": "   :start-after: // start-delete-one\n   :end-before: // end-delete-one\n   :language: csharp\n   :dedent:\n\n.. _entity-framework-delete-multiple:\n\nDelete Multiple Entities\n~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe ``RemoveRange()`` method accepts an array of entities to remove from the\n``DbSet``. \n\nThe following code finds two ``Planet`` entities and adds them to an array. It\nthen uses the ``RemoveRange()`` method to remove both entities from the\n``DbSet``. Finally, it uses the ``SaveChanges()`` method to remove those\nentities from the MongoDB collection.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/write-data.txt"
+  },
+  {
+    "code": "   :start-after: // start-delete-many\n   :end-before: // end-delete-many\n   :language: csharp\n   :dedent:\n\nAdditional Information\n----------------------\n\nTo learn more about the methods discussed in this guide, see the following {+language-dotnet+} API\ndocumentation links:\n\n- `SaveChanges() <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext.saveChanges>`__\n- `Add() <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext.add>`__\n- `AddRange() <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext.addRange>`__\n- `Remove() <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext.remove>`__\n- `RemoveRange() <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext.removeRange>`__\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/fundamentals/write-data.txt"
+  },
+  {
+    "code": "          :start-after: // start-db-context\n          :end-before: // end-db-context\n          :language: csharp\n          :dedent:\n\n   * - | **Create an Instance of the DBContext**\n       |\n       | :ref:`Fundamentals <entity-framework-db-context>`\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-reference.txt"
+  },
+  {
+    "code": "          :start-after: // start-create-instance\n          :end-before: // end-create-instance\n          :language: csharp\n          :dedent:\n\n   * - | **Find an Entity**\n       |\n       | `API Documentation <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.query.queryablemethods.firstordefaultwithpredicate>`__\n       | :ref:`Fundamentals <entity-framework-find-one>`\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-reference.txt"
+  },
+  {
+    "code": "          :copyable: true\n\n          .. input::\n             :language: csharp\n\n             var planet = db.Planets.FirstOrDefault(p => p.name == \"Mercury\");\n             \n             Console.WriteLine(planet.name);\n\n          .. output::\n             :language: json\n             :visible: false\n\n             Mercury\n\n   * - | **Find Multiple Entities**\n       |\n       | `API Documentation <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.query.queryablemethods.where>`__\n       | :ref:`Fundamentals <entity-framework-find-multiple>`\n\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-reference.txt"
+  },
+  {
+    "code": "          :copyable: true\n\n          .. input::\n             :language: csharp\n\n             var planets = db.Planets.Where(p => p.hasRings == true);\n\n             foreach (var p in planets)\n             {\n                Console.WriteLine(p.name);\n             }\n\n          .. output::\n             :language: json\n             :visible: false\n\n             Neptune\n             Uranus\n             Saturn\n             Jupiter\n\n   * - | **Insert an Entity**\n       |\n       | `API Documentation <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext.add>`__\n       | :ref:`Fundamentals <entity-framework-insert-one>`\n\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-reference.txt"
+  },
+  {
+    "code": "          :start-after: // start-insert-one\n          :end-before: // end-insert-one\n          :language: csharp\n          :dedent:\n\n   * - | **Insert Multiple Entities**\n       |\n       | `API Documentation <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext.addrange>`__\n       | :ref:`Fundamentals <entity-framework-insert-multiple>`\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-reference.txt"
+  },
+  {
+    "code": "          :start-after: // start-insert-many\n          :end-before: // end-insert-many\n          :language: csharp\n          :dedent:\n\n   * - | **Update an Entity**\n       |\n       | `API Documentation <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext.update>`__\n       | :ref:`Fundamentals <entity-framework-update>`\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-reference.txt"
+  },
+  {
+    "code": "          :start-after: // start-update-one\n          :end-before: // end-update-one\n          :language: csharp\n          :dedent:\n\n   * - | **Update Multiple Entities**\n       |\n       | `API Documentation <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext.updaterange>`__\n       | :ref:`Fundamentals <entity-framework-update>`\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-reference.txt"
+  },
+  {
+    "code": "          :start-after: // start-update-many\n          :end-before: // end-update-many\n          :language: csharp\n          :dedent:\n\n   * - | **Delete an Entity**\n       |\n       | `API Documentation <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext.remove>`__\n       | :ref:`Fundamentals <entity-framework-delete-one>`\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-reference.txt"
+  },
+  {
+    "code": "          :start-after: // start-delete-one\n          :end-before: // end-delete-one\n          :language: csharp\n          :dedent:\n\n   * - | **Delete Multiple Entities**\n       |\n       | `API Documentation <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext.removerange>`__\n       | :ref:`Fundamentals <entity-framework-delete-multiple>`\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-reference.txt"
+  },
+  {
+    "code": "          :start-after: // start-delete-many\n          :end-before: // end-delete-many\n          :language: csharp\n          :dedent:\n\n   * - | **Specify the Order in Which to Retrieve Entities**\n       |\n       | `API Documentation <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.query.queryablemethods.orderby>`__\n       | :ref:`Fundamentals <entity-framework-sort>`\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-reference.txt"
+  },
+  {
+    "code": "          :copyable: true\n\n          .. input::\n             :language: csharp\n\n             var planetList = db.Planets.OrderBy(p => p.orderFromSun);\n    \n             foreach (var p in planetList)\n             {\n                 Console.WriteLine(p.name);\n             }\n\n          .. output::\n             :language: json\n             :visible: false\n\n             Mercury\n             Venus\n             Earth\n             Mars\n             Jupiter\n             Saturn\n             Uranus\n             Neptune\n\n   * - | **Specify Multiple Orderings to Retrieve Entities**\n       |\n       | `API Documentation <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.query.queryablemethods.thenby>`__\n       | :ref:`Fundamentals <entity-framework-sort>`\n\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-reference.txt"
+  },
+  {
+    "code": "          :copyable: true\n\n          .. input::\n             :language: csharp\n\n             var planetList = db.Planets.OrderBy(o => o.hasRings).ThenBy(o => o.name);\n    \n             foreach (var p in planetList)\n             {\n                 Console.WriteLine(\"Has rings: \" + p.hasRings + \", Name: \" + p.name);\n             }\n\n          .. output::\n             :language: json\n             :visible: false\n\n             Has rings: False, Name: Earth\n             Has rings: False, Name: Mars\n             Has rings: False, Name: Mercury\n             Has rings: False, Name: Venus\n             Has rings: True, Name: Jupiter\n             Has rings: True, Name: Neptune\n             Has rings: True, Name: Saturn\n             Has rings: True, Name: Uranus\n\n\n   * - | **Specify the Number of Entities to Retrieve**\n       |\n       | `API Documentation <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.query.queryablemethods.take>`__\n\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-reference.txt"
+  },
+  {
+    "code": "          :copyable: true\n\n          .. input::\n             :language: csharp\n\n             var planetList = db.Planets.Take(3);\n    \n             foreach (var p in planetList)\n             {\n                 Console.WriteLine(p.name);\n             }\n\n          .. output::\n             :language: json\n             :visible: false\n\n             Neptune\n             Mercury\n             Mars\n\n   * - | **Specify the Number of Entities to Skip when Retrieving**\n       |\n       | `API Documentation <https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.query.queryablemethods.skip>`__\n\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-reference.txt"
+  },
+  {
+    "code": "          :copyable: true\n\n          .. input::\n             :language: csharp\n\n             var planetList = db.Planets.OrderBy(p => p.orderFromSun).Skip(5);\n    \n             foreach (var p in planetList)\n             {\n                 Console.WriteLine(p.name);\n             }\n\n          .. output::\n             :language: json\n             :visible: false\n\n             Saturn\n             Uranus\n             Neptune\n\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-reference.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         \"mongodb+srv://<username>:<password>@cluster0.abc.mongodb.net/?retryWrites=true&w=majority\"\n\n   .. step:: Update the Placeholders\n\n     Paste the connection string in your copy buffer into a file in your preferred text\n     editor. Replace the ``<username>`` and ``<password>`` placeholders with\n     your database user's username and password.\n\n     Save this file to a safe location for use in the next step.\n\n   .. step:: Add Your Connection String to an Environment Variable\n\n      Run the following code in your shell to save the MongoDB connection string\n      in your copy buffer from the previous step to an \n      environment variable. Storing your connection string in an\n      environment variable keeps your credentials separate from your source code. This\n      separation makes it less likely to expose your credentials when sharing your code.\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-start.txt"
+  },
+  {
+    "code": "         :language: csharp\n         :dedent:\n\n   .. step:: Query the Sample Data\n\n      Run the following command in your shell. It should print the plot of the movie\n      \"Back to the Future\" from the sample dataset:\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-start.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input::\n            :language: none\n            \n            dotnet run entity-quickstart.csproj\n\n         .. output::\n            :language: none\n            :visible: false\n\n            A young man is accidentally sent 30 years into the past in a time-traveling\n            DeLorean invented by his friend, Dr. Emmett Brown, and must make sure his\n            high-school-age parents unite in order to save his own existence.\n\n      .. tip::\n\n         If your output is empty, ensure you have loaded the\n         :atlas:`sample datasets </sample-data/>` into your cluster.\n\nAfter completing these steps, you should have a working {+framework+} application that\nconnects to your MongoDB cluster, runs a query on the\nsample data, and prints out the result.\n\nNext Steps\n----------\n\nLearn how to use the {+provider-short+} to perform common operations in Quick Reference.\n\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-entity-framework/source/quick-start.txt"
+  }
+]

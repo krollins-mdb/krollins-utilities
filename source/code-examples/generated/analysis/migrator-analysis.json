@@ -1,0 +1,16 @@
+{
+  "total": 79,
+  "languages": {
+    "sql": 46,
+    "node": 2,
+    "javascript": 13,
+    "csharp": 2,
+    "java": 2,
+    "sh": 2,
+    "": 2,
+    "none": 10
+  },
+  "repos": {
+    "Migrator": 79
+  }
+}

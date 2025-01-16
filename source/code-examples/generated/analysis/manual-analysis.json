@@ -1,0 +1,35 @@
+{
+  "total": 3708,
+  "languages": {
+    "bash": 55,
+    "cfg": 3,
+    "python": 320,
+    "java": 295,
+    "kotlin": 62,
+    "csharp": 265,
+    "c": 70,
+    "javascript": 1798,
+    "php": 71,
+    "ruby": 67,
+    "go": 249,
+    "swift": 18,
+    "C": 1,
+    "json": 126,
+    "": 31,
+    "none": 131,
+    "text": 10,
+    "shell": 3,
+    "cpp": 10,
+    "rust": 4,
+    "perl": 4,
+    "scala": 59,
+    "yaml": 32,
+    "sh": 4,
+    "js": 2,
+    "sql": 15,
+    "nodejs": 3
+  },
+  "repos": {
+    "Manual": 3708
+  }
+}

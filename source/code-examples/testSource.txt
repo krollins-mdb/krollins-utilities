@@ -45,3 +45,41 @@ displays the document's relevance score.
 The document with ``_id: 1`` has a higher score because its
 ``description`` field contains the word ``Fuji``, satisfying the
 ``should`` clause.
+
+Define Your Object Model
+------------------------
+
+For a local-only realm you can define your :ref:`object model
+<cpp-object-models>` directly in code. In this quick start, you can remove
+``ownerId`` unless you want to add the optional Device Sync.
+
+.. literalinclude:: /examples/generated/cpp/quick-start.snippet.model.cpp
+   :language: cpp
+
+Other Serialization Libraries
+-----------------------------
+
+Serialization methods used by libraries that depend on reflection, such as
+`GSON <https://github.com/google/gson>`__ do not work with the SDK
+by default.
+
+This is because the SDK compiler plugin injects a hidden field
+into object models, prefixed with ``io_realm_kotlin_``. The SDK uses
+this hidden field to manage internal object state. Any library that
+relies on fields instead of getters and setters needs to ignore this
+hidden field.
+
+To use the SDK with external libraries such as GSON, exclude the hidden
+fields from serialization using a prefix match:
+
+.. code-block:: kotlin
+   :copyable: false
+
+   var gson: Gson = GsonBuilder()
+       .setExclusionStrategies(object: ExclusionStrategy {
+           override fun shouldSkipField(f: FieldAttributes?): Boolean =
+               f?.name?.startsWith("io_realm_kotlin_") ?: false
+           override fun shouldSkipClass(clazz: Class<*>?): Boolean =
+               false
+       })
+       .create()

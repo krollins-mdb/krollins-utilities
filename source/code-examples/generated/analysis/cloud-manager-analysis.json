@@ -1,0 +1,22 @@
+{
+  "total": 328,
+  "languages": {
+    "json": 144,
+    "http": 41,
+    "yaml": 6,
+    "sh": 89,
+    "none": 4,
+    "shell": 3,
+    "powershell": 3,
+    "": 5,
+    "ini": 2,
+    "javascript": 26,
+    "bat": 1,
+    "xml": 1,
+    "text": 2,
+    "java": 1
+  },
+  "repos": {
+    "Cloud Manager": 328
+  }
+}

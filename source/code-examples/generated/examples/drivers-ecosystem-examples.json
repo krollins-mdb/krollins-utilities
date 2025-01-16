@@ -1,0 +1,205 @@
+[
+  {
+    "code": "      :copyable: false\n\n      masterKey: {\n        key: \"<Master Key ARN>\"\n        ...\n      }\n\n\n   If your master key is \"arn:aws:kms:us-east-2:111122223333:alias/test-key\",\n   substitute the text as follows:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-aws-key.rst"
+  },
+  {
+    "code": "      :copyable: false\n\n      masterKey: {\n        key: \"arn:aws:kms:us-east-2:111122223333:alias/test-key\"\n        ...\n      }\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-aws-key.rst"
+  },
+  {
+    "code": "       :copyable: false\n\n       privateKey: \"<IAM User Access Key ID>\"\n\n    If your AWS user access key is \"23478207027842073230762374023\", substitute\n    the text as follows:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-aws.rst"
+  },
+  {
+    "code": "       :copyable: false\n\n       privateKey: \"23478207027842073230762374023\"\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-aws.rst"
+  },
+  {
+    "code": "      :copyable: false\n\n      azure: {\n        keyName: \"<Azure key name>\"\n        ...\n      }\n\n   If your Azure master key name is \"my-key-name\", you should substitute the\n   text as follows:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-azure-key.rst"
+  },
+  {
+    "code": "      :copyable: false\n\n      azure: {\n        keyName: \"my-key-name\"\n        ...\n      }\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-azure-key.rst"
+  },
+  {
+    "code": "       :copyable: false\n\n       azure: {\n         clientId: \"<Azure client ID>\"\n         ...\n       }\n\n    If your Azure client ID is \"12345678\", you should substitute the text as\n    follows:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-azure.rst"
+  },
+  {
+    "code": "       :copyable: false\n\n       azure: {\n         clientId: \"12345678\"\n         ...\n       }\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-azure.rst"
+  },
+  {
+    "code": "      :copyable: false\n\n      masterKey: {\n        keyRing: \"<GCP key ring name>\"\n        ...\n      }\n\n   If your GCP key ring is \"my-key-ring\", you should substitute the text as\n   follows:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-gcp-key.rst"
+  },
+  {
+    "code": "      :copyable: false\n\n      masterKey: {\n        keyRing: \"my-key-ring\"\n        ...\n      }\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-gcp-key.rst"
+  },
+  {
+    "code": "      :copyable: false\n\n      privateKey: \"<GCP service account private key>\"\n\n   Suppose your GCP service account private key is the following:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-gcp.rst"
+  },
+  {
+    "code": "      :copyable: false\n\n      -----BEGIN PRIVATE KEY-----\\nyour-private-key\\n-----END PRIVATE KEY-----\\n\n\n   Substitute the placeholder text as follows:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-gcp.rst"
+  },
+  {
+    "code": "      :copyable: false\n\n      privateKey: \"your-private-key\"\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-gcp.rst"
+  },
+  {
+    "code": "       :copyable: false\n\n       providerDetails.put(\"endpoint\", \"<KMIP provider URI>\");\n\n    If your KMIP provider URI is \"localhost:5696\", substitute\n    the text as follows:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-kmip.rst"
+  },
+  {
+    "code": "       :copyable: false\n\n       providerDetails.put(\"endpoint\", \"localhost:5696\");\n\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/includes/substitute-placeholders-kmip.rst"
+  },
+  {
+    "code": "   :language: python\n\nThis connection snippet uses the {+stable-api+} feature, which you can\nenable when using the Motor driver v2.5 and later to connect to MongoDB Server\nv5.0 and later. When you use this feature, you can update your driver or server without\nworrying about backward compatibility issues with any commands covered by the\n{+stable-api+}.\n\nTo learn more about the {+stable-api+} feature, see\n:manual:`{+stable-api+} </reference/stable-api/>` in the Server manual.\n\n.. include:: /includes/stable-api-notice.rst\n\n.. _connect-atlas-no-stable-api-motor-driver:\n\nConnect to MongoDB Atlas Without the Stable API\n-----------------------------------------------\n\nIf you are using a version of MongoDB or the driver that doesn't support the\n{+stable-api+} feature, you can use the following code snippet to test your connection\nto your MongoDB deployment on Atlas:\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/motor.txt"
+  },
+  {
+    "code": "   :language: python\n\nIf you are using the ``tornado`` asynchronous library, you can use the\nfollowing code to connect to your MongoDB deployment:\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/motor.txt"
+  },
+  {
+    "code": "   :language: python\n\nConnect to a MongoDB Server on Your Local Machine\n-------------------------------------------------\n\n.. include:: /includes/localhost-connection.rst\n\nTo test whether you can connect to your server, replace the connection\nstring in the :ref:`Connect to MongoDB Atlas <connect-atlas-motor-driver>` code\nexample and run it.\n\nCompatibility\n-------------\n\nMongoDB Compatibility\n~~~~~~~~~~~~~~~~~~~~~\n\nThe following compatibility table specifies the recommended version or versions\nof the Motor (Python async) driver for use with a specific version of MongoDB.\n\nThe first column lists the driver version.\n\n.. sharedinclude:: dbx/lifecycle-schedule-callout.rst\n\n.. include:: /includes/mongodb-compatibility-table-motor.rst\n\n.. include:: /includes/older-server-versions-unsupported.rst\n\nLanguage Compatibility\n~~~~~~~~~~~~~~~~~~~~~~\n\nThe following compatibility table specifies the recommended version(s) of the\nMotor (Python async) driver for use with a specific version of Python.\n\nThe first column lists the driver version(s).\n\n.. include:: /includes/language-compatibility-table-motor.rst\n\n.. include:: /includes/about-driver-compatibility.rst\n\n.. include:: /includes/help-links-motor.rst\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/motor.txt"
+  },
+  {
+    "code": "   :language: php\n\nThis connection snippet uses the {+stable-api+} feature, which you can\nenable when using the PHP driver v1.9 and later to connect to MongoDB Server\nv5.0 and later. When you use this feature, you can update your driver or server without \nworrying about backward compatibility issues with any commands covered by the\n{+stable-api+}.\n\nTo learn more about the {+stable-api+} feature, see\n:manual:`{+stable-api+} </reference/stable-api/>` in the Server manual.\n\n.. include:: /includes/stable-api-notice.rst\n\n.. _connect-atlas-no-stable-api-php-driver:\n\nConnect to MongoDB Atlas Without the Stable API\n-----------------------------------------------\n\nIf you are using a version of MongoDB or the driver that doesn't support the\n{+stable-api+} feature, you can use the following code snippet to test your connection\nto your MongoDB deployment on Atlas:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/php-drivers.txt"
+  },
+  {
+    "code": "   :language: php\n\nConnect to a MongoDB Server on Your Local Machine\n-------------------------------------------------\n\n.. include:: /includes/localhost-connection.rst\n\nTo test whether you can connect to your server, replace the connection\nstring in the :ref:`Connect to MongoDB Atlas <connect-atlas-php-driver>` code\nexample and run it.\n\nCompatibility\n-------------\n\nDue to potential problems representing 64-bit integers on 32-bit platforms,\nusers are advised to use 64-bit environments. When using a 32-bit platform, be\naware that any 64-bit integer read from the database will be returned as a\n`MongoDB\\\\BSON\\\\Int64 <https://www.php.net/manual/en/class.mongodb-bson-int64.php>`__\ninstance instead of a PHP integer type.\n\nMongoDB Compatibility\n~~~~~~~~~~~~~~~~~~~~~\n\nThe following compatibility table specifies the recommended version or versions\nof the PHP driver for use with a specific version of MongoDB.\n\nThe first column lists the driver version.\n\n.. sharedinclude:: dbx/lifecycle-schedule-callout.rst\n\n.. sharedinclude:: dbx/mongodb-compatibility-table-php.rst\n\nLanguage Compatibility\n~~~~~~~~~~~~~~~~~~~~~~\n\nThe following compatibility table specifies the recommended version or versions\nof the PHP driver for use with a specific version of PHP.\n\nThe first column lists the driver versions.\n\n.. sharedinclude:: dbx/language-compatibility-table-php.rst\n\n.. include:: /includes/about-driver-compatibility.rst\n\n.. include:: /includes/help-links-php.rst\n\nSee Also\n--------\n\n- :ref:`php-libraries-frameworks-and-tools`\n\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/php-drivers.txt"
+  },
+  {
+    "code": "      :copyable: false\n\n      Do you want to execute this recipe?\n\n   Select ``yes`` from the response options to add the ODM library to your\n   application.\n\nTo ensure that Doctrine ODM is enabled in your project, verify that your\n``config/bundles.php`` file contains the highlighted entry in the\nfollowing code:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/php-frameworks/symfony.txt"
+  },
+  {
+    "code": "   :caption: config/bundles.php\n   :emphasize-lines: 3\n   \n   return [\n       // ...\n       Doctrine\\Bundle\\MongoDBBundle\\DoctrineMongoDBBundle::class => ['all' => true],\n   ];\n\nConfigure the ODM\n`````````````````\n\nIn the ``config/packages`` directory, replace the contents of your\n``doctrine_mongodb.yaml`` file with the following code:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/php-frameworks/symfony.txt"
+  },
+  {
+    "code": "   :caption: config/packages/doctrine_mongodb.yaml\n   :language: yaml\n\nInstall Frontend Dependency\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThis project uses ``twig``, the default template engine for Symfony, to\ngenerate templates in this application. Run the following command to\ninstall the ``twig`` bundle:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/php-frameworks/symfony.txt"
+  },
+  {
+    "code": "   :caption: .env\n\n   ...\n\n   MONGODB_URL=<your Atlas connection string>\n   MONGODB_DB=sample_restaurants\n\nTo retrieve your connection string, see the\n:ref:`php-symfony-atlas-cluster` step.\n\nCreate Restaurant Entity and Controller\n```````````````````````````````````````\n\nCreate the ``Restaurant.php`` file in the ``src/Document`` directory and\npaste the following code to create an entity that represents documents in\nthe ``restaurants`` collection:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/php-frameworks/symfony.txt"
+  },
+  {
+    "code": "   :caption: src/Document/Restaurant.php\n   :language: php\n\nNext, create the ``RestaurantController.php`` file in the\n``src/Controller`` directory and paste the following code to handle the\nendpoints in your application:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/php-frameworks/symfony.txt"
+  },
+  {
+    "code": "   :caption: src/Controller/RestaurantController.php\n   :language: php\n\nThe controller file defines the ``index()`` method, which displays text on\nthe web app's front page. The file also defines the ``browse()`` method,\nwhich finds documents in which the ``borough``\nfield is ``'Queens'`` and the ``name`` field contains the string ``'Moon'``.\nThis method then displays the documents at the ``/restaurant/browse/`` route. The\n``browse()`` method uses the ``QueryBuilder`` class to construct the query.\n\nCustomize Templates\n```````````````````\n\nNext, create templates to customize the web app's appearance.\n\nCreate the ``templates/restaurant`` directory and populate it with the\nfollowing files:\n\n- ``index.html.twig``\n- ``browse.html.twig``\n\nPaste the following code into the ``index.html.twig`` file:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/php-frameworks/symfony.txt"
+  },
+  {
+    "code": "   :caption: templates/restaurant/index.html.twig\n   :language: html\n\nPaste the following code into the ``browse.html.twig`` file:\n\n",
+    "language": "html",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/php-frameworks/symfony.txt"
+  },
+  {
+    "code": "   :caption: templates/restaurant/browse.html.twig\n   :language: html\n\nStart your Symfony Application\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nRun the following command from the application root directory to start\nyour PHP built-in web server:\n\n",
+    "language": "html",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/php-frameworks/symfony.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   [OK] Web server listening\n        The Web server is using PHP FPM 8.3.4\n        http://127.0.0.1:8000\n\nOpen the URL http://127.0.0.1:8000/restaurant/browse in your web browser.\nThe page shows a list of restaurants and details about each of them, as\ndisplayed in the following screenshot:\n\n.. figure:: /includes/php-frameworks/symfony/app_render.png\n   :alt: Restaurants web app screenshot\n\nCongratulations on completing the Quick Start tutorial!\n\nAfter you complete these steps, you have a Symfony web application that\nconnects to your MongoDB deployment, runs a query on the sample data,\nand renders a retrieved result.\n\n.. _php-symfony-resources:\n\nResources\n---------\n\nLearn more about Symfony and MongoDB by viewing the following resources:\n\n- `Build PHP Symfony Apps with MongoDB Atlas Workshop\n  <https://mongodb-developer.github.io/symfony-mongodb-rental-workshop/>`__\n- `Symfony Documentation <https://symfony.com/doc/current/index.html>`__\n- `Doctrine MongoDB ODM Documentation\n  <https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/index.html>`__\n- `Doctrine MongoDB Bundle Documentation\n  <https://www.doctrine-project.org/projects/doctrine-mongodb-bundle/en/latest/index.html>`__\n\n.. \n   - `Doctrine MongoDB ODM GitHub Repository <https://github.com/doctrine/mongodb-odm>`__\n   - `Doctrine MongoDB ODM Bundle GitHub Repository <https://github.com/doctrine/DoctrineMongoDBBundle>`__\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-ecosystem/source/php-frameworks/symfony.txt"
+  }
+]

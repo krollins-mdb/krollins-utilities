@@ -1,0 +1,891 @@
+[
+  {
+    "code": "         :emphasize-lines: 6\n\n         connector.class=com.mongodb.kafka.connect.sink.MongoSinkConnector\n         connection.uri=<your connection uri>\n         database=<your mongodb database>\n         collection=<your mongodb collection>\n         topics=<topic containing debezium cdc events>\n         change.data.capture.handler=com.mongodb.kafka.connect.sink.cdc.debezium.mongodb.ChangeStreamHandler\n\n      .. note::\n\n         If you are using a Debezium CDC version earlier than 2.0, set the value of the\n         ``change.data.capture.handler`` property to ``com.mongodb.kafka.connect.sink.cdc.debezium.mongodb.MongoDbHandler``.\n\n      To view the source code for the Debezium CDC handler, see\n      :github:`the {+connector+} source code </mongodb/mongo-kafka/tree/{+connector_version_github_tag+}/src/main/java/com/mongodb/kafka/connect/sink/cdc/debezium>`.\n\n   .. tab::\n      :tabid: Postgres\n\n      The following properties file configures a sink connector to replicate\n      Debezium CDC events corresponding to changes in a Postgres instance:\n\n",
+    "language": "properties",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/includes/fundamentals/cdc/debezium.rst"
+  },
+  {
+    "code": "         :emphasize-lines: 6\n\n         connector.class=com.mongodb.kafka.connect.sink.MongoSinkConnector\n         connection.uri=<your connection uri>\n         database=<your mongodb database>\n         collection=<your mongodb collection>\n         topics=<topic containing debezium cdc events>\n         change.data.capture.handler=com.mongodb.kafka.connect.sink.cdc.debezium.rdbms.postgres.PostgresHandler\n\n      To view the source code for the Debezium CDC handler, see\n      :github:`the {+connector+} source code <mongodb/mongo-kafka/blob/{+connector_version_github_tag+}/src/main/java/com/mongodb/kafka/connect/sink/cdc/debezium/rdbms/postgres/PostgresHandler.java>`.\n\n   .. tab::\n      :tabid: MySQL\n\n      The following properties file configures a sink connector to replicate\n      Debezium CDC events corresponding to changes in a MySQL instance:\n\n",
+    "language": "properties",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/includes/fundamentals/cdc/debezium.rst"
+  },
+  {
+    "code": "         :emphasize-lines: 6\n\n         connector.class=com.mongodb.kafka.connect.sink.MongoSinkConnector\n         connection.uri=<your connection uri>\n         database=<your mongodb database>\n         collection=<your mongodb collection>\n         topics=<topic containing debezium cdc events>\n         change.data.capture.handler=com.mongodb.kafka.connect.sink.cdc.debezium.rdbms.mysql.MysqlHandler\n\n      To view the source code for the Debezium CDC handler, see\n      :github:`the {+connector+} source code <mongodb/mongo-kafka/blob/{+connector_version_github_tag+}/src/main/java/com/mongodb/kafka/connect/sink/cdc/debezium/rdbms/mysql/MysqlHandler.java>`.\n\n.. note:: Customize the Debezium CDC Handler\n\n   If the Debezium CDC handler is unable to replicate CDC events\n   from your datastore, you can customize the handler by extending the \n   :github:`DebeziumCdcHandler <mongodb/mongo-kafka/blob/{+connector_version_github_tag+}/src/main/java/com/mongodb/kafka/connect/sink/cdc/debezium/DebeziumCdcHandler.java>` \n   class. For more information on custom CDC handlers, see the\n   :ref:`Create your Own CDC Handler section <cdc-create-your-own>` of this guide.\n\n",
+    "language": "properties",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/includes/fundamentals/cdc/debezium.rst"
+  },
+  {
+    "code": "   :emphasize-lines: 6\n\n   connector.class=com.mongodb.kafka.connect.MongoSinkConnector\n   connection.uri=<your connection uri>\n   database=<your database>\n   collection=<your collection>\n   topics=<topic containing mongodb change event documents>\n   change.data.capture.handler=com.mongodb.kafka.connect.sink.cdc.mongodb.ChangeStreamHandler\n\nTo view the source code for the MongoDB CDC handler, see\n:github:`the {+connector+} source code <mongodb/mongo-kafka/tree/{+connector_version_github_tag+}/src/main/java/com/mongodb/kafka/connect/sink/cdc/mongodb>`.\n\n",
+    "language": "properties",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/includes/fundamentals/cdc/mongodb.rst"
+  },
+  {
+    "code": "   :emphasize-lines: 6\n\n   connector.class=com.mongodb.kafka.connect.MongoSinkConnector\n   connection.uri=<your connection uri>\n   database=<your database>\n   collection=<your collection>\n   topics=<topic containing qlik replicate cdc events>\n   change.data.capture.handler=com.mongodb.kafka.connect.sink.cdc.qlik.rdbms.RdbmsHandler\n\nTo view the source code for the Qlik Replicate CDC handler, see\n:github:`the {+connector+} source code </mongodb/mongo-kafka/tree/{+connector_version_github_tag+}/src/main/java/com/mongodb/kafka/connect/sink/cdc/qlik/rdbms/RdbmsHandler.java>`.\n\n.. note:: Customize the Qlik Replicate CDC Handler\n\n   If the Qlik Replicate CDC handler is unable to replicate CDC events\n   from your datastore, you can customize the handler by extending the \n   :github:`QlikCdcHandler <mongodb/mongo-kafka/blob/{+connector_version_github_tag+}/src/main/java/com/mongodb/kafka/connect/sink/cdc/qlik/QlikCdcHandler.java>` \n   class. For more information on custom CDC handlers, see the\n   :ref:`Create your Own CDC Handler section <cdc-create-your-own>` of this guide.\n\n",
+    "language": "properties",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/includes/fundamentals/cdc/qlik.rst"
+  },
+  {
+    "code": "   :copyable: false\n\n   ...\n   Creating zookeeper ... done\n   Creating broker    ... done\n   Creating schema-registry ... done\n   Creating connect         ... done\n   Creating rest-proxy      ... done\n   Creating mongo1          ... done\n   Creating mongo1-setup    ... done\n\n",
+    "language": "text",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/includes/tutorials/docker-success.rst"
+  },
+  {
+    "code": "   :copyable: false\n\n   Kafka topics:\n\n       \"topic\": \"docker-connect-status\",\n       \"topic\": \"docker-connect-offsets\",\n       \"topic\": \"docker-connect-configs\",\n       \"topic\": \"__consumer_offsets\",\n\n   The status of the connectors:\n\n\n   Currently configured connectors\n\n   []\n\n\n   Version of MongoDB Connector for Apache Kafka installed:\n\n   {\"class\":\"com.mongodb.kafka.connect.MongoSinkConnector\",\"type\":\"sink\",\"version\":\"1.8.0\"}\n   {\"class\":\"com.mongodb.kafka.connect.MongoSourceConnector\",\"type\":\"source\",\"version\":\"1.8.0\"}\n\n",
+    "language": "text",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/includes/tutorials/setup/status-setup.rst"
+  },
+  {
+    "code": "          :language: java\n          :dedent:\n\n       .. important:: Avro Converter with a MongoDB Data Source\n\n          Avro converters are a great fit for data with a static structure but are not\n          a good fit for dynamic or changing data. MongoDB's schemaless document\n          model supports dynamic data, so ensure your MongoDB data source has a static\n          structure before specifying an Avro converter.\n\n    .. tab:: Sink\n       :tabid: sink-avro\n\n       The following properties file defines a sink connector. This connector\n       uses an Avro converter to read from an {+kafka+} topic:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/converters.txt"
+  },
+  {
+    "code": "          :language: java\n          :dedent:\n\nTo use the preceding properties file, replace the placeholder text in angle\nbrackets with your information.\n\n.. _protobuf-converter-sample-properties:\n\nProtobuf Converter\n~~~~~~~~~~~~~~~~~~\n\nClick the following tabs to view properties files that work with the Protobuf converter:\n\n.. tabs::\n\n   .. tab:: Source\n      :tabid: source-proto\n\n      The following properties file defines a source connector. This connector\n      uses the default schema and a Protobuf converter to write to an {+kafka+} topic:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/converters.txt"
+  },
+  {
+    "code": "         :language: java\n         :dedent:\n\n   .. tab:: Sink\n      :tabid: sink-proto\n\n      The following properties file defines a sink connector. This connector\n      uses a Protobuf converter to read from an {+kafka+} topic:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/converters.txt"
+  },
+  {
+    "code": "         :language: java\n         :dedent:\n\nTo use the preceding properties file, replace the placeholder text in angle\nbrackets with your information.\n\n.. _json-schema-converter-sample-properties:\n\nJSON Schema Converter\n~~~~~~~~~~~~~~~~~~~~~\n\nClick the following tabs to view properties files that work with the JSON Schema converter:\n\n.. tabs::\n\n   .. tab::\n      :tabid: Schema registry\n\n      The following properties files configure your connector to manage JSON Schemas\n      using Confluent Schema Registry:\n\n      .. tabs::\n\n         .. tab:: Source\n            :tabid: source-json-schema\n\n            The following properties file defines a source connector. This connector\n            uses the default schema and a JSON Schema converter to write to an {+kafka+} topic:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/converters.txt"
+  },
+  {
+    "code": "               :language: java\n               :dedent:\n\n         .. tab:: Sink\n            :tabid: sink-json-schema\n\n            The following properties file defines a sink connector. This connector\n            uses a JSON Schema converter to read from an {+kafka+} topic:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/converters.txt"
+  },
+  {
+    "code": "               :language: java\n               :dedent:\n\n   .. tab::\n      :tabid: Embedded Schema\n\n      The following properties files configure your connector to embed JSON Schemas\n      in messages:\n      \n      .. important:: Increased Message Size\n\n         Embedding a JSON Schema in your message increases the size of your\n         message. To decrease the size of your messages while using JSON\n         Schema, use Schema Registry.\n      \n      .. tabs::\n\n         .. tab:: Source\n            :tabid: source-json-schema\n\n            The following properties file defines a source connector. This connector\n            uses the default schema and a JSON Schema converter to write to an {+kafka+} topic:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/converters.txt"
+  },
+  {
+    "code": "               :language: java\n               :dedent:\n\n         .. tab:: Sink\n            :tabid: sink-json-schema\n\n            The following properties file defines a sink connector. This connector\n            uses a JSON Schema converter to read from an {+kafka+} topic:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/converters.txt"
+  },
+  {
+    "code": "               :language: java\n               :dedent:\n\nTo use the preceding properties file, replace the placeholder text in angle\nbrackets with your information.\n\n.. _json-converter-sample-properties:\n\nJSON Converter\n~~~~~~~~~~~~~~\n\nClick the following tabs to view properties files that work with the JSON converter:\n\n.. tabs::\n\n   .. tab:: Source\n      :tabid: source-json\n\n      The following properties file defines a source connector. This connector\n      uses a JSON converter to write to an {+kafka+} topic:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/converters.txt"
+  },
+  {
+    "code": "         :language: java\n         :dedent:\n\n   .. tab:: Sink\n      :tabid: sink-json\n\n      The following properties file defines a sink connector. This connector\n      uses a JSON converter to read from an {+kafka+} topic: \n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/converters.txt"
+  },
+  {
+    "code": "         :language: java\n         :dedent:\n\nTo use the preceding properties file, replace the placeholder text in angle\nbrackets with your information.\n\n.. _string-converter-sample-properties:\n\nString Converter (Raw JSON)\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nClick the following tabs to view properties files that work with the String converter:\n\n.. tabs::\n\n   .. tab:: Source\n      :tabid: source-string\n\n      The following properties file defines a source connector. This connector\n      uses a String converter to write to an {+kafka+} topic:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/converters.txt"
+  },
+  {
+    "code": "         :language: java\n         :dedent:\n\n   .. tab:: Sink\n      :tabid: sink-string\n\n      The following properties file defines a sink connector. This connector\n      uses a String converter to read from an {+kafka+} topic:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/converters.txt"
+  },
+  {
+    "code": "         :language: java\n         :dedent:\n\n      .. important:: Received Strings Must be Valid JSON\n\n         Your sink connector must receive valid JSON strings from your\n         {+kafka+} topic even when using a String converter.\n\nTo use the preceding properties file, replace the placeholder text in angle\nbrackets with your information.\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/converters.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {company:\"MongoDB\"}\n\nJSON\n----\n\nJSON is a data-interchange format based on JavaScript object notation. You\nrepresent the :ref:`sample document <kafka-df-sample-doc>` in JSON like this:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/data-formats.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\"company\":\"MongoDB\"}\n\nYou may encounter the following data formats related to JSON when working with the connector:\n\n- :ref:`Raw JSON <kafka-df-raw-json>`\n- :ref:`BSON <kafka-df-bson>`\n- :ref:`JSON Schema <kafka-df-json-schema>`\n\nFor more information on JSON, \nsee the `official JSON website <https://www.json.org/json-en.html>`__.\n\n.. _kafka-df-raw-json:\n\nRaw JSON\n~~~~~~~~\n\nRaw JSON is a data format that consists of JSON objects written as strings. You represent the \n:ref:`sample document <kafka-df-sample-doc>` in Raw JSON like this:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/data-formats.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   \"{\\\"company\\\":\\\"MongoDB\\\"}\"\n\nYou use Raw JSON when you specify a String converter on a\nsource or sink connector. To view connector configurations that specify a \nString converter, see the :ref:`Converters <string-converter-sample-properties>` guide.\n\n.. _kafka-df-bson:\n\nBSON\n~~~~\n\nBSON is a binary serialization encoding for JSON-like objects. BSON encodes\nthe :ref:`sample document <kafka-df-sample-doc>` like this:\n\n",
+    "language": "text",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/data-formats.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   \\x1a\\x00\\x00\\x00\\x02company\\x00\\x08\\x00\\x00\\x00MongoDB\\x00\\x00\n\nYour connectors use the BSON format to send and receive documents from your\nMongoDB deployment.\n\nFor more information on BSON, see `the BSON specification <https://bsonspec.org/>`__.\n\n.. _kafka-df-json-schema:\n\nJSON Schema\n~~~~~~~~~~~\n\nJSON Schema is a syntax for specifying **schemas** for JSON objects. A schema is\na definition attached to an {+kafka+} Topic that defines valid values for that topic. \n\nYou can specify a schema for the :ref:`sample document <kafka-df-sample-doc>`\nwith JSON Schema like this:\n\n",
+    "language": "text",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/data-formats.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n      \"$schema\":\"http://json-schema.org/draft-07/schema\",\n      \"$id\":\"unique id\",\n      \"type\":\"object\",\n      \"title\":\"Example Schema\",\n      \"description\":\"JSON Schema for the sample document.\",\n      \"required\":[\n         \"company\"\n      ],\n      \"properties\":{\n         \"company\":{\n            \"$id\":\"another unique id\",\n            \"type\":\"string\",\n            \"title\":\"Company\",\n            \"description\":\"A field to hold the name of a company\"\n         }\n      },\n      \"additionalProperties\":false\n   }\n\nYou use JSON Schema when you apply JSON Schema converters to your connectors.\nTo view connector configurations that specify a \nJSON Schema converter, see the :ref:`Converters <json-schema-converter-sample-properties>`\nguide.\n\n\nFor more information, see the official \n`JSON Schema website <https://json-schema.org/>`__.\n\n.. _data-formats-avro:\n\nAvro\n----\n\nApache Avro is an open-source framework for serializing and transporting\ndata described by schemas. Avro defines two data formats relevant to the connector:\n\n- :ref:`Avro schema <kafka-df-avro-schema>`\n- :ref:`Avro binary encoding <kafka-df-avro-encoding>`\n\nFor more information on Apache Avro, see the \n`Apache Avro Documentation <https://avro.apache.org/docs/current/index.html>`__.\n\n.. _kafka-df-avro-schema:\n\nAvro Schema\n~~~~~~~~~~~\n\nAvro schema is a JSON-based schema definition syntax. Avro schema supports the\nspecification of the following groups of data types:\n\n- `Primitive Types <https://avro.apache.org/docs/current/spec.html#schema_primitive>`__\n- `Complex Types <https://avro.apache.org/docs/current/spec.html#schema_complex>`__\n- `Logical Types <https://avro.apache.org/docs/current/spec.html#Logical+Types>`__\n\n.. warning:: Unsupported Avro Types\n\n   The connector does not support the following Avro types:   \n\n   - ``enum`` types. Use ``string`` instead.\n   - ``fixed`` types. Use ``bytes`` instead.\n   - ``null`` as a primitive type. However, ``null`` as an element in a ``union`` is supported.\n   - ``union`` types with more than 2 elements.\n   - ``union`` types with more than one ``null`` element.\n\n.. important:: Sink Connectors and Logical Types\n\n   The {+sink-connector+} supports all Avro schema primitive and complex types,\n   however sink connectors support only the following logical types:   \n\n   - ``decimal``\n   - ``date``\n   - ``time-millis``\n   - ``time-micros``\n   - ``timestamp-millis``\n   - ``timestamp-micros``\n\nYou can construct an Avro schema for the :ref:`sample document <kafka-df-sample-doc>`\nlike this:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/data-formats.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n     \"type\": \"record\",\n     \"name\": \"example\",\n     \"doc\": \"example documents have a company field\",\n     \"fields\": [\n       {\n         \"name\": \"company\",\n         \"type\": \"string\"\n       }\n     ]\n   }\n\nYou use Avro schema when you \n:ref:`define a schema for a {+source-connector+} <source-specify-avro-schema>`.\n\nFor a list of all Avro schema types, see the\n`Apache Avro specification <https://avro.apache.org/docs/current/spec.html>`__.\n\n.. _kafka-df-avro-encoding:\n\nAvro Binary Encoding\n~~~~~~~~~~~~~~~~~~~~\n\nAvro specifies a binary serialization encoding for JSON objects defined by an\nAvro schema.\n\nIf you use the\n:ref:`preceding Avro schema <kafka-df-avro-schema>`, you can represent the\n:ref:`sample document <kafka-df-sample-doc>` with Avro binary encoding\nlike this:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/data-formats.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   \\x0eMongoDB\n\nYou use Avro binary encoding when you specify an Avro converter on a\nsource or sink connector. To view connector configurations that specify an\nAvro converter, see the :ref:`Converters <avro-converter-sample-properties>`\nguide. \n\nTo learn more about Avro binary encoding, see\n`this section of the Avro specification <https://avro.apache.org/docs/current/spec.html#Data+Serialization+and+Deserialization>`__. \n\n.. _kafka-db-byte-arrays:\n\nByte Arrays\n-----------\n\nA byte array is a consecutive sequence of unstructured bytes.\n\nYou can represent the sample document as a byte array using any of the encodings\nmentioned above.\n\nYou use byte arrays when your converters send data to or receive data\nfrom {+kafka+}. For more information on converters, see the\n:ref:`<intro-converters>` guide.\n\n",
+    "language": "text",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/introduction/data-formats.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   MongoDB Kafka Connector Sandbox $ \n\n.. _kafka-quick-start-source-connector-section:\n\nAdd a Source Connector\n~~~~~~~~~~~~~~~~~~~~~~\n\nUse the shell in your Docker container to add a source connector using the\n{+kafka-connect+} REST API.\n\nThe following API request adds a source connector configured with the\nfollowing properties:\n\n- The class {+kafka-connect+} uses to instantiate the connector\n- The connection URI, database, and collection of the MongoDB replica set from\n  which the connector reads data\n- An aggregation pipeline that adds a field ``travel`` with the value\n  ``\"MongoDB Kafka Connector\"`` to inserted documents the connector reads from MongoDB\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/quick-start.txt"
+  },
+  {
+    "code": "      :copyable: false\n\n      ...\n      curl: (7) Failed to connect to connect port 8083: Connection refused\n\nTo confirm that you added the source connector, run the following command:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/quick-start.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   [\"mongo-source\"]\n\nTo learn more about source connector properties, see the page on\n:ref:`<source-configuration-index>`.\n\nTo learn more about aggregation pipelines, see the MongoDB manual page on\n:manual:`Aggregation Pipelines </core/aggregation-pipeline/>`.\n\n.. _kafka-quick-start-sink-connector-section:\n\nAdd a Sink Connector\n~~~~~~~~~~~~~~~~~~~~\n\nUse the shell in your Docker container to add a sink connector using the\n{+kafka-connect+} REST API.\n\nThe following API request adds a sink connector configured with the\nfollowing properties:\n\n- The class {+kafka-connect+} uses to instantiate the connector\n- The connection URI, database, and collection of the MongoDB replica set to\n  which the connector writes data\n- The {+kafka+} topic from which the connector reads data\n- A change data capture handler for MongoDB change event documents\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/quick-start.txt"
+  },
+  {
+    "code": "    :copyable: false\n\n    [\"mongo-source\", \"mongo-sink\"]\n\nTo learn more about sink connector properties, see the page on\n:ref:`<kafka-sink-configuration-properties>`.\n\nTo learn more about change data capture events, see the\n:ref:`<sink-fundamentals-cdc-handler>` guide.\n\n.. _kafka-quick-start-send-a-document:\n\nSend the Contents of a Document through Your Connectors\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nTo send the contents of a document through your connectors, insert a\ndocument into the MongoDB collection from which your source connector reads\ndata.\n\nTo insert a new document into your collection, enter the MongoDB shell from\nthe shell in your Docker container using the following command:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/quick-start.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   rs0 [primary] test>\n\nFrom the MongoDB shell, insert a document into the ``sampleData``\ncollection of the ``quickstart`` database using the following commands:\n\n",
+    "language": "shell",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/quick-start.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   [\n       {\n         _id: ObjectId(...),\n         hello: 'world',\n         travel: 'MongoDB Kafka Connector'\n       }\n   ]\n\nExit the MongoDB shell with the following command:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/quick-start.txt"
+  },
+  {
+    "code": "   :language: java\n\nCompile the JAR file and place it in the ``lib`` folder in your\ndeployment. \n\n.. note::\n   \n   To view an example of a ``pom.xml`` file that can build the complete JAR containing\n   the implementation class, see the `Kafka Connector GitHub repository\n   README file\n   <https://github.com/mongodb/mongo-kafka/blob/master/README.md#pom-file-to-build-the-sample-customroleprovider-into-a-jar>`__.\n\nNext, configure your source or sink connector to include the custom\nauthentication method. The following configuration properties define a\nsink connector that connects the {+connector-short+} to MongoDB Atlas\nby using AWS IAM authentication:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/security-and-authentication/custom-auth.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 12-14\n\n   {\n      \"name\": \"mongo-tutorial-sink\",\n      \"config\": {\n        \"connector.class\": \"com.mongodb.kafka.connect.MongoSinkConnector\",\n        \"topics\": \"<topic>\",\n        \"connection.uri\": \"<connection string>?authSource=%24external&authMechanism=MONGODB-AWS&retryWrites=true&w=majority\",\n        \"key.converter\": \"org.apache.kafka.connect.storage.StringConverter\",\n        \"value.converter\": \"org.apache.kafka.connect.json.JsonConverter\",\n        \"value.converter.schemas.enable\": false,\n        \"database\": \"<db>\",\n        \"collection\": \"<collection>\",\n        \"mongo.custom.auth.mechanism.enable\": \"true\",\n        \"mongo.custom.auth.mechanism.providerClass\": \"com.mongodb.SampleAssumeRoleCredential\",\n        \"mongodbaws.auth.mechanism.roleArn\": \"<AWS IAM ARN>\"\n      }\n   }\n\nIn this example, the ``roleArn`` value is the IAM Role of the user group that has\naccess to MongoDB Atlas. In the AWS IAM console, the IAM account that is\nrunning {+kafka-connect+} has ``AssumeRole`` permissions to the Atlas User Group.\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/security-and-authentication/custom-auth.txt"
+  },
+  {
+    "code": "          :copyable: false\n\n          [ 1, 2, 3, 4, 5 ]\n\n       | When set to ``0``, the connector performs a single bulk write for\n         the entire batch.\n       |\n       | When set to ``1``, the connector performs one bulk write for each\n         record in the batch, for a total of five bulk writes as shown in\n         the following example:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/configuration-properties/connector-message.txt"
+  },
+  {
+    "code": "          :copyable: false\n\n          [1], [2], [3], [4], [5]\n\n       | **Default**: ``0``\n       | **Accepted Values**: An integer\n\n   * - | **bulk.write.ordered**\n     - | **Type:** boolean\n       |\n       | **Description:**\n       | Whether the connector writes a batch of records\n         as an ordered or unordered bulk write operation.\n         When set to ``true``, the default value, the\n         connector writes a batch of records as an ordered bulk write\n         operation.\n       |\n       | To learn more about bulk write operations, see \n         :ref:`Bulk Write Operations <sink-connector-bulk-write-ops>`.\n       |\n       | **Default**: ``true``\n       | **Accepted Values**: ``true`` or ``false``\n\n\n   * - | **rate.limiting.every.n**\n     - | **Type:** int\n       |\n       | **Description:**\n       | Number of batches of records the sink connector processes in\n         order to trigger the rate limiting timeout. A value of 0 means no\n         rate limiting.\n       |\n       | **Default**: ``0``\n       | **Accepted Values**: An integer\n\n   * - | **rate.limiting.timeout**\n     - | **Type:** int\n       |\n       | **Description:**\n       | How long (in milliseconds) to wait before the sink connector\n         should resume processing after reaching the rate limiting\n         threshold.\n       |\n       | **Default**: ``0``\n       | **Accepted Values**: An integer\n\n   * - | **tasks.max**\n     - | **Type:** int\n       |\n       | **Description:**\n       | The maximum number of tasks to create for this connector. The\n         connector may create fewer than the maximum tasks specified if it\n         cannot handle the level of parallelism you specify.\n       |\n       | :gold:`IMPORTANT:` If you specify a value greater than ``1``, \n         the connector enables parallel processing of the tasks. \n         If your topic has multiple partition logs, which enables \n         the connector to read from the topic in parallel, \n         the tasks may process the messages out of order.\n       |\n       | **Default**: ``1``\n       | **Accepted Values**: An integer\n\n.. _sink-configuration-message-processing-table-end:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/configuration-properties/connector-message.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 3\n\n   errors.tolerance=all\n   errors.deadletterqueue.topic.name=<name of topic to use as dead letter queue>\n   errors.deadletterqueue.context.headers.enable=true\n\n.. _sink-dead-letter-queue-configuration-example:\n\nDead Letter Queue Configuration Example\n---------------------------------------\n\nApache Kafka version 2.6 added support for handling errant records. The\nKafka connector automatically sends messages that it cannot process to the\n**dead letter queue**. Once on the dead letter queue, you can inspect the\nerrant records, update them, and resubmit them for processing.\n\nThe following is an example configuration for enabling the dead letter queue\ntopic ``example.deadletterqueue``. This configuration specifies that the\ndead letter queue and log file should record invalid messages, and that\nthe dead letter queue messages should include context headers.\n\n",
+    "language": "properties",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/configuration-properties/error-handling.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n     \"name\": \"Sally Kimball\",\n     \"age\": 10,\n     \"address\": {\n       \"city\": \"Idaville\",\n       \"country\": \"USA\"\n     },\n     \"hobbies\": [\n       \"reading\",\n       \"solving crime\"\n     ]\n   }\n\nYou can configure the ``AllowList`` value projector to store select data\nsuch as the \"name\", \"address.city\", and \"hobbies\" fields from your value\ndocuments using the following settings:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/post-processors.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n     \"name\": \"Sally Kimball\",\n     \"address\": {\n       \"city\": \"Idaville\"\n     },\n     \"hobbies\": [\n       \"reading\",\n       \"solving crime\"\n     ]\n   }\n\n.. _sink-blocklist-projector-example:\n\nBlock List Projector Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nSuppose your Kafka record key documents resembled the following user\nidentification data:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/post-processors.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n     \"username\": \"user5983\",\n     \"registration\": {\n       \"date\": \"2021-09-13\",\n       \"source\": \"mobile\"\n     },\n     \"authToken\": {\n       \"alg\": \"HS256\",\n       \"type\": \"JWT\",\n       \"payload\": \"zI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODk\"\n     }\n   }\n\nYou can configure the ``BlockList`` key projector to omit the \"authToken\"\nand \"registration.source\" fields before storing the data with the\nfollowing settings:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/post-processors.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n     \"username\": \"user5983\",\n     \"registration\": {\n       \"date\": \"2021-09-13\",\n     }\n   }\n\n\n.. _sink-projection-wildcard-examples:\n\nProjection Wildcard Pattern Matching Examples\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThis section shows how you can configure the projector post processors to\nmatch wildcard patterns to match field names.\n\n.. list-table::\n   :widths: 10 90\n\n   * - Pattern\n     - Description\n\n   * - ``*``\n     - Matches any number of characters in the current level.\n\n   * - ``**``\n     - Matches any characters in the current level and all nested levels.\n\nFor the allow list and block list wildcard pattern matching examples in\nthis section, refer to the following value document that contains weather\nmeasurements:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/post-processors.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n     \"city\": \"Springfield\",\n     \"temperature\": {\n       \"high\": 28,\n       \"low\": 24,\n       \"units\": \"C\"\n     },\n     \"wind_speed_10m\": {\n       \"average\": 3,\n       \"units\": \"km/h\"\n     },\n     \"wind_speed_80m\": {\n       \"average\": 8,\n       \"units\": \"km/h\"\n     },\n     \"soil_conditions\": {\n       \"temperature\": {\n         \"high\": 22,\n         \"low\": 17,\n         \"units\": \"C\"\n       },\n       \"moisture\": {\n         \"average\": 340,\n         \"units\": \"mm\"\n       }\n     }\n   }\n\nAllow List Wildcard Examples\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nYou can use the ``*`` wildcard to match multiple field names. The following\nexample configuration matches the following fields:\n\n- The top-level field named \"city\"\n- The fields named \"average\" that are subdocuments of any top-level field\n  that starts with the name \"wind_speed\".\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/post-processors.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n     \"city\": \"Springfield\",\n     \"wind_speed_10m\": {\n       \"average\": 3,\n     },\n     \"wind_speed_80m\": {\n       \"average\": 8,\n     }\n   }\n\nYou can use the ``**`` wildcard which matches objects at any level\nstarting from the one at which you specify the wildcard. The following\nwildcard matching example projects any document that contains the field\nnamed \"low\".\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/post-processors.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n     \"temperature\": {\n       \"high\": 28,\n       \"low\": 24,\n       \"units\": \"C\"\n     },\n     \"soil_conditions\": {\n       \"temperature\": {\n         \"high\": 22,\n         \"low\": 17,\n         \"units\": \"C\"\n       }\n     }\n   }\n\nBlock List Wildcard Example\n^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nYou can use the wildcard patterns to match fields at a specific document\nlevel as shown in the following block list configuration example:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/post-processors.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n     \"city\": \"Springfield\",\n     \"temperature\": {\n       \"high\": 28,\n       \"low\": 24,\n       \"units\": \"C\"\n     },\n     \"wind_speed_10m\": {\n       \"average\": 3,\n       \"units\": \"km/h\"\n     },\n     \"wind_speed_80m\": {\n       \"average\": 8,\n       \"units\": \"km/h\"\n     },\n     \"soil_conditions\": {\n       \"moisture\": {\n         \"average\": 340,\n         \"units\": \"mm\"\n       }\n     }\n   }\n\n.. _sink-field-renamer-examples:\n\nField Renaming Examples\n~~~~~~~~~~~~~~~~~~~~~~~\n\nThis section shows how you can configure the ``RenameByMapping``\nand ``RenameByRegex`` field renamer post processors to update field names\nin a sink record. The field renaming settings specify the following:\n\n- Whether to update the key or value document in the record\n- The field names to update\n- The new field names\n\nYou must specify ``RenameByMapping`` and ``RenameByRegex`` settings in a\nJSON array. You can specify nested fields by using either dot notation or\npattern matching.\n\nThe field renamer post processor examples use the following example sink\nrecord:\n\n.. _rename-example-key-document:\n\n**Key Document**\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/post-processors.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n     \"location\": \"Provence\",\n     \"date_month\": \"October\",\n     \"date_day\": 17\n   }\n\n.. _rename-example-value-document:\n\n**Value Document**\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/post-processors.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n     \"flapjacks\": {\n       \"purchased\": 598,\n       \"size\": \"large\"\n     }\n   }\n\n.. _field-renamer-mapping-example:\n\nRename by Mapping Example\n^^^^^^^^^^^^^^^^^^^^^^^^^\n\nThe ``RenameByMapping`` post processor setting specifies one or more\nJSON objects that assign fields matching a string to a new name. Each\nobject contains the text to match in the ``oldName`` element and the\nreplacement text in the ``newName`` element as described in the table\nbelow.\n\n.. list-table::\n   :header-rows: 1\n   :stub-columns: 1\n   :widths: 25 75\n\n   * - Key Name\n     - Description\n\n   * - oldName\n     - Specifies whether to match fields in the key or value document and\n       the field name to replace. The setting uses a \".\" character to\n       separate the two values.\n\n   * - newName\n     - Specifies the replacement field name for all matches of the field.\n\nThe following example property matches the \"location\" field of a key\ndocument and renames it to \"country\":\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/post-processors.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 2\n\n   {\n     \"country\": \"Provence\",\n     \"date_month\": \"October\",\n     \"date_day\": 17\n   }\n\nYou can perform a similar field name assignment for value documents by\nspecifying the value document with the appended field name in the ``oldName``\nfield as follows:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/post-processors.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 2\n\n   {\n     \"crepes\": {\n       \"purchased\": 598,\n       \"size\": \"large\"\n     }\n   }\n\nYou can also specify one or more mappings in the ``field.renamer.mapping``\nproperty by using a JSON array in string format as shown in the following\nsetting:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/post-processors.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 3,4\n\n   {\n     \"location\": \"Provence\",\n     \"date-month\": \"October\",\n     \"date-day\": 17\n   }\n\n**Value Document**\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/post-processors.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 3\n\n   {\n     \"crepes\": {\n       \"quantity\": 598,\n       \"size\": \"large\"\n     }\n   }\n\n.. warning:: The renamer post processors do not overwrite existing field names\n\n   The target field names you set in your renamer post processors to may\n   result in duplicate field names in the same document. To avoid this, the\n   post processor skips renaming when it would duplicate an existing field\n   name at the same level of the document.\n\n.. _sink-post-processors-custom:\n\nHow to Create a Custom Post Processor\n-------------------------------------\n\nIf the built-in post processors do not cover your use case, you can create\na custom post processor class using the following steps:\n\n1. Create a Java class that extends the\n   :github:`PostProcessor <mongodb/mongo-kafka/blob/{+connector_version_github_tag+}/src/main/java/com/mongodb/kafka/connect/sink/processor/PostProcessor.java>`\n   abstract class.\n\n#. Override the ``process()`` method in your class. You can update the\n   ``SinkDocument``, a BSON representation of the sink record key and value\n   fields, and access the original Kafka ``SinkRecord`` in your method.\n\n#. Compile the class to a JAR file.\n\n#. Add the compiled JAR to the class path / plugin path for all your\n   Kafka workers. For more information about plugin paths, see the\n   Confluent documentation on\n   `Manually Installing Community Connectors <https://docs.confluent.io/current/connect/managing/community.html>`__.\n\n#. Add your post processor full class name to the post processor chain\n   configuration.\n\nFor example post processors, you can browse the\n:github:`source code for the built-in post processor classes <mongodb/mongo-kafka/tree/{+connector_version_github_tag+}/src/main/java/com/mongodb/kafka/connect/sink/processor>`.\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/post-processors.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 3-4\n\n   {\n     \"_id\": \"MN-1234\",\n     \"_insertedTS\": ISODate(\"2021-09-20T15:08:000Z\"),\n     \"_modifiedTS\": ISODate(\"2021-09-20T15:08:000Z\"),\n     \"start\": \"Beacon\",\n     \"destination\": \"Grand Central\"\n     \"position\": [ 40, -73 ]\n   }\n\nAfter one hour, the train reports its new location along its route with\na new position as shown in the following record:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/write-strategies.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 5\n\n   {\n     \"_id\": \"MN-1234\",\n     \"start\": \"Beacon\",\n     \"destination\": \"Grand Central\"\n     \"position\": [ 42, -75 ]\n   }\n\nOnce your sink connector processes the preceding record, it inserts a document\nthat contains the following data:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/write-strategies.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 4,7\n\n   {\n     \"_id\": \"MN-1234\",\n     \"_insertedTS\": ISODate(\"2021-09-20T15:08:000Z\"),\n     \"_modifiedTS\": ISODate(\"2021-09-20T16:08:000Z\"),\n     \"start\": \"Beacon\",\n     \"destination\": \"Grand Central\"\n     \"position\": [ 42, -75 ]\n   }\n\nFor more information on the ``ProvidedInValueStrategy``, see the section\non how to :ref:`Configure the Document Id Adder Post Processor <sink-post-processors-document-id-adder>`.\n\n.. _kafka-sink-write-model-replace-example:\n\nReplace One Business Key Strategy\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nYou can configure the Replace One Business Key strategy to replace documents\nthat match the value of the business key. To define a business key on\nmultiple fields of a record and configure the connector to replace\ndocuments that contain matching business keys, perform the following\ntasks:\n\n#. Create a :manual:`unique index </core/index-unique>` in your collection\n   that corresponds to your business key fields.\n#. Specify the ``PartialValueStrategy`` id strategy to identify the\n   fields that belong to the business key in the connector configuration.\n#. Specify the ``ReplaceOneBusinessKeyStrategy`` write model strategy in the\n   connector configuration.\n\nSuppose you want to track airplane capacity by the flight number and airport\nlocation represented by ``flight_no`` and ``airport_code``, respectively. An\nexample message contains the following information:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/write-strategies.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 1,2\n\n   {\n     \"flight_no\": \"Z342\"\n     \"airport_code\": \"LAX\",\n     \"seats\": {\n       \"capacity\": 180,\n       \"occupied\": 152\n     }\n   }\n\nWhen the connector processes sink data that matches the business key of\nthe existing document, it replaces the document with the new values\nwithout changing the business key fields:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/write-strategies.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 4\n\n   {\n     \"flight_no\": \"Z342\"\n     \"airport_code\": \"LAX\",\n     \"status\": \"canceled\"\n   }\n\nAfter the connector processes the sink data, it replaces the original sample\ndocument in MongoDB with the preceding one.\n\n.. _kafka-sink-write-model-delete-example:\n\nDelete One Business Key Strategy\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nYou can configure the connector to remove a document when it receives\nmessages that match a business key using the Delete One Business Key\nstrategy. To set a business key from multiple fields of a record and\nconfigure the connector to delete a document that contains a matching\nbusiness key, perform the following tasks:\n\n#. Create a :manual:`unique index </core/index-unique>` in your MongoDB\n   collection that corresponds to your business key fields.\n#. Specify the ``PartialValueStrategy`` as the id strategy to identify the\n   fields that belong to the business key in the connector configuration.\n#. Specify the ``DeleteOneBusinessKeyStrategy`` write model strategy in the\n   connector configuration.\n\nSuppose you want to delete a calendar event from a specific year from\na collection that contains a document that resembles the following:\n\n.. _delete-one-business-key-sample-document:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/write-strategies.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n     \"year\": 2005,\n     \"month\": 3,\n     \"day\": 15,\n     \"event\": \"Dentist Appointment\"\n   }\n\nTo implement the strategy, using ``year`` as the business key, first create\na unique index on these fields in the MongoDB shell:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/sink-connector/fundamentals/write-strategies.txt"
+  },
+  {
+    "code": "          :copyable: false\n\n          topic.prefix=prefix\n          database=db\n          collection=coll\n          topic.separator=-\n\n       | :gold:`IMPORTANT:` When you use the ``topic.separator`` property, note that it\n         doesn't affect how you define the ``topic.namespace.map`` property.\n         The ``topic.namespace.map`` property uses MongoDB\n         :manual:`namespaces </reference/glossary/#std-term-namespace>`\n         which you must always specify with a ``.`` character to separate\n         the database and collection name.\n       |\n       | **Default**: ``\".\"``\n       | **Accepted Values**: A string\n\n   * - | **topic.mapper**\n     - | **Type:** string\n       |\n       | **Description:**\n       | The Java class that defines your custom topic mapping logic.\n       |\n       | **Default**: ``com.mongodb.kafka.connect.source.topic.mapping.DefaultTopicMapper``\n       | **Accepted Values**: Valid full class name of an implementation\n         of the :github:`TopicMapper <mongodb/mongo-kafka/blob/{+connector_version_github_tag+}/src/main/java/com/mongodb/kafka/connect/source/topic/mapping/TopicMapper.java>`\n         class.\n\n.. _source-configuration-kafka-topic-table-end:\n\n",
+    "language": "properties",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/configuration-properties/kafka-topic.txt"
+  },
+  {
+    "code": "          :copyable: false\n          \n          \"5f15aab12435743f9bd126a4\"\n\n     - ``ObjectID`` (``$oid``)\n\n   * - ``w``\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/fundamentals/json-formatters.txt"
+  },
+  {
+    "code": "          :copyable: false\n      \n          [ 12345.6789, 23.53 ]\n\n     - | Array of:\n       | - ``Decimal128`` (``$numberDecimal``)\n       | - ``Double`` (``$numberDouble``)\n\n   * - ``x``\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/fundamentals/json-formatters.txt"
+  },
+  {
+    "code": "          :copyable: false\n      \n          \"SSBsb3ZlIGZvcm1hdHRpbmch\" of type \"00\"\n\n     - ``Binary`` (``$binary``)\n\n   * - ``y``\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/fundamentals/json-formatters.txt"
+  },
+  {
+    "code": "          :copyable: false\n         \n          \"2023-05-11T08:27:07.000Z\"\n\n     - ``Date`` (``$date``)\n\n   * - ``z``\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/fundamentals/json-formatters.txt"
+  },
+  {
+    "code": "          :copyable: false\n         \n          { a: false, b: 87, c: \"hello world\" }\n          \n     - | Document with fields:\n       | - ``a``: ``Boolean``\n       | - ``b``: ``Int32`` (``$numberInt``)\n       | - ``c``: ``String``\n\nDefault JSON Formatter\n~~~~~~~~~~~~~~~~~~~~~~\n\nIn the configuration properties for your source connector, set the\nfollowing property to specify the default JSON formatter:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/fundamentals/json-formatters.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n     \"_id\": 1,\n     \"country\": \"Mexico\",\n     \"purchases\": 2,\n     \"last_viewed\": { \"$date\": \"2021-10-31T20:30:00.245Z\" }\n   }\n   {\n     \"_id\": 2,\n     \"country\": \"Iceland\",\n     \"purchases\": 8,\n     \"last_viewed\": { \"$date\": \"2015-07-20T10:00:00.135Z\" }\n   }\n\n.. _source-usage-example-copy-existing-data-copy-data:\n\nCopy Data\n~~~~~~~~~\n\nCopy the contents of the ``customers`` collection of the ``shopping`` database by \nspecifying the following configuration options in your source connector:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/usage-examples/copy-existing-data.txt"
+  },
+  {
+    "code": "    :language: properties\n    :emphasize-lines: 5,6\n\nOnce your connector copies your data, you see the following change event\ndocument corresponding to the \n:ref:`preceding sample collection <usage-example-copy-sample-document>`\nin the ``shopping.customers`` {+kafka+} topic:\n\n",
+    "language": "properties",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/usage-examples/copy-existing-data.txt"
+  },
+  {
+    "code": "    :language: json\n    :copyable: false\n    :emphasize-lines: 6,7\n\n.. note:: Write the Data in your Topic into a Collection\n\n   Use a change data capture handler to convert change event documents in an\n   {+kafka+} topic into MongoDB write operations. To learn more, see the\n   :ref:`Change Data Capture Handlers <sink-fundamentals-cdc-handler>` guide.\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/usage-examples/copy-existing-data.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n     \"_id\": ObjectId(...),\n     \"eventId\": 321,\n     \"name\": \"Dorothy Gale\",\n     \"arrivalTime\": 2021-10-31T20:30:00.245Z\n   }\n\nYou can define your connector ``pipeline`` setting to instruct the change\nstream to filter the change event information as follows:\n\n- Create change events for insert operations and omit events for all other\n  types of operations.\n- Create change events only for documents that match the ``fullDocument.eventId``\n  value \"321\" and omit all other documents.\n- Omit the ``_id`` and ``eventId`` fields from the ``fullDocument`` object\n  using a projection.\n\nTo apply these transformations, assign the following aggregation pipeline\nto your ``pipeline`` setting:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/usage-examples/custom-pipeline.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 7,8\n\n   {\n     ...\n     \"payload\": {\n       _id: { _data: ... },\n       \"operationType\": \"insert\",\n       \"fullDocument\": {\n         \"name\": \"Dorothy Gale\",\n         \"arrivalTime\": \"2021-10-31T20:30:00.245Z\",\n       },\n       \"ns\": { ... },\n       \"documentKey\": {\n         _id: {\"$oid\": ... }\n       }\n     }\n   }\n\nFor more information on managing change streams with the source connector, see\nthe connector documentation on :ref:`Change Streams <kafka-source-change-streams>`.\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/usage-examples/custom-pipeline.txt"
+  },
+  {
+    "code": "   :language: json\n\nFrom the sample document, you decide your schema should present the fields\nusing the following data types:\n\n.. list-table::\n   :header-rows: 1\n   :widths: 25 30 45\n\n   * - Field name\n     - Data types\n     - Description\n\n   * - **name**\n     - `string <https://avro.apache.org/docs/current/spec.html#schema_primitive>`__\n     - | Name of the customer\n\n   * - **visits**\n     - `array <https://avro.apache.org/docs/current/spec.html#Arrays>`__\n       of `timestamps <https://avro.apache.org/docs/current/spec.html#Timestamp+%28millisecond+precision%29>`__\n     - Dates the customer visited\n\n   * - **goods_purchased**\n     - `map <https://avro.apache.org/docs/current/spec.html#Maps>`__\n       of string (the assumed type) to\n       `integer <https://avro.apache.org/docs/current/spec.html#schema_primitive>`__\n       values\n     - Names of goods and quantity of each item the customer purchased\n\nYou can describe your data using the {+avro-long+} schema format as shown in\nthe example schema below:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/usage-examples/schema.txt"
+  },
+  {
+    "code": "   :language: json\n\n.. include:: /includes/schema-converter-important.rst\n\n.. _usage-example-schema-omit-metadata:\n\nOmit Metadata from Published Records\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe connector publishes the customer data documents and metadata\nthat describes the document to a Kafka topic. You can set the connector to\ninclude only the document data contained in the ``fullDocument`` field of the\nrecord using the following setting:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/usage-examples/schema.txt"
+  },
+  {
+    "code": "   :language: properties\n   :emphasize-lines: 3,4,5,6,7\n\n.. note:: Embedded Schema\n\n   In the preceding configuration, the {+json-schema-converter+} embeds the custom\n   schema in your messages. To learn more about the JSON Schema converter, see the\n   :ref:`Converters <json-schema-converter-sample-properties>` guide.\n\nFor more information on specifying schemas, see the :ref:`Apply\nSchemas <kafka-source-apply-schemas>` guide.\n\n",
+    "language": "properties",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/usage-examples/schema.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 1\n\n   topic.prefix=myPrefix\n   database=test\n   collection=data\n\nOnce set, your connector publishes any changes to the ``data`` collection\nin the ``test`` database to the Kafka topic named ``myPrefix.test.data``.\n\n.. _topic-naming-suffix-example:\n\nTopic Suffix\n------------\n\nYou can configure your source connector to append a string to the\nnamespace of the change event data, and publish records to that Kafka\ntopic. This setting automatically concatenates your namespace with your\nsuffix with the \".\" character.\n\nTo specify the topic suffix, use the ``topic.suffix`` configuration\nsetting as shown in the following example:\n\n",
+    "language": "ini",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/usage-examples/topic-naming.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 1\n\n   topic.suffix=mySuffix\n   database=test\n   collection=data\n\nOnce set, your connector publishes any changes to the ``data`` collection\nin the ``test`` database to the Kafka topic named ``test.data.mySuffix``.\n\n.. _topic-naming-namespace-map:\n\nTopic Namespace Map\n-------------------\n\nYou can configure your source connector to map namespace values to Kafka\ntopic names for incoming change event data. Topic namespace maps contain\n**pairs** that are made up of a namespace pattern and a destination\ntopic name template.\n\nThe following sections describe how the connector interprets namespaces\nand maps them to Kafka topics. In addition to directly mapping databases\nand collections to Kafka topics, the connector supports the use of regex\nand wildcard pairs in topic namespace maps.\n\nThe order of the pairs in your namespace map can affect how the\nconnector writes events to your topics. The connector matches namespaces\nin the following order:\n\n1. Pairs with database and collection names in the namespace pattern. To\n   learn more about this namespace pattern, see the :ref:`Database and\n   Collection Names <topic-naming-namespace-map-example>` example.\n#. Pairs with only a database name in the namespace pattern. To\n   learn more about this namespace pattern, see the :ref:`Database and\n   Collection Names <topic-naming-namespace-map-example>` example.\n#. Regex pairs in order. To learn more about this namespace pattern, see\n   the :ref:`Regular Expressions <topic-naming-namespace-map-regex-example>` example.\n#. The wildcard pair. To learn more about this namespace pattern, see\n   the :ref:`Wildcard <topic-naming-namespace-map-wildcard-example>` example.\n\n.. _topic-naming-namespace-map-example:\n\nDatabase and Collection Names\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nYou can specify the names of specific databases and collections within a\ntopic namespace map to write change events from these sources to Kafka\ntopics.\n\nIf the database name or namespace of the change event matches one of the\nfields in the map, the connector computes the destination topic name\nbased on the topic name template that corresponds to that mapping and\npublishes the event to this topic.\n\nIf the database name or namespace of the change event does not match any\nmapping, the connector publishes the record using the default topic naming\nscheme unless otherwise specified by a different topic naming setting.\n\n.. important::\n   \n   Because the ``/`` character denotes that the namespace is a\n   regex pattern, the connector raises a ``ConnectConfigException``\n   if the namespace includes this character in a non-regex context.\n\nAny mapping that includes both database and collection takes precedence\nover mappings that only specify the source database name.\n\n.. important::\n\n   The namespace map matching occurs before the connector applies any other\n   topic naming setting. If defined, the connector applies the\n   ``topic.prefix`` and the ``topic.suffix`` settings to the topic name\n   after the mapping.\n\nThe following example shows how to specify the ``topic.namespace.map``\nsetting to define a topic namespace mappings from the ``carDb`` database\nto the ``automobiles`` topic name template and the ``carDb.ev``\nnamespace to the ``electricVehicles`` topic name template:\n\n",
+    "language": "ini",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/source-connector/usage-examples/topic-naming.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         nano openchangestream.py\n\n      Paste the following code into the file and save the changes:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/explore-change-streams.txt"
+  },
+  {
+    "code": "         :language: python\n\n      Run the Python script:\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/explore-change-streams.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         python3 openchangestream.py\n\n      The script outputs the following message after it starts successfully:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/explore-change-streams.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         Change Stream is opened on the Tutorial1.orders namespace.  Currently watching ...\n\n   .. step:: Trigger a Change Event\n\n      In **ChangeStreamShell2**, connect to MongoDB using ``mongosh``, the MongoDB\n      shell, using the following command:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/explore-change-streams.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         mongosh \"mongodb://mongo1\"\n\n      After you connect successfully, you should see the following\n      MongoDB shell prompt:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/explore-change-streams.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         rs0 [direct: primary] test>\n\n      At the prompt, type the following commands:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/explore-change-streams.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         use Tutorial1\n         db.orders.insertOne( { 'test' : 1 } )\n\n      After entering the preceding commands, switch to **ChangeStreamShell1** to view\n      the change stream output, which should resemble the following:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/explore-change-streams.txt"
+  },
+  {
+    "code": "         :language: json\n         :copyable: true\n         :emphasize-lines: 5\n\n      To stop the script, press :kbd:`Ctrl+C`.\n\n      By the end of this step, you've successfully triggered and observed a\n      change stream event.\n\n   .. step:: Open a Filtered Change Stream\n\n      You can apply a filter to a change stream by passing it an aggregation\n      pipeline.\n\n      In **ChangeStreamShell1**, create a new Python script to open a filtered change\n      stream using the PyMongo driver.\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/explore-change-streams.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         nano pipeline.py\n\n      Paste the following code into the file and save the changes:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/explore-change-streams.txt"
+  },
+  {
+    "code": "         :language: python\n         :copyable: true\n         :emphasize-lines: 6\n\n      Run the Python script:\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/explore-change-streams.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         Change Stream is opened on the Tutorial1.sensors namespace.  Currently watching for values > 100...\n\n   .. step:: Observe the Filtered Change Stream\n\n      Return to your **ChangeStreamShell2** session which should be connected to\n      MongoDB using ``mongosh``.\n\n      At the prompt, type the following commands:\n\n",
+    "language": "python",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/explore-change-streams.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         [ { \"$match\": { \"$and\": [ { \"fullDocument.type\": \"temp\" }, { \"fullDocument.value\": { \"$gte\": 100 } } ] } } ]\n\n      Try inserting the following documents in in **ChangeStreamShell2** to verify the\n      change stream only produces events when the documents match the filter:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/explore-change-streams.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         ...\n         1 _id=528e9... MSP MASSIVE SUBMARINE PARTNERS traded at 31.08 2022-05-25 21:15:15\n         2 _id=528e9... RWH RESPONSIVE_WHOLESALER HOLDINGS traded at 18.42 2022-05-25 21:15:15\n         3 _id=528e9... FAV FUZZY ATTACK VENTURES traded at 31.08 2022-05-25 21:15:15\n         ...\n\n   .. step:: Configure the Source Connector\n\n      In a separate terminal window, create an interactive shell session on the\n      tutorial Docker container downloaded for the Tutorial Setup using\n      the following command:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/migrate-time-series.txt"
+  },
+  {
+    "code": "         :language: json\n\n      This configuration instructs the connector to copy existing data from\n      the ``PriceData`` MongoDB collection to the\n      ``marketdata.Stocks.PriceData`` Kafka topic, and once complete, any\n      future data inserted in that collection.\n\n      Run the following command in the shell to start the source connector\n      using the configuration file you created:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/migrate-time-series.txt"
+  },
+  {
+    "code": "         :language: text\n         :copyable: false\n\n      Once the source connector starts up, confirm the Kafka topic received\n      the collection data by running the following command:\n\n",
+    "language": "text",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/migrate-time-series.txt"
+  },
+  {
+    "code": "         :language: text\n         :copyable: false\n\n      You can exit ``kafkacat`` by typing :kbd:`CTRL+C`.\n\n   .. step:: Configure the Sink Connector\n\n      Configure a sink connector to read data from the Kafka topic and write\n      it to a time series collection named ``StockDataMigrate`` in a database\n      named ``Stocks``.\n\n      Create a sink configuration file called ``stock-sink.json`` with the\n      following command:\n\n",
+    "language": "text",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/migrate-time-series.txt"
+  },
+  {
+    "code": "         :language: json\n\n      .. tip::\n\n         The sink connector configuration above uses the time field date\n         format converter. Alternatively, you can use the ``TimestampConverter``\n         Single Message Transform (SMT) to convert the ``tx_time`` field from a\n         ``String`` to an ``ISODate``. When using the ``TimestampConverter`` SMT,\n         you must define a schema for the data in the Kafka topic.\n\n         For information on how to use the ``TimestampConverter`` SMT, see the\n         `TimestampConverter <https://docs.confluent.io/platform/current/connect/transforms/timestampconverter.html#timestampconverter>`__\n         Confluent documentation.\n\n      Run the following command in the shell to start the sink connector\n      using the configuration file you updated:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/migrate-time-series.txt"
+  },
+  {
+    "code": "         :language: javascript\n         :copyable: false\n\nSummary\n-------\n\nIn this tutorial, you created a stock ticker data generator that periodically\nwrote data into a MongoDB collection.\nYou configured a source connector to copy the data into a Kafka topic and\nconfigured a sink connector to write that data into a new MongoDB time\nseries collection.\n\nLearn More\n----------\n\nRead the following resources to learn more about concepts mentioned in\nthis tutorial:\n\n- :ref:`<sink-configuration-time-series>`\n- :manual:`Time Series Collections </core/timeseries-collections/>`\n\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/migrate-time-series.txt"
+  },
+  {
+    "code": "         :language: text\n         :copyable: false\n\n   .. step:: Configure the Sink Connector\n\n      In **CDCShell1**, configure a sink connector to copy data from the\n      ``CDCTutorial.Source`` Kafka topic to ``CDCTutorial.Destination``\n      MongoDB namespace.\n\n      Create a configuration file called ``cdc-sink.json`` using the\n      following command:\n\n",
+    "language": "text",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/replicate-with-cdc.txt"
+  },
+  {
+    "code": "         :language: json\n\n      Run the following command in the shell to start the sink connector\n      using the configuration file you created:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/replicate-with-cdc.txt"
+  },
+  {
+    "code": "         :language: text\n         :copyable: false\n\n   .. step:: Monitor the Kafka Topic\n\n      In **CDCShell1**, monitor the Kafka topic for incoming events. Run the\n      following command to start the ``kafkacat`` application which outputs\n      data published to the topic:\n\n",
+    "language": "text",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/replicate-with-cdc.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         % Reached end of topic CDCTutorial.Source [0] at offset 0\n\n   .. step:: Write Data into the Source and Watch the Data Flow\n\n      In **CDCShell2**, connect to MongoDB using ``mongosh``, the MongoDB\n      shell by running the following command:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/replicate-with-cdc.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         rs0 [direct: primary] test>\n\n      At the prompt, type the following commands to insert a new document\n      into the ``CDCTutorial.Source`` MongoDB namespace:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/replicate-with-cdc.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         {\n           acknowledged: true,\n           insertedId: ObjectId(\"600b38ad...\")\n         }\n\n      The source connector picks up the change and publishes it to the\n      Kafka topic. You should see the following topic message in your\n      **CDCShell1** window:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/replicate-with-cdc.txt"
+  },
+  {
+    "code": "         :language: json\n         :copyable: false\n\n      The sink connector picks up the Kafka message and sinks the data\n      into MongoDB. You can retrieve the document from the\n      ``CDCTutorial.Destination`` namespace in MongoDB by running the\n      following command in the MongoDB shell you started in **CDCShell2**:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/replicate-with-cdc.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         [\n           {\n             _id: ObjectId(\"600b38a...\"),\n             proclaim: 'Hello World'\n           }\n         ]\n\n   .. step:: (Optional) Generate Additional Changes\n\n      Try removing documents from the ``CDCTutorial.Source`` namespace\n      by running the following command from the MongoDB shell:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/replicate-with-cdc.txt"
+  },
+  {
+    "code": "         :language: json\n         :copyable: false\n\n      Run the following command to retrieve the current number of documents\n      in the collection:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/replicate-with-cdc.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         0\n\n      Run the following command to exit the MongoDB shell:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/replicate-with-cdc.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         docker exec -it mongo1 /bin/bash\n\n      Create a source configuration file called ``simplesink.json`` with\n      the following command:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/sink-connector.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         nano simplesink.json\n\n      Paste the following configuration information into the file and save\n      your changes:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/sink-connector.txt"
+  },
+  {
+    "code": "         language: json\n         :copyable: true\n         :emphasize-lines: 7-9\n\n      .. note::\n\n         The highlighted lines in the configuration properties specify\n         **converters** which instruct the connector how to translate the data\n         from Kafka.\n\n      Run the following command in the shell to start the sink connector\n      using the configuration file you created:\n\n",
+    "language": "",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/sink-connector.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         cx simplesink.json\n\n      .. note::\n\n         The ``cx`` command is a custom script included in the tutorial\n         development environment. This script runs the following\n         equivalent request to the Kafka Connect REST API to create a new\n         connector:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/sink-connector.txt"
+  },
+  {
+    "code": "            :copyable: true\n\n            curl -X POST -H \"Content-Type: application/json\" -d @simplesink.json http://connect:8083/connectors -w \"\\n\"\n\n      Run the following command in the shell to check the status of the\n      connectors:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/sink-connector.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         status\n\n      If your sink connector started successfully, you should see the\n      following output:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/sink-connector.txt"
+  },
+  {
+    "code": "         :language: text\n         :copyable: false\n\n   .. step:: Write Data to a Kafka Topic\n\n      In the same shell, create a Python script to write data to a Kafka\n      topic.\n\n",
+    "language": "text",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/sink-connector.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         nano kafkawrite.py\n\n      Paste the following code into the file and save your changes:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/sink-connector.txt"
+  },
+  {
+    "code": "         :language: python\n         :copyable: true\n\n      Run the Python script:\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/sink-connector.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         python3 kafkawrite.py\n\n   .. step:: View the Data in the MongoDB Collection\n\n      In the same shell, connect to MongoDB using ``mongosh``, the MongoDB\n      shell by running the following command:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/sink-connector.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         mongosh \"mongodb://mongo1\"\n\n      After you connect successfully, you should see the following\n      MongoDB shell prompt:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/sink-connector.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         rs0 [direct: primary] test>\n\n      At the prompt, type the following commands to retrieve all the\n      documents in the ``Tutorial2.pets`` MongoDB namespace:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/sink-connector.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         use Tutorial2\n         db.pets.find()\n\n      You should see the following document returned as the result:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/sink-connector.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         { _id: ObjectId(\"62659...\"), name: 'roscoe' }\n\n      Exit the MongoDB shell by entering the command ``exit``.\n\n   .. step:: (Optional) Stop the Docker Containers\n\n      .. include:: /includes/tutorials/stop-containers.rst\n\nSummary\n-------\n\nIn this tutorial, you configured a sink connector to save data from\na Kafka topic to a collection in a MongoDB cluster.\n\nLearn More\n----------\n\nRead the following resources to learn more about concepts mentioned in\nthis tutorial:\n\n- :ref:`Sink Connector Configuration Properties <kafka-sink-configuration-properties>`\n- :ref:`Introduction to Kafka Connector Converters <intro-converters>`\n- `Kafka Connect REST API <https://developer.confluent.io/learn-kafka/kafka-connect/rest-api/>`__\n\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/sink-connector.txt"
+  },
+  {
+    "code": "         :language: json\n\n      Run the following command in the shell to start the source connector\n      using the configuration file you created:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/source-connector.txt"
+  },
+  {
+    "code": "         :language: text\n         :copyable: false\n\n   .. step:: Create Change Events\n\n      In the same shell, connect to MongoDB using ``mongosh``, the MongoDB\n      shell by running the following command:\n\n",
+    "language": "text",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/source-connector.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         rs0 [direct: primary] test>\n\n      At the prompt, type the following commands to insert a new document:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/source-connector.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         {\n           acknowledged: true,\n           insertedId: ObjectId(\"627e7e...\")\n         }\n\n      Exit the MongoDB shell by entering the command ``exit``.\n\n      Check the status of your Kafka environment using the following\n      command:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/source-connector.txt"
+  },
+  {
+    "code": "         :copyable: false\n         :emphasize-lines: 2\n\n         ...\n         \"topic\": \"Tutorial1.orders\",\n         ...\n\n      Confirm the content of data on the new Kafka topic by running the\n      following command:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/source-connector.txt"
+  },
+  {
+    "code": "         :language: json\n         :copyable: false\n         :emphasize-lines: 15-20\n\n   .. step:: Reconfigure the Change Stream\n\n      You can omit the metadata from the events created by the change\n      stream by configuring it to only return the ``fullDocument`` field.\n\n      Stop the connector using the following command:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/source-connector.txt"
+  },
+  {
+    "code": "         :language: json\n\n      Run the following command in the shell to start the source connector\n      using the configuration file you updated:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/source-connector.txt"
+  },
+  {
+    "code": "         :language: json\n         :copyable: false\n\n   .. step:: (Optional) Stop the Docker Containers\n\n      .. include:: /includes/tutorials/stop-containers.rst\n\nSummary\n-------\n\nIn this tutorial, you started a source connector using different\nconfigurations to alter the change stream event data published to a Kafka\ntopic.\n\nLearn More\n----------\n\nRead the following resources to learn more about concepts mentioned in\nthis tutorial:\n\n- :ref:`Source Connector Configuration Properties <source-configuration-index>`\n- `Kafka Connect REST API <https://developer.confluent.io/learn-kafka/kafka-connect/rest-api/>`__\n\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/source-connector.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         git clone https://github.com/mongodb-university/kafka-edu.git\n\n      If you do not have git installed, you can download the\n      `zip archive <https://github.com/mongodb-university/kafka-edu/archive/refs/heads/main.zip>`__\n      instead.\n\n   .. step:: Run the Development Environment\n\n      .. _tutorial-setup-run-environment:\n\n      Select the tab that matches your OS for instructions on how to run the\n      commands in this guide:\n\n      .. tabs::\n\n         .. tab:: Linux or Mac OS\n            :tabid: shell\n\n            Navigate to the tutorial directory \"mongodb-kafka-base\" within\n            the repository or unzipped archive using bash shell. If you\n            cloned the repository with git, your command resembles the\n            following:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/tutorial-setup.txt"
+  },
+  {
+    "code": "               :copyable: true\n\n               cd {+sandbox-directory+}\n\n         .. tab:: Windows\n            :tabid: powershell\n\n            Navigate to the tutorial directory \"mongodb-kafka-base\" within\n            the repository or unzipped archive using PowerShell.  If you\n            cloned the repository with git, your command resembles the\n            following:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/tutorial-setup.txt"
+  },
+  {
+    "code": "               :copyable: true\n\n               cd {+win-sandbox-directory+}\n\n      Start the Docker image with the following command:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/tutorial-setup.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         docker-compose -p mongo-kafka up -d --force-recreate\n\n      .. include:: /includes/tutorials/port-mapping-note.rst\n\n      The \"mongo-kafka-base\" image creates a Docker container that includes\n      all the services you need in the tutorial and runs them on a shared\n      network called \"mongodb-kafka-base_localnet\" as shown in the following\n      diagram:\n\n      .. figure:: /includes/figures/mongo-kafka-base-container.png\n         :alt: Diagram that shows the Docker compose containers in mongo-kafka-base\n\n      When the command completes successfully, it outputs the following\n      text:\n\n      .. include:: /includes/tutorials/docker-success.rst\n\n   .. step:: Verify the Successful Setup\n\n      Confirm that the development environment started successfully by\n      running the following commands:\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-kafka-connector/source/tutorials/tutorial-setup.txt"
+  }
+]

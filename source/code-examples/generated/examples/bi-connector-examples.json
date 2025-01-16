@@ -1,0 +1,149 @@
+[
+  {
+    "code": "   :copyable: false\n\n   schema:\n   - db: test\n     tables:\n     - table: points\n       collection: points\n       pipeline: []\n       columns:\n       - Name: _id\n         MongoType: bson.ObjectId\n         SqlName: _id\n         SqlType: varchar\n       - Name: category\n         MongoType: string\n         SqlName: category\n         SqlType: varchar\n       - Name: name\n         MongoType: string\n         SqlName: name\n         SqlType: varchar\n       - Name: pos.coordinates\n         MongoType: geo.2darray\n         SqlName: pos.coordinates\n         SqlType: numeric[]\n\n.. include:: /includes/fact-geospatial-views.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/includes/geospatial-data.rst"
+  },
+  {
+    "code": "      :copyable: false\n   \n      5d72ad695c23a9e3e26e3c85 2019-09-06T15:03:05.556Z\n      5d72adea5c23a9e44882a1ad 2019-09-06T15:05:14.349Z\n   \n\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/includes/options/commandoption-mongodrdl-list-schema-ids.rst"
+  },
+  {
+    "code": "      :copyable: false\n   \n      movies 5d72ad695c23a9e3e26e3c85\n      theaters 5d72adea5c23a9e44882a1ad\n   \n\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/includes/options/commandoption-mongodrdl-list-schema-names.rst"
+  },
+  {
+    "code": "      :copyable: false\n   \n      5d793f3f6a26a3ce66c304ea\n\n   The next step is to store the schema under a name you provide, using\n   the :commandoption:`name-schema <name-schema>` command:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/includes/options/commandoption-mongodrdl-upload.rst"
+  },
+  {
+    "code": "      :copyable: false\n   \n      { \"_id\" : 1, \"a\" : 3, \"b\" : [ \"orange\", \"apple\", \"pear\" ] }\n   \n   The above collection translates to the following two tables in\n   tabular format:\n   \n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/includes/options/option-mongosqld-prejoin.rst"
+  },
+  {
+    "code": "      :copyable: false\n   \n      mysql> select * from test;\n      +------+------+\n      | _id  | a    |\n      +------+------+\n      |    1 |    3 |\n      +------+------+\n   \n      mysql> select * from test_b;\n      +------+--------+-------+\n      | _id  | b      | b_idx |\n      +------+--------+-------+\n      |    1 | orange |     0 |\n      |    1 | apple  |     1 |\n      |    1 | pear   |     2 |\n      +------+--------+-------+\n   \n   The :option:`--prejoin <mongosqld --prejoin>` flag causes\n   data from the ``a`` column to be included in the ``test_b`` table:\n   \n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/includes/options/option-mongosqld-prejoin.rst"
+  },
+  {
+    "code": "      :copyable: false\n   \n      mysql> select * from test_b;\n      +------+------+--------+-------+\n      | _id  | a    | b      | b_idx |\n      +------+------+--------+-------+\n      |    1 |    3 | orange |     0 |\n      |    1 |    3 | apple  |     1 |\n      |    1 |    3 | pear   |     2 |\n      +------+------+--------+-------+\n   \n\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/includes/options/option-mongosqld-prejoin.rst"
+  },
+  {
+    "code": "   :copyable: false\n\n   schema:\n   - db: <database name>\n     tables:\n     - table: <SQL table name>\n       collection: <MongoDB collection name>\n       pipeline:\n       - <optional pipeline elements>\n       columns:\n       - Name: <MongoDB field name>\n         MongoType: <MongoDB field type>\n         SqlName: <mapped SQL column name>\n         SqlType: <mapped SQL column type>\n\nExample\n~~~~~~~\n\n.. include:: /includes/fact-mongodrdl-example.rst\n\nField Types\n-----------\n\n|bi-short| maps fields that always contain the same data\ntype into the relational model. Schema generation deals specially\nwith the following cases:\n\n.. list-table::\n   :stub-columns: 1\n   :widths: 20 80\n\n   * - Numeric\n     - |bi-short| uses the most precise numeric type that matches the\n       sampled documents.\n\n       If a field in a collection always has the same data type,\n       |bi-short| uses that type.\n\n       If a field in a collection can contain either floating point\n       values or integers, |bi-short| uses type ``numeric``.\n\n   * - Dates\n     - |bi-short| treats any field of type ``data_date`` as the\n       :term:`SQL` ``timestamp`` type.\n\n   * - Timestamps\n     - |bi-short| ignores any field of type ``data_timestamp``.\n\n   * - ObjectID\n     - |bi-short| treats any field of type ``data_oid`` as\n       the SQL type ``varchar``.\n\n   * - UUID\n     - |bi-short| treats any field of type UUID as the SQL type\n       ``varchar``.\n\n   * - Geospatial\n     - If a collection contains a\n       :manual:`geospatial index </applications/geospatial-indexes>`,\n       |bi-short| maps the indexed field into an array of numeric\n       longitude-latitude coordinates.\n\n       See :ref:`geospatial-data` for an example.\n\n       .. include:: /includes/fact-geospatial-views.rst\n\n   * - Heterogeneous Fields\n     - .. _drdl-heterogeneous:\n\n       If a field contains inconsistent types, |bi-short| chooses the\n       most frequently sampled type.\n\n       If a field can contain either a type or an array of that type, the\n       generated schema always specifies that the field contains an array.\n\n       To learn more, see :ref:`bi-skip-incompatible-types`.\n\nEmbedded Documents\n------------------\n\n|bi-short| maps embedded documents to simple fields\nthat have a ``.`` separator character, making them appear similar\nto the way you would reference them using :ref:`dot notation\n<document-dot-notation>` in a MongoDB query.\n\nWhile :doc:`Tableau </connect/tableau>` properly quotes\nidentifiers, within ad-hoc SQL expressions you must double-quote\nevery identifier that contains ``.`` characters or mixed-case\ncharacters.\n\nExample\n~~~~~~~\n\nConsider the following document:\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/reference/drdl.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   schema:\n   - db: test\n     tables:\n     - table: points\n       collection: points\n       pipeline: []\n       columns:\n       - Name: _id\n         MongoType: bson.ObjectId\n         SqlName: _id\n         SqlType: varchar\n       - Name: x\n         MongoType: float64\n         SqlName: x\n         SqlType: numeric\n       - Name: \"y\"\n         MongoType: float64\n         SqlName: \"y\"\n         SqlType: numeric\n       - Name: z\n         MongoType: float64\n         SqlName: z\n         SqlType: numeric\n       - Name: filter\n         MongoType: mongo.Filter\n         SqlName: filter\n         SqlType: varchar\n\nYou can select only three-dimensional points using the following query:\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/reference/drdl.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   pipeline:\n   - $unwind:\n       includeArrayIndex: familyMembers_idx\n       path: $familyMembers\n\nThis pipeline uses :pipeline:`$unwind` to create a new record for each\nmember of ``familyMembers``. The schema tracks the array index in\nthe field ``familyMembers_idx``.\n\n.. include:: /includes/geospatial-data.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/reference/drdl.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   <timestamp> <severity> <component> [<context>] <message>\n\nFor example:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/reference/log-messages.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   2017-08-17T13:34:48.910-0700 I NETWORK [initandlisten] waiting for connections at 127.0.0.1:3307\n\nTimestamp\n---------\n\nLog messages use `iso8601 <https://www.ietf.org/rfc/rfc3339.txt>`_\nformat for the timestamp, with a UTC offset set by the server on which\n:binary:`~bin.mongosqld` is running.\n\nSeverity Levels\n---------------\n\nThe following table lists the severity levels associated with each log\nmessage:\n\n.. list-table::\n   :header-rows: 1\n   :widths: 15 85\n\n   * - Level\n     - Description\n\n   * - ``F``\n     - Fatal\n\n   * - ``E``\n     - Error\n\n   * - ``W``\n     - Warning\n\n   * - ``I``\n     - Informational, for Verbosity Level of ``0``\n\n   * - ``D``\n     - Debug, for All Verbosity Levels > ``0``\n\nThe default log verbosity level is ``0``, which includes all\nnon-``Debug`` messages. Increasing the verbosity level adds additional\n``Debug`` messages to the logs. To set the verbosity level, see\n:ref:`log-messages-configure-verbosity`.\n\nComponents\n----------\n\nLog messages include a component field, providing functional\ncategorization of the messages:\n\n.. list-table::\n   :header-rows: 1\n   :widths: 15 85\n\n   * - Level\n     - Description\n\n   * - \n       .. data:: CONTROL\n\n     - Messages related to control activities, such as initialization.\n\n   * - \n       .. data:: NETWORK\n\n     - Messages related to network activities, such as accepting connections.\n\n   * - \n       .. data:: ALGEBRIZER\n\n     - Messages related to query plan generation.\n\n   * - \n       .. data:: OPTIMIZER\n\n     - Messages related to query plan optimization.\n\n   * - \n       .. data:: EXECUTOR\n\n     - Messages related to query execution.\n\nConfigure Log Verbosity Level\n-----------------------------\n\nTo configure the log verbosity level:\n\n- Include the ``-v`` option when starting\n  :binary:`~bin.mongosqld` from the command line, or\n- Specify ``systemLog.verbosity`` in a\n  :ref:`mongosqld configuration file <config-format>`.\n\nTo specify a verbosity level when starting ``mongosqld``, use the\n``-v`` option. Repeating ``v`` increases the verbosity level.\n\n.. example::\n\n   The following invocation of ``mongosqld`` sets the log verbosity\n   level to ``Developer``.\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/reference/log-messages.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   <filename>.<logSeqNumber>.<timeStamp>\n\nFor example:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/reference/log-messages.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   mongosqld.log.000000.2018-04-20T15_10_23.898858222-07_00\n\nFor more information on log file rotation, see the\n:option:`--logRotate <mongosqld --logRotate>` option.\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/reference/log-messages.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   [\n     {\"$match\": {\"name\": {\"$regex\": \"^Brooklyn.*$\",\"$options\": \"i\"}}},\n     {\"$project\": {\"test_DOT_restaurants_DOT_name\": \"$name\",\"_id\": {\"$numberInt\":\"0\"}}},\n   ]\n\n.. note::\n\n   If you need to quote a string inside the :option:`--query\n   <mongotranslate --query>` parameter, be sure to use single quotes.\n   If you must use double quotes or backticks in your query, use the\n   :option:`--queryFile <mongotranslate --query>` option.\n\nThe following example specifies a query file and returns a one-line\nresult:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/reference/mongotranslate.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   [\n   \t {\n   \t    \"ID\": 1,\n   \t    \"StageType\": \"MongoSourceStage\",\n   \t    \"Columns\": \"[{name: 'count(name)', type: 'int'}]\",\n   \t    \"Sources\": null,\n   \t    \"Database\": {},\n   \t    \"Tables\": {},\n   \t    \"Aliases\": {},\n   \t    \"Collections\": {},\n   \t    \"Pipeline\": {},\n   \t    \"PipelineExplain\": {},\n   \t    \"PushdownFailures\": null\n   \t }\n   ]\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/reference/mongotranslate.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   SET GLOBAL mongodb_max_varchar_length = 100\n\nYou must start a new connection to the |bi-short| after setting a system\nvariable. The connection you used to set the system variable is not affected.\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/reference/system-variables.txt"
+  },
+  {
+    "code": "     :copyable: false\n\n     CAST(\"123\" AS unsigned)\n\n- Implicit type conversions. For example, ``\"123\" + 456``\n\nMode Comparison Table\n---------------------\n\nThe following table provides an overview of how MySQL's type conversion\nbehavior differs from the |bi-short|'s default type\nconversion behavior (``mongosql`` mode):\n\n.. list-table::\n   :widths: 10 10 40 40\n   :header-rows: 1\n\n   * - From Type\n     - To Type\n     - MySQL Behavior\n     - ``mongosql``-mode Behavior\n\n   * - Varchar\n     - Numeric\n     - Parse the number from a string in a variety of different formats.\n       For more information, see the MySQL\n       `Numeric Literals <https://dev.mysql.com/doc/refman/5.7/en/number-literals.html>`_\n       documentation.\n     - Parse the number from a string in decimal format with optional\n       leading sign character.\n\n   * - Varchar\n     - Timestamp\n     - Parse the date from a string in a variety of different formats.\n       For more information, see the MySQL\n       `Date and Time Literals <https://dev.mysql.com/doc/refman/5.7/en/date-and-time-literals.html>`_.\n     - Parse the date from a string in the ``\"%Y-%m-%dT%H:%M:%S.%LZ\"``\n       format.\n\n   * - Int\n     - Timestamp\n     - Attemps to parse the date from the varchar representation of the\n       int. For example, the integer ``20180809183456`` becomes the date\n       ``2018-08-09 18:34:56.000000``.\n     - Treats the input as milliseconds since the unix epoch. For\n       example, ``1533839696000``.\n\n   * - Timestamp\n     - Long\n     - Parse the timestamp as a long in the ``YYYYMMDDHHMMSS`` format.\n       For example, ``20180701123400``.\n     - Parse the timestamp as a long representing the milliseconds since\n       the unix epoch. For example, ``1530448440000``.\n\n   * - Timestamp\n     - Varchar\n     - Parse the timestamp as a varchar in the\n       ``YYYY-MM-DD HH:MM:SS.MMMMMM`` format. For example,\n       ``“2018-07-01 12:34:00.000000”``.\n     - Parse the timestamp as a varchar in the\n       ``YYYY-MM-DDTHH:MM:SS:MMMZ`` format. For example,\n       ``“2018-07-01T12:34:00.000Z”``.\n\n.. note::\n\n   ``mongosql`` is the recommended type casting mode unless close\n   replication of MySQL's behavior is required.\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/reference/type-conversion.txt"
+  },
+  {
+    "code": "        :copyable: false\n   \n        5d793f3f6a26a3ce66c304ea\n\n  2. Name your schema, using the :commandoption:`name-schema <name-schema>`\n     command, similar to the following example:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/schema/load-schema-from-drdl.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   { _id: 0, a: \"foo\" } // \"a\" is scalar (string)\n   { _id: 1, a: { a: \"bar\", b: \"baz\" } } // \"a\" is composite (document)\n\nThe |bi-short| detects a scalar-composite conflict and generates the\nfollowing relational schema:\n\n**Table:** ``conflict``\n\n.. list-table::\n   :widths: 25 25 25 25\n   :header-rows: 1\n\n   * - _id\n     - a\n     - a.a\n     - a.b\n\n   * - 0\n     - \"foo\"\n     - ``NULL``\n     - ``NULL``\n\n   * - 1\n     - ``NULL``\n     - \"bar\"\n     - \"baz\"\n\nWhen a conflict occurs involving a document, the |bi-short| inserts a\nrow into the ``information_schema.COLUMNS`` table and lists the\ndifferent sampled types in the ``COLUMN_COMMENT`` column.\n\nArray Conflicts\n~~~~~~~~~~~~~~~\n\nWhen a conflict occurs involving an array, the |bi-short| creates a new\ntable for the conflict field with a column for the foreign key, array\nindex, and value. The |bi-short| unwinds the array into multiple rows in\nnew table and fills in the columns accordingly. For example, the\n``conflict`` collection contains the following documents:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/schema/type-conflicts.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   { _id: 0, a: \"foo\" } // \"a\" is scalar (string)\n   { _id: 1, a: [\"bar\", \"baz\"] } // \"a\" is composite (array)\n\nThe |bi-short| renders the above into the following two tables:\n\n**Table:** ``conflict``\n\n.. list-table::\n   :widths: 100\n   :header-rows: 1\n\n   * - _id\n\n   * - 0\n\n   * - 1\n\n**Table:** ``conflict_a``\n\n.. list-table::\n   :widths: 33 34 33 \n   :header-rows: 1\n\n   * - _id\n     - a_idx\n     - a\n\n   * - 0\n     - ``NULL``\n     - \"foo\"\n\n   * - 1\n     - 0\n     - \"bar\"\n\n   * - 1\n     - 1\n     - \"baz\"\n\nWhen a conflict occurs involving an array, the |bi-short|:\n\n- Inserts a row into the ``information_schema.COLUMNS`` table and lists\n  any different types sampled in the ``COLUMN_COMMENT`` column\n\n- Inserts a row into the ``information_schema.TABLES`` table containing\n  information on how the array maps to the row in the\n  ``information_schema.COLUMNS`` table\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-bi-connector/source/schema/type-conflicts.txt"
+  }
+]

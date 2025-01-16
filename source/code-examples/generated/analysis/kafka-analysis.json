@@ -1,0 +1,19 @@
+{
+  "total": 127,
+  "languages": {
+    "properties": 9,
+    "text": 11,
+    "java": 13,
+    "json": 47,
+    "none": 11,
+    "shell": 1,
+    "": 6,
+    "ini": 2,
+    "bash": 20,
+    "python": 4,
+    "javascript": 3
+  },
+  "repos": {
+    "Kafka": 127
+  }
+}

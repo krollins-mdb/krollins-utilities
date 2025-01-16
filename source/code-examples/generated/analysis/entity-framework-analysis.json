@@ -1,0 +1,10 @@
+{
+  "total": 34,
+  "languages": {
+    "csharp": 33,
+    "bash": 1
+  },
+  "repos": {
+    "Entity Framework": 34
+  }
+}

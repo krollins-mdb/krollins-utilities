@@ -1,0 +1,1136 @@
+[
+  {
+    "code": "            :caption: crud_read.py\n            :language: python\n            :dedent: 0\n\n     - id: go\n       content: |\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db.rst"
+  },
+  {
+    "code": "            :caption: crudRead.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :language: javascript\n            :dedent: 0\n\n\n     - id: csharp\n       content: |\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.cs\n            :language: csharp\n            :dedent: 0\n\n..     - id: motor\n         content: |\n\n           To access the ``test`` database:\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db.rst"
+  },
+  {
+    "code": "            :caption: CrudDelete.cs\n            :language: csharp\n            :dedent: 0\n\n     - id: go\n       content: |\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_delete.rst"
+  },
+  {
+    "code": "            :caption: crud-delete.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_delete.rst"
+  },
+  {
+    "code": "            :caption: CrudDelete.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_delete.rst"
+  },
+  {
+    "code": "            :caption: crud-delete.js\n            :language: javascript\n            :dedent: 0\n\n     - id: python\n       content: |\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_delete.rst"
+  },
+  {
+    "code": "            :caption: crud_delete.py\n            :language: python\n            :dedent: 0\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_delete.rst"
+  },
+  {
+    "code": "            :caption: CrudInsert.cs\n            :language: csharp\n            :dedent: 0\n\n     - id: go\n       content: |\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_insert.rst"
+  },
+  {
+    "code": "            :caption: crud-insert.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_insert.rst"
+  },
+  {
+    "code": "            :caption: CrudInsert.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_insert.rst"
+  },
+  {
+    "code": "            :caption: crud-insert.js\n            :language: javascript\n            :dedent: 0\n\n     - id: python\n       content: |\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_insert.rst"
+  },
+  {
+    "code": "            :caption: crud_insert.py\n            :language: python\n            :dedent: 0\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_insert.rst"
+  },
+  {
+    "code": "            :caption: CrudUpdate.cs\n            :language: csharp\n            :dedent: 0\n\n     - id: go\n       content: |\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_update.rst"
+  },
+  {
+    "code": "            :caption: crud-update.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_update.rst"
+  },
+  {
+    "code": "            :caption: CrudUpdate.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_update.rst"
+  },
+  {
+    "code": "            :caption: crud-update.js\n            :language: javascript\n            :dedent: 0\n\n     - id: python\n       content: |\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_update.rst"
+  },
+  {
+    "code": "            :caption: crud_update.py\n            :language: python\n            :dedent: 0\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/bind_db_update.rst"
+  },
+  {
+    "code": "            :caption: crud_read.py\n            :copyable: true\n\n            .. input::\n               :language: python\n               :linenos:\n\n               cursor = coll.find(\n                   {\"$and\": [{\"orderFromSun\": {\"$gt\": 2}}, {\"orderFromSun\": {\"$lt\": 5}}]}\n               )\n\n            .. output:: /includes/crud/implicit_and_out.rst\n               :language: json\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud/drivers_implicit_and.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :copyable: true\n\n            .. input::\n               :language: javascript\n               :linenos:\n\n               const cursor = coll.find({\n                 $and: [{ orderFromSun: { $gt: 2 } }, { orderFromSun: { $lt: 5 } }],\n               });\n\n            .. output:: /includes/crud/implicit_and_out.rst\n               :language: json\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud/drivers_implicit_and.rst"
+  },
+  {
+    "code": "            :caption: CrudDelete.cs\n            :copyable: true\n\n            .. input:: /includes/code/dotnet/CrudDeleteFinalQuery.cs\n               :language: csharp\n               :linenos:\n\n            .. output:: \n               :language: json\n\n               Number of documents deleted: 2\n\n     - id: go\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_delete_query.rst"
+  },
+  {
+    "code": "            :caption: crud-delete.go\n            :copyable: true\n\n            .. input:: /includes/code/go/crud-delete-final-query.go\n               :language: go\n               :linenos:\n\n            .. output::\n               :language: json\n\n               Number of documents deleted: 2\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_delete_query.rst"
+  },
+  {
+    "code": "            :caption: CrudDelete.java\n            :copyable: true\n\n            .. input:: /includes/code/java/CrudDeleteFinalQuery.java\n               :language: java\n               :linenos:\n\n            .. output::\n               :language: json\n\n               Number of documents deleted: 2\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_delete_query.rst"
+  },
+  {
+    "code": "            :caption: crud-delete.js\n            :copyable: true\n\n            .. input:: /includes/code/node/crud-delete-final-query.js\n               :language: javascript\n               :linenos:\n\n            .. output::\n               :language: json\n\n               Number of documents deleted: 2\n\n     - id: python\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_delete_query.rst"
+  },
+  {
+    "code": "            :caption: crud_delete.py\n            :copyable: true\n\n            .. input:: /includes/code/python/crud_delete_final_query.py\n               :language: python\n               :linenos:\n\n            .. output::\n               :language: json\n\n               Number of documents deleted: 2\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_delete_query.rst"
+  },
+  {
+    "code": "            :caption: crud_read.py\n            :copyable: true\n\n            .. input:: /includes/code/python/crud_read_final_query.py\n               :language: python\n               :linenos:\n\n            .. output::\n               :language: json\n\n               {... 'name': 'Uranus', 'hasRings': True, ...}\n               {... 'name': 'Neptune', 'hasRings': True, ... }\n               {... 'name': 'Jupiter', 'hasRings': True, ... }\n               {... 'name': 'Saturn', 'hasRings': True, ... }\n\n     - id: go\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_less_than_all_results.rst"
+  },
+  {
+    "code": "            :caption: crudRead.go\n            :copyable: true\n\n            .. input:: /includes/code/go/crud-read-final-query.go\n               :language: go\n               :linenos:\n\n            .. output::\n               :language: json\n\n                map[... hasRings:true name:Uranus ... ]]\n                map[... hasRings:true name:Neptune ... ]]\n                map[... hasRings:true name:Jupiter ... ]]\n                map[... hasRings:true name:Saturn ... ]]\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_less_than_all_results.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.java\n            :copyable: true\n\n            .. input:: /includes/code/java/CrudReadFinalQuery.java\n               :language: java\n               :linenos:\n\n            .. output::\n               :language: json\n\n               {... 'name': 'Uranus', 'hasRings': True, ...}\n               {... 'name': 'Neptune', 'hasRings': True, ... }\n               {... 'name': 'Jupiter', 'hasRings': True, ... }\n               {... 'name': 'Saturn', 'hasRings': True, ... }\n\n\n\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_less_than_all_results.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :copyable: true\n\n            .. input:: /includes/code/node/crud-read-final-query.js\n               :language: javascript\n               :linenos:\n\n            .. output::\n               :language: json\n\n               {... 'name': 'Uranus', 'hasRings': True, ...}\n               {... 'name': 'Neptune', 'hasRings': True, ... }\n               {... 'name': 'Jupiter', 'hasRings': True, ... }\n               {... 'name': 'Saturn', 'hasRings': True, ... }\n\n\n     - id: csharp\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_less_than_all_results.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.cs\n            :copyable: true\n\n            .. input:: /includes/code/dotnet/CrudReadFinalQuery.cs\n               :language: csharp\n               :linenos:\n\n            .. output::\n               :language: json\n\n               {... 'name': 'Uranus', 'hasRings': True, ...}\n               {... 'name': 'Neptune', 'hasRings': True, ... }\n               {... 'name': 'Jupiter', 'hasRings': True, ... }\n               {... 'name': 'Saturn', 'hasRings': True, ... }\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_less_than_all_results.rst"
+  },
+  {
+    "code": "            :caption: crud_read.py\n            :copyable: true\n\n            .. input:: /includes/code/python/crud_read_find_multiple_operators_and.py\n               :language: python\n               :linenos:\n\n            .. output:: /includes/crud/multiple-operators-and-out.rst\n               :language: json\n\n         .. include:: /includes/crud/implicit_and_note.rst\n\n     - id: go\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_operators_and.rst"
+  },
+  {
+    "code": "            :caption: crudRead.go\n            :copyable: true\n\n            .. input:: /includes/code/go/crud-read-find-multiple-operators-and.go\n               :language: go\n               :linenos:\n\n            .. output::\n               :language: json\n\n               map[name:Earth orderFromSun:3 ...]\n\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_operators_and.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.java\n            :copyable: true\n\n            .. input:: /includes/code/java/CrudReadFindMultipleOperatorsAnd.java\n               :language: java\n               :linenos:\n\n            .. output:: /includes/crud/multiple-operators-and-out.rst\n               :language: json\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_operators_and.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :copyable: true\n\n            .. input:: /includes/code/node/crud-read-find-multiple-operators-and.js\n               :language: javascript\n               :linenos:\n\n            .. output:: /includes/crud/multiple-operators-and-out.rst\n               :language: json\n\n         .. include:: /includes/crud/implicit_and_note.rst\n\n     - id: csharp\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_operators_and.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.cs\n            :copyable: true\n\n            .. input:: /includes/code/dotnet/CrudReadFindMultipleOperatorsAnd.cs\n               :language: csharp\n               :linenos:\n\n            .. output:: /includes/crud/multiple-operators-and-out.rst\n               :language: json\n\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_operators_and.rst"
+  },
+  {
+    "code": "            :caption: crud_read.py\n            :copyable: true\n\n            .. input:: /includes/code/python/crud_read_find_multiple_operators_or.py\n               :language: python\n               :linenos:\n\n            .. output:: /includes/crud/multiple-operators-or-out.rst\n               :language: json\n\n     - id: go\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_operators_or.rst"
+  },
+  {
+    "code": "            :caption: crudRead.go\n            :copyable: true\n\n            .. input:: /includes/code/go/crud-read-find-multiple-operators-or.go\n               :language: go\n               :linenos:\n\n            .. output::\n               :language: json\n\n                map[name:Mercury orderFromSun:1 ...]\n                map[name:Neptune orderFromSun:8 ...]\n\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_operators_or.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.java\n            :copyable: true\n\n            .. input:: /includes/code/java/CrudReadFindMultipleOperatorsOr.java\n               :language: java\n               :linenos:\n\n            .. output:: /includes/crud/multiple-operators-or-out.rst\n               :language: json\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_operators_or.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :copyable: true\n\n            .. input:: /includes/code/node/crud-read-find-multiple-operators-or.js\n               :language: javascript\n               :linenos:\n\n            .. output:: /includes/crud/multiple-operators-or-out.rst\n               :language: json\n\n     - id: csharp\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_operators_or.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.cs\n            :copyable: true\n\n            .. input:: /includes/code/dotnet/CrudReadFindMultipleOperatorsOr.cs\n               :language: csharp\n               :linenos:\n\n            .. output:: /includes/crud/multiple-operators-or-out.rst\n               :language: json\n\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_operators_or.rst"
+  },
+  {
+    "code": "            :caption: crud_read.py\n            :copyable: true\n\n            .. input:: /includes/code/python/crud_read_find_multiple_query.py\n               :language: python\n               :linenos:\n\n            .. output:: /includes/crud/multi-query-out.rst\n               :language: json\n\n     - id: go\n       content: |\n\n         Here is the complete code followed by sample output. The output\n         documents have been truncated here for display purposes.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_query.rst"
+  },
+  {
+    "code": "            :caption: crudRead.go\n            :copyable: true\n\n            .. input:: /includes/code/go/crud-read-find-multiple-query.go\n               :language: go\n               :linenos:\n\n            .. output::\n               :language: json\n\n               map[... hasRings:false mainAtmosphere:[CO2 Ar N] ... ]]\n               map[... hasRings:false mainAtmosphere:[N O2 Ar] ... ]]\n\n     - id: java-sync\n       content: |\n         Here is the complete code followed by sample output.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_query.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.java\n            :copyable: true\n\n            .. input:: /includes/code/java/CrudReadFindMultipleQuery.java\n               :language: java\n               :linenos:\n\n            .. output:: /includes/crud/multi-query-out.rst\n               :language: json\n\n     - id: nodejs\n       content: |\n\n         Here is the complete code followed by sample output.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_query.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :copyable: true\n\n            .. input:: /includes/code/node/crud-read-find-multiple-query.js\n               :language: javascript\n               :linenos:\n\n            .. output:: /includes/crud/multi-query-out.rst\n               :language: json\n\n     - id: csharp\n       content: |\n         Here is the complete code followed by sample output.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_query.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.cs\n            :copyable: true\n\n            .. input:: /includes/code/dotnet/CrudReadFindMultipleQuery.cs\n               :language: csharp\n               :linenos:\n\n            .. output:: /includes/crud/multi-query-out.rst\n               :language: json\n\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_find_multiple_query.rst"
+  },
+  {
+    "code": "            :caption: CrudInsert.cs\n            :copyable: true\n\n            .. input:: /includes/code/dotnet/CrudInsertFinalQuery.cs\n               :language: csharp\n               :linenos:\n\n            .. output:: \n               :language: json\n\n               625604fbd301606fd9998b14\n               625604fbd301606fd9998b15\n               625604fbd301606fd9998b16\n\n     - id: go\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_insert_query.rst"
+  },
+  {
+    "code": "            :caption: crud-insert.go\n            :copyable: true\n\n            .. input:: /includes/code/go/crud-insert-final-query.go\n               :language: go\n               :linenos:\n\n            .. output::\n               :language: json\n\n               ObjectID(\"624cf31b350635c487d55215\")\n               ObjectID(\"624cf31b350635c487d55216\")\n               ObjectID(\"624cf31b350635c487d55217\")\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_insert_query.rst"
+  },
+  {
+    "code": "            :caption: CrudInsert.java\n            :copyable: true\n\n            .. input:: /includes/code/java/CrudInsertFinalQuery.java\n               :language: java\n               :linenos:\n\n            .. output::\n               :language: json\n\n               625716fc5749232edfb4b2d7\n               625716fc5749232edfb4b2d8\n               625716fc5749232edfb4b2d9\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_insert_query.rst"
+  },
+  {
+    "code": "            :caption: crud-insert.js\n            :copyable: true\n\n            .. input:: /includes/code/node/crud-insert-final-query.js\n               :language: javascript\n               :linenos:\n\n            .. output::\n               :language: json\n\n               {\n                  '0': 624d06994e68f44afe8c0da6,\n                  '1': 624d06994e68f44afe8c0da7,\n                  '2': 624d06994e68f44afe8c0da8\n               }\n\n     - id: python\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_insert_query.rst"
+  },
+  {
+    "code": "            :caption: crud_insert.py\n            :copyable: true\n\n            .. input:: /includes/code/python/crud_insert_final_query.py\n               :language: python\n               :linenos:\n\n            .. output::\n               :language: json\n\n               [ObjectId('624d078756f4582197aad408'), ObjectId('624d078756f4582197aad409'), ObjectId('624d078756f4582197aad40a')]\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_insert_query.rst"
+  },
+  {
+    "code": "            :caption: crud_read.py\n            :copyable: true\n\n            .. input:: /includes/code/python/crud_read_final_noquery.py\n               :language: python\n               :linenos:\n\n            .. output::\n               :language: json\n\n               {\n                 '_id': ObjectId('621ff30d2a3e781873fcb65c'),\n                 'name': 'Mercury',\n                 'orderFromSun': 1,\n                 'hasRings': False,\n                 'mainAtmosphere': [],\n                 'surfaceTemperatureC': {'min': -173, 'max': 427, 'mean': 67}\n               },\n               ...\n\n     - id: go\n       content: |\n\n         Here is the complete code followed by sample output.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_find_final_noquery.rst"
+  },
+  {
+    "code": "            :caption: crudRead.go\n            :copyable: true\n\n            .. input:: /includes/code/go/crud-read-final-noquery.go\n               :language: go\n               :linenos:\n\n            .. output::\n               :language: json\n\n               map[_id:ObjectID(\"621ff30d2a3e781873fcb65c\") hasRings:false mainAtmosphere:[] name:Mercury orderFromSun:1 surfaceTemperatureC:map[max:427 mean:67 min:-173]]\n               ...\n\n     - id: java-sync\n       content: |\n         Here is the complete code followed by sample output.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_find_final_noquery.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.java\n            :copyable: true\n\n            .. input:: /includes/code/java/CrudReadFinalNoquery.java\n               :language: java\n               :linenos:\n\n            .. output::\n               :language: json\n\n               {\"_id\": {\"$oid\": \"621ff30d2a3e781873fcb65c\"}, \"name\": \"Mercury\", \"orderFromSun\": 1, \"hasRings\": false, \"mainAtmosphere\": [], \"surfaceTemperatureC\": {\"min\": -173, \"max\": 427, \"mean\": 67}}\n               ...\n\n     - id: nodejs\n       content: |\n\n         Here is the complete code followed by sample output.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_find_final_noquery.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :copyable: true\n\n            .. input:: /includes/code/node/crud-read-final-noquery.js\n               :language: javascript\n               :linenos:\n\n            .. output::\n               :language: json\n\n               {\n                 '_id': ObjectId('621ff30d2a3e781873fcb65c'),\n                 'name': 'Mercury',\n                 'orderFromSun': 1,\n                 'hasRings': False,\n                 'mainAtmosphere': [],\n                 'surfaceTemperatureC': {'min': -173, 'max': 427, 'mean': 67}\n               },\n               ...\n\n     - id: csharp\n       content: |\n         Here is the complete code followed by sample output.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_find_final_noquery.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.cs\n            :copyable: true\n\n            .. input:: /includes/code/dotnet/CrudReadFinalNoquery.cs\n               :language: csharp\n               :linenos:\n\n            .. output::\n               :language: json\n\n               {\n                 '_id': ObjectId('621ff30d2a3e781873fcb65c'),\n                 'name': 'Mercury',\n                 'orderFromSun': 1,\n                 'hasRings': False,\n                 'mainAtmosphere': [],\n                 'surfaceTemperatureC': {'min': -173, 'max': 427, 'mean': 67}\n               },\n               ...\n\n..     \n     - id: motor\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_find_final_noquery.rst"
+  },
+  {
+    "code": "            :caption: crud_read.py\n            :copyable: true\n\n            .. input:: /includes/code/python/crud_read_final_query.py\n               :language: python\n               :linenos:\n\n            .. output::\n               :language: json\n\n               {... 'name': 'Uranus', 'hasRings': True, ...}\n               {... 'name': 'Neptune', 'hasRings': True, ... }\n               {... 'name': 'Jupiter', 'hasRings': True, ... }\n               {... 'name': 'Saturn', 'hasRings': True, ... }\n\n     - id: go\n       content: |\n\n         Here is the complete code followed by sample output. The output\n         documents have been truncated here for display purposes.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_find_final_query.rst"
+  },
+  {
+    "code": "            :caption: crudRead.go\n            :copyable: true\n\n            .. input:: /includes/code/go/crud-read-final-query.go\n               :language: go\n               :linenos:\n\n            .. output::\n               :language: json\n\n                map[... hasRings:true name:Uranus ... ]]\n                map[... hasRings:true name:Neptune ... ]]\n                map[... hasRings:true name:Jupiter ... ]]\n                map[... hasRings:true name:Saturn ... ]]\n\n     - id: java-sync\n       content: |\n         Here is the complete code followed by sample output.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_find_final_query.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.java\n            :copyable: true\n\n            .. input:: /includes/code/java/CrudReadFinalQuery.java\n               :language: java\n               :linenos:\n\n            .. output::\n               :language: json\n\n               {... 'name': 'Uranus', 'hasRings': True, ...}\n               {... 'name': 'Neptune', 'hasRings': True, ... }\n               {... 'name': 'Jupiter', 'hasRings': True, ... }\n               {... 'name': 'Saturn', 'hasRings': True, ... }\n\n\n\n\n     - id: nodejs\n       content: |\n\n         Here is the complete code followed by sample output.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_find_final_query.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :copyable: true\n\n            .. input:: /includes/code/node/crud-read-final-query.js\n               :language: javascript\n               :linenos:\n\n            .. output::\n               :language: json\n\n               {... 'name': 'Uranus', 'hasRings': True, ...}\n               {... 'name': 'Neptune', 'hasRings': True, ... }\n               {... 'name': 'Jupiter', 'hasRings': True, ... }\n               {... 'name': 'Saturn', 'hasRings': True, ... }\n\n\n     - id: csharp\n       content: |\n         Here is the complete code followed by sample output.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_find_final_query.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.cs\n            :copyable: true\n\n            .. input:: /includes/code/dotnet/CrudReadFinalQuery.cs\n               :language: csharp\n               :linenos:\n\n            .. output::\n               :language: json\n\n               {... 'name': 'Uranus', 'hasRings': True, ...}\n               {... 'name': 'Neptune', 'hasRings': True, ... }\n               {... 'name': 'Jupiter', 'hasRings': True, ... }\n               {... 'name': 'Saturn', 'hasRings': True, ... }\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_find_final_query.rst"
+  },
+  {
+    "code": "            :caption: crud_read.py\n            :copyable: true\n\n            .. input:: /includes/code/python/crud_read_final_less_than.py\n               :language: python\n               :linenos:\n\n            .. output:: /includes/crud/less-than-query-out.rst\n               :language: json\n     - id: go\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_operator_final_less_than.rst"
+  },
+  {
+    "code": "            :caption: crudRead.go\n            :copyable: true\n\n            .. input:: /includes/code/go/crud-read-final-less-than.go\n               :language: go\n               :linenos:\n\n            .. output::\n               :language: json\n\n                map[ name:Uranus surfaceTemperatureC:map[max:<nil> mean:-197.2 min:<nil>] ...]\n                map[ name:Mars surfaceTemperatureC:map[max:35 mean:-63 min:-143] ... ]\n                map[ name:Neptune surfaceTemperatureC:map[max:<nil> mean:-201 min:<nil>] ... ]\n                map[ name:Jupiter surfaceTemperatureC:map[max:<nil> mean:-145.15 min:<nil>] ... ]\n                map[ name:Earth surfaceTemperatureC:map[max:56.7 mean:14 min:-89.2]]\n                map[ name:Saturn surfaceTemperatureC:map[max:<nil> mean:-139.15 min:<nil>] ... ]\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_operator_final_less_than.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.java\n            :copyable: true\n\n            .. input:: /includes/code/java/CrudReadFinalLessThan.java\n               :language: java\n               :linenos:\n\n            .. output:: /includes/crud/less-than-query-out.rst\n               :language: json\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_operator_final_less_than.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :copyable: true\n\n            .. input:: /includes/code/node/crud-read-final-less-than.js\n               :language: javascript\n               :linenos:\n\n            .. output:: /includes/crud/less-than-query-out.rst\n               :language: json\n\n     - id: csharp\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_operator_final_less_than.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.cs\n            :copyable: true\n\n            .. input:: /includes/code/dotnet/CrudReadFinalLessThan.cs\n               :language: csharp\n               :linenos:\n\n            .. output:: /includes/crud/less-than-query-out.rst\n               :language: json\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_read_operator_final_less_than.rst"
+  },
+  {
+    "code": "            :caption: CrudUpdate.cs\n            :copyable: true\n\n            .. input:: /includes/code/dotnet/CrudUpdateFinalQuery.cs\n               :language: csharp\n               :linenos:\n\n            .. output::\n               :language: json\n\n               Number of documents updated: 3\n\n     - id: go\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_update_query.rst"
+  },
+  {
+    "code": "            :caption: crud-update.go\n            :copyable: true\n\n            .. input:: /includes/code/go/crud-update-final-query.go\n               :language: go\n               :linenos:\n\n            .. output::\n               :language: json\n\n               Number of documents updated: 3\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_update_query.rst"
+  },
+  {
+    "code": "            :caption: CrudUpdate.java\n            :copyable: true\n\n            .. input:: /includes/code/java/CrudUpdateFinalQuery.java\n               :language: java\n               :linenos:\n\n            .. output::\n               :language: json\n\n               Number of documents updated: 3\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_update_query.rst"
+  },
+  {
+    "code": "            :caption: crud-update.js\n            :copyable: true\n\n            .. input:: /includes/code/node/crud-update-final-query.js\n               :language: javascript\n               :linenos:\n\n            .. output::\n               :language: json\n\n               Number of documents updated: 3\n\n     - id: python\n       content: |\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_update_query.rst"
+  },
+  {
+    "code": "            :caption: crud_update.py\n            :copyable: true\n\n            .. input:: /includes/code/python/crud_update_final_query.py\n               :language: python\n               :linenos:\n\n            .. output::\n               :language: json\n\n               Number of documents updated: 3\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/crud_update_query.rst"
+  },
+  {
+    "code": "            :caption: CrudDelete.cs\n            :language: csharp\n            :dedent: 0\n\n     - id: go\n       content: |\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/delete_display.rst"
+  },
+  {
+    "code": "            :caption: crud-delete.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/delete_display.rst"
+  },
+  {
+    "code": "            :caption: CrudDelete.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/delete_display.rst"
+  },
+  {
+    "code": "            :caption: crud-delete.js\n            :language: javascript\n            :dedent: 0\n\n     - id: python\n       content: |\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/delete_display.rst"
+  },
+  {
+    "code": "            :caption: crud_delete.py\n            :language: python\n            :dedent: 0\n    \n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/delete_display.rst"
+  },
+  {
+    "code": "            :caption: CrudDelete.cs\n            :language: csharp\n            :dedent: 0\n\n     - id: go\n       content: |\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/delete_documents.rst"
+  },
+  {
+    "code": "            :caption: crud-delete.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n\n         The MongoDB Java Driver includes\n         `Builders <https://www.mongodb.com/docs/drivers/java/sync/current/fundamentals/builders/>`__\n         that simplify the process of creating queries (and other operations).\n         Here, you use the ``Filters.and``, ``Filters.lt``, and\n         ``Filters.gt`` builders to construct the query document.\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/delete_documents.rst"
+  },
+  {
+    "code": "            :caption: CrudDelete.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/delete_documents.rst"
+  },
+  {
+    "code": "            :caption: crud-delete.js\n            :language: javascript\n            :dedent: 0\n\n     - id: python\n       content: |\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/delete_documents.rst"
+  },
+  {
+    "code": "            :caption: crud_delete.py\n            :language: python\n            :dedent: 0\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/delete_documents.rst"
+  },
+  {
+    "code": "     #\n     #      $db = $manager->test;\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_api_uri.rst"
+  },
+  {
+    "code": "            :caption: crud_read.py\n            :language: python\n            :linenos:\n            :dedent: 0\n\n         .. tip:: ``mongodb+srv``\n\n           Make sure you've installed PyMongo with the ``srv`` option.\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_connect.rst"
+  },
+  {
+    "code": "            :caption: crudRead.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to read data.\n\n            At line 8, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_connect.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to read data.\n\n            At line 4, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_connect.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :language: javascript\n            :linenos:\n            :dedent: 0\n\n     - id: csharp\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to read data.\n\n            At line 5, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_connect.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.cs\n            :language: csharp\n            :linenos:\n            :dedent: 0\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_connect.rst"
+  },
+  {
+    "code": "            :caption: crud_read.py\n            :language: python\n            :linenos:\n            :dedent: 0\n\n         .. tip:: ``mongodb+srv``\n\n           Make sure you've installed PyMongo with the ``srv`` option.\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_connect_2.rst"
+  },
+  {
+    "code": "            :caption: crudRead.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to read data.\n\n            At line 8, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n            \n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_connect_2.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to read data.\n\n            At line 4, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n            \n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_connect_2.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :language: javascript\n            :linenos:\n            :dedent: 0\n\n     - id: csharp\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to read data.\n\n            At line 5, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n            \n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_connect_2.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.cs\n            :language: csharp\n            :linenos:\n            :dedent: 0\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_connect_2.rst"
+  },
+  {
+    "code": "                 :caption: CrudDelete.cs\n                 :language: csharp\n                 :linenos:\n                 :dedent: 0\n              \n           .. step:: Automap your class to the documents fields.\n\n              In C#, you map fields to class properties, which are\n              uppercase by convention. However, you should delete the\n              data with camel case fields. To make the driver\n              automatically convert the fields from uppercase to camel\n              case, create a ``ConventionPack`` and register the naming\n              convention for ``CamelCase``.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_delete_connect.rst"
+  },
+  {
+    "code": "                 :caption: CrudDelete.cs\n                 :language: csharp\n                 :linenos:\n                 :dedent: 0\n\n           .. step:: Verify your connection code.\n\n              .. tip::\n\n                 The following is an outline with the minimum code necessary to connect to MongoDB.\n                 You'll make additions over the next few steps to delete data.\n                 \n                 At line 6, replace the URI string with your own\n                 :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_delete_connect.rst"
+  },
+  {
+    "code": "                 :caption: CrudDelete.cs\n                 :language: csharp\n                 :linenos:\n                 :dedent: 0\n    \n     - id: go\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to delete data.\n                 \n            At line 15, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_delete_connect.rst"
+  },
+  {
+    "code": "            :caption: crud-delete.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to delete data.\n                 \n            At line 13, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_delete_connect.rst"
+  },
+  {
+    "code": "            :caption: CrudDelete.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to delete data.\n                 \n            At line 5, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_delete_connect.rst"
+  },
+  {
+    "code": "            :caption: crud-delete.js\n            :language: javascript\n            :linenos:\n            :dedent: 0\n\n     - id: python\n       content: |\n         \n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to delete data.\n                 \n            At line 4, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_delete_connect.rst"
+  },
+  {
+    "code": "            :caption: crud_delete.py\n            :language: python\n            :linenos:\n            :dedent: 0\n\n         .. tip:: ``mongodb+srv``\n\n            Make sure you've installed PyMongo with the ``srv`` option.\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_delete_connect.rst"
+  },
+  {
+    "code": "                 :caption: CrudInsert.cs\n                 :language: csharp\n                 :linenos:\n                 :dedent: 0\n              \n           .. step:: Automap your class to the documents fields.\n\n              In C#, you map fields to class properties, which are\n              uppercase by convention. However, you should insert the\n              data with camel case fields. To make the driver\n              automatically convert the fields from uppercase to camel\n              case, create a ``ConventionPack`` and register the naming\n              convention for ``CamelCase``.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_insert_connect.rst"
+  },
+  {
+    "code": "                 :caption: CrudInsert.cs\n                 :language: csharp\n                 :linenos:\n                 :dedent: 0\n\n           .. step:: Verify your connection code.\n\n              .. tip::\n\n                 The following is an outline with the minimum code necessary to connect to MongoDB.\n                 You'll make additions over the next few steps to insert data.\n                 \n                 At line 6, replace the URI string with your own\n                 :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_insert_connect.rst"
+  },
+  {
+    "code": "                 :caption: CrudInsert.cs\n                 :language: csharp\n                 :linenos:\n                 :dedent: 0\n\n     - id: go\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to insert data.\n                 \n            At line 13, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_insert_connect.rst"
+  },
+  {
+    "code": "            :caption: crud-insert.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to insert data.\n                 \n            At line 15, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_insert_connect.rst"
+  },
+  {
+    "code": "            :caption: CrudInsert.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to insert data.\n                 \n            At line 4, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_insert_connect.rst"
+  },
+  {
+    "code": "            :caption: crud-insert.js\n            :language: javascript\n            :linenos:\n            :dedent: 0\n\n     - id: python\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to insert data.\n                 \n            At line 4, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_insert_connect.rst"
+  },
+  {
+    "code": "            :caption: crud_insert.py\n            :language: python\n            :linenos:\n            :dedent: 0\n\n         .. tip:: ``mongodb+srv``\n\n            Make sure you've installed PyMongo with the ``srv`` option.\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_insert_connect.rst"
+  },
+  {
+    "code": "                 :caption: CrudUpdate.cs\n                 :language: csharp\n                 :linenos:\n                 :dedent: 0\n              \n           .. step:: Automap your class to the documents fields.\n\n              In C#, you map fields to class properties, which are\n              uppercase by convention. However, you should insert the\n              data with camel case fields. To make the driver\n              automatically convert the fields from uppercase to camel\n              case, create a ``ConventionPack`` and register the naming\n              convention for ``CamelCase``.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_update_connect.rst"
+  },
+  {
+    "code": "                 :caption: CrudUpdate.cs\n                 :language: csharp\n                 :linenos:\n                 :dedent: 0\n\n           .. step:: Verify your connection code.\n\n              .. tip::\n\n                 The following is an outline with the minimum code necessary to connect to MongoDB.\n                 You'll make additions over the next few steps to insert data.\n                 \n                 At line 5, replace the URI string with your own\n                 :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_update_connect.rst"
+  },
+  {
+    "code": "                 :caption: CrudUpdate.cs\n                 :language: csharp\n                 :linenos:\n                 :dedent: 0\n\n     - id: go\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to insert data.\n\n            At line 13, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_update_connect.rst"
+  },
+  {
+    "code": "            :caption: crud-update.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to insert data.\n\n            At line 14, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_update_connect.rst"
+  },
+  {
+    "code": "            :caption: CrudUpdate.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to insert data.\n\n            At line 4, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_update_connect.rst"
+  },
+  {
+    "code": "            :caption: crud-update.js\n            :language: javascript\n            :linenos:\n            :dedent: 0\n\n     - id: python\n       content: |\n\n         .. tip::\n\n            The following is an outline with the minimum code necessary to connect to MongoDB.\n            You'll make additions over the next few steps to insert data.\n\n            At line 4, replace the URI string with your own\n            :ref:`Atlas connection string <guides-get-connection-string>`.\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_update_connect.rst"
+  },
+  {
+    "code": "            :caption: crud_update.py\n            :language: python\n            :linenos:\n            :dedent: 0\n\n         .. tip:: ``mongodb+srv``\n\n            Make sure you've installed PyMongo with the ``srv`` option.\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/drivers_update_connect.rst"
+  },
+  {
+    "code": "            :caption: crudRead.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: python\n       content: |\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find-less-than.rst"
+  },
+  {
+    "code": "            :caption: crud_read.py\n            :language: python\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n\n         The MongoDB Java Driver includes\n         `Builders <https://www.mongodb.com/docs/drivers/java/sync/current/fundamentals/builders/>`__\n         that simplify the process of creating queries (and other operations).\n         Here, you use the ``Filters.lt`` builder to construct the query document.\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find-less-than.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find-less-than.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :language: javascript\n            :dedent: 0\n\n     - id: csharp\n       content: |\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find-less-than.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.cs\n            :language: csharp\n            :dedent: 0\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find-less-than.rst"
+  },
+  {
+    "code": "            :caption: crudRead.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: python\n       content: |\n         Use the ``find()`` method to retrieve all documents. In another\n         guide, you'll learn how to use the same method to retrieve documents\n         that match specific criteria.\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find_all.rst"
+  },
+  {
+    "code": "            :caption: crud_read.py\n            :language: python\n            :dedent: 0\n\n\n     - id: java-sync\n       content: |\n\n         Use the ``find()`` method to retrieve all documents. In another\n         guide, you'll learn how to use the same method to retrieve documents\n         that match specific criteria.\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find_all.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n         Use the ``find()`` method to retrieve all documents. In another\n         guide, you'll learn how to use the same method to retrieve documents\n         that match specific criteria.\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find_all.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :language: javascript\n            :dedent: 0\n\n     - id: csharp\n       content: |\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find_all.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.cs\n            :language: csharp\n            :dedent: 0\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find_all.rst"
+  },
+  {
+    "code": "            :caption: crudRead.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: python\n       content: |\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find_with_query.rst"
+  },
+  {
+    "code": "            :caption: crud_read.py\n            :language: python\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n\n         The MongoDB Java Driver includes\n         `Builders <https://www.mongodb.com/docs/drivers/java/sync/current/fundamentals/builders/>`__\n         that simplify the process of creating queries (and other operations).\n         Here, you use the ``Filters.eq`` builder to construct the query document.\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find_with_query.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find_with_query.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :language: javascript\n            :dedent: 0\n\n     - id: csharp\n       content: |\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find_with_query.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.cs\n            :language: csharp\n            :dedent: 0\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/find_with_query.rst"
+  },
+  {
+    "code": "            :caption: crud-insert.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: python\n       content: |\n       \n         For insert operations, the result object will contain the\n         ``_id`` of documents the driver successfully inserted. Here,\n         you access this property and print them. \n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/insert_display.rst"
+  },
+  {
+    "code": "            :caption: crud_insert.py\n            :language: python\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n       \n         For insert operations, the result object will contain the\n         ``_id`` of documents the driver successfully inserted. Here,\n         you access this property and print them.  \n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/insert_display.rst"
+  },
+  {
+    "code": "            :caption: CrudInsert.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n       \n         For insert operations, the result object will contain the\n         ``_id`` of documents the driver successfully inserted. Here,\n         you access this property and print them. \n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/insert_display.rst"
+  },
+  {
+    "code": "            :caption: crud-insert.js\n            :language: javascript\n            :dedent: 0\n\n     - id: csharp\n       content: |\n       \n         For insert operations, the C# driver automatically creates the\n         ``_id`` of documents that are being inserted. Here, you\n         access this property from the original array and print them.\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/insert_display.rst"
+  },
+  {
+    "code": "            :caption: CrudInsert.cs\n            :language: csharp\n            :dedent: 0\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/insert_display.rst"
+  },
+  {
+    "code": "            :caption: crud-insert.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: python\n       content: |\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/insert_documents.rst"
+  },
+  {
+    "code": "            :caption: crud_insert.py\n            :language: python\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/insert_documents.rst"
+  },
+  {
+    "code": "            :caption: CrudInsert.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/insert_documents.rst"
+  },
+  {
+    "code": "            :caption: crud-insert.js\n            :language: javascript\n            :dedent: 0\n\n     - id: csharp\n       content: |\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/insert_documents.rst"
+  },
+  {
+    "code": "            :caption: CrudInsert.cs\n            :language: csharp\n            :dedent: 0\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/insert_documents.rst"
+  },
+  {
+    "code": "     #       \n     #       foreach ( $cursor as $id => $value )\n     #       {\n     #           var_dump( $value );\n     #       }\n\n     #- id: perl\n     #  content: |\n     #    \n     #    perl doesn't have native support for JSON, for this example,\n     #    you can download the ``JSON`` module from cpan by running\n\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/iterate_all.rst"
+  },
+  {
+    "code": "     #    \n     #       use JSON;\n\n     #       my $JSON = JSON->new->utf8;\n     #       $JSON->convert_blessed(1);\n     #       \n     #       while (my $doc = $cursor->next) {\n     #          my $object = $JSON->encode($doc);\n     #          print \"$object\\n\";\n     #       }\n\n     #- id: ruby\n     #  content: |\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/iterate_all.rst"
+  },
+  {
+    "code": "     #       \n     #       cursor.each do |doc|\n     #          puts doc\n     #       end\n\n     #- id: scala\n     #  content: |\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/iterate_all.rst"
+  },
+  {
+    "code": "     #       \n     #       collection.find().subscribe((doc: Document) => println(doc.toJson()))\n           \n\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/iterate_all.rst"
+  },
+  {
+    "code": "            :caption: crud_read.py\n            :language: python\n            :dedent: 0\n\n     - id: go\n       content: |\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/iterate_all_noshellcursor.rst"
+  },
+  {
+    "code": "            :caption: crudRead.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/iterate_all_noshellcursor.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n         Iterate the results and print them to the console. Operations like\n         this are **asychronous** in the MongoDB Node.js\n         driver by default, meaning the Node.js runtime doesn't block other\n         operations while waiting for them to finish execution.\n\n         In order to simplify the operation, you specify the ``await``\n         keyword, which **will** cause the runtime to wait for the operation.\n         This is often easier than specifying a callback, or chaining\n         a promise.\n\n         For more information, see the `Promise and Callbacks guide <https://www.mongodb.com/docs/drivers/node/current/fundamentals/promises/>`__.\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/iterate_all_noshellcursor.rst"
+  },
+  {
+    "code": "            :caption: crud-read.js\n            :language: javascript\n            :dedent: 0\n\n\n     - id: csharp\n       content: |\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/iterate_all_noshellcursor.rst"
+  },
+  {
+    "code": "            :caption: CrudRead.cs\n            :language: csharp\n            :dedent: 0\n\n.. \n     - id: motor\n       content: |\n\n         In the code snippet above you may have noticed the code that\n         iterates the results and prints them to the command line:\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/iterate_all_noshellcursor.rst"
+  },
+  {
+    "code": "            :caption: CrudUpdate.cs\n            :language: csharp\n            :dedent: 0\n\n     - id: go\n       content: |\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/update_display.rst"
+  },
+  {
+    "code": "            :caption: crud-update.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/update_display.rst"
+  },
+  {
+    "code": "            :caption: CrudUpdate.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/update_display.rst"
+  },
+  {
+    "code": "            :caption: crud-update.js\n            :language: javascript\n            :dedent: 0\n\n     - id: python\n       content: |\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/update_display.rst"
+  },
+  {
+    "code": "            :caption: crud_update.py\n            :language: python\n            :dedent: 0\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/update_display.rst"
+  },
+  {
+    "code": "            :caption: CrudUpdate.cs\n            :language: csharp\n            :dedent: 0\n\n     - id: go\n       content: |\n\n",
+    "language": "csharp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/update_documents.rst"
+  },
+  {
+    "code": "            :caption: crud-update.go\n            :language: go\n            :linenos:\n            :dedent: 0\n\n     - id: java-sync\n       content: |\n\n         The MongoDB Java Driver includes\n         `Builders <https://www.mongodb.com/docs/drivers/java/sync/current/fundamentals/builders/>`__\n         that simplify the process of creating queries (and other operations).\n         Here, you use the ``Filters.empty`` and ``Updates.mul``\n         builders to construct the query document.\n\n",
+    "language": "go",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/update_documents.rst"
+  },
+  {
+    "code": "            :caption: CrudUpdate.java\n            :language: java\n            :linenos:\n            :dedent: 0\n\n     - id: nodejs\n       content: |\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/update_documents.rst"
+  },
+  {
+    "code": "            :caption: crud-update.js\n            :language: javascript\n            :dedent: 0\n\n     - id: python\n       content: |\n\n",
+    "language": "javascript",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/update_documents.rst"
+  },
+  {
+    "code": "            :caption: crud_update.py\n            :language: python\n            :dedent: 0\n\n",
+    "language": "python",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/includes/update_documents.rst"
+  },
+  {
+    "code": "               :copyable: false\n\n               items: Array\n                  0: Object\n                  1: Object\n                  2: Object \n                     name: \"notepad\"\n                  ...\n               storeLocation: \"Denver\"\n               customer: Object\n               couponUsed: false\n               purchaseMethod: \"Online\"\n               _id: ObjectID('5bd761dcae323e45a93cd06e')\n               saleDate: 2013-11-22T18:49:45.212+00:00\n\n            .. note:: \n            \n               The fields don't always appear in the same order \n               for every returned document.\n\n            You can expand ``Array`` and ``Object`` fields to view their \n            contents by clicking on them.\n\nSummary\n-------\n\nIf you successfully completed the procedure in this guide, you have\ncreated an Atlas Search aggregation stage with a compound operator,\nand have seen how different clauses in the operator interact to \nfocus your search results across multiple axes. In the next guide, you\nwill learn how to group search results using facets.\n\n.. guide-next::\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/search/compound.txt"
+  },
+  {
+    "code": "               :copyable: false\n\n               SCORE: 0.20185701549053192\n               salesDate: 2013-03-07T09:27:58.283+00:00\n               items: Array\n               storeLocation: \"Austin\"\n\n               SCORE: 0.20185701549053192\n               salesDate: 2013-05-05T19:03:06.358+00:00\n               items: Array\n               storeLocation: \"London\"\n\n               SCORE: 0.20185701549053192\n               salesDate: 2016-06-20T14:09:52.408+00:00\n               items: Array\n               storeLocation: \"Denver\"\n\n            Each record also includes a :ref:`relevance score <scoring-ref>`.\n            You can expand ``Array`` and ``Object`` fields to view their \n            contents by clicking on them.\n\n         .. step:: Click :guilabel:`Edit Query Syntax`. The modal window\n            displays the query sent through the {+fts+} API.\n\nSummary\n-------\n\nIf you successfully completed the procedure in this guide, you have\ncreated an Atlas Search index with dynamic field mappings and used it\nto perform a relevance-based query against the \n``sample_supplies.sales`` collection. In the next guide, you will learn \nhow to perform a refined search by creating an index with static field \nmappings.\n\n.. guide-next::\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/search/dynamic.txt"
+  },
+  {
+    "code": "               :copyable: false\n\n               count: Object\n               lowerBound: 2819\n               facet: Object\n               locationFacet: Object\n                  buckets: Array\n                     0: Object\n                        id: \"Denver\"\n                        count: 864\n                     1: Object\n                        id: \"Seattle\"\n                        count: 648\n                     2: Object\n                     3: Object\n                     4: Object\n                     5: Object\n            \n            You can expand ``Array`` and ``Object`` fields to view their \n            contents by clicking on them.\n\nSummary\n-------\n\nIf you successfully completed the procedure in this guide, you have\ncreated an Atlas Search index with faceting and created an aggregation\npipeline that leverages faceting to organize matching records into\ncategories for improved visibility.\n\n.. guide-next::\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/search/facet.txt"
+  },
+  {
+    "code": "               :copyable: false\n\n               SCORE: 0.8888952136039734\n               salesDate: 2017-12-03T18:39:48.253+00:00\n               items: Array\n               storeLocation: \"London\"\n\n               SCORE: 0.8888952136039734\n               salesDate: 2015-05-15T13:43:24.561+00:00\n               items: Array\n               storeLocation: \"London\"\n\n               SCORE: 0.8888952136039734\n               salesDate: 2016-02-06T09:35:02.820+00:00\n               items: Array\n               storeLocation: \"London\"\n\n            Each record also includes a :ref:`relevance score <scoring-ref>`.\n            You can expand ``Array`` and ``Object`` fields to view their \n            contents by clicking on them.\n\n         .. step:: Click :guilabel:`Edit Query Syntax`. The modal window\n            displays the query sent through the {+fts+} API.\n\n         .. step:: Type ``online`` into the search bar, then click\n            :guilabel:`Search`.\n\n            Even though some records include the string ``online`` in the \n            ``purchaseMethod`` field, no records appear. The index only has \n            a mapping for the ``storeLocation`` field, which means that \n            Atlas Search only returns records with matching values in the \n            ``storeLocation`` field.\n\nSummary\n-------\n\nIf you successfully completed the procedure in this guide, you have\ncreated an Atlas Search index with a static field mapping and used \nit to perform a targeted relevance-based search. In the next guide,\nyou will learn how to perform compound searches against specific \nfields using the aggregation pipeline.\n\n.. guide-next::\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-tutorials/source/search/static.txt"
+  }
+]

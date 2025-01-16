@@ -1,0 +1,800 @@
+[
+  {
+    "code": "   :language: java\n\nLocal Deployments\n-----------------\n\nTo connect to a local MongoDB deployment, use ``localhost`` as the hostname. By\ndefault, the ``mongod`` process runs on port 27017, though you can customize this for\nyour deployment.\n\nThe following code shows how to use the {+driver-short+} to connect to a local MongoDB\ndeployment:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/connect-to-mongo/choose-connection-target.txt"
+  },
+  {
+    "code": "   :start-after: start-connect-local\n   :end-before: end-connect-local\n   :language: java\n   :copyable:\n\nReplica Sets\n------------\n\nTo connect to a replica set, specify the hostnames (or IP addresses) and \nport numbers of the replica-set members in your connection string.\n\nIf you aren't able to provide a full list of hosts in the replica set, you can \nspecify one or more of the hosts in the replica set and instruct the {+driver-short+} to \nperform automatic discovery to find the others. To instruct the driver to perform\nautomatic discovery, perform one of the following actions:\n\n- Specify the name of the replica set as the value of the ``replicaSet`` parameter.\n- Specify ``false`` as the value of the ``directConnection`` parameter.\n- Specify more than one host in the replica set.\n\nIn the following example, the driver uses a sample connection URI to connect to the \nMongoDB replica set ``sampleRS``, which is running on port ``27017`` of three different\nhosts, including ``host1``:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/connect-to-mongo/choose-connection-target.txt"
+  },
+  {
+    "code": "   :start-after: start-connect-replica\n   :end-before: end-connect-replica\n   :language: java\n   :copyable:\n\n.. note:: create() is Non-Blocking\n\n   The ``create()`` method constructing a ``MongoClient`` is *non-blocking*.\n   When you connect to a replica set, the method returns immediately while the\n   client uses background threads to connect to the replica set.\n   \n   If you create a ``MongoClient`` and immediately print the string representation\n   of its ``nodes`` attribute, the list might be empty while the client connects to\n   the replica-set members.\n\nInitialization\n~~~~~~~~~~~~~~\n\nTo initialize a replica set, you must connect directly to a single member. To do so,\nset the ``directConnection`` connection\noption to ``True``. You can do this in the following ways:\n\n- Passing an argument to the ``create()`` method constructing a ``MongoClient``\n- Setting the parameter in your connection string.\n\n.. tabs::\n\n   .. tab:: MongoClient\n      :tabid: mongoclient\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/connect-to-mongo/choose-connection-target.txt"
+  },
+  {
+    "code": "         :start-after: start-arg-constructor\n         :end-before: end-arg-constructor\n         :language: java\n         :copyable:\n         :emphasize-lines: 7\n\n   .. tab:: Connection String\n      :tabid: connectionstring\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/connect-to-mongo/choose-connection-target.txt"
+  },
+  {
+    "code": "         :start-after: start-parameter-string\n         :end-before: end-parameter-string\n         :language: java\n         :copyable:\n         :emphasize-lines: 6\n\nAPI Documentation\n-----------------\n\nTo learn more about creating a ``MongoClient`` instance in the {+driver-short+},\nsee the following API documentation:\n\n- `MongoClient <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoClients.html>`__ \n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/connect-to-mongo/choose-connection-target.txt"
+  },
+  {
+    "code": "         :start-after: start-specify-connection-string\n         :end-before: end-specify-connection-string\n         :language: java\n\n   .. tab:: MongoClientSettings\n      :tabid: mongoclientsettings\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/connect-to-mongo/network-compression.txt"
+  },
+  {
+    "code": "         :start-after: start-specify-uri\n         :end-before: end-specify-uri\n         :language: java\n\n.. _java-rs-compression-dependencies:\n\nCompression Algorithm Dependencies\n----------------------------------\n\nThe JDK natively supports `Zlib <https://zlib.net/>`__ compression. However,\nSnappy and Zstandard depend on open source Java implementations. To learn more\nabout these implementations, see the following Github pages:\n\n- `snappy-java <https://github.com/xerial/snappy-java>`__\n- `zstd-java <https://github.com/luben/zstd-jni>`__\n\nAPI Documentation\n-----------------\n\nTo learn more about any of the methods or types discussed in this\nguide, see the following API documentation:\n\n- `MongoClient <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoClient.html>`__\n- `createSnappyCompressor() <{+api+}/mongodb-driver-core/com/mongodb/MongoCompressor.html#createSnappyCompressor()>`__\n- `createZlibCompressor() <{+api+}//mongodb-driver-core/com/mongodb/MongoCompressor.html#createZlibCompressor()>`__\n- `createZstdCompressor() <{+api+}/mongodb-driver-core/com/mongodb/MongoCompressor.html#createZstdCompressor()>`__\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/connect-to-mongo/network-compression.txt"
+  },
+  {
+    "code": "   :start-after: start-enable-stable-api\n   :end-before: end-enable-stable-api\n   :language: java\n   :copyable:\n   :dedent:\n\nOnce you create a ``MongoClient`` instance with the {+stable-api+}, all commands you\nrun with the client use the specified {+stable-api+} configuration. If you must run\ncommands using alternative configurations, create a new ``MongoClient``.\n\n.. _java-rs-stable-api-options:\n\nConfigure the {+stable-api+}\n----------------------------\n\nThe following table describes chainable methods of the ``ServerApi.Builder`` class that\nyou can use to customize the behavior of the {+stable-api+}.\n\n.. list-table::\n   :header-rows: 1\n   :stub-columns: 1\n   :widths: 25,75\n\n   * - Option Name\n     - Description\n\n   * - ``strict()``\n     - | **Optional**. When ``true``, if you call a command that isn't part of \n         the declared API version, the driver raises an exception.\n       |\n       | Default: **false**\n\n   * -  ``deprecationErrors()``\n     - | **Optional**. When ``true``, if you call a command that is deprecated in the \n         declared API version, the driver raises an exception.\n       |\n       | Default: **false**\n\nThe following code example shows how you can configure an instance of ``ServerApi``\nby chaining methods on the ``ServerApi.Builder``:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/connect-to-mongo/stable-api.txt"
+  },
+  {
+    "code": "   :start-after: start-stable-api-options\n   :end-before: end-stable-api-options\n   :language: java\n   :copyable:\n   :dedent:\n\nTroubleshooting\n---------------\n\nUnrecognized field 'apiVersion' on server\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe {+driver-short+} raises this exception if you specify an API version and connect to a\nMongoDB server that doesn't support the {+stable-api+}. Ensure you're connecting to a\ndeployment running {+mdb-server+} v5.0 or later.\n\nProvided apiStrict:true, but the command <operation> is not in API Version\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe {+driver-short+} raises this exception if your ``MongoClient`` runs an operation that\nisn't in the {+stable-api+} version you specified. To avoid this error, use an alternative\noperation supported by the specified {+stable-api+} version, or set the ``strict``\noption to ``False`` when constructing your ``ServerApi`` object.\n\nAPI Documentation\n-----------------\n\nFor more information about using the {+stable-api+} with the {+driver-short+}, see the \nfollowing API documentation: \n\n- `ServerApi <{+api+}/mongodb-driver-core/com/mongodb/ServerApi.html>`__\n- `ServerApi.Builder <{+api+}/mongodb-driver-core/com/mongodb/ServerApi.Builder.html>`__\n- `ServerApiVersion <{+api+}/mongodb-driver-core/com/mongodb/ServerApiVersion.html>`__\n- `ServerAddress <{+api+}/mongodb-driver-core/com/mongodb/ServerAddress.html>`__\n- `MongoClientSettings <{+api+}/mongodb-driver-core/com/mongodb/MongoClientSettings.html>`__\n- `MongoClientSettings.Builder <{+api+}/mongodb-driver-core/com/mongodb/MongoClientSettings.Builder.html>`__\n- `MongoClients <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoClients.html>`__\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/connect-to-mongo/stable-api.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   import com.mongodb.MongoClientSettings;\n   import com.mongodb.client.MongoClients;\n   import com.mongodb.client.MongoClient;\n   import io.netty.handler.ssl.SslContext;\n   import io.netty.handler.ssl.SslContextBuilder;\n   import io.netty.handler.ssl.SslProvider;\n\n.. note::\n\n   The driver tests with Netty version ``io.netty:netty-all:4.1.87.Final``\n\nTo instruct the driver to use\n`io.netty.handler.ssl.SslContext <https://netty.io/4.1/api/io/netty/handler/ssl/SslContext.html>`__,\nconfigure `NettyTransportSettings <{+api+}/mongodb-driver-core/com/mongodb/connection/NettyTransportSettings.html>`__\nwhen you define your ``MongoClientSettings``.\n\nUse ``MongoClientSettings.Builder.transportSettings()``\nand ``NettyTransportSettings.Builder.sslContext()`` to build your settings:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/connect-to-mongo/tls.txt"
+  },
+  {
+    "code": "   :language: java\n   :copyable: true\n   :linenos:\n   :emphasize-lines: 18-20\n\nConnection\n----------\n\nLocal Deployment\n~~~~~~~~~~~~~~~~\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/connect.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   onSubscribe onNext* (onError | onComplete)?\n\nThis means that ``onSubscribe`` is always\nsignaled, followed by a possibly unbounded number\nof ``onNext`` signals, as requested by\n``Subscriber``. This is followed by an ``onError`` signal\nif there is a failure or an ``onComplete`` signal\nwhen no more elements are available, as long as\nthe ``Subscription`` is not canceled.\n\n.. tip::\n\n   To learn more about reactive streams, visit\n   the `Reactive Streams documentation <http://www.reactive-streams.org>`__.\n\nSubscribers\n-----------\n\nThe {+driver-short+} API mirrors the :driver:`Java Sync driver\n</java/sync/current/>` API and any methods that cause network \nI/O to return a ``Publisher<T>`` type, where ``T`` is the type of response\nfor the operation.\n\n.. note::\n\n   All ``Publisher`` types returned from the API are\n   `cold <https://projectreactor.io/docs/core/release/reference/#reactor.hotCold>`__,\n   meaning that nothing happens until they are subscribed to. So just\n   creating a ``Publisher`` won’t cause any network I/O. It’s not until\n   you call the ``Publisher.subscribe()`` method that the driver executes\n   the operation.\n   \n   Publishers in this implementation are *unicast*. Each\n   ``Subscription`` to a ``Publisher`` relates to a single MongoDB\n   operation, and the ``Publisher`` instance's ``Subscriber`` receives its\n   own specific set of results.\n\nCustom Subscriber Implementations\n---------------------------------\n\nIn the {+java-rs+} documentation, we have implemented different ``Subscriber`` types. Although this is an\nartificial scenario for reactive streams, we do\nblock on the results of one example before starting\nthe next to ensure the state of the database. To see the source code for all\nthe custom subscriber implementations, see `SubscriberHelpers.java\n<{+driver-source-gh+}/blob/master/driver-reactive-streams/src/examples/reactivestreams/helpers/SubscriberHelpers.java>`__\nin the driver source code.\n\n- ``ObservableSubscriber``\n    The base subscriber class is the\n    `ObservableSubscriber<T>\n    <{+driver-source-gh+}/blob/master/driver-reactive-streams/src/examples/reactivestreams/helpers/SubscriberHelpers.java>`__,\n    a ``Subscriber`` that stores the results of the ``Publisher<T>``. It\n    also contains an ``await()`` method so we can block for results\n    to ensure the state of the database before going\n    on to the next example.\n\n- ``OperationSubscriber``\n    An implementation of the\n    ``ObservableSubscriber`` that immediately calls\n    ``Subscription.request()`` when it is subscribed to.\n\n- ``PrintSubscriber``\n    An implementation of the ``OperationSubscriber``\n    that prints a message when the ``Subscriber.onComplete()`` method is\n    called.\n\n- ``ConsumerSubscriber``\n    An implementation of\n    ``OperationSubscriber`` that takes a ``Consumer`` and calls\n    ``Consumer.accept(result)`` when ``Subscriber.onNext(T result)`` is\n    called.\n\n- ``PrintToStringSubscriber``\n    An implementation of\n    ``ConsumerSubscriber`` that prints the string version of the\n    ``result`` when the ``Subscriber.onNext()`` method is called.\n\n- ``PrintDocumentSubscriber``\n    An implementation of the\n    ``ConsumerSubscriber`` that prints the JSON version of a ``Document``\n    type when the ``Subscriber.onNext()`` method is called.\n\nBlocking and Non-Blocking Examples\n----------------------------------\n\nAs our ``Subscriber`` types contain a latch that is only\nreleased when the ``onComplete()`` method of the\n``Subscriber`` is called, we can use that latch\nto block further actions by calling the ``await`` method.\nThe following two examples use our auto-requesting\n``PrintDocumentSubscriber``.\n\nThe first is non-blocking and the second blocks\nwaiting for the ``Publisher`` to complete:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/custom-implementations.txt"
+  },
+  {
+    "code": "   :language: java\n   :start-after: start-create-time-series\n   :end-before: end-create-time-series\n   :dedent:\n\nTo verify that you successfully created the time series collection, run\nthe ``listCollections()`` method on the database and print the results:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/data-formats/time-series.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/data-formats/time-series.java\n      :language: java\n      :start-after: start-print-time-series\n      :end-before: end-print-time-series\n      :dedent:\n\n   .. output::\n\n      Document{{name=october2024, type=timeseries, options=Document{{timeseries=Document{{timeField=timestamp, granularity=seconds, bucketMaxSpanSeconds=3600}}}}, info=Document{{readOnly=false}}}}\n      ...\n\n.. _java-rs-time-series-store:\n\nStore Time Series Data\n----------------------\n\nYou can insert data into a time series collection by using the ``insertOne()``\nor ``insertMany()`` methods and specifying the measurement, timestamp, and metadata\nin each inserted document.\n\n.. tip::\n\n   To learn more about inserting documents into a collection, see the :ref:`java-rs-write-insert`\n   guide.\n\nExample\n~~~~~~~\n\nThe following example inserts New York City temperature data into the ``october2024``\ntime series collection created in the :ref:`Create a Time Series Collection example\n<java-rs-time-series-create-example>`. Each document contains the following fields:\n\n- ``temperature``, which stores temperature measurements in degrees Fahrenheit\n- ``location``, which stores location metadata\n- ``timestamp``, which stores the time of the measurement collection\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/data-formats/time-series.txt"
+  },
+  {
+    "code": "   :language: java\n   :start-after: start-insert-time-series-data\n   :end-before: end-insert-time-series-data\n   :dedent:\n\n.. _java-rs-time-series-query:\n\nQuery Time Series Data\n----------------------\n\nYou can use the same syntax and conventions to query data stored in a time \nseries collection as you use when performing read or aggregation operations on\nother collections. To learn more about these operations, see\nthe :ref:`Additional Information <java-rs-time-series-addtl-info>` section.\n\n.. _java-rs-time-series-addtl-info:\n\nAdditional Information\n----------------------\n\nTo learn more about the concepts mentioned in this guide, see the\nfollowing {+mdb-server+} manual entries:\n\n- :manual:`Time Series </core/timeseries-collections/>`\n- :manual:`Create and Query a Time Series Collection </core/timeseries/timeseries-procedures/>`\n- :manual:`Set Granularity for Time Series Data </core/timeseries/timeseries-granularity/>`\n\nTo learn more about performing read operations, see :ref:`java-rs-read`.\n\nTo learn more about performing aggregation operations, see the :ref:`java-rs-aggregation`\nguide.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about the methods mentioned in this guide, see the following\nAPI documentation:\n\n- `createCollection() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoDatabase.html#createCollection(java.lang.String)>`__\n- `listCollections() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoDatabase.html#listCollections()>`__\n- `insertOne() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoCollection.html#insertOne(TDocument)>`__\n- `insertMany() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoCollection.html#insertMany(java.util.List)>`__\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/data-formats/time-series.txt"
+  },
+  {
+    "code": "         :language: java\n         :copyable:\n\n   .. step:: Assign the Connection String\n\n      Replace the ``<connection string>`` placeholder with the \n      connection string that you copied from the :ref:`java-rs-get-started-connection-string`\n      step of this guide.\n\n   .. step:: Run your Application\n\n      Run your application, either in your IDE or in your shell. The output\n      shows that you have connected to MongoDB and queried the database.\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/get-started/connect-to-mongodb.txt"
+  },
+  {
+    "code": "   :language: java\n   :copyable:\n   :linenos:\n   :emphasize-lines: 36-38\n\nSingle Field Index\n------------------\n\nThe following example creates an ascending index on the specified field:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-single-field\n   :end-before: end-single-field\n   :language: java\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about single field indexes, see the :ref:`java-rs-single-field-index` guide.\n\nCompound Index\n--------------\n\nThe following example creates a compound index on the specified fields:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-compound\n   :end-before: end-compound\n   :language: java\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about compound indexes, see the :ref:`java-rs-compound-index`\n.. guide.\n\nMultikey Index\n--------------\n\nThe following example creates a multikey index on the specified array-valued field:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-multikey\n   :end-before: end-multikey\n   :language: java\n   :copyable:\n   :dedent:\n\n.. TODO To learn more about multikey indexes, see the :ref:`java-rs-multikey-index`\n.. guide.\n\nGeospatial Index\n----------------\n\nThe following example creates a ``2dsphere`` index on the specified field that contains\nGeoJSON objects:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-geo\n   :end-before: end-geo\n   :language: java\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about geospatial indexes, see the :ref:`java-rs-geospatial-index`\n.. guide.\n\nUnique Index\n------------\n\nThe following example creates a unique index on the specified field:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-unique\n   :end-before: end-unique\n   :language: java\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about unique indexes, see the :ref:`java-rs-unique-index`\n.. guide.\n\nWildcard Index\n--------------\n\nThe following example creates a wildcard index in the specified collection:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-wildcard\n   :end-before: end-wildcard\n   :language: java\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about wildcard indexes, see the :ref:`java-rs-wildcard-index`\n.. guide.\n\nClustered Index\n---------------\n\nThe following example creates a new collection with a clustered index on the ``_id``\nfield:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-clustered\n   :end-before: end-clustered\n   :language: java\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about wildcard indexes, see the :ref:`java-rs-clustered-index`\n.. guide.\n\nAtlas Search Index Management\n-----------------------------\n\nThe following sections contain code examples that describe how to manage Atlas Search\nindexes.\n\n.. TODO: To learn more about Atlas Search indexes, see the :ref:`java-rs-atlas-search-index`\n.. guide.\n\nCreate Search Index\n~~~~~~~~~~~~~~~~~~~\n\nThe following example creates an Atlas Search index on the specified field:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-search-create\n   :end-before: end-search-create\n   :language: java\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about creating search indexes, see the :ref:`java-rs-atlas-search-index-create`\n.. guide.\n\nList Search Indexes\n~~~~~~~~~~~~~~~~~~~\n\nThe following example prints a list of Atlas Search indexes in the specified collection:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-search-list\n   :end-before: end-search-list\n   :language: java\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about listing search indexes, see the :ref:`java-rs-atlas-search-index-list`\n.. guide.\n\nUpdate Search Indexes\n~~~~~~~~~~~~~~~~~~~~~\n\nThe following example updates an existing Atlas Search index with the specified\nnew index definition:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-search-update\n   :end-before: end-search-update\n   :language: java\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about updating search indexes, see the :ref:`java-rs-atlas-search-index-update`\n.. guide.\n\nDelete Search Indexes\n~~~~~~~~~~~~~~~~~~~~~\n\nThe following example deletes an Atlas Search index with the specified name:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-search-delete\n   :end-before: end-search-delete\n   :language: java\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about deleting search indexes, see the :ref:`java-rs-atlas-search-index-drop`\n.. guide.\n\nText Index\n----------\n\nThe following example creates a text index on the specified string field:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-text\n   :end-before: end-text\n   :language: java\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about text indexes, see the :ref:`java-rs-text-index`\n.. guide.\n\nDelete an Index\n---------------\n\nThe following example deletes an index with the specified name:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-remove\n   :end-before: end-remove\n   :language: java\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about removing indexes, see :ref:`java-rs-indexes-remove`\n.. in the Work with Indexes guide.\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/indexes.txt"
+  },
+  {
+    "code": "   :language: java\n   :start-after: start-command-listener\n   :end-before: end-command-listener\n   :copyable: true\n   :dedent:\n\nThe following code adds an instance of the ``CommandCounter`` class to a\n``MongoClientSettings`` object, and configures a ``MongoClient`` instance with the\n``MongoClientSettings`` object. The code then runs some database commands to test the\ncounter.\n\n.. _java-rs-listener-mongo-client-settings-example:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/monitoring.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/monitoring/Monitoring.java\n      :language: java\n      :start-after: start-monitor-command-example\n      :end-before: end-monitor-command-example\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      {find=1}\n      {find=2}\n      {find=2, endSessions=1}\n\n\nServer Discovery and Monitoring Events\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nA server discovery and monitoring (SDAM) event is an event related to a change\nin the state of the MongoDB instance or cluster you have connected the driver to.\n\nThe driver defines nine SDAM events. The driver divides these nine events\nbetween three separate listener interfaces which each listen for three of the\nnine events. Here are the three interfaces and the events they listen for:\n\n- ``ClusterListener``: :spec:`topology </server-discovery-and-monitoring/server-discovery-and-monitoring.md#topology>`-related\n  events\n- ``ServerListener``: events related to ``mongod`` or ``mongos`` processes\n- ``ServerMonitorListener``: heartbeat-related events\n\nTo monitor a type of SDAM event, write a class that\nimplements one of the three preceding interfaces and register an instance of that\nclass with your ``MongoClient`` instance.\n\nFor a detailed description of each SDAM event in the driver, see the\n:spec:`MongoDB SDAM Logging and Monitoring Specification </server-discovery-and-monitoring/server-discovery-and-monitoring-logging-and-monitoring.md#events-api>`.\n\n.. note:: Load Balanced Mode\n\n   The driver doesn't emit heartbeat related events when in load balanced mode. For more details about SDAM events with load balancing, see :spec:`MongoDB Load Balancer Support Specification </load-balancers/load-balancers.md#server-discovery-logging-and-monitoring>`.\n\nExample\n^^^^^^^\n\nThe following example shows how to make a listener class that prints a message that lets\nyou know if the driver can write to your MongoDB instance.\n\nThe following code defines the ``IsWritable`` class which implements the\n``ClusterListener`` interface:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/monitoring.txt"
+  },
+  {
+    "code": "   :language: java\n   :start-after: start-cluster-listener\n   :end-before: end-cluster-listener\n   :copyable: true\n   :dedent:\n\nThe following code adds an instance of the ``IsWritable`` class to a\n``MongoClient`` object. The code then runs a find operation to test the\n``IsWritable`` class.\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/monitoring.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/monitoring/Monitoring.java\n      :language: java\n      :start-after: start-monitor-cluster-example\n      :end-before: end-monitor-cluster-example\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      Able to write to server\n\nConnection Pool Events\n~~~~~~~~~~~~~~~~~~~~~~\n\nA connection pool event is an event related to a **connection pool** held by the driver.\nA connection pool is a set of open TCP connections your driver maintains with\na MongoDB deployment. Connection pools help reduce the number of network handshakes\nyour application needs to perform with a MongoDB deployment, and can help your\napplication run faster.\n\nTo monitor connection pool events, write a class that implements the\n``ConnectionPoolListener`` interface and register an instance of that class with your\n``MongoClient`` instance.\n\nExample\n^^^^^^^\n\nThe following example shows how to make a listener class that prints a message each time\nyou check out a connection from your connection pool.\n\nThe following code defines the ``ConnectionPoolLibrarian`` class which implements the\n``ConnectionPoolListener`` interface:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/monitoring.txt"
+  },
+  {
+    "code": "   :language: java\n   :start-after: start-connection-pool-listener\n   :end-before: end-connection-pool-listener\n   :copyable: true\n   :dedent:\n\nThe following code adds an instance of the ``ConnectionPoolLibrarian`` class to a\n``MongoClient`` object. The code then runs a database command to test the\nlibrarian.\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/monitoring.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/monitoring/Monitoring.java\n      :language: java\n      :start-after: start-monitor-cluster-example\n      :end-before: end-monitor-cluster-example\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      Let me get you the connection with id 21...\n\n.. _java-rs-monitoring-jmx:\n\nMonitor Connection Pool Events with JMX\n---------------------------------------\n\nYou can monitor connection pool events using **Java Management Extensions (JMX)**.\nJMX provides tools to monitor applications and devices.\n\nFor more information about JMX, see\n`the official Oracle JMX documentation <https://docs.oracle.com/javase/tutorial/jmx/index.html>`__.\n\nJMX Support\n~~~~~~~~~~~\n\nTo enable JMX connection pool monitoring, add an instance of the\n``JMXConnectionPoolListener`` class to your ``MongoClient`` object.\n\nThe ``JMXConnectionPoolListener`` class performs the following actions:\n\n#. Creates MXBean instances for each ``mongod`` or ``mongos`` process the driver\n   maintains a connection pool with\n#. Registers these MXBean instances with the platform MBean server\n\nMXBeans registered on the platform MBean server have the following properties:\n\n.. list-table::\n   :header-rows: 1\n   :widths: 10 20\n\n   * - Property\n     - Description\n\n   * - ``clusterId``\n     - A client-generated unique identifier. This identifier ensures that\n       each MXBean the driver makes has a unique name when an application has\n       multiple ``MongoClient`` instances connected to the same MongoDB deployment.\n\n   * - ``host``\n     - The hostname of the machine running the ``mongod`` or ``mongos`` process.\n\n   * - ``port``\n     - The port on which the ``mongod`` or ``mongos`` process is listening.\n\n   * - ``minSize``\n     - The minimum size of the connection pool, including idle and in-use connections.\n\n   * - ``maxSize``\n     - The maximum size of the connection pool, including idle and in-use connections.\n\n   * - ``size``\n     - The current size of the connection pool, including idle and in-use connections.\n\n   * - ``checkedOutCount``\n     - The current count of connections that are in use.\n\n\nAll MXBean instances created by the driver are under the domain\n``\"org.mongodb.driver\"``.\n\nFor more information about the topics discussed in this subsection, see the\nfollowing resources from Oracle:\n\n- `Platform MBean Server Reference Documentation <https://docs.oracle.com/en/java/javase/16/management/overview-java-se-monitoring-and-management.html#GUID-F7B9AB8A-F5A8-472A-AEC6-93B5B7FBE7CE>`__\n- `MXBean Documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/mxbeans.html>`__\n- `MBean Documentation <https://docs.oracle.com/javase/tutorial/jmx/mbeans/standard.html>`__\n\nJMX and JConsole Example\n~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how you can monitor the driver's connection pools using JMX\nand **JConsole**. JConsole is a JMX-compliant GUI monitoring tool that comes with\nthe Java Platform.\n\n.. tip:: Consult the Official JMX and JConsole Documentation\n\n   The descriptions of JMX and JConsole in this example are illustrative\n   rather than a source of truth. For guaranteed up-to-date information, consult\n   the following official Oracle resources:\n\n   - `JConsole documentation <https://www.oracle.com/technical-resources/articles/java/jconsole.html>`__\n   - `JMX documentation <https://docs.oracle.com/javase/tutorial/jmx/index.html>`__\n\nThe following code snippet adds a ``JMXConnectionPoolListener`` to a\n``MongoClient`` instance. The code then pauses execution so you can\nnavigate to JConsole and inspect your connection pools.\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/monitoring.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/monitoring/JMXMonitoring.java\n      :language: java\n      :start-after: start-jmx-example\n      :end-before: end-jmx-example\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      Navigate to JConsole to see your connection pools...\n\nOnce you have started your server, open JConsole by running the following command in your\nterminal:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/monitoring.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input::\n      :language: java\n\n      collection.find().subscribe(new PrintToStringSubscriber<>());\n\n   .. output::\n      :language: none\n      :visible: false\n\n      Person{id='...', name='Ada Byron', age=20, address=Address{street='St James Square', city='London', zip='W1'}}\n      Person{id='...', name='Charles Babbage', age=45, address=Address{street='5 Devonshire Street', city='London', zip='W11'}}\n      Person{id='...', name='Alan Turing', age=28, address=Address{street='Bletchley Hall', city='Bletchley Park', zip='MK12'}}\n      Person{id='...', name='Timothy Berners-Lee', age=61, address=Address{street='Colehill', city='Wimborne', zip='null'}}\n\nSpecify a Query Filter\n----------------------\n\nTo query for ``Person`` instances that match certain conditions, pass a\nfilter object to the ``find()`` method. To facilitate creating\nfilter objects, the driver provides ``Filters`` helper methods.\n\n.. important::\n\n   When querying POJOs, you *must* query against the document field name\n   and not the POJO property name. They are the same by default, but it\n   is possible to change how POJO property names are mapped.\n\nGet a Single Person That Matches a Filter\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example finds the first ``Person`` in the database that\nhas an ``address.city`` value of ``Wimborne`` by passing an ``eq()``\nfilter object to specify the equality condition:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/pojo-examples.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input::\n      :language: java\n\n      collection.find(eq(\"address.city\", \"Wimborne\"))\n          .first()\n          .subscribe(new PrintToStringSubscriber<>());\n\n   .. output::\n      :language: none\n      :visible: false\n\n      Person{id='591dbc2550852fa685b3ad1a', name='Timothy Berners-Lee', age=61, address=Address{street='Colehill', city='Wimborne', zip='null'}}\n\nGet All Person Instances That Match a Filter\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example prints every document in which the value of\n``age`` is greater than ``30``:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/pojo-examples.txt"
+  },
+  {
+    "code": "   :start-after: start-open-change-stream\n   :end-before: end-open-change-stream\n   :language: java\n\nTo begin watching for changes, run the application. Then, in a separate\napplication or shell, perform a write operation on the ``restaurants``\ncollection. Updating a document that has a ``\"name\"`` field value of ``\"Blarney\nCastle\"`` results in the following change stream output:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/change-streams.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   Received change: ChangeStreamDocument{ operationType=update, resumeToken={\"_data\": \"...\"}, \n   namespace=sample_restaurants.restaurants, destinationNamespace=null, fullDocument=null, \n   fullDocumentBeforeChange=null, documentKey={\"_id\": {\"$oid\": \"...\"}}, clusterTime=Timestamp{...}, \n   updateDescription=UpdateDescription{removedFields=[], updatedFields={\"cuisine\": \"Traditional Irish\"}, \n   truncatedArrays=[], disambiguatedPaths=null}, txnNumber=null, lsid=null, \n   splitEvent=null, wallTime=BsonDateTime{value=...}}\n\nModify the Change Stream Output\n-------------------------------\n\nYou can pass an aggregation pipeline as a parameter to the ``watch()``\nmethod to modify the change stream output. This parameter allows you to watch\nfor only specified change events.\n\nYou can specify the following aggregation stages in the ``pipeline`` parameter:\n\n- ``$addFields``\n- ``$match``\n- ``$project``\n- ``$replaceRoot``\n- ``$replaceWith``\n- ``$redact``\n- ``$set``\n- ``$unset``\n\nThe following example passes an aggregation pipeline to a change stream\nto record only update operations:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/change-streams.txt"
+  },
+  {
+    "code": "   :start-after: start-change-stream-pipeline\n   :end-before: end-change-stream-pipeline\n   :language: java\n\nTo learn more about modifying your change stream output, see the\n:manual:`Modify Change Stream Output\n</changeStreams/#modify-change-stream-output>` section in the {+mdb-server+}\nmanual.\n\nModify ``watch()`` Behavior\n---------------------------\n\nYou can chain methods to the ``watch()`` method that represent\noptions you can use to configure the change stream operation. If you don't\nspecify any options, the driver does not customize the operation.\n\nThe following table describes the methods that you can chain to ``watch()`` to\ncustomize its behavior:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Option\n     - Description\n\n   * - ``fullDocument()``\n     - | Specifies whether to show the full document after the change, rather\n         than showing only the changes made to the document. To learn more about\n         this option, see :ref:`java-rs-change-stream-pre-post-image`.\n\n   * - ``fullDocumentBeforeChange()``\n     - | Specifies whether to show the full document as it was before the change, rather\n         than showing only the changes made to the document. To learn more about\n         this option, see :ref:`java-rs-change-stream-pre-post-image`.\n    \n   * - ``resumeAfter()``\n     - | Directs ``watch()`` to resume returning changes after the\n         operation specified in the resume token.\n       | Each change stream event document includes a resume token as the ``_id``\n         field. Pass the entire ``_id`` field of the change event document that\n         represents the operation you want to resume after.\n       | ``resumeAfter()`` is mutually exclusive with ``startAfter()`` and ``startAtOperationTime()``.\n\n   * - ``startAfter()``\n     - | Directs ``watch()`` to start a new change stream after the\n         operation specified in the resume token. Allows notifications to\n         resume after an invalidate event.\n       | Each change stream event document includes a resume token as the ``_id``\n         field. Pass the entire ``_id`` field of the change event document that\n         represents the operation you want to resume after.\n       | ``startAfter()`` is mutually exclusive with ``resumeAfter()`` and ``startAtOperationTime()``.\n       \n   * - ``startAtOperationTime()``\n     - | Directs ``watch()`` to return only events that occur after the\n         specified timestamp.\n       | ``startAtOperationTime()`` is mutually exclusive with ``resumeAfter()`` and ``startAfter()``.\n\n   * - ``maxAwaitTime()``\n     - | Specifies the maximum amount of time, in milliseconds, the server waits for new\n         data changes to report to the change stream cursor before returning an\n         empty batch. Defaults to 1000 milliseconds.\n\n   * - ``showExpandedEvents()``\n     - | Starting in {+mdb-server+} v6.0, change streams support change notifications\n         for Data Definition Language (DDL) events, such as the ``createIndexes`` and ``dropIndexes`` events. To\n         include expanded events in a change stream, call this method and pass\n         in the value, ``true``.\n\n   * - ``batchSize()``\n     - | Specifies the maximum number of change events to return in each batch of the\n         response from the MongoDB cluster.\n\n   * - ``collation()``\n     - | Specifies the collation to use for the change stream cursor.\n\n   * - ``comment()``\n     - | Attaches a comment to the operation.\n\n.. _java-rs-change-stream-pre-post-image:\n\nInclude Pre-Images and Post-Images\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n.. important::\n\n   You can enable pre-images and post-images on collections only if your\n   deployment uses MongoDB v6.0 or later.\n\nBy default, when you perform an operation on a collection, the\ncorresponding change event includes only the delta of the fields\nmodified by that operation. To see the full document before or after a\nchange, chain the ``fullDocumentBeforeChange()`` or the ``fullDocument()``\nmethod to the ``watch()`` method.\n\nThe **pre-image** is the full version of a document *before* a change. To include the\npre-image in the change stream event, pass one of the following values to the\n``fullDocumentBeforeChange()`` method:\n\n- ``FullDocumentBeforeChange.WHEN_AVAILABLE``: The change event\n  includes a pre-image of the modified document for change events only if the\n  pre-image is available.\n- ``FullDocumentBeforeChange.REQUIRED``:\n  The change event includes a pre-image of the modified document for change\n  events. If the pre-image is not available, the driver raises an error.\n\nThe **post-image** is the full version of a document *after* a change. To include the\npost-image in the change stream event, pass one of the following values to the\n``fullDocument()`` method:\n\n- ``FullDocument.UPDATE_LOOKUP``: The change event includes a\n  copy of the entire changed document from some time after the change.\n- ``FullDocument.WHEN_AVAILABLE``: The change event includes a\n  post-image of the modified document for change events only if the post-image\n  is available.\n- ``FullDocument.REQUIRED``: The change event includes a\n  post-image of the modified document for change events. If the post-image is\n  not available, the driver raises an error.\n\nThe following example opens a change stream on a collection and includes the post-image\nof updated documents by chaining the ``fullDocument()`` method to the\n``watch()`` method:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/change-streams.txt"
+  },
+  {
+    "code": "   :start-after: start-change-stream-post-image\n   :end-before: end-change-stream-post-image\n   :emphasize-lines: 9\n   :language: java\n\nTo learn more about pre-images and post-images, see \n:manual:`Change Streams with Document Pre- and Post-Images </changeStreams#change-streams-with-document-pre--and-post-images>` \nin the {+mdb-server+} manual.\n\nAdditional Information\n----------------------\n\nTo learn more about change streams, see :manual:`Change Streams\n</changeStreams>` in the {+mdb-server+} manual.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the methods or types discussed in this\nguide, see the following API documentation:\n\n- `MongoClient.watch() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoClient.html#watch()>`__\n- `MongoCollection.watch() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoCollection.html#watch()>`__\n- `MongoDatabase.watch() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoDatabase.html#watch()>`__\n- `ChangeStreamPublisher <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/ChangeStreamPublisher.html>`__\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/change-streams.txt"
+  },
+  {
+    "code": "   :start-after: start-cursor-iterate\n   :end-before: end-cursor-iterate\n   :language: java\n   :dedent:\n   :copyable:\n\nRetrieve All Documents\n----------------------\n\n.. warning::\n\n   If the number and size of documents returned by your query exceeds available\n   application memory, your program will crash. If you expect a large result\n   set, :ref:`access your cursor iteratively <java-rs-cursors-iterate>`.\n\nTo retrieve all documents from a cursor, convert the cursor into a ``List``, as\nshown in the following example:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/cursors.txt"
+  },
+  {
+    "code": "   :start-after: start-cursor-list\n   :end-before: end-cursor-list\n   :language: java\n   :dedent:\n   :copyable:\n\nTailable Cursors\n----------------\n\nWhen querying on a :manual:`capped collection </core/capped-collections/>`, you\ncan use a **tailable cursor** that remains open after the client exhausts the\nresults in a cursor. To create a tailable cursor on a capped collection,\npass a value of ``CursorType.TailableAwait`` to the ``cursorType()`` method of a\n``FindPublisher`` object.\n\nThe following example creates a tailable cursor on a collection and prints its contents:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/cursors.txt"
+  },
+  {
+    "code": "   :start-after: start-tailable-cursor\n   :end-before: end-tailable-cursor\n   :language: java\n   :dedent:\n   :copyable:\n\nTo learn more about tailable cursors and their usage, see the :manual:`Tailable Cursors guide\n</core/tailable-cursors/>` in the {+mdb-server+} manual.\n\nAPI Documentation\n-----------------\n\nTo learn more about any of the methods or types discussed in this\nguide, see the following API documentation:\n\n- `find() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoCollection.html#find()>`__\n- `FindPublisher <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/FindPublisher.html>`__\n- `CursorType <{+api+}/mongodb-driver-core/com/mongodb/CursorType.html>`__\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/cursors.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   Publisher<Document> findDocPublisher = restaurants.find(\n       eq(\"cuisine\", \"Bakery\")).first();\n   Mono.from(findDocPublisher)\n           .doOnNext(System.out::println)\n           .blockLast();\n   \n.. tip:: Sort Order\n\n   If you do not specify a sort order, the ``find().first()`` construct returns the first document in \n   :manual:`natural order </reference/glossary/#std-term-natural-order>`\n   on disk.\n\nTo learn more about sorting, see the :ref:`<java-rs-specify-documents-to-return>` guide.\n\n.. _java-rs-retrieve-find-multiple:\n\nFind Multiple Documents\n~~~~~~~~~~~~~~~~~~~~~~~\n\nTo find multiple documents in a collection, pass a query filter to the ``find()``\nmethod that specifies the criteria of the documents you want to retrieve.\n\nThe following example uses the ``find()`` method to find all documents where\nthe ``\"cuisine\"`` field has the value ``\"Spanish\"``:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/retrieve-data.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   FindPublisher<Document> findDocPublisher = restaurants.find(\n           eq(\"cuisine\", \"Spanish\"));\n   Flux.from(findDocPublisher)\n           .doOnNext(System.out::println)\n           .blockLast();   \n\n.. note:: Find All Documents\n\n   To find all documents in a collection, pass no parameters to the ``find()`` method:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/retrieve-data.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   FindPublisher<Document> findDocPublisher = restaurants.find(\n           eq(\"cuisine\", \"Italian\")).maxTime(10L, TimeUnit.SECONDS);\n   Flux.from(findDocPublisher)\n           .doOnNext(System.out::println)\n           .blockLast();\n\nFor a full list of available arguments, see the\n`API documentation <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/FindPublisher.html>`__\nfor the ``FindPublisher`` interface.\n\n.. _java-rs-retrieve-additional-information:\n\nAdditional Information\n----------------------\n\nTo learn more about query filters, see the :ref:`java-rs-specify-query` guide.\n\nFor runnable code examples of retrieving documents by using the {+driver-short+},\nsee the :ref:`java-rs-read` guide.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the methods or types discussed in this\nguide, see the following API documentation:\n\n- `find() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoCollection.html#find()>`__\n- `FindPublisher <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/FindPublisher.html>`__\n- `Collation <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/FindPublisher.html#collation(com.mongodb.client.model.Collation)>`__\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/retrieve-data.txt"
+  },
+  {
+    "code": "   :start-after: start-sample-data\n   :end-before: end-sample-data\n   :language: java\n   :copyable:\n\nExact Match\n-----------\n\nLiteral value queries return documents with an exact match to your query filter.\nTo return documents with an exact match, use the ``eq()`` comparison operator method.\n\nThe following example specifies an ``eq()`` comparison operator method as the\nquery filter parameter in the ``find()`` method. The code returns all documents with a ``color`` field value of ``\"yellow\"``.\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/specify-a-query.txt"
+  },
+  {
+    "code": "   :copyable: \n\n   .. input:: /includes/read-ops/specify-queries.java\n      :start-after: start-find-exact\n      :end-before: end-find-exact\n      :language: java\n\n   .. output::\n      \n      {'_id': 2, 'name': 'bananas', 'qty': 7, 'rating': 4, 'color': 'yellow', 'type': ['cavendish']}\n      {'_id': 4, 'name': 'pineapple', 'qty': 3, 'rating': 5, 'color': 'yellow'}\n\n.. tip:: Find All Documents\n\n   To find all documents in a collection, call the ``find()`` method without\n   specifying any parameters. The following example finds all documents in a\n   collection:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/specify-a-query.txt"
+  },
+  {
+    "code": "      :start-after: start-find-all\n      :end-before: end-find-all\n      :language: java\n      :copyable:\n\nComparison Operators\n--------------------\n\nComparison operators evaluate a document field value against a specified value\nin your query filter. The following is a list of common comparison operator methods:\n\n- ``gt()``: Greater than\n- ``lte()``: Less than or Equal\n- ``ne()``: Not equal\n\nTo view a full list of comparison operators, see the :manual:`Comparison Query Operators\n</reference/operator/query-comparison/>` guide in the {+mdb-server+} manual.\n\nThe following example specifies a ``gt()`` comparison operator method in a query filter as a\nparameter to the ``find()`` method. The code returns all documents with a\n``rating`` field value greater than ``2``.\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/specify-a-query.txt"
+  },
+  {
+    "code": "   :copyable: \n\n   .. input:: /includes/read-ops/specify-queries.java\n      :start-after: start-find-comparison\n      :end-before: end-find-comparison\n      :language: java\n\n   .. output::\n\n      {'_id': 1, 'name': 'apples', 'qty': 5, 'rating': 3, 'color': 'red', 'type': ['fuji', 'honeycrisp']}\n      {'_id': 2, 'name': 'bananas', 'qty': 7, 'rating': 4, 'color': 'yellow', 'type': ['cavendish']}\n      {'_id': 4, 'name': 'pineapple', 'qty': 3, 'rating': 5, 'color': 'yellow'}\n\nLogical Operators\n-----------------\n\nLogical operators match documents by using logic applied to the results of two or\nmore sets of expressions. The following is a list of logical operator methods: \n\n- ``and()``, which returns all documents that match the conditions of *all* clauses\n- ``or()``, which returns all documents that match the conditions of *one* clause\n- ``nor()``, which returns all documents that *do not* match the conditions of any clause\n- ``not()``, which returns all documents that *do not* match the expression\n\nTo learn more about logical operators, see the :manual:`Logical Query Operators\n</reference/operator/query-logical/>` guide in the {+mdb-server+} manual.\n\nThe following example specifies an ``or()`` logical operator method in a query filter as a\nparameter to the ``find()`` method. The code returns all documents with a\n``qty`` field value greater than ``5`` **or** a ``color`` field value of\n``\"yellow\"``.\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/specify-a-query.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read-ops/specify-queries.java\n      :start-after: start-find-logical\n      :end-before: end-find-logical\n      :language: java\n\n   .. output::\n\n      {'_id': 2, 'name': 'bananas', 'qty': 7, 'rating': 4, 'color': 'yellow', 'type': ['cavendish']}\n      {'_id': 3, 'name': 'oranges', 'qty': 6, 'rating': 2, 'type': ['naval', 'mandarin']}\n      {'_id': 4, 'name': 'pineapple', 'qty': 3, 'rating': 5, 'color': 'yellow'}\n\nArray Operators\n---------------\n\nArray operators match documents based on the value or quantity of elements in an\narray field. The following is a list of available array operator methods:\n\n- ``all()``, which returns documents with arrays that contain all elements in the query\n- ``elemMatch()``, which returns documents if an element in their array field matches all conditions in the query\n- ``size()``, which returns all documents with arrays of a specified size\n\nTo learn more about array operators, see the :manual:`Array Query Operators\n</reference/operator/query-array/>` guide in the {+mdb-server+} manual.\n\nThe following example specifies a ``size()`` array operator method in a query filter as a\nparameter to the ``find()`` method. The code returns all documents with a\n``type`` array field containing ``2`` elements.\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/specify-a-query.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read-ops/specify-queries.java\n      :start-after: start-find-array\n      :end-before: end-find-array\n      :language: java\n\n   .. output::\n\n      {'_id': 1, 'name': 'apples', 'qty': 5, 'rating': 3, 'color': 'red', 'type': ['fuji', 'honeycrisp']}\n      {'_id': 3, 'name': 'oranges', 'qty': 6, 'rating': 2, 'type': ['naval', 'mandarin']}\n\nElement Operators\n-----------------\n\nElement operators query data based on the presence or type of a field. The\nfollowing is a list of available element operator methods:\n\n- ``exists()``, which returns documents with the specified field\n- ``type()``, which returns documents if a field is of the specified type\n\nTo learn more about element operators, see the :manual:`Element Query Operators\n</reference/operator/query-element/>` guide in the {+mdb-server+} manual.\n\nThe following example specifies an ``exists()`` element operator method in a query filter as a\nparameter to the ``find()`` method. The code returns all documents that have a\n``color`` field.\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/specify-a-query.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read-ops/specify-queries.java\n      :start-after: start-find-element\n      :end-before: end-find-element\n      :language: java\n\n   .. output::\n\n      {'_id': 1, 'name': 'apples', 'qty': 5, 'rating': 3, 'color': 'red', 'type': ['fuji', 'honeycrisp']}\n      {'_id': 2, 'name': 'bananas', 'qty': 7, 'rating': 4, 'color': 'yellow', 'type': ['cavendish']}\n      {'_id': 4, 'name': 'pineapple', 'qty': 3, 'rating': 5, 'color': 'yellow'}\n\nEvaluation Operators\n--------------------\n\nEvaluation operators return data based on evaluations of either individual\nfields or the entire collection's documents. The following is a list of common\nevaluation operator methods:\n\n- ``text()``, which performs a text search on the documents\n- ``regex()``, which returns documents that match a specified regular expression\n- ``mod()``, which performs a :wikipedia:`modulo <Modulo>` operation on the value of a field and\n  returns documents where the remainder is a specified value\n\nTo view a full list of evaluation operators, see the :manual:`Evaluation Query Operators\n</reference/operator/query-evaluation/>` guide in the {+mdb-server+} manual.\n\nThe following example specifies a ``regex()`` evaluation operator method in a query filter as a\nparameter to the ``find()`` method. The code uses a regular expression to return\nall documents with a ``name`` field value that has at least two consecutive\n``\"p\"`` characters.\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/specify-a-query.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read-ops/specify-queries.java\n      :start-after: start-find-evaluation\n      :end-before: end-find-evaluation\n      :language: java\n   .. output::\n\n      {'_id': 1, 'name': 'apples', 'qty': 5, 'rating': 3, 'color': 'red', 'type': ['fuji', 'honeycrisp']}\n      {'_id': 4, 'name': 'pineapple', 'qty': 3, 'rating': 5, 'color': 'yellow'}\n\nAdditional Information\n----------------------\n\nTo learn more about querying documents, see the :manual:`Query Documents\n</tutorial/query-documents/>` guide in the {+mdb-server+} manual.\n\n.. To learn more about retrieving documents with the {+driver-short+}, see\n.. :ref:`java-rs-retrieve`.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the methods or types discussed in this\nguide, see the following API documentation:\n\n- `find() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoCollection.html#find()>`__\n- `FindPublisher <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/FindPublisher.html>`__\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/specify-a-query.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input::\n      :language: java\n\n      collection\n          .countDocuments(Filters.text(\"bakery coffee\"))\n          .subscribe(new PrintSubscriber<Long>(\"Text search matches: %s\"));\n\n   .. output::\n      :language: none\n      :visible: false\n\n      Text search matches: [2]\n\nText Score\n~~~~~~~~~~\n\nFor each matching document, text search assigns a score that represents\nthe relevance of a document to the specified text search query filter.\nTo return and sort by score, use the ``$meta`` operator in the\nprojection document and the sort expression:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/text-search.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input::\n      :language: java\n\n      collection.countDocuments(\n          Filters.text(\"cafe\", new TextSearchOptions().language(\"english\"))\n      ).subscribe(new PrintSubscriber<Long>(\"Text search matches (english): %s\"));\n\n   .. output::\n      :language: none\n      :visible: false\n\n      Text search matches (english): [1]\n\nTo learn more about text search, see the following sections in\nthe MongoDB Server manual:\n\n- :manual:`$text </reference/operator/query/text/#mongodb-query-op.-text>`\n- :manual:`Text Indexes </core/indexes/index-types/index-text/>`\n- :manual:`Specify the Default Language for a Text Index </core/indexes/index-types/index-text/specify-text-index-language/>`\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read/text-search.txt"
+  },
+  {
+    "code": "   :language: java\n   :copyable:\n   :linenos:\n   :emphasize-lines: 45-47\n\nFind One\n--------\n\nThe following example retrieves a document that matches the criteria specified by the\ngiven filter:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read-data-from-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-find-one\n   :end-before: end-find-one\n   :language: java\n   :copyable:\n\nTo learn more about the ``find().first()`` construct, see the :ref:`Retrieve Data <java-rs-retrieve>` guide.\n\nFind Multiple\n-------------\n\nThe following example retrieves all documents that match the criteria specified by the\ngiven filter:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read-data-from-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-find-multiple\n   :end-before: end-find-multiple\n   :language: java\n   :copyable:\n\nTo learn more about the ``find()`` method, see the :ref:`Retrieve Data <java-rs-retrieve>` guide.\n\nCount Documents in a Collection\n-------------------------------\n\nThe following example returns the number of documents in the specified collection:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read-data-from-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-count-collection\n   :end-before: end-count-collection\n   :language: java\n   :copyable:\n\nTo learn more about the ``countDocuments()`` method, see the :ref:`Count Documents <java-rs-count>` guide.\n\nCount Documents Returned from a Query\n-------------------------------------\n\nThe following example returns the number of documents in the specified\ncollection that match the criteria specified by\nthe given filter:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read-data-from-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-count-documents\n   :end-before: end-count-documents\n   :language: java\n   :copyable:\n\nTo learn more about the ``countDocuments()`` method, see the :ref:`Count Documents <java-rs-count>` guide.\n\nEstimated Document Count\n------------------------\n\nThe following example returns an approximate number of documents in the specified\ncollection based on collection metadata:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read-data-from-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-estimate-count\n   :end-before: end-estimate-count\n   :language: java\n   :copyable:\n\nTo learn more about the ``estimatedDocumentCount()`` method, see the :ref:`Count Documents <java-rs-count>` guide.\n\nRetrieve Distinct Values\n------------------------\n\nThe following example returns all distinct values of the specified field name in a given\ncollection:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read-data-from-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-retrieve-distinct\n   :end-before: end-retrieve-distinct\n   :language: java\n   :copyable:\n\nTo learn more about the ``distinct()`` method, see the :ref:`<java-rs-distinct>` guide.\n\nMonitor Data Changes\n--------------------\n\nThe following example creates a change stream for a given collection and prints out\nsubsequent change events in that collection:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read-data-from-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-monitor-changes\n   :end-before: end-monitor-changes\n   :language: java\n   :copyable:\n\nTo learn more about the ``watch()`` method, see the :ref:`Monitor Data Changes <java-rs-change-streams>` guide.\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read-data-from-mongo.txt"
+  },
+  {
+    "code": "   :start-after: // start-write-concern-client\n   :end-before: // end-write-concern-client\n   :language: java\n   :emphasize-lines: 3\n\nThe following example sets the write concern to ``\"majority\"`` for a collection:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read-write-configuration.txt"
+  },
+  {
+    "code": "   :start-after: // start-write-concern-collection\n   :end-before: // end-write-concern-collection\n   :language: java\n\n.. note:: Collections and Databases are Immutable\n\n   ``MongoDatabase`` and ``MongoCollection`` instances are immutable. When you\n   set the write concern on a database or collection, the method returns a new\n   instance and does not affect the original instance.\n\nFor more information about write concern, see :manual:`Write Concern\n</reference/write-concern/>` in the {+mdb-server+} manual.\n\nRead Concern\n------------\n\nRead concern specifies the following behaviors:\n\n- Level of :manual:`causal consistency\n  </core/causal-consistency-read-write-concerns>` across replica sets\n- :manual:`Isolation guarantees </core/read-isolation-consistency-recency/>` maintained\n  during a query\n\nYou can specify the read concern by using the ``readConcern()`` method on a\nclient or transaction, or by using the ``withReadConcern()`` method on\na database or collection. The ``readConcern()`` and ``withReadConcern()``\nmethods accept a single parameter that specifies the read concern level.\n\nYou can set the following read concern levels:\n\n- ``ReadConcern.LOCAL``: The query returns the instance's most recent data. Provides no guarantee\n  that the data has been written to a majority of the replica set members.\n- ``ReadConern.AVAILABLE``: The query returns the instance's most recent data.\n  Provides no guarantee that the data has been written to a majority of the\n  replica set members. ``ReadConcern.AVAILABLE`` is not available for use with\n  causally consistent sessions and transactions.\n- ``ReadConcern.MAJORITY``: The query returns data that has been acknowledged by\n  a majority of the replica set members.\n- ``ReadConcern.LINEARIZABLE``: The query returns data that reflects all\n  successful writes that completed prior to the start of the read operation.\n  ``ReadConcern.LINEARIZABLE`` is not available for use with causally consistent\n  sessions and transactions.\n- ``ReadConcern.SNAPSHOT``: The query returns majority-committed data as it appears across shards, from a\n  specific single point in the recent past.\n\nFor more information about the read concern levels, see :manual:`Read Concern\nLevels </reference/read-concern/#read-concern-levels>` in the {+mdb-server+}\nmanual.\n\nThe following example sets the read concern to ``ReadConcern.MAJORITY`` for an instance of\n``MongoClient``:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read-write-configuration.txt"
+  },
+  {
+    "code": "   :start-after: // start-read-concern-client\n   :end-before: // end-read-concern-client\n   :language: java\n   :emphasize-lines: 3\n\nThe following example sets the read concern to ``ReadConcern.MAJORITY`` for a\ncollection:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read-write-configuration.txt"
+  },
+  {
+    "code": "   :start-after: // start-read-concern-collection\n   :end-before: // end-read-concern-collection\n   :language: java\n\nTo learn more about read concern, see :manual:`Read Concern\n<reference/read-concern>` in the {+mdb-server+} manual.\n\nRead Preference\n---------------\n\nRead preference determines which member of a replica set MongoDB reads when\nrunning a query. You can set the read preference by using the ``readPreference()`` method\non a client or transaction, or by using the ``withReadPreference()``\nmethod on a database or collection.\n\nThe ``readPreference()`` and ``withReadPreference()`` methods accept a read\npreference mode as a parameter. You can set the read preference mode to one of\nthe following values:\n\n- ``ReadPreference.primary()``: The query returns data from the primary node.\n- ``ReadPreference.primaryPreferred()``: The query returns data from the primary node if\n  available. Otherwise, the query returns data from a secondary node.\n- ``ReadPreference.secondary()``: The query returns data from a secondary node.\n- ``ReadPreference.secondaryPreferred()``: The query returns data from a secondary node if\n  available, Otherwise, the query returns data from the primary node.\n- ``ReadPreference.nearest()``: The query returns data from the node with the lowest\n  network latency.\n\nThe following example sets the read preference to ``ReadPreference.secondary()``\nfor an instance of ``MongoClient``:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read-write-configuration.txt"
+  },
+  {
+    "code": "   :start-after: // start-read-preference-client\n   :end-before: // end-read-preference-client\n   :language: java\n   :emphasize-lines: 3\n\nThe following example sets the read preference to ``ReadPreference.secondary()``\nfor a collection:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read-write-configuration.txt"
+  },
+  {
+    "code": "   :start-after: // start-read-preference-collection\n   :end-before: // end-read-preference-collection\n   :language: java\n\nFor more information about read preference, see :manual:`Read Preference\n</core/read-preference/>` in the {+mdb-server+} manual.\n\nAPI Documentation\n-----------------\n\nTo learn more about any of the methods or types discussed in this\nguide, see the following API documentation:\n\n- `WriteConcern <{+api+}//mongodb-driver-core/com/mongodb/WriteConcern.html>`__\n- `MongoDatabase.withWriteConcern <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoDatabase.html#withWriteConcern(com.mongodb.WriteConcern)>`__\n- `MongoCollection.withWriteConcern <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoCollection.html#withWriteConcern(com.mongodb.WriteConcern)>`__\n- `ReadConcern <{+api+}/mongodb-driver-core/com/mongodb/ReadConcern.html>`__\n- `MongoDatabase.withReadConcern <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoDatabase.html#withReadConcern(com.mongodb.ReadConcern)>`__\n- `MongoCollection.withReadConcern <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoCollection.html#withReadPreference(com.mongodb.ReadPreference)>`__\n- `ReadPreference <{+api+}/mongodb-driver-core/com/mongodb/ReadPreference.html>`__\n- `MongoDatabase.withReadPreference <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoDatabase.html#withReadPreference(com.mongodb.ReadPreference)>`__\n- `MongoDatabase.withReadPreference <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoCollection.html#withReadPreference(com.mongodb.ReadPreference)>`__\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/read-write-configuration.txt"
+  },
+  {
+    "code": "         :start-after: // start-gssapi-connection-string\n         :end-before: // end-gssapi-connection-string\n         :language: java\n\n   .. tab::\n      :tabid: MongoCredential\n\n      To specify the GSSAPI authentication mechanism by using the\n      ``MongoCredential`` class, call the ``createGSSAPICredential()``\n      method, as shown in the following example:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "         :start-after: // start-gssapi-mongocredential\n         :end-before: // end-gssapi-mongocredential\n         :language: java\n\nTo acquire a\n`Kerberos ticket <https://docs.oracle.com/en/java/javase/11/docs/api/java.security.jgss/javax/security/auth/kerberos/KerberosTicket.html>`__,\nthe GSSAPI Java libraries require you to specify the realm and Key Distribution\nCenter (KDC) system properties. You can set these settings as shown in the\nfollowing example:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "         :start-after: // start-gssapi-connection-string-properties\n         :end-before: // end-gssapi-connection-string-properties\n         :language: java\n\n   .. tab::\n      :tabid: MongoCredential\n\n      To specify the GSSAPI additional properties, call the\n      ``withMechanismProperty()`` method on your ``MongoCredential``\n      instance, and pass the property name and value as parameters. Use the\n      property name constants defined in the ``MongoCredential`` class:\n\n      - `SERVICE_NAME_KEY <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#SERVICE_NAME_KEY>`__\n      - `CANONICALIZE_HOST_NAME_KEY <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#CANONICALIZE_HOST_NAME_KEY>`__\n      - `JAVA_SUBJECT_KEY <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#JAVA_SUBJECT_KEY>`__\n      - `JAVA_SASL_CLIENT_PROPERTIES_KEY <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#JAVA_SASL_CLIENT_PROPERTIES_KEY>`__\n      - `JAVA_SUBJECT_PROVIDER_KEY <{+api+}/apidocs/mongodb-driver-core/com/mongodb/MongoCredential.html#JAVA_SUBJECT_PROVIDER_KEY>`__\n\n      Select the :guilabel:`SERVICE_NAME_KEY` or :guilabel:`JAVA_SUBJECT_KEY` tab to\n      see how to specify the corresponding property:\n\n      .. tabs::\n\n         .. tab::\n            :tabid: SERVICE_NAME_KEY\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "               :start-after: // start-gssapi-service-key\n               :end-before: // end-gssapi-service-key\n               :language: java\n\n         .. tab::\n            :tabid: JAVA_SUBJECT_KEY\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "               :start-after: // start-gssapi-subject-key\n               :end-before: // end-gssapi-subject-key\n               :language: java\n\nBy default, the {+driver-short+} caches Kerberos tickets by ``MongoClient`` instance.\nIf your deployment frequently creates and destroys ``MongoClient`` instances,\nyou can change the default Kerberos ticket caching behavior to cache by process\nto improve performance.\n\n.. tabs::\n   :hidden:\n\n   .. tab::\n      :tabid: Connection String\n\n      To cache Kerberos tickets by process, you must use the ``MongoCredential`` authentication\n      mechanism, because the connection string authentication mechanism does not support the ``JAVA_SUBJECT_PROVIDER``\n      mechanism property. Select the :guilabel:`MongoCredential`\n      tab to learn how to cache Kerberos tickets by process.\n\n   .. tab::\n      :tabid: MongoCredential\n\n      To cache Kerberos tickets by process, specify the ``JAVA_SUBJECT_PROVIDER``\n      mechanism property and provide a\n      `KerberosSubjectProvider <https://mongodb.github.io/mongo-java-driver/4.2/apidocs/mongodb-driver-core/com/mongodb/KerberosSubjectProvider.html#%3Cinit%3E()>`__\n      in your ``MongoCredential`` instance, as shown in the following example:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "         :start-after: // start-gssapi-ticket-cache\n         :end-before: // end-gssapi-ticket-cache\n         :language: java\n\n.. note::\n\n   On Windows, Oracle's JRE uses `LSA <https://docs.microsoft.com/en-us/windows/win32/secauthn/lsa-authentication>`__\n   rather than `SSPI <https://docs.microsoft.com/en-us/windows/win32/secauthn/sspi>`__\n   in its implementation of GSSAPI, which limits interoperability with\n   Windows Active Directory and implementations of single sign-on. See the\n   following resources for more information:\n\n   - `JDK-8054026 <https://bugs.openjdk.java.net/browse/JDK-8054026>`__\n   - `JDK-6722928 <https://bugs.openjdk.java.net/browse/JDK-6722928>`__\n   - `SO 23427343 <https://stackoverflow.com/questions/23427343/cannot-retrieve-tgt-despite-allowtgtsessionkey-registry-entry>`__\n\n.. _java-rs-plain-auth-mechanism:\n\nLDAP (PLAIN)\n~~~~~~~~~~~~\n\nYou can authenticate to a Lightweight Directory Access Protocol (LDAP)\nserver by using your directory server username and password.\n\n.. tip::\n\n   The authentication mechanism is named ``PLAIN`` instead of ``LDAP`` since it\n   authenticates using the `PLAIN Simple Authentication and Security Layer\n   (SASL) defined in RFC-4616 <https://tools.ietf.org/html/rfc4616>`_.\n\nThe following sections contain code examples that use the following placeholders:\n\n- ``ldap_username``: your LDAP username\n- ``ldap_password``: your LDAP user's password\n- ``hostname``: network address of your MongoDB deployment that your\n  client can access\n- ``port``: port number of your MongoDB deployment\n\nSelect the :guilabel:`Connection String` or :guilabel:`MongoCredential` tabs to\nsee the corresponding syntax.\n\n.. tabs::\n\n   .. tab::\n      :tabid: Connection String\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "         :start-after: // start-ldap-connection-string\n         :end-before: // end-ldap-connection-string\n         :language: java\n\n   .. tab::\n      :tabid: MongoCredential\n\n      To specify the LDAP (PLAIN) authentication mechanism by using the\n      ``MongoCredential`` class, call the ``createPlainCredential()``\n      method, as shown in the following example:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "         :start-after: // start-ldap-mongocredential\n         :end-before: // end-ldap-mongocredential\n         :language: java\n\n.. _java-rs-mongodb-oidc:\n\nMONGODB-OIDC\n~~~~~~~~~~~~\n\n.. important::\n\n   The MONGODB-OIDC authentication mechanism requires {+mdb-server+} v7.0 or later running\n   on a Linux platform.\n\nThe following sections describe how to use the MONGODB-OIDC authentication mechanism to\nauthenticate to various platforms.\n\nFor more information about the MONGODB-OIDC authentication mechanism, see\n:manual:`OpenID Connect Authentication </core/security-oidc/>` and\n:manual:`MongoDB Server Parameters </reference/parameters/#mongodb-parameter-param.oidcIdentityProviders>`\nin the MongoDB Server manual.\n\n.. _java-rs-mongodb-oidc-azure-imds:\n\nAzure IMDS\n++++++++++\n\nIf your application runs on an Azure VM, or otherwise uses the\n`Azure Instance Metadata Service <https://learn.microsoft.com/en-us/azure/virtual-machines/instance-metadata-service>`__\n(IMDS), you can authenticate to MongoDB by using the {+driver-short+}'s built-in Azure\nsupport.\n\nYou can specify Azure IMDS OIDC authentication either by \nusing a ``MongoCredential`` or as part of the connection string.\n\nSelect the :guilabel:`Connection String` or :guilabel:`MongoCredential` tabs to\nsee the corresponding syntax.\n\n.. tabs::\n\n   .. tab:: Connection String\n      :tabid: mongodb-azure-imds-connection-string\n    \n      Replace the ``<username>`` placeholder with the client ID or application ID of the\n      Azure managed identity or enterprise application. Replace the ``<percent-encoded audience>`` \n      placeholder in the following code with the percent-encoded value of the audience server\n      parameter configured on your MongoDB deployment.\n\n      The comma (``,``) character and its encoding (``%2C``) are\n      reserved, and using these characters in a value causes the\n      driver to interpret commas as delimiters of key-value pairs.\n      You must specify values that contain commas in a ``MongoCredential`` instance, as\n      demonstrated in the :guilabel:`MongoCredential` tab.\n     \n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "         :start-after: // start-azure-oidc-connection-string\n         :end-before: // end-azure-oidc-connection-string\n         :language: java\n\n   .. tab:: MongoCredential\n      :tabid: mongodb-azure-mongo-credential\n\n      Replace the ``<username>`` placeholder with the client ID or application ID of the\n      Azure managed identity or enterprise application. Replace the ``<audience>``\n      placeholder with the value of the\n      ``audience`` server parameter configured on your MongoDB deployment.\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "         :start-after: // start-azure-oidc-mongocredential\n         :end-before: // end-azure-oidc-mongocredential\n         :language: java\n\n.. _java-rs-mongodb-oidc-gcp-imds:\n\nGCP IMDS\n++++++++\n\nIf your application runs on a Google Compute Engine VM, or otherwise uses the\n`GCP Instance Metadata Service <https://cloud.google.com/compute/docs/metadata/querying-metadata>`__,\nyou can authenticate to MongoDB by using the {+driver-short+}'s built-in GCP\nsupport.\n\nYou can specify GCP IMDS OIDC authentication either by \nusing a ``MongoCredential`` or as part of the connection string.\n\nThe following sections contain code examples that use the following\nplaceholders:\n\n- ``hostname``: network address of your MongoDB deployment that your client can access\n- ``port``: port number of your MongoDB deployment\n\nSelect the :guilabel:`Connection String` or :guilabel:`MongoCredential` tabs to\nsee the corresponding syntax.\n\n.. tabs::\n\n   .. tab:: Connection String\n      :tabid: mongodb-gcp-imds-connection-string\n    \n      Replace the ``<percent-encoded audience>`` placeholder in the\n      following code with the percent-encoded value of the audience server\n      parameter configured on your MongoDB deployment.\n\n      The comma (``,``) character and its encoding (``%2C``) are\n      reserved, and using these characters in a value causes the\n      driver to interpret commas as delimiters of key-value pairs.\n      You must specify values that contain commas in a ``MongoCredential`` instance, as\n      demonstrated in the :guilabel:`MongoCredential` tab.\n     \n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "         :start-after: // start-gcp-oidc-connection-string\n         :end-before: // end-gcp-oidc-connection-string\n         :language: java\n\n   .. tab:: MongoCredential\n      :tabid: mongodb-gcp-mongo-credential\n\n      Replace the ``<audience>`` placeholder with the value of the\n      ``audience`` server parameter configured on your MongoDB deployment.\n      \n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "         :start-after: // start-gcp-oidc-mongocredential\n         :end-before: // end-gcp-oidc-mongocredential\n         :language: java\n\nCustom Callback\n+++++++++++++++\n\nThe {+driver-short+} doesn't offer built-in support for all platforms, including\nAzure Functions and Azure Kubernetes Service (AKS). Instead, you\nmust define a custom callback to use OIDC to authenticate from these platforms.\nTo do so, use the ``\"OIDC_CALLBACK\"`` authentication property, as shown in the following\ncode example:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "   :start-after: // start-oidc-callback-create\n   :end-before: // end-oidc-callback-create\n   :language: java\n\nThe value of the ``\"OIDC_CALLBACK\"`` property must be a lambda or other implementation\nof the ``OidcCallback`` functional interface that accepts an ``OidcCallbackContext``\nas a parameter and returns an ``OidcCallbackResult``.\n\nThe following example uses an example callback to retrieve an OIDC token from a file\nnamed ``\"access-token.dat\"`` in the local file system:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "   :start-after: // start-oidc-callback\n   :end-before: // end-oidc-callback\n   :language: java\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-insert-one\n   :end-before: end-bulk-insert-one\n   :language: java\n   :copyable:\n   :dedent:\n\nTo insert multiple documents, create an instance of ``InsertOneModel`` for each document.\n\nUpdate Operations\n~~~~~~~~~~~~~~~~~\n\nTo update a document, create an instance of ``UpdateOneModel`` and pass in\nthe following arguments:\n\n- **Query filter** that specifies the criteria used to match documents in your collection.\n- **Update operation** you want to perform. For more information about update\n  operations, see the :manual:`Field Update Operators\n  </reference/operator/update-field/>` guide in the {+mdb-server+} manual.\n\nThe following example creates an instance of ``UpdateOneModel``:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/bulk-writes.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-update-one\n   :end-before: end-bulk-update-one\n   :language: java\n   :copyable:\n   :dedent:\n\nIf multiple documents match the query filter specified in\nthe ``UpdateOneModel`` instance, the operation updates the first\nresult. You can specify a sort in an ``UpdateOptions`` instance to apply\nan order to matched documents before the driver performs the update\noperation, as shown in the following code:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/bulk-writes.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-update-many\n   :end-before: end-bulk-update-many\n   :language: java\n   :copyable:\n   :dedent:\n\nReplace Operations\n~~~~~~~~~~~~~~~~~~\n\nA replace operation removes all fields and values of a specified document, aside from\nthe ``_id`` field, and replaces them with new ones. To perform a replace operation, create\nan instance of ``ReplaceOneModel`` and pass in a query filter and the fields and values\nyou want to store in the matching document.\n\nThe following example creates an instance of ``ReplaceOneModel``:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/bulk-writes.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-replace-one\n   :end-before: end-bulk-replace-one\n   :language: java\n   :copyable:\n   :dedent:\n\nIf multiple documents match the query filter specified in\nthe ``ReplaceOneModel`` instance, the operation replaces the first\nresult. You can specify a sort in a ``ReplaceOptions`` instance to apply\nan order to matched documents before the driver performs the replace\noperation, as shown in the following code:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/bulk-writes.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-delete-one\n   :end-before: end-bulk-delete-one\n   :language: java\n   :copyable:\n   :dedent:\n\nTo delete multiple documents, create an instance of ``DeleteManyModel`` and pass in a\nquery filter specifying the documents you want to delete. ``DeleteManyModel`` removes\n*all* documents that match your query filter.\n\nThe following example creates an instance of ``DeleteManyModel``:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/bulk-writes.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-delete-many\n   :end-before: end-bulk-delete-many\n   :language: java\n   :copyable:\n   :dedent:\n\nCall the ``bulkWrite()`` Method\n--------------------------------\n\nAfter you define a class instance for each operation you want to perform,\npass a list of these instances to the ``bulkWrite()`` method.\nBy default, the method runs the operations in the order\nthey're defined in the list.\n\nThe following example performs multiple write operations by using the\n``bulkWrite()`` method:\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/bulk-writes.txt"
+  },
+  {
+    "code": "   :copyable: \n\n   .. input:: /includes/write/bulk-write.java\n      :start-after: start-bulk-write-mixed\n      :end-before: end-bulk-write-mixed\n      :language: java\n      :dedent:\n\n   .. output::\n      \n      AcknowledgedBulkWriteResult{insertedCount=2, matchedCount=2, removedCount=1, modifiedCount=2, upserts=[], inserts=[BulkWriteInsert{index=0, id=BsonObjectId{value=66a7e0a6c08025218b657208}}, BulkWriteInsert{index=1, id=BsonObjectId{value=66a7e0a6c08025218b657209}}]}\n\nIf any of the write operations fail, the {+driver-short+} signals a\n``MongoBulkWriteException`` and does not perform any further individual operations.\n``MongoBulkWriteException`` includes a ``BulkWriteError`` that can be accessed by using the\n``MongoBulkWriteException.getWriteErrors()`` method, which provides details of the\nindividual failure.\n\n.. note::\n\n   When the {+driver-short+} runs a bulk operation, it uses the ``writeConcern`` of the\n   collection on which the operation is running. The driver reports all write\n   concern errors after attempting all operations, regardless of execution order. \n\nCustomize Bulk Write Operations\n-------------------------------\n\nThe ``BulkWriteOptions`` class contains methods that modify\nthe behavior of the ``bulkWrite()`` method. To use the ``BulkWriteOptions``\nclass, construct a new instance of the class, then call one or more of its methods\nto modify the write operation. You can chain these method calls together.\nTo modify the behavior of the write operation, pass the class instance as the last\nargument to the ``bulkWrite()`` method.\n\nYou can use the following methods in the ``BulkWriteOptions`` class\nto modify a write method. All methods are optional.\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Method\n     - Description\n\n   * - ``bypassDocumentValidation(Boolean bypassDocumentValidation)``\n     - | Specifies whether the bulk write operation bypasses document validation. This lets you \n         perform write operations on documents that don't meet the schema validation requirements, if any \n         exist. For more information about schema validation, see :manual:`Schema\n         Validation </core/schema-validation/#schema-validation>` in the MongoDB\n         Server manual.\n\n   * - ``comment(Bson comment)``\n     - | Attaches a ``Bson`` comment to the operation. For more information, see the :manual:`insert command\n         fields </reference/command/insert/#command-fields>` guide in the\n         MongoDB Server manual.  \n\n   * - ``comment(String comment)``\n     - | Attaches a ``String`` comment to the operation. For more information, see the :manual:`insert command\n         fields </reference/command/insert/#command-fields>` guide in the\n         MongoDB Server manual.  \n\n   * - ``let(Bson variables)``\n     - | Specifies a map of parameter names and values. Values must be constant or closed\n         expressions that don't reference document fields. For more information,\n         see the :manual:`let statement\n         </reference/command/update/#std-label-update-let-syntax>` in the\n         MongoDB Server manual.\n\n   * - ``ordered(Boolean ordered)``\n     - | If set to ``True``, the driver performs the individual operations in the order\n         provided. If an individual operation fails, the driver will not execute any\n         subsequent individual operations.\n       | Defaults to ``True``. \n\nThe following example calls the ``bulkWrite()`` method from the preceding\nexample but sets the ``ordered`` option to ``False``:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/bulk-writes.txt"
+  },
+  {
+    "code": "   :copyable: \n\n   .. input:: /includes/write/bulk-write.java\n      :start-after: start-bulk-write-unordered\n      :end-before: end-bulk-write-unordered\n      :language: java\n      :dedent:\n\n   .. output::\n\n      AcknowledgedBulkWriteResult{insertedCount=2, matchedCount=2, removedCount=1, modifiedCount=2, upserts=[], inserts=[BulkWriteInsert{index=0, id=BsonObjectId{value=66a7e03cce430c5854b6caf9}}, BulkWriteInsert{index=1, id=BsonObjectId{value=66a7e03cce430c5854b6cafa}}]}\n\nIf any of the write operations in an unordered bulk write fail, the {+driver-short+}\nreports the errors only after attempting all operations.\n\n.. note::\n\n   Unordered bulk operations do not guarantee order of execution. The order can\n   differ from the way you list them to optimize the runtime.\n\nAdditional Information\n----------------------\n\nTo learn how to perform individual write operations, see the following guides:\n\n- :ref:`java-rs-write-insert`\n- :ref:`java-rs-write-update-docs`\n- :ref:`java-rs-write-replace`\n- :ref:`java-rs-write-delete-docs`\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the methods or types discussed in this\nguide, see the following API documentation:\n\n- `bulkWrite() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoCollection.html#bulkWrite(com.mongodb.reactivestreams.client.ClientSession,java.util.List)>`__\n- `InsertOneModel <{+api+}/mongodb-driver-core/com/mongodb/client/model/InsertOneModel.html>`__\n- `UpdateOneModel <{+api+}/mongodb-driver-core/com/mongodb/client/model/UpdateOneModel.html>`__\n- `UpdateManyModel <{+api+}/mongodb-driver-core/com/mongodb/client/model/UpdateManyModel.html>`__\n- `ReplaceOneModel <{+api+}/mongodb-driver-core/com/mongodb/client/model/ReplaceOneModel.html>`__\n- `DeleteOneModel <{+api+}/mongodb-driver-core/com/mongodb/client/model/DeleteOneModel.html>`__\n- `DeleteManyModel <{+api+}/mongodb-driver-core/com/mongodb/client/model/DeleteManyModel.html>`__\n- `BulkWriteResult <{+api+}/mongodb-driver-core/com/mongodb/bulk/BulkWriteResult.html>`__\n- `BulkWriteError <{+api+}/mongodb-driver-core/com/mongodb/bulk/BulkWriteError.html>`__\n- `MongoBulkWriteException <{+api+}/mongodb-driver-core/com/mongodb/MongoBulkWriteException.html>`__\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/bulk-writes.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n    Document document = new Document(\"name\", \"Mongo's Burgers\");\n    Publisher<InsertOneResult> insertPublisher = restaurants.insertOne(document);\n    Mono.from(insertPublisher).block();\n\nInsert Multiple Documents\n-------------------------\n\nTo add multiple documents to a MongoDB collection, call the ``insertMany()`` method\nand pass a list of documents you want to add. Then, pass the ``insertMany()`` result to the static\n``Mono.from()`` method from ``Mono``. ``Mono`` is a class from the {+pr+} library. In {+java-rs+}, \nthe driver methods return cold ``Publisher`` instances, which means that the\ncorresponding operation does not happen unless you subscribe to the returned\n``Publisher``. This guide uses the {+pr+} library to consume them. To learn more\nabout ``Mono``, see `Mono <https://projectreactor.io/docs/core/release/reference/#mono>`__ in the\n{+pr+} documentation.\n\nThe following example uses the ``insertMany()`` method to insert a list of documents into the ``restaurants`` collection:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/insert-documents.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n    Document doc1 = new Document(\"name\", \"Mongo's Pizza\");\n    Document doc2 = new Document(\"name\", \"Mongo's Coffee\");\n\n    List<Document> documents = Arrays.asList(doc1, doc2);\n\n    Publisher<InsertManyResult> insertPublisher = restaurants.insertMany(documents);\n    Mono.from(insertPublisher).block();\n\nModify Insert Behavior\n----------------------\n\nThe ``InsertOneOptions`` class contains methods that modify\nthe behavior of the ``insertOne()`` method. To use the ``InsertOneOptions``\nclass, construct a new instance of the class, then call one or more of its methods\nto modify the insert operation. You can chain these method calls together.\nTo modify the behavior of the insert operation, pass the class instance and\nchained method calls as the second argument to the\n``insertOne()`` method.\n\nYou can similarly modify the ``insertMany()`` method by using the\n``InsertManyOptions`` class.\n\nYou can use the following methods in the ``InsertOneOptions`` class\nto modify the ``insertOne()`` method. All methods are optional.\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Method\n     - Description\n\n   * - ``bypassDocumentValidation (Boolean bypassDocumentValidation)``\n     - | If set to ``True``, allows the write to opt out of\n         :manual:`document-level validation </core/schema-validation>`. \n       | Defaults to ``False``.\n\n   * - ``toString()``\n     - | If used, returns a string representation of the object.\n\n   * - ``comment(BsonValue comment)``\n     - | A comment to attach to the operation. For more information, see the :manual:`insert command\n         fields </reference/command/insert/#command-fields>` guide in the\n         MongoDB Server manual.\n\nThe ``InsertManyOptions`` class contains the previous methods,\nas well as the following ``ordered()`` method:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Method\n     - Description\n\n   * - ``ordered(Boolean ordered)``\n     - | If set to ``True``, the driver sends documents to the\n         server in the order provided. If an error occurs, the driver\n         and server cancel all remaining insert operations.\n       | Defaults to ``True``. \n\nExample\n~~~~~~~\n\nThe following code uses the ``insertMany()`` method to insert new\ndocuments into the ``restaurants`` collection. It also sets the ``bypassDocumentValidation(true)`` option\nto bypass document-level validation.\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/insert-documents.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n    Publisher<UpdateResult> replacePublisher = restaurants.replaceOne(\n            eq(\"name\", \"Pizza Town\"),\n            new Document().append(\"name\", \"Mongo's Pizza\")\n                    .append(\"cuisine\", \"Pizza\"));\n    Mono.from(replacePublisher).block();\n\nModify Replace Behavior\n-----------------------\n\nYou can optionally modify the behavior of the ``replaceOne()`` method by calling\nan options method. The ``ReplaceOptions`` class provides methods that modify\nthe behavior of the ``replaceOne()`` method. To use the ``ReplaceOptions``\nclass, construct a new instance of the class, then call one or more of its methods\nto modify the replace operation. You can chain these method calls together.\nTo modify the behavior of the replace operation, pass the class instance and\nchained method calls as the last argument to the\n``replaceOne()`` method.\n\nYou can use the following methods in the ``ReplaceOptions`` class\nto modify the ``replaceOne()`` method.\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Method\n     - Description\n\n   * - ``bypassDocumentValidation(Boolean bypass)``\n     - | Specifies whether the replace operation bypasses document validation. This lets you \n         update documents that don't meet the schema validation requirements, if any \n         exist. For more information about schema validation, see :manual:`Schema\n         Validation </core/schema-validation/#schema-validation>` in the MongoDB\n         Server manual.\n      \n   * - ``collation(Collation collation)``\n     - | Specifies the kind of language collation to use when sorting\n         results. For more information, see :manual:`Collation </reference/collation/#std-label-collation>`\n         in the MongoDB Server manual.  \n\n   * - ``comment(BsonValue comment)``\n     - | Attaches a ``BsonValue`` comment to the operation. For more information, see the :manual:`insert command\n         fields </reference/command/insert/#command-fields>` guide in the\n         MongoDB Server manual.  \n\n   * - ``comment(String comment)``\n     - | Attaches a ``String`` comment to the operation. For more information, see the :manual:`insert command\n         fields </reference/command/insert/#command-fields>` guide in the\n         MongoDB Server manual.  \n\n   * - ``hint(Bson hint)``\n     - | Sets the index for the operation as a ``Bson`` value. \n         For more information, see the :manual:`hint statement </reference/command/update/#std-label-update-command-hint>`\n         in the MongoDB Server manual.\n\n   * - ``hintString(String hint)``\n     - | Sets the index for the operation as a ``String`` value.\n         For more information, see the :manual:`hint statement </reference/command/update/#std-label-update-command-hint>`\n         in the MongoDB Server manual.\n\n   * - ``let(Bson variables)``\n     - | Specifies a map of parameter names and values. Values must be constant or closed\n         expressions that don't reference document fields. For more information,\n         see the :manual:`let statement\n         </reference/command/update/#std-label-update-let-syntax>` in the\n         MongoDB Server manual.\n\n   * - ``sort(Bson sort)``\n     - | Sets the sort criteria to apply to the operation. If multiple\n         documents match the query filter that you pass to the\n         ``replaceOne()`` method, the operation replaces the first\n         result. You can set this option to apply an order to matched\n         documents to have more control over which document is replaced.\n\n   * - ``upsert(Boolean upsert)``\n     - | Specifies whether the replace operation performs an upsert operation if no \n         documents match the query filter. For more information, see the :manual:`upsert\n         statement </reference/command/update/#std-label-update-command-upsert>`\n         in the MongoDB Server manual.\n\nModify Replace Example\n~~~~~~~~~~~~~~~~~~~~~~\n\nThe following code uses the ``replaceOne()`` method to replace a document in the\n``restaurants`` collection. It also sets the ``upsert(true)`` option\nso that the driver inserts a new document if the query filter doesn't \nmatch any existing documents.\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/replace-documents.txt"
+  },
+  {
+    "code": "   :language: java\n   :copyable:\n\n.. sharedinclude:: dbx/transactions-parallelism.rst\n\nAdditional Information\n----------------------\n\nTo learn more about the concepts mentioned in this guide, see the\nfollowing pages in the Server manual:\n\n- :manual:`Transactions </core/transactions/>`\n- :manual:`Server Sessions </reference/server-sessions/>`\n- :manual:`Causal Consistency </core/read-isolation-consistency-recency/#causal-consistency>`\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the types or methods discussed in this\nguide, see the following API Documentation:\n\n- `MongoClient <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoClient.html>`__\n- `startSession() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoClient.html#startSession()>`__\n- `startTransaction() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/ClientSession.html#startTransaction()>`__\n- `abortTransaction() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/ClientSession.html#abortTransaction()>`__\n- `commitTransaction() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/ClientSession.html#commitTransaction()>`__\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/transactions.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   Publisher<DeleteResult> deletePublisher = restaurants.deleteOne(\n           eq(\"name\", \"Ready Penny Inn\"));\n   Mono.from(deletePublisher).block();\n\nDelete Multiple Documents\n-------------------------\n\nTo delete multiple documents from a MongoDB collection, call the ``deleteMany()``\nmethod and pass in your query filter. Then, pass the ``deleteMany()`` result to the static\n``Mono.from`` method from ``Mono``. ``Mono`` is a class from the {+pr+} library. In {+java-rs+}, \nthe driver methods return cold ``Publisher`` instances, which means that the\ncorresponding operation does not happen unless you subscribe to the returned\n``Publisher``. This guide uses the {+pr+} library to consume them. To learn more\nabout ``Mono``, see `Mono <https://projectreactor.io/docs/core/release/reference/#mono>`__ in the\n{+pr+} documentation.\n\nThe following example removes all documents in the ``restaurants`` collection\nthat have a ``borough`` value of ``\"Brooklyn\"``:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/write-delete-documents.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   Publisher<DeleteResult> deletePublisher = restaurants.deleteMany(\n           eq(\"borough\", \"Brooklyn\"));\n   Mono.from(deletePublisher).block();\n\nCustomize the Delete Operation\n------------------------------\n\nThe ``DeleteOptions`` class contains methods that modify\nthe behavior of delete methods. To use the ``DeleteOptions``\nclass, construct a new instance of the class, then call one or more of its methods\nto modify the delete operation. You can chain these method calls together.\nTo modify the behavior of the delete operation, pass the class instance and\nchained method calls as the second argument to the\n``deleteOne()`` or ``deleteMany()`` method.\n\nYou can use the following methods in the ``DeleteOptions`` class\nto modify a delete method. All methods are optional.\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n   \n   * - Method\n     - Description\n\n   * - ``collation (Collation collation)``\n     - | Specifies the kind of language collation to use when sorting\n         results. For more information, see :manual:`Collation </reference/collation/#std-label-collation>`\n         in the MongoDB Server manual.\n\n   * - ``hint (Bson hint)``\n     - | Gets or sets the index to scan for documents. \n         For more information, see the :manual:`hint statement </reference/command/delete/#std-label-deletes-array-hint>`\n         in the MongoDB Server manual.\n\n   * - ``hint (String hint)``\n     - | Gets or sets the index to scan for documents. \n         For more information, see the :manual:`hint statement </reference/command/delete/#std-label-deletes-array-hint>`\n         in the MongoDB Server manual.\n\n   * - ``let (Bson variables)``\n     - | A map of parameter names and values. Values must be constant or closed\n         expressions that don't reference document fields. For more information,\n         see the :manual:`let statement\n         </reference/command/delete/#std-label-delete-let-syntax>` in the\n         MongoDB Server manual.\n\n   * - ``comment (BsonValue comment)``\n     - | A comment to attach to the operation. For more information, see the :manual:`delete command\n         fields </reference/command/delete/#command-fields>` guide in the\n         MongoDB Server manual for more information.\n\n   * - ``comment (String comment)``\n     - | A comment to attach to the operation. For more information, see the :manual:`delete command\n         fields </reference/command/delete/#command-fields>` guide in the\n         MongoDB Server manual for more information.\n\nExample\n~~~~~~~\n\nThe following code uses the ``deleteMany()`` method to delete all documents in\nthe ``restaurants`` collection with a ``name`` value that includes the string ``\"Mongo\"``.\nIt also uses the ``comment`` method to add a comment to the operation.\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/write-delete-documents.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   Publisher<DeleteResult> deletePublisher = restaurants.deleteMany(\n           regex(\"name\", \"Mongo\"),\n           new DeleteOptions().comment(\"Deleting Mongo restaurants\"));\n   Mono.from(deletePublisher).block();\n\nAdditional Information\n----------------------\n\nFor runnable code examples of inserting documents with the {+driver-short+}, see the\n:ref:`<java-rs-write>` guide.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the methods or types discussed in this\nguide, see the following API documentation:\n\n- `deleteOne() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoCollection.html#deleteOne(com.mongodb.reactivestreams.client.ClientSession,org.bson.conversions.Bson)>`__\n- `deleteMany()\n  <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoCollection.html#deleteMany(com.mongodb.reactivestreams.client.ClientSession,org.bson.conversions.Bson)>`__\n- `DeleteOptions\n  <{+api+}/mongodb-driver-core/com/mongodb/client/model/DeleteOptions.html>`__\n- `BsonValue\n  <{+api+}/bson/org/bson/BsonValue.html>`__\n- `Collation\n  <{+api+}/mongodb-driver-core/com/mongodb/client/model/Collation.html>`__\n\n\n\n\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/write-delete-documents.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n    Publisher<UpdateResult> updatePublisher = \n            restaurants.updateOne(eq(\"name\", \"Bagels N Buns\"),\n                    set(\"name\", \"2 Bagels 2 Buns\"));\n    Mono.from(updatePublisher).block();\n\nUpdate Multiple Documents\n-------------------------\n\nTo update multiple documents in a MongoDB collection, call the ``updateMany()``\nmethod and pass your query filter and update operators. Then, pass the ``updateMany()`` result to the static ``Mono.from()`` method from\n``Mono``. ``Mono`` is a class from the {+pr+} library. In {+java-rs+}, \nthe driver methods return cold ``Publisher`` instances, which means that the\ncorresponding operation does not happen unless you subscribe to the returned\n``Publisher``. This guide uses the {+pr+} library to consume them. To learn more\nabout ``Mono``, see `Mono <https://projectreactor.io/docs/core/release/reference/#mono>`__ in the Project\nReactor documentation.\n\nThe following example uses the ``updateMany()`` method to update all documents that have a ``cuisine`` value of\n``\"Pizza\"`` to have a ``cuisine`` value of ``\"Pasta\"``:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/write-update-documents.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n    Publisher<UpdateResult> updatePublisher = \n            restaurants.updateMany(eq(\"cuisine\", \"Pizza\"),\n                    set(\"cuisine\", \"Pasta\"));\n    Mono.from(updatePublisher).block();\n    \nCustomize the Update Operation\n------------------------------\n\nThe ``UpdateOptions`` class contains methods that modify\nthe behavior of update methods. To use the ``UpdateOptions``\nclass, construct a new instance of the class, then call one or more of its methods\nto modify the update operation. You can chain these method calls together.\nTo modify the behavior of the update operation, pass the class instance and\nchained method calls as the third argument to the\n``updateOne()`` or ``updateMany()`` method.\n\nYou can use the following optional methods in the ``UpdateOptions`` class\nto modify an update operation:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Method\n     - Description\n\n   * - ``arrayFilters(List<? extends Bson> arrayFilters)``\n     - | Specifies which array elements an update applies\n         to.\n\n   * - ``bypassDocumentValidation(Boolean bypassDocumentValidation)``\n     - | Specifies whether the update operation bypasses document validation. This lets you \n         update documents that don't meet the schema validation requirements, if any \n         exist. For more information about schema validation, see :manual:`Schema\n         Validation </core/schema-validation/#schema-validation>` in the MongoDB\n         Server manual.\n      \n   * - ``collation(Collation collation)``\n     - | Specifies the kind of language collation to use when sorting\n         results. For more information, see :manual:`Collation </reference/collation/#std-label-collation>`\n         in the MongoDB Server manual.  \n\n   * - ``comment(BsonValue comment)``\n     - | Attaches a ``Bson`` comment to the operation. For more information, see the :manual:`insert command\n         fields </reference/command/insert/#command-fields>` guide in the\n         MongoDB Server manual.  \n\n   * - ``comment(String comment)``\n     - | Attaches a ``String`` comment to the operation. For more information, see the :manual:`insert command\n         fields </reference/command/insert/#command-fields>` guide in the\n         MongoDB Server manual.  \n\n   * - ``hint(Bson hint)``\n     - | Sets the index for the operation as a ``Bson`` value. \n         For more information, see the :manual:`hint statement </reference/command/update/#std-label-update-command-hint>`\n         in the MongoDB Server manual.\n\n   * - ``hintString(String hint)``\n     - | Sets the index for the operation as a ``String`` value.\n         For more information, see the :manual:`hint statement </reference/command/update/#std-label-update-command-hint>`\n         in the MongoDB Server manual.\n\n   * - ``let(Bson variables)``\n     - | Specifies a map of parameter names and values. Values must be constant or closed\n         expressions that don't reference document fields. For more information,\n         see the :manual:`let statement\n         </reference/command/update/#std-label-update-let-syntax>` in the\n         MongoDB Server manual.\n\n   * - ``sort(Bson sort)``\n     - | Sets the sort criteria to apply to the operation. If multiple\n         documents match the query filter that you pass to the\n         ``updateOne()`` method, the operation updates the first\n         result. You can set this option to apply an order to matched\n         documents to have more control over which document is updated.\n\n   * - ``upsert(Boolean upsert)``\n     - | Specifies whether the update operation performs an upsert operation if no \n         documents match the query filter. For more information, see the :manual:`upsert\n         statement </reference/command/update/#std-label-update-command-upsert>`\n         in the MongoDB Server manual.\n\nExample\n~~~~~~~\n\nThe following code uses the ``updateMany()`` method to find all documents where the \n``borough`` field has the value ``\"Manhattan\"``. It then updates the ``borough``\nvalue in these documents to ``\"Manhattan (north)\"``. Because the ``upsert`` option is\nset to ``true``, the {+driver-short+} inserts a new document if the query filter doesn't \nmatch any existing documents.\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/write-update-documents.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n    Publisher<UpdateResult> updatePublisher = restaurants.updateMany(\n            eq(\"borough\", \"Manhattan\"),\n            set(\"borough\", \"Manhattan (north)\"),\n            new UpdateOptions().upsert(true));\n    Mono.from(updatePublisher).block();\n\n\nReturn Value\n------------\n\nThe ``updateOne()`` and ``updateMany()`` methods each return an ``UpdateResult`` \nobject. The ``UpdateResult`` type contains the following instance methods:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Method\n     - Description\n\n   * - ``getMatchedCount()``\n     - | The number of documents that matched the query filter, regardless of\n         how many were updated.\n\n   * - ``getModifiedCount()``\n     - | The number of documents modified by the update operation. If an updated\n         document is identical to the original, it is not included in this\n         count.\n\n   * - ``getUpsertedId()``\n     - | The ID of the document that was upserted in the database, if the driver\n         performed an upsert. Otherwise ``null``.\n         \n   * - ``wasAcknowledged()``\n     - | Returns true if the update was acknowledged.\n\nAdditional Information\n-----------------------\n\nFor additional information about update operators, see :manual:`Update Operators\n</reference/operator/update>` in the MongoDB Server manual.\n\nFor runnable code examples of inserting documents with the {+driver-short+}, see the\n:ref:`java-rs-write` guide. \n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the methods or types discussed in this\nguide, see the following API documentation:\n\n- `updateOne() <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoCollection.html#updateOne(com.mongodb.reactivestreams.client.ClientSession,org.bson.conversions.Bson,java.util.List)>`__\n- `updateMany()\n  <{+api+}/mongodb-driver-reactivestreams/com/mongodb/reactivestreams/client/MongoCollection.html#updateMany(com.mongodb.reactivestreams.client.ClientSession,org.bson.conversions.Bson,java.util.List)>`__\n- `UpdateOptions\n  <{+api+}/mongodb-driver-core/com/mongodb/client/model/UpdateOptions.html>`__\n- `UpdateResult <{+api+}/mongodb-driver-core/com/mongodb/client/result/UpdateResult.html>`__\n- `BsonValue\n  <{+api+}/bson/org/bson/BsonValue.html>`__\n- `Collation\n  <{+api+}/mongodb-driver-core/com/mongodb/client/model/Collation.html>`__\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write/write-update-documents.txt"
+  },
+  {
+    "code": "   :language: java\n   :copyable:\n   :linenos:\n   :emphasize-lines: 56-58\n\nInsert One\n----------\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write-data-to-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-insert-one\n   :end-before: end-insert-one\n   :language: java\n   :copyable:\n\nTo learn more about the ``insertOne()`` method, see the :ref:`Insert Documents <java-rs-write-insert>` guide.\n\nInsert Multiple\n---------------\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write-data-to-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-insert-multiple\n   :end-before: end-insert-multiple\n   :language: java\n   :copyable:\n\nTo learn more about the ``insertMany()`` method, see the :ref:`Insert Documents <java-rs-write-insert>` guide.\n\nUpdate One\n----------\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write-data-to-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-update-one\n   :end-before: end-update-one\n   :language: java\n   :copyable:\n\nTo learn more about the ``updateOne()`` method, see the :ref:`Update Documents <java-rs-write-update-docs>` guide.\n\nUpdate Multiple\n---------------\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write-data-to-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-update-multiple\n   :end-before: end-update-multiple\n   :language: java\n   :copyable:\n\n\nTo learn more about the ``updateMany()`` method, see the :ref:`Update Documents <java-rs-write-update-docs>` guide.\n\nReplace One\n-----------\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write-data-to-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-replace-one\n   :end-before: end-replace-one\n   :language: java\n   :copyable:\n\n\nTo learn more about the ``replaceOne()`` method, see the :ref:`Replace Documents <java-rs-write-replace>` guide.\n\nDelete One\n----------\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write-data-to-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-delete-one\n   :end-before: end-delete-one\n   :language: java\n   :copyable:\n\n\nTo learn more about the ``deleteOne()`` method, see the :ref:`Delete Documents <java-rs-write-delete-docs>` guide.\n\nDelete Multiple\n---------------\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write-data-to-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-delete-multiple\n   :end-before: end-delete-multiple\n   :language: java\n   :copyable:\n\nTo learn more about the ``deleteMany()`` method, see the :ref:`Delete Documents <java-rs-write-delete-docs>` guide.\n\nBulk Write\n----------\n\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write-data-to-mongo.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-write\n   :end-before: end-bulk-write\n   :language: java\n   :copyable:\n\n.. TODO: replace link\n.. To learn more about the ``bulkWrite()`` method, see the\n   :ref:`Bulk Write <java-rs-bulk-write>` guide.\n",
+    "language": "java",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-java-rs/source/write-data-to-mongo.txt"
+  }
+]

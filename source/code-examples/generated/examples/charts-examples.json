@@ -1,0 +1,240 @@
+[
+  {
+    "code": "   :copyable: false\n\n   { \"_id\" : 76234, \"item\" : \"21 inch monitor\" }\n   { \"_id\" : 38921, \"item\" : \"USB C cable\" }\n   { \"_id\" : 21167, \"item\" : \"keyboard\" }\n   { \"_id\" : 90252, \"item\" : \"60 GB external hard drive\" }\n\nThe ``orders`` collection contains the following documents:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/add-lookup-field.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   { \"_id\" : 1, \"sku\": 38921, \"quantity\": 50 }\n   { \"_id\" : 2, \"sku\": 21167, \"quantity\": 75 }\n   { \"_id\" : 3, \"sku\": 76234, \"quantity\": 15 }\n   { \"_id\" : 4, \"sku\": 21167, \"quantity\": 20 }\n\nRecords in the ``orders`` collection use the ``sku`` field to reference\nthe ``_id`` field in the ``product_catalog`` collection.\n\nThe goal is to create a :ref:`column chart <column-bar-chart-ref>` showing\nthe number of ordered items. The following chart uses ``orders`` as its\ndata source. The lookup field ``sku_lookup_product_catalog`` is created\nfrom the ``orders.sku`` field. It uses the ``product_catalog`` collection\nas its remote data source and ``product_catalog._id`` as its remote field.\n\nThe chart uses ``product_catalog.item`` as its X axis and ``orders.quantity``\nas its Y axis.\n\n.. figure:: /images/charts/lookup-chart.png\n   :figwidth: 85%\n   :alt: Lookup field example chart\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/add-lookup-field.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 1-31, 33-51\n   :linenos:\n\n   {\n     \"$addFields\": {              // Encoding\n       \"__alias_0\": {\n         \"$sum\": \"$items.price\"\n       }\n     }\n   },\n   {\n     \"$group\": {\n       \"_id\": {\n         \"__alias_1\": \"$purchaseMethod\"\n       },\n       \"__alias_0\": {\n         \"$sum\": \"$__alias_0\"\n       }\n     }\n   },\n   {\n     \"$project\": {\n       \"_id\": 0,\n       \"__alias_1\": \"$_id.__alias_1\",\n       \"__alias_0\": 1\n     }\n   },\n   {\n     \"$project\": {\n       \"x\": \"$__alias_1\",\n       \"y\": \"$__alias_0\",\n       \"_id\": 0\n     }\n   },\n\n   {\n     \"$addFields\": {              // Sorting\n       \"__agg_sum\": {\n         \"$sum\": [\n           \"$y\"\n         ]\n       }\n     }\n   },\n   {\n     \"$sort\": {\n       \"__agg_sum\": -1\n     }\n   },\n   {\n     \"$project\": {\n       \"__agg_sum\": 0\n     }\n   },\n   {\n     \"$limit\": 5000\n   }\n  \nThe pipeline at this point consists of groups from the\n:guilabel:`Encode` panel, stages for the default sort order, and the \nmaximum document limit, which is set to 5000 by |charts|.\n\nAdding Queries\n~~~~~~~~~~~~~~\n\nThe query below restricts the documents shown to only those with\na ``saleDate`` equal to or more recent than ``January 1, 2017`` with at\nleast 5 elements in the ``items`` array. ``items`` is\nan array where each element is an item purchased during a sale.\n\n\nQuery:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/aggregation-pipeline-generation.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 1-18\n   :linenos:\n\n   {\n     \"$match\": {              // Query     \n       \"$and\": [\n         {\n           \"saleDate\": {\n             \"$gte\": {\n               \"$date\": \"2017-01-01T00:00:00Z\"\n             }\n           }\n         },\n         {\n           \"items.4\": {\n             \"$exists\": true\n           }\n         }\n       ]\n     }\n   },\n   {\n     \"$addFields\": {\n       \"__alias_0\": {\n         \"$sum\": \"$items.price\"\n       }\n     }\n   },\n   {\n     \"$group\": {\n       \"_id\": {\n         \"__alias_1\": \"$purchaseMethod\"\n       },\n       \"__alias_0\": {\n         \"$sum\": \"$__alias_0\"\n       }\n     }\n   },\n   {\n     \"$project\": {\n       \"_id\": 0,\n       \"__alias_1\": \"$_id.__alias_1\",\n       \"__alias_0\": 1\n     }\n   },\n   {\n     \"$project\": {\n       \"x\": \"$__alias_1\",\n       \"y\": \"$__alias_0\",\n       \"_id\": 0\n     }\n   },\n   {\n     \"$addFields\": {\n       \"__agg_sum\": {\n         \"$sum\": [\n           \"$y\"\n         ]\n       }\n     }\n   },\n   {\n     \"$sort\": {\n       \"__agg_sum\": -1\n     }\n   },\n   {\n     \"$project\": {\n       \"__agg_sum\": 0\n     }\n   },\n   {\n     \"$limit\": 5000\n   }\n\nThe aggregation pipeline now starts with the query applied, and is\nfollowed by the groups selected in the :guilabel:`Encode` panel and the\nmax document limit. \n\n\nAdding Calculated Fields\n~~~~~~~~~~~~~~~~~~~~~~~~\n\nWe can also change the chart to show the total revenue generated\ncategorized by purchase method. To accomplish this task, we will create\na calculated field that calculates the total revenue by multiplying\nprice by quantity. Adding this new calculated field, in addition to the\nquery above, produces the following chart and pipeline:\n\n\nCalculated Field Expression: \n\n\n.. figure:: /images/charts/agg-pipeline-calc-field.png\n   :figwidth: 720px\n   :alt: Aggregation pipline example with calculated field.\n\n\nAggregation Pipeline: \n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/aggregation-pipeline-generation.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 19-39\n   :linenos:\n\n   {\n     \"$match\": {\n       \"$and\": [\n         {\n           \"saleDate\": {\n             \"$gte\": {\n               \"$date\": \"2017-01-01T00:00:00Z\"\n             }\n           }\n         },\n         {\n           \"items.4\": {\n             \"$exists\": true\n           }\n         }\n       ]\n     }\n   },\n   {\n     \"$addFields\": {              // Calculated Field\n       \"revenue\": {\n         \"$reduce\": {\n           \"input\": \"$items\",\n           \"initialValue\": 0,\n           \"in\": {\n             \"$sum\": [\n               \"$$value\",\n               {\n                 \"$multiply\": [\n                   \"$$this.price\",\n                   \"$$this.quantity\"\n                 ]\n               }\n             ]\n           }\n         }\n       }\n     }\n   },\n   {\n     \"$group\": {\n       \"_id\": {\n         \"__alias_0\": \"$purchaseMethod\"\n       },\n       \"__alias_1\": {\n         \"$sum\": \"$revenue\"\n       }\n     }\n   },\n   {\n     \"$project\": {\n       \"_id\": 0,\n       \"__alias_0\": \"$_id.__alias_0\",\n       \"__alias_1\": 1\n     }\n   },\n   {\n     \"$project\": {\n       \"x\": \"$__alias_0\",\n       \"y\": \"$__alias_1\",\n       \"_id\": 0\n     }\n   },\n   {\n     \"$addFields\": {\n       \"__agg_sum\": {\n         \"$sum\": [\n           \"$y\"\n         ]\n       }\n     }\n   },\n   {\n     \"$sort\": {\n       \"__agg_sum\": -1\n     }\n   },\n   {\n     \"$project\": {\n       \"__agg_sum\": 0\n     }\n   },\n   {\n     \"$limit\": 5000\n   }\n\n\nThe updated pipeline now includes the calculated field right below the\nquery applied in the :guilabel:`Query` bar while the order of the rest\nof the components remains unchanged. \n\nAdding Filters\n~~~~~~~~~~~~~~\n\nThis chart can be further refined by adding a filter in the\n:guilabel:`Filter` pane to only select in-store sales made in the New\nYork location. Adding this filter produces the following chart and\naggregation pipeline: \n\n.. figure:: /images/charts/agg-pipeline-with-filter.png\n   :figwidth: 720px\n   :alt: Aggregation pipline example with filter.\n\n\nAggregation Pipeline: \n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/aggregation-pipeline-generation.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 40-48\n   :linenos:\n\n   {\n     \"$match\": {\n       \"$and\": [\n         {\n           \"saleDate\": {\n             \"$gte\": {\n               \"$date\": \"2017-01-01T00:00:00Z\"\n             }\n           }\n         },\n         {\n           \"items.4\": {\n             \"$exists\": true\n           }\n         }\n       ]\n     }\n   },\n   {\n     \"$addFields\": {\n       \"revenue\": {\n         \"$reduce\": {\n           \"input\": \"$items\",\n           \"initialValue\": 0,\n           \"in\": {\n             \"$sum\": [\n               \"$$value\",\n               {\n                 \"$multiply\": [\n                   \"$$this.price\",\n                   \"$$this.quantity\"\n                 ]\n               }\n             ]\n           }\n         }\n       }\n     }\n   },\n   {\n     \"$match\": {             // Filter\n       \"storeLocation\": {\n         \"$in\": [\n           \"New York\"\n         ]\n       }\n     }\n   },\n   {\n     \"$group\": {\n       \"_id\": {\n         \"__alias_0\": \"$purchaseMethod\"\n       },\n       \"__alias_1\": {\n         \"$sum\": \"$revenue\"\n       }\n     }\n   },\n   {\n     \"$project\": {\n       \"_id\": 0,\n       \"__alias_0\": \"$_id.__alias_0\",\n       \"__alias_1\": 1\n     }\n   },\n   {\n     \"$project\": {\n       \"x\": \"$__alias_0\",\n       \"y\": \"$__alias_1\",\n       \"_id\": 0\n     }\n   },\n   {\n     \"$addFields\": {\n       \"__agg_sum\": {\n         \"$sum\": [\n           \"$y\"\n         ]\n       }\n     }\n   },\n   {\n     \"$sort\": {\n       \"__agg_sum\": -1\n     }\n   },\n   {\n     \"$project\": {\n       \"__agg_sum\": 0\n     }\n   },\n   {\n     \"$limit\": 5000\n   }\n\nThe pipeline now includes the ``storeLocation`` filter right below the\ncalculated field while the order of the rest of the components remains\nunchanged. \n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/aggregation-pipeline-generation.txt"
+  },
+  {
+    "code": "      :copyable: false\n\n      [\"1\", \"fish\", \"42\"]\n\n   Applying the :guilabel:`Number` data type conversion returns the\n   following array:\n      \n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/convert-field-data-types.txt"
+  },
+  {
+    "code": "      :copyable: false\n\n      [1, null, 45]\n\n.. example::\n\n   You have an array of documents with fields ``foo`` and ``bar``:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/convert-field-data-types.txt"
+  },
+  {
+    "code": "      :copyable: false\n\n      [{foo: \"1\", bar: \"2\"}, {foo: \"fish\", bar: \"tacos\"}, {foo: \"45\",\n      bar: \"46\"}]\n\n   Applying the :guilabel:`Number` data type conversion to the ``foo``\n   field returns the following array of documents:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/convert-field-data-types.txt"
+  },
+  {
+    "code": "      :copyable: false\n\n      [{foo: 1, bar: \"2\"}, {foo: null, bar: \"tacos\"}, {foo: 45, bar:\n      \"46\"}]\n\nRevert a Field's Data Type Conversion\n-------------------------------------\n\nA converted field's icon reflects the new data type and turns green.\nTo remove a conversion and return the field to its original data type,\nselect :guilabel:`Auto Detect` from the :guilabel:`Ellipses (...)`\n:icon-fa5:`arrow-right` :guilabel:`Convert Type` menu.\n\n.. figure:: /images/charts/converted-field-icon-example.png\n   :figwidth: 70%\n   :alt: A field converted to a string will show a green \"A\" symbol to indicate its new status.\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/convert-field-data-types.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   await chart.setRenderingSpecOverride({\n     version: 1,\n     channels: {\n       x: {\n         numberThousandsSeparators: false,\n         numberPrefix: '$',\n       },\n       y: {\n         numberSuffix: '%',\n       },\n       color: {\n         numberDecimals: 2,\n         numberMultiplier: 2,\n       },\n     },\n     options: {\n       colorPalette: {\n         type: 'continuous',\n         color: 'rainbow',\n         reverseColor: true,\n       },\n     },\n   });\n\n\nConditional Formatting Example\n------------------------------\n\nThe following example configures a Chart instance named ``chart`` with\nthese options:\n\n- Use version ``1`` of the rendering specification.\n- Perform the following conditional formatting to a ``CHANNEL`` where\n  the value is greater than ``200``:\n\n  - Use the ``'discrete'`` conditional formatting rules.\n  - Set the background color to an RGB color model where red is 240,\n    green is 209, and blue is 117.\n  - Set the text color to ``red``.\n  - Set the font style to ``'italic'``.\n  - Decorate the text with ``'underline'``.\n\n- For the ``value_series_0`` column:\n\n  - Use the ``'continuous'`` color palette.\n  - Set the background color to ``redyellowgreen``.\n  - Reverse the chosen continuous color.\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/embedded-charts-options/embedded-sdk.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   await chart.setRenderingSpecOverride({\n     version: 1,\n     conditionalFormatting: [{\n       type: 'discrete',\n       backgroundColor: 'rgb(240, 209, 117)',\n       textColor: 'red',\n       fontStyle: 'italic',\n       fontWeight: 'bold',\n       textDecoration: 'underline',\n       applyToEntireRow: false,\n       conditions: [{\n           operator: 'NUMBER_GREATER_THAN',\n           targetType: 'CHANNEL',\n           targetChannel: 'value',\n           value: 200,\n       }],\n     },{\n       type: 'continuous',\n       backgroundColor: 'redyellowgreen',\n       reverseColor: true,\n       conditions: [{ targetChannel: 'value_series_0' }],\n     }],\n   });\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/embedded-charts-options/embedded-sdk.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 2,3\n\n   <iframe style=\"\n   background: #21313C;border: none;border-radius: 2px;\n   box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);\" \n   width=\"640\" height=\"480\" src=\"\n   https://charts.mongodb.com/charts-crllr/embed/charts?id=a1b2c3d4-a1b2-c3d4-9766-47b0b2daaff3&\n   theme=dark\n   \"></iframe>\n         \nRemove the MongoDB Logo\n~~~~~~~~~~~~~~~~~~~~~~~\n         \nUse the ``attribution`` query parameter with a value of ``false`` to\ndisplay your embedded chart without the ``MongoDB`` logo.\n\nThe following iframe snippet renders a chart that does not display\nthe ``MongoDB`` logo:\n         \n",
+    "language": "html",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/embedded-charts-options/iframe.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 8\n         \n   <iframe \n   style=\"background: #FFFFFF;border: none;border-radius: 2px;\n   box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);\" \n   width=\"640\" height=\"480\" src=\"\n   https://charts.mongodb.com/mongodb-charts-twsqq/embed/charts\n   ?id=a1b2c3d4-a1b2-c3d4-9766-47b0b2daaff3&\n   theme=light&\n   attribution=false\n   \"></iframe>\n\n",
+    "language": "html",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/embedded-charts-options/iframe.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 2,3\n\n   <iframe style=\"\n   background: #21313C;border: none;border-radius: 2px;\n   box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);\" \n   width=\"640\" height=\"480\" src=\"\n   https://charts.mongodb.com/charts-crllr/embed/dashboards?id=a1b2c3d4-a1b2-c3d4-9766-47b0b2daaff3&\n   theme=dark\n   \"></iframe>\n         \nRemove the MongoDB Logo\n~~~~~~~~~~~~~~~~~~~~~~~\n         \nUse the ``attribution`` query parameter with a value of \n``false`` to display your embedded dashboard without the \n``MongoDB`` logo.\n         \nThe following iframe snippet renders a dashboard that does not \ndisplay the ``MongoDB`` logo:\n         \n",
+    "language": "html",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/embedded-dashboards-options/iframe.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 8\n         \n   <iframe \n   style=\"background: #FFFFFF;border: none;border-radius: 2px;\n   box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);\" \n   width=\"640\" height=\"480\" src=\"\n   https://charts.mongodb.com/mongodb-charts-twsqq/embed/dashboards\n   ?id=a1b2c3d4-a1b2-c3d4-9766-47b0b2daaff3&\n   theme=light&\n   attribution=false\n   \"></iframe>\n\n",
+    "language": "html",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/embedded-dashboards-options/iframe.txt"
+  },
+  {
+    "code": "            :emphasize-lines: 3\n\n            https://charts.mongodb.com/charts-atlasproject1-piocy/embed/charts?\n            id=93584ddb-1115-4a12-afd9-5129e47bbb0d&\n            filter={\"imdb.rating\":%20{$gte:%208}}&\n            autoRefresh=60\n\n         The URL uses an encoded ``filter`` parameter of\n         ``{\"imdb.rating\":%20{$gte:%208}}``. Decoded,\n         this filter is:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/filter-embedded-charts.txt"
+  },
+  {
+    "code": "            :emphasize-lines: 5\n\n            https://charts.mongodb.com/charts-atlasproject1-piocy/embed/charts?\n            id=93584ddb-1115-4a12-afd9-5129e47bbb0d&\n            timestamp=1564156636&\n            expires-in=300&\n            filter=%7B%22imdb.rating%22%3A%20%7B%24gte%3A%208%7D%7D&\n            autoRefresh=60&\n            signature=8e0d92b33934c928f6c6974e2f0102ace77f56d851cb0d33893e84c359ab1043\n\n         The URL uses an encoded ``filter`` parameter of\n         ``%7B%22imdb.rating%22%3A%20%7B%24gte%3A%208%7D%7D``. Decoded,\n         this filter is:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/filter-embedded-charts.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 3\n\n   https://charts.mongodb.com/charts-atlasproject1-piocy/embed/dashboards?\n   id=93584ddb-1115-4a12-afd9-5129e47bbb0d&\n   filter={\"imdb.rating\":%20{$gte:%208}}\n   \n\nThe URL uses an encoded ``filter`` parameter of\n``{\"imdb.rating\":%20{$gte:%208}}``. Decoded,\nthis filter is:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/filter-embedded-dashboards.txt"
+  },
+  {
+    "code": "               :copyable: false\n\n               import ChartsEmbedSDK from \"@mongodb-js/charts-embed-dom\";\n\n               const sdk = new ChartsEmbedSDK({\n                 baseUrl: \"https://charts.mongodb.com/charts-embedding-examples-wgffp\", // ~REPLACE~ with the Base URL from your Embed Chart dialog.\n               });\n\n               const chart = sdk.createChart({\n                 chartId: \"735cfa75-15b8-483a-bc2e-7c6659511c7c\", // ~REPLACE~ with the Chart ID from your Embed Chart dialog.\n                 height: \"700px\",\n                 // Additional options go here\n               });\n\n               chart.render(document.getElementById(\"chart\"));\n\n         .. tab:: Authenticated\n            :tabid: authenticated\n\n            Add the following code to your web app to execute where you \n            want your chart to render. The following example \n            :ref:`authenticates <configure-auth-providers>` with \n            {+atlas-app-services-link+}.\n\n            .. note::\n\n               Replace the existing App ID with your App \n               ID, which you can find in the {+atlas-app-services+} UI. Replace the existing Charts Base URL and chart \n               ID with the values for the chart that you want to \n               display. Your Charts Base URL and chart ID are visible \n               in the embedding options modal window. \n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/get-started-embedding-sdk.txt"
+  },
+  {
+    "code": "               :copyable: false\n\n               import ChartsEmbedSDK from \"@mongodb-js/charts-embed-dom\";\n\n               // Needed only if you are using the Atlas App Services authentication provider\n               const client = Stitch.initializeAppClient(\n                 'authentication-sample-eibkj', // ~REPLACE~ with your App ID\n               });\n\n               const sdk = new ChartsEmbedSDK({\n                 baseUrl: \"https://charts.mongodb.com/charts-embedding-examples-wgffp\", // ~REPLACE~ with the Base URL from your Embed Chart dialog.\n                 getUserToken: () => getRealmUserToken(client),\n                 // getUserToken is a callback to provide the auth token to the SDK. \n                 // Use the getRealmUserToken helper when using the Atlas App Services auth provider. \n                 // If using Custom JWT or Google providers, provide your own code to retrieve the JWT\n               });\n\n               const chart = sdk.createChart({\n                 chartId: \"735cfa75-15b8-483a-bc2e-7c6659511c7c\", // ~REPLACE~ with the Chart ID from your Embed Chart dialog.\n                 height: \"700px\",\n                 // Additional options go here\n               });\n\n               chart.render(document.getElementById(\"chart\"));\n\n   .. tab:: Dashboard\n      :tabid: dashboard\n\n      .. tabs::\n\n         .. tab:: Unauthenticated\n            :tabid: unauthenticated\n\n            Add the following code to your web app to execute where you\n            want your dashboard to render.\n\n            .. note::\n\n               Replace the existing :guilabel:`Dashboards Base URL`\n               and dashboard ID with the values for the dashboard that\n               you want to display. Your :guilabel:`Dashboards Base URL`\n               and dashboard ID are visible in the embedding options\n               modal window.\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/get-started-embedding-sdk.txt"
+  },
+  {
+    "code": "               :copyable: false\n\n               import ChartsEmbedSDK from \"@mongodb-js/charts-embed-dom\";\n\n               const sdk = new ChartsEmbedSDK({\n                  baseUrl: \"https://charts.mongodb.com/charts-embedding-examples-wgffp\", // ~REPLACE~ with the Base URL from your Embed Dashboard dialog.\n               });\n\n               const dashboard = sdk.createDashboard({\n                  dashboardId: \"735cfa75-15b8-483a-bc2e-7c6659511c7c\", // ~REPLACE~ with the Dashboard ID from your Embed Dashboard dialog.\n                  height: \"700px\",\n                  widthMode: \"scale\",\n                  heightMode: \"fixed\"\n                  // Additional options go here\n               });\n\n               dashboard.render(document.getElementById(\"dashboard\"));\n\n         .. tab:: Authenticated\n            :tabid: authenticated\n\n            Add the following code to your web app to run it where you\n            want your dashboard to render. The following example\n            :ref:`authenticates <configure-auth-providers>` with \n            {+atlas-app-services-link+}.\n\n            .. note::\n\n               Replace the existing App ID with your\n               App ID. You can find your App ID in the {+atlas-app-services+} UI. Replace the existing :guilabel:`Dashboards\n               Base URL` and dashboard ID with the values for the\n               dashboard that you want to display. Your :guilabel:`Dashboards Base URL`\n               and dashboard ID are visible in the embedding options\n               modal window.\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/get-started-embedding-sdk.txt"
+  },
+  {
+    "code": "               :copyable: false\n\n               import ChartsEmbedSDK from \"@mongodb-js/charts-embed-dom\";\n\n               // Needed only if you are using the Atlas App Services authentication provider\n               const client = Stitch.initializeAppClient(\n                  'authentication-sample-eibkj', // ~REPLACE~ with your App ID\n               });\n\n               const sdk = new ChartsEmbedSDK({\n                  baseUrl: \"https://charts.mongodb.com/charts-embedding-examples-wgffp\", // ~REPLACE~ with the Base URL from your Embed Dashboard dialog.\n                  getUserToken: () => getRealmUserToken(client),\n                  // getUserToken is a callback to provide the auth token to the SDK. \n                  // Use the getRealmUserToken helper when using the Atlas App Services auth provider. \n                  // If using Custom JWT or Google providers, provide your own code to retrieve the JWT\n               });\n\n               const dashboard = sdk.createDashboard({\n                 dashboardId: \"735cfa75-15b8-483a-bc2e-7c6659511c7c\", // ~REPLACE~ with the Dashboard ID from your Embed Dashboard dialog.\n                 height: \"700px\",\n                 widthMode: \"scale\",\n                 heightMode: \"fixed\"\n                 // Additional options go here\n               });\n\n               dashboard.render(document.getElementById(\"dashboard\"));\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/get-started-embedding-sdk.txt"
+  },
+  {
+    "code": "   :copyable: false \n\n   chart.addEventListener(\"click\", callback); \n\nThe event handler also allows you to define the mark roles for which \nyou want to receive event information, thus eliminating the need to \ncheck the payload. The click event handler syntax for defining the mark \nroles to filter by looks similar to the following: \n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/handle-click-events.txt"
+  },
+  {
+    "code": "   :copyable: false \n\n   const options = { includes: [{ roles: ['mark', 'axis-label'] }] };\n   chart.addEventListener(\"click\", callback, options);\n\nThe click event handler must be added after the chart has finished \nrendering, as shown in the following example: \n\n.. example:: \n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/handle-click-events.txt"
+  },
+  {
+    "code": "   :copyable: false \n\n   chart.addEventListener(\"click\", (payload) => { \n       // handle events\n   }\n\nThe following example payload object shows the elements inside the \npayload:\n\n.. example:: \n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/handle-click-events.txt"
+  },
+  {
+    "code": "      :copyable: false \n\n      {\n        \"chartId\": \"xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\",\n        \"chartTitle\": \"This is my chart's title\", \n        \"chartDescription\": \"This is my chart's description\",\n        \"event\": { // information about the mouse event. For example:\n          \"type\": \"click\", // event type \n\n          \"altKey\": false, // modifier keys\n          \"ctrlKey\": false,\n          \"shiftKey\": false,\n          \"metaKey\": false,\n\n          \"offsetX\": 152, // element coordinates\n          \"offsetY\": 176,\n\n          \"clientX\": 172, // coordinates from application viewpoint\n          \"clientY\": 241,\n\n          \"pageX\": 172, // coordinates relative to the page\n          \"pageY\": 241,\n\n          \"screenX\": 172, // coordinates relative to screen\n          \"screenY\": 312\n        },\n        \"data\": { // information about the clicked chart element. For example:\n          \"y\": {\n            \"label\": \"unwind array 'genres'\",\n            \"value\": \"Adventure\"\n          },\n          \"x\": {\n            \"label\": \"count ( _id )\",\n            \"value\": 659\n          },\n          \"color\": {\n            \"label\": \"year\",\n            \"value\": \"2000 - 2010\",\n            \"lowerBound\": 2000,\n            \"upperBound\": 2010\n          }\n        },\n        selectionFilter: {\n          // category data expressed as MQL filter query that  \n          // interactive filters would output to filter other charts. \n          // For example:\n\n          genres: 'Adventure', \n          year: {\n            $gte: 2000,\n            $lt: 2010,\n          },\n        },\n        \"target\": { // information about the clicked target. For example:\n          \"type\": \"rect\", // type of mark, such as rect, line, etc.\n          \"role\": \"mark\", // role of mark, such as mark, legend, etc.\n          \"fill\": \"#8CB6F2\" // fill color of the mark\n        },\n        \"apiVersion\": 1 // API version of event payload\n      }\n\nTo learn more about the elements inside the payload object, see: \n\n- :ref:`click-event-payload-event`\n- :ref:`click-event-payload-data`\n- :ref:`click-event-payload-selection-filter`\n- :ref:`click-event-payload-target`\n\n.. _click-event-payload-event:\n\n``event`` Element \n~~~~~~~~~~~~~~~~~\n\nThe ``event`` element of the :ref:`payload <click-event-payload>` \ncontains information about the mouse event including: \n\n- The type of mouse event, which must be ``click``\n- The modifier keys used to trigger a click event such as ``altKey``, \n  ``ctrlKey``, ``shiftKey``, ``metaKey``\n- The ``X`` and ``Y`` coordinates:\n\n  - Relative to the canvas element of the chart \n  - From the application viewpoint\n  - Relative to the page\n  - Relative to the screen\n\n.. _click-event-payload-data:\n\n``data`` Element \n~~~~~~~~~~~~~~~~\n\nThe ``data`` element of the :ref:`payload <click-event-payload>` \ncontains information about the clicked chart element. For each encoded \ndata field (``x``, ``y``, ``series``, ``intensity``, ``color``, \n``shape``, ``size``, ``label``, ``arc``, ``value``, ``target``, \n``number``, ``display``, ``text``, ``location``), the ``data`` element \ncontains:\n\n- The channel ``label``\n- The ``value`` of the clicked element\n- The lower bound for numeric or date binning only\n\nFor :ref:`tables <data-table-ref>`, the Charts Embedding \nJavaScript SDK click event handler captures click events for fields \nthat represent the channel data for the clicked element:\n  \n- ``groups`` field, which contains all Groups channels including \n  label and value\n- ``cell`` field, which contains the column header label and value of \n  the clicked cell\n\nFor :ref:`geospatial charts <geo-spatial>`, the Charts Embedding \nJavaScript SDK click event handler captures click events for the \nfollowing elements:\n\n- For :ref:`choropleth charts <choropleth-ref>`, the click event \n  handler captures the fields that represent the channel data for the \n  clicked element:\n\n  - ``lat`` field, which contains latitude\n  - ``lng`` field, which contains longitude\n  - ``location`` field, which contains the field label and value of the \n    clicked geospatial area\n\n- For :ref:`geospatial scatter charts <scatter-ref>`, the click event \n  handler captures the fields that represent the channel data for the \n  clicked element:\n\n  - ``geopoint`` field, which contains the field \n    name, value in GeoJSON format, and the coordinates of the clicked \n    point\n\n.. _click-event-payload-selection-filter:\n\n``selectionFilter`` Element\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe ``selectionFilter`` element of the :ref:`payload \n<click-event-payload>` must contain a valid :abbr:`MQL (MongoDB Query \nLanguage)` filter document, which represents the filter that \ncorresponds to the clicked mark's category channels or ``x`` value \nchannel on a continuous chart. You can modify or implement your own \n``selectionFilter``.\n\nThe filter object represents a single clicked item: \n\n- A string or unbinned number or date, which becomes an equality match \n  query ``({field: value})`` or a query using ``$eq``, ``$ne``, ``$in``, or ``$nin`` operators.\n- A binned number or date, which becomes a query using ``gt``, \n  ``$gte``, ``$lt``, or ``lte`` operators. Periodic dates are ignored.\n\n.. example::\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/handle-click-events.txt"
+  },
+  {
+    "code": "      :copyable: false \n\n      { field: 'value' } \n      { field1: 'value1', field2: 'value2' }\n      { field: { $in: [ 'a', 'b', 'c' ] } }\n      { field: { $nin: [ 'x', 'y', 'z' ] } }\n      { field: { $gt: 10 } }\n      { field: { $gt: 13, $lte: 30 } }\n      { field: { $gt: Date(\"2020-01-01\"), $lt: Date(\"2020-03-31\") } }\n\nThe ``selectionFilter`` document can have several key and value \nfilters. For example, if a mark of a multi-series chart is clicked, the \nfilter document contains both the category and series filter pairs. \nEach filter must reference the actual data source fields used and not \ntheir labels.\n\nYou can enable highlighting for clicked events using the \n``setHighlight`` method. \n\n.. example:: \n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/handle-click-events.txt"
+  },
+  {
+    "code": "      :copyable: false \n      :emphasize-lines: 2\n\n      const eventHandler = (payload) => {\n        chart.setHighlight(payload.selectionFilter);\n      };\n\n      chart.render(container).then(() => {\n        chart.addEventListener('click', eventHandler);\n      });\n\nTo learn more, see :ref:`highlight-chart-elements`.\n\nOn an embedded chart that includes event handlers with a filter for \nelement roles, the chart shows: \n\n- The :icon-fa4:`hand-pointer-o` when you hover over an element that \n  triggers a filtered click event \n- The :icon-fa4:`mouse-pointer` when you hover over an element that  \n  doesn't trigger a click event\n\nIf the event handler doesn't include filter for element roles, the \n:icon-fa4:`hand-pointer-o` appears when you hover over any chart \nelement.\n\n.. _click-event-payload-target:\n\n``target`` Element \n~~~~~~~~~~~~~~~~~~\n\nThe ``target`` element of the :ref:`payload <click-event-payload>` \ncontains information about the clicked target including: \n\n- The type of mark, such as ``rect``, ``line``, ``arc``, ``symbol``, \n  ``group``, or ``area``\n- The role of mark, such as ``mark``, ``legend``, ``axis-label``, \n  ``axis-title``, ``tick-label``, ``legend-entry``, ``legend-title``, \n  or ``frame``\n- The fill color of the mark\n\nFor :ref:`tables <data-table-ref>`, the Charts Embedding \nJavaScript SDK click event handler payload captures the following: \n\n- Mark type, which is ``text`` \n- Mark role, such as ``group-cell``, ``value-cell``, \n  ``dynamic-value-cell``, ``row-total-cell``,  \n  ``column-total-cell``, ``header-column-total-cell``, and\n  ``grand-total-cell``\n\nFor :ref:`geospatial charts <geo-spatial>`, the Charts Embedding \nJavaScript SDK click event handler payload captures the following:\n\n- The type of mark, such as ``polygon``, ``map``, or ``symbol``\n- The role of mark, such as ``mark`` or ``map``\n- The fill color of the mark\n\nThe Charts Embedding JavaScript SDK click event handler does not \ncapture click events on column headers.\n\n.. _click-event-egs:\n\nExamples \n--------\n\nThe Charts Embedding JavaScript SDK includes examples that demonstrate \ncommon uses for click events in an application. The first example shows \nbasic click events and payload handling. The second example shows \ninteractive filtering of clicked chart elements. \n\nTo learn more about installing the Embedding SDK and running the \nexample app with your own data or sample data, see `Atlas Charts\nEmbedding Example for Click Events on GitHub\n<https://github.com/mongodb-js/charts-embed-sdk/tree/master/examples/charts/click-events-basic>`__. \nEach example app is configured with a chart ID and base URL which are \nparticular to the app. Be sure to configure your own apps with the \ncorrect chart ID and base URL. \n\n.. _click-event-eg-basic:\n\nBasic Handling of Click Events  \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nIn the `example app \n<https://codesandbox.io/s/github/mongodb-js/charts-embed-sdk/tree/master/examples/charts/click-events-basic>`__ \nfor basic handling of click events, when you click on an element on the \n``Movie Genres`` chart, the click event handler displays data based on \nthe clicked element. In this example application, the chart shows the \n:icon-fa4:`hand-pointer-o` on all chart elements because the chart \ndoesn't include a filter for mark roles.\n\nEach time you click on an element in the chart, the click event \nlistener refreshes the ``payload`` to reflect data from the ``x`` and \n``y`` axis. When you click on an element that represents a specific \ngenre and decade in the ``Movie Genres`` chart, the ``Clicked Element`` \nand ``Full Event Payload`` displays details on that movie genre and \ndecade including: \n\n- Fields that represent data for the clicked element.\n- Mark type, role, and fill color. \n\nRefer to the example app to view the full event payload.\n\n.. _click-event-eg-interactive:\n\nInteractive Filtering for Click Events \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nIn the `example app\n<https://codesandbox.io/s/github/mongodb-js/charts-embed-sdk/tree/master/examples/charts/click-events-filtering>`__ \nfor interactive filtering, when you click on an element on the ``Movie \nGenres`` chart, the embedding SDK generates a filter based on the \nelement on which you clicked and then applies the filter to a second \nchart. In this example application, the chart shows: \n\n- The :icon-fa4:`hand-pointer-o` when you hover over an interactive \n  element\n- The :icon-fa4:`mouse-pointer` when you hover over an element which \n  doesn't trigger a click event\n\nThe click event listener triggers events only for the mark roles \nspecified through the ``options`` parameter. The payload defines a \nfilter based on the ``y`` axis, which represents the movie genres, and \nthe lower and upper bound range, which represents the decade. Each time \nyou click on an element that represents a specific genre and decade on \nthe ``Movie Genres`` chart, the ``Movie Details`` table is \nfiltered by the clicked element and changes to display the movies \navailable in that genre and decade. \n\nRefer to the example app to view the full a sample event handler \ncallback function.\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/handle-click-events.txt"
+  },
+  {
+    "code": "        :copyable: false\n\n        {\n          \"iat\": \"1587497399\",\n          \"exp\": \"1617305399\"\n        }\n\n      |charts-short| can accept a token containing the following claims \n      because the token lifetime of 24 hours is acceptable:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/includes/jwt-provider-valid-token.rst"
+  },
+  {
+    "code": "        :copyable: false\n\n        {\n          \"iat\": \"1585769399\",\n          \"exp\": \"1586002999\"\n        }\n\n- Are signed using either the ``HS256`` or ``RS256`` signing \n  algorithm.\n\n- Are signed with a key that can be verified by the secret you provide\n  when you configure the custom |jwt| authentication provider.\n\n- Contain an audience claim that matches the one you specified when \n  you configure the provider, if applicable.\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/includes/jwt-provider-valid-token.rst"
+  },
+  {
+    "code": "           :copyable: false\n             \n            -----BEGIN CERTIFICATE-----\n            MIIDfjCCAmagAwIBAgIBBzANBgkqhkiG9w0BAQUFADB0MRcwFQYDVQQDEw5LZXJu\n            ZWwgVGVzdCBDQTEPMA0GA1UECxMGS2VybmVsMRAwDgYDVQQKEwdNb25nb0RCMRYw\n            FAYDVQQHEw1OZXcgWW9yayBDaXR5MREwDwYDVQQIEwhOZXcgWW9yazELMAkGA1UE\n            BhMCVVMwHhcNMTQwNzE3MTYwMDAwWhcNMjAwNzE3MTYwMDAwWjBsMQ8wDQYDVQQD\n            EwZzZXJ2ZXIxDzANBgNVBAsTBktlcm5lbDEQMA4GA1UEChMHTW9uZ29EQjEWMBQG\n            A1UEBxMNTmV3IFlvcmsgQ2l0eTERMA8GA1UECBMITmV3IFlvcmsxCzAJBgNVBAYT\n            AlVTMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp76KJeDczBqjSPJj\n            5f8DHdtrWpQDK9AWNDlslWpi6+pL8hMqwbX0D7hC2r3kAgccMyFoNIudPqIXfXVd\n            1LOh6vyY+jveRvqjKW/UZVzZeiL4Gy4bhke6R8JRC3O5aMKIAbaiQUAI1Nd8LxIt\n            LGvH+ia/DFza1whgB8ym/uzVQB6igOifJ1qHWJbTtIhDKaW8gvjOhv5R3jzjfLEb\n            R9r5Q0ZyE0lrO27kTkqgBnHKPmu54GSzU/r0HM3B+Sc/6UN+xNhNbuR+LZ+EvJHm\n            r4de8jhW8wivmjTIvte33jlLibQ5nYIHrlpDLEwlzvDGaIio+OfWcgs2WuPk98MU\n            tht0IQIDAQABoyMwITAfBgNVHREEGDAWgglsb2NhbGhvc3SCCTEyNy4wLjAuMTAN\n            BgkqhkiG9w0BAQUFAAOCAQEANoYxvVFsIol09BQA0fwryAye/Z4dYItvKhmwB9VS\n            t99DsmJcyx0P5meB3Ed8SnwkD0NGCm5TkUY/YLacPP9uJ4SkbPkNZ1fRISyShCCn\n            SGgQUJWHbCbcIEj+vssFb91c5RFJbvnenDkQokRvD2VJWspwioeLzuwtARUoMH3Y\n            qg0k0Mn7Bx1bW1Y6xQJHeVlnZtzxfeueoFO55ZRkZ0ceAD/q7q1ohTXi0vMydYgu\n            1CB6VkDuibGlv56NdjbttPJm2iQoPaez8tZGpBo76N/Z1ydan0ow2pVjDXVOR84Y\n            2HSZgbHOGBiycNw2W3vfw7uK0OmiPRTFpJCmewDjYwZ/6w==\n            -----END CERTIFICATE-----\n\n  * - Audience (**Optional**)\n    - `Audience claim \n      <https://tools.ietf.org/html/rfc7519#section-4.1.3>`__ that must \n      be present in the |jwt| for |charts-short| to consider it valid.\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/includes/list-table-jwt-auth-provider-options.rst"
+  },
+  {
+    "code": "          :copyable: false\n\n          \"genres\": [\"Action\", \"Horror\", \"Sci-Fi\"]\n\n       In the previous example, |charts-short| concatenates the array to\n       produce the following string when you enter ``/`` in the\n       :guilabel:`Delimiter` field: \n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/rich-schema-support.txt"
+  },
+  {
+    "code": "          :copyable: false\n\n          Action/Horror/Sci-Fi\n\n   * - min length\n     - Returns the length of the shortest string in the array.\n\n   * - max length\n     - Returns the length of the longest string in the array.\n\n   * - longest\n     - Returns the longest string in the array.\n\n   * - shortest\n     - Returns the shortest string in the array.\n\n   * - existence of value\n     - Returns ``true`` if the specified string exists in the array,\n       and ``false`` if the string does not exist in the array.\n\n   * - count of occurrences\n     - Returns the number of times the specified string occurs in the\n       array.\n\nNumeric Accumulates\n~~~~~~~~~~~~~~~~~~~\n\nYou can apply these accumulates to arrays of Numeric values:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Accumulate\n     - Description\n\n   * - min\n     - Returns the minimum value in the array.\n\n   * - max\n     - Returns the maximum value in the array.\n\n   * - mean\n     - Returns the mean of all values in the array.\n\n   * - sum\n     - Returns the sum of all values in the array.\n\n.. note::\n\n   |charts| only displays accumulate options which match the data\n   type of the field used in the visualization (i.e., only showing\n   string accumulate options for string data and numeric accumulate\n   options for numeric data).\n\nFields within an Array\n~~~~~~~~~~~~~~~~~~~~~~\n\nAs with array-valued fields, :ref:`encoding channels\n<encoding-channels>` require an array reduction option to be specified\nwhen handling fields *within* an array. In this case, the selected\nreduction is applied to the array containing the target field.\nAdditionally, in the case of embedded arrays, you must select a reduction\noption for the top-level array and all sub-arrays. Note that different\nreduction options may be used for each embedded array.\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-charts/source/rich-schema-support.txt"
+  }
+]

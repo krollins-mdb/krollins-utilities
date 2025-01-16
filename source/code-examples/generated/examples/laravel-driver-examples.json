@@ -1,0 +1,1115 @@
+[
+  {
+    "code": "   :language: php\n   :emphasize-lines: 11,12\n   :dedent:\n\nThen run the migration:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/cache.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 4\n\n   'stores' => [\n       'mongodb' => [\n           'driver' => 'mongodb',\n           'connection' => 'mongodb',\n           'lock_lottery' => [0, 100], // Disabled\n       ],\n   ],\n\nUsing MongoDB Cache\n-------------------\n\nThe Laravel cache can be used to store any serializable data using the facade\n``Illuminate\\Support\\Facades\\Cache``.\n\nThis example performs the following actions:\n\n- Gets the cache repository with the ``mongodb`` store\n- Tries to read and return the cache item named ``foo``\n- If missing, calls the closure to compute the value, stores the value forever, and returns it\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/cache.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 2\n\n   return [\n       'default' => env('CACHE_STORE', 'mongodb'),\n       'stores' => [\n           'mongodb' => [\n               'driver' => 'mongodb',\n               'connection' => 'mongodb',\n           ],\n       ],\n   ];\n\n.. note::\n\n   We have deliberately omitted all optional parameters in the previous example,\n   so the default values are applied.\n\nThe ``CACHE_STORE`` variable can be set in your environment or in\nthe ``.env`` file. Update or remove it as follows:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/cache.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 10,15\n\n   <?php\n\n   namespace App\\Http\\Controllers;\n\n   use App\\Contracts\\CacheManager;\n\n   class CountController extends Controller\n   {\n       public function __construct(\n           private CacheManager $cache,\n       ) {}\n\n       public function hit(): int\n       {\n           return $this->cache->increment('counter');\n       }\n   }\n\nUsing MongoDB Lock\n------------------\n\nAtomic locks allow for the manipulation of distributed locks without worrying\nabout race conditions. The following example implements an atomic lock:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/cache.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 3\n\n   use Illuminate\\Support\\Facades\\Cache;\n\n   $lock = Cache::store('mongodb')->lock('foo', 10);\n\n   if ($lock->get()) {\n       // Lock acquired for 10 seconds...\n\n       $lock->release();\n   }\n\nFor more information on using locks, see the `Laravel Locks documentation\n<https://laravel.com/docs/{+laravel-docs-version+}/cache#atomic-locks>`__.\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/cache.txt"
+  },
+  {
+    "code": "   :language: php\n   :emphasize-lines: 3,5,7\n   :dedent:\n\nBy default, the model uses the MongoDB database name set in your Laravel\napplication's ``config/database.php`` setting and the snake case plural\nform of your model class name for the collection.\n\nThis model is stored in the ``planets`` MongoDB collection.\n\n.. tip::\n\n   Alternatively, use the ``artisan`` console to generate the model class and\n   change the ``Illuminate\\Database\\Eloquent\\Model`` import to ``MongoDB\\Laravel\\Eloquent\\Model``.\n   To learn more about the ``artisan`` console, see `Artisan Console <https://laravel.com/docs/{+laravel-docs-version+}/artisan>`__\n   in the Laravel docs.\n\nTo learn how to specify the database name that your Laravel application uses,\n:ref:`laravel-quick-start-connect-to-mongodb`.\n\n.. _laravel-authenticatable-model:\n\nExtend the Authenticatable Model\n--------------------------------\n\nTo configure MongoDB as the Laravel user provider, you can extend the\n{+odm-short+} ``MongoDB\\Laravel\\Auth\\User`` class. The following code\nexample shows how to extend this class:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/model-class.txt"
+  },
+  {
+    "code": "   :language: php\n   :emphasize-lines: 3,5,7\n   :dedent:\n\nTo learn more about customizing a Laravel authentication user provider,\nsee `Adding Custom User Providers <https://laravel.com/docs/{+laravel-docs-version+}/authentication#adding-custom-user-providers>`__\nin the Laravel docs.\n\n.. _laravel-model-customize:\n\nCustomize an Eloquent Model Class\n---------------------------------\n\nThis section shows how to perform the following Eloquent model behavior\ncustomizations:\n\n- :ref:`laravel-model-customize-collection-name`\n- :ref:`laravel-model-customize-primary-key`\n- :ref:`laravel-model-soft-delete`\n- :ref:`laravel-model-cast-data-types`\n- :ref:`laravel-model-mass-assignment`\n\n.. _laravel-model-customize-collection-name:\n\nChange the Model Collection Name\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nBy default, the model uses the snake case plural form of your model\nclass name. To change the name of the collection the model uses to retrieve\nand save data in MongoDB, override the ``$table`` property of the model\nclass.\n\n.. note::\n\n   We recommend using the default collection naming behavior to keep\n   the associations between models and collections straightforward.\n\nThe following example specifies the custom MongoDB collection name,\n``celestial_body``, for the ``Planet`` class:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/model-class.txt"
+  },
+  {
+    "code": "   :language: php\n   :emphasize-lines: 9\n   :dedent:\n\nWithout overriding the ``$table`` property, this model maps to the\n``planets`` collection. With the overridden property, the example class stores\nthe model in the ``celestial_body`` collection.\n\n.. _laravel-model-customize-primary-key:\n\nChange the Primary Key Field\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nTo customize the model's primary key field that uniquely identifies a MongoDB\ndocument, override the ``$primaryKey`` property of the model class.\n\nBy default, the model uses the PHP MongoDB driver to generate unique ObjectIDs\nfor each document your Laravel application inserts.\n\nThe following example specifies the ``name`` field as the primary key for\nthe ``Planet`` class:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/model-class.txt"
+  },
+  {
+    "code": "   :language: php\n   :emphasize-lines: 9\n   :dedent:\n\nTo learn more about primary key behavior and customization options, see\n`Eloquent Primary Keys <https://laravel.com/docs/{+laravel-docs-version+}/eloquent#primary-keys>`__\nin the Laravel docs.\n\nTo learn more about the ``_id`` field, ObjectIDs, and the MongoDB document\nstructure, see :manual:`Documents </core/document>` in the Server manual.\n\n.. _laravel-model-soft-delete:\n\nEnable Soft Deletes\n~~~~~~~~~~~~~~~~~~~\n\nEloquent includes a soft delete feature that changes the behavior of the\n``delete()`` method on a model. When soft delete is enabled on a model, the\n``delete()`` method marks a document as deleted instead of removing it from the\ndatabase. It sets a timestamp on the ``deleted_at`` field to exclude it from\nretrieve operations automatically.\n\nTo enable soft deletes on a class, add the ``MongoDB\\Laravel\\Eloquent\\SoftDeletes``\ntrait as shown in the following code example:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/model-class.txt"
+  },
+  {
+    "code": "   :language: php\n   :emphasize-lines: 6,10\n   :dedent:\n\nTo learn about methods you can perform on models with soft deletes enabled, see\n`Eloquent Soft Deleting <https://laravel.com/docs/{+laravel-docs-version+}/eloquent#soft-deleting>`__\nin the Laravel docs.\n\n.. _laravel-model-cast-data-types:\n\nCast Data Types\n~~~~~~~~~~~~~~~\n\nEloquent lets you convert model attribute data types before storing or\nretrieving data by using a casting helper. This helper is a convenient\nalternative to defining equivalent accessor and mutator methods on your model.\n\nIn the following example, the casting helper converts the ``discovery_dt``\nmodel attribute, stored in MongoDB as a :php:`MongoDB\\\\BSON\\\\UTCDateTime\n<class.mongodb-bson-utcdatetime>` type, to the Laravel ``datetime`` type.\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/model-class.txt"
+  },
+  {
+    "code": "   :language: php\n   :emphasize-lines: 9-11\n   :dedent:\n\n.. tip:: Casts in Laravel 11\n\n   In Laravel 11, you can define a ``casts()`` method to specify data type conversions\n   instead of using the ``$casts`` attribute. The following code performs the same\n   conversion as the preceding example by using a ``casts()`` method:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/model-class.txt"
+  },
+  {
+    "code": "   :language: php\n   :emphasize-lines: 9-14\n   :dedent:\n\nThe following code example shows mass assignment of the ``Planet`` model:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/model-class.txt"
+  },
+  {
+    "code": "   :language: php\n   :emphasize-lines: 10,13-14\n   :dedent:\n\nAfter defining your class, you can perform MongoDB operations as usual.\n\n.. tip::\n\n   To view another example that uses the ``DocumentModel`` trait, see\n   the :ref:`laravel-user-auth-sanctum` section of the User\n   Authentication guide.\n\n.. _laravel-model-pruning:\n\nSpecify Pruning Behavior\n------------------------\n\nEloquent lets you specify criteria to periodically delete model data that you\nno longer need. When you schedule or run the ``model:prune`` command,\nLaravel calls the ``prunable()`` method on all models that import the\n``Prunable`` and ``MassPrunable`` traits to match the models for deletion.\n\nTo use this feature with models that use MongoDB as a database, add the\nappropriate import to your model:\n\n- ``MongoDB\\Laravel\\Eloquent\\Prunable`` optionally performs a cleanup\n  step before deleting a model that matches the criteria\n- ``MongoDB\\Laravel\\Eloquent\\MassPrunable`` deletes models that match the\n  criteria without fetching the model data\n\n.. note::\n\n   When enabling soft deletes on a mass prunable model, you must import the\n   following {+odm-long+} packages:\n\n   - ``MongoDB\\Laravel\\Eloquent\\SoftDeletes``\n   - ``MongoDB\\Laravel\\Eloquent\\MassPrunable``\n\n\nTo learn more about the pruning feature, see `Pruning Models <https://laravel.com/docs/{+laravel-docs-version+}/eloquent#pruning-models>`__\nin the Laravel docs.\n\nPrunable Example\n~~~~~~~~~~~~~~~~\n\nThe following prunable class includes a ``prunable()`` method that matches\nmodels that the prune action deletes and a ``pruning()`` method that runs\nbefore deleting a matching model:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/model-class.txt"
+  },
+  {
+    "code": "   :language: php\n   :emphasize-lines: 6,10,12,18\n   :dedent:\n\nMass Prunable Example\n~~~~~~~~~~~~~~~~~~~~~\n\nThe following mass prunable class includes a ``prunable()`` method that matches\nmodels that the prune action deletes:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/model-class.txt"
+  },
+  {
+    "code": "   :language: php\n   :emphasize-lines: 5,10,12\n   :dedent:\n\n.. _laravel-schema-versioning:\n\nCreate a Versioned Model Schema\n-------------------------------\n\nYou can implement a schema versioning pattern into your application by\nusing the ``HasSchemaVersion`` trait on an Eloquent model. You might\nchoose to implement a schema version to organize or standardize a\ncollection that contains data with different schemas.\n\n.. tip::\n\n   To learn more about schema versioning, see the :manual:`Model Data for\n   Schema Versioning </tutorial/model-data-for-schema-versioning/>`\n   tutorial in the {+server-docs-name+}.\n\nTo use this feature with models that use MongoDB as a database, add the\n``MongoDB\\Laravel\\Eloquent\\HasSchemaVersion`` import to your model.\nThen, set the ``SCHEMA_VERSION`` constant to ``1`` to set the first\nschema version on your collection. If your collection evolves to contain\nmultiple schemas, you can update the value of the ``SCHEMA_VERSION``\nconstant in subsequent model classes.\n\nWhen creating your model, you can define the ``migrateSchema()`` method\nto specify a migration to the current schema version upon retrieving a\nmodel. In this method, you can specify the changes to make to an older\nmodel to update it to match the current schema version.\n\nWhen you save a model that does not have a schema version\nspecified, the ``HasSchemaVersion`` trait assumes that it follows the\nlatest schema version. When you retrieve a model that does not contain\nthe ``schema_version`` field, the trait assumes that its schema version\nis ``0`` and performs the migration.\n\nSchema Versioning Example\n~~~~~~~~~~~~~~~~~~~~~~~~~\n\nIn this sample situation, you are working with a collection that was\nfirst modeled by the following class:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/model-class.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n\nNow, you want to implement a new schema version on the collection.\nYou can define the new model class with the following behavior:\n\n- Implements the ``HasSchemaVersion`` trait and sets the current\n  ``SCHEMA_VERSION`` to ``2``\n\n- Defines the ``migrateSchema()`` method to migrate models in which the\n  schema version is less than ``2`` to have a ``galaxy`` field that has a value\n  of ``'Milky Way'``\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/model-class.txt"
+  },
+  {
+    "code": "   :language: php\n   :emphasize-lines: 10,12,20\n   :dedent:\n\nIn the ``\"WASP-39 b\"`` document in the following code, the\n``schema_version`` field value is less than ``2``. When you retrieve the\ndocument, the {+odm-short+} adds the ``galaxy`` field and updates the schema\nversion to the current version, ``2``.\n\nThe ``\"Saturn\"`` document does not contain the ``schema_version`` field,\nso the {+odm-short+} assigns it the current schema version upon saving.\n\nFinally, the code retrieves the models from the collection to\ndemonstrate the changes:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/model-class.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/eloquent-models/SchemaVersionTest.php\n      :language: php\n      :dedent:\n      :start-after: begin-schema-version\n      :end-before: end-schema-version\n\n   .. output::\n      :language: none\n      :visible: false\n\n      [\n        {\n          \"_id\": ...,\n          \"name\": \"WASP-39 b\",\n          \"type\": \"gas\",\n          \"galaxy\": \"Milky Way\",\n          \"schema_version\": 2,\n        },\n        {\n          \"_id\": ...,\n          \"name\": \"Saturn\",\n          \"type\": \"gas\",\n          \"schema_version\": 2,\n        }\n      ]\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/model-class.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n\nThe following example class shows how to define the inverse ``BelongsTo``\nrelationship between ``Orbit`` and ``Planet`` by using the ``belongsTo()``\nmethod:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/relationships.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n\nThe following sample code shows how to instantiate a model for each class\nand add the relationship between them. Click the :guilabel:`{+code-output-label+}`\nbutton to see the data created by running the code:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/relationships.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin planet orbit dynamic property example\n   :end-before: end planet orbit dynamic property example\n\n.. _laravel-eloquent-relationship-one-to-many:\n\nOne to Many Relationship\n------------------------\n\nA one to many relationship between models consists of a model that is\nthe parent and one or more related child model records.\n\nWhen you add a one to many relationship method, Eloquent lets you access the\nmodel by using a dynamic property and stores the parent model's document ID\non each child model document.\n\nIn {+odm-long+}, you can define a one to many relationship by adding the\n``hasMany()`` method on the parent class and, optionally, the ``belongsTo()``\nmethod on the child class.\n\nWhen you add the inverse of the relationship by using the ``belongsTo()``\nmethod, Eloquent lets you access the parent model by using a dynamic property\nwithout adding any fields.\n\nTo learn more about one to many relationships, see\n`One to Many <https://laravel.com/docs/{+laravel-docs-version+}/eloquent-relationships#one-to-many>`__\nin the Laravel documentation.\n\nOne to Many Example\n~~~~~~~~~~~~~~~~~~~\n\nThe following example class shows how to define a ``HasMany`` one to many\nrelationship between a ``Planet`` parent model and ``Moon`` child model by\nusing the ``hasMany()`` method:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/relationships.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n\nThe following example class shows how to define the inverse ``BelongsTo``\nrelationship between a ``Moon`` child model and the and the ``Planet`` parent\nmodel by using the ``belongsTo()`` method:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/relationships.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n\nThe following sample code shows how to instantiate a model for each class\nand add the relationship between them.  Click the :guilabel:`{+code-output-label+}`\nbutton to see the data created by running the code:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/relationships.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin planet moons dynamic property example\n   :end-before: end planet moons dynamic property example\n\n.. _laravel-eloquent-relationship-many-to-many:\n\nMany to Many Relationship\n-------------------------\n\nA many to many relationship consists of a relationship between two different\nmodel types in which, for each type of model, an instance of the model can\nbe related to multiple instances of the other type.\n\nIn {+odm-long+}, you can define a many to many relationship by adding the\n``belongsToMany()`` method to both related classes.\n\nWhen you define a many to many relationship in a relational database, Laravel\ncreates a pivot table to track the relationships. When you use the {+odm-short+},\nit omits the pivot table creation and adds the related document IDs to a\ndocument field derived from the related model class name.\n\n.. tip::\n\n   Since the {+odm-short+} uses a document field instead of a pivot table, omit\n   the pivot table parameter from the ``belongsToMany()`` constructor or set\n   it to ``null``.\n\nTo learn more about many to many relationships in Laravel, see\n`Many to Many <https://laravel.com/docs/{+laravel-docs-version+}/eloquent-relationships#many-to-many>`__\nin the Laravel documentation.\n\nThe following section shows an example of how to create a many to many\nrelationship between model classes.\n\nMany to Many Example\n~~~~~~~~~~~~~~~~~~~~\n\nThe following example class shows how to define a ``BelongsToMany`` many to\nmany relationship between a ``Planet`` and ``SpaceExplorer`` model by using\nthe ``belongsToMany()`` method:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/relationships.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n\nThe following example class shows how to define the inverse ``BelongsToMany``\nmany to many relationship between a ``SpaceExplorer`` and ``Planet`` model by\nusing the ``belongsToMany()`` method:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/relationships.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n\nThe following sample code shows how to instantiate a model for each class\nand add the relationship between them. Click the :guilabel:`{+code-output-label+}`\nbutton to see the data created by running the code:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/relationships.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin many-to-many dynamic property example\n   :end-before: end many-to-many dynamic property example\n\n.. _laravel-embedded-document-pattern:\n\nEmbedded Document Pattern\n-------------------------\n\nIn MongoDB, the embedded document pattern adds the related model's data into\nthe parent model instead of keeping foreign key references. Use this pattern\nto meet one or more of the following requirements:\n\n- Keeping associated data together in a single collection\n- Performing atomic updates on multiple fields of the document and the associated\n  data\n- Reducing the number of reads required to fetch the data\n\nIn {+odm-long+}, you can define embedded documents by adding one of the\nfollowing methods:\n\n- ``embedsOne()`` to embed a single document\n- ``embedsMany()`` to embed multiple documents\n\n.. note::\n\n   These methods return Eloquent collections, which differ from query builder\n   objects.\n\nTo learn more about the MongoDB embedded document pattern, see the following\nMongoDB Server tutorials:\n\n- :manual:`Model One-to-One Relationships with Embedded Documents </tutorial/model-embedded-one-to-one-relationships-between-documents/>`\n- :manual:`Model One-to-Many Relationships with Embedded Documents </tutorial/model-embedded-one-to-many-relationships-between-documents/>`\n\nThe following section shows an example of how to use the embedded document\npattern.\n\nEmbedded Document Example\n~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example class shows how to define an ``EmbedsMany`` one to many\nrelationship between a ``SpaceShip`` and ``Cargo`` model by using the\n``embedsMany()`` method:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/relationships.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n\nThe embedded model class omits the relationship definition as shown in the\nfollowing ``Cargo`` model class:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/relationships.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n\nThe following sample code shows how to create a ``SpaceShip`` model and\nembed multiple ``Cargo`` models and the MongoDB document created by running the\ncode. Click the :guilabel:`{+code-output-label+}` button to see the data created by\nrunning the code:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/relationships.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n\nThe following example class shows how to define the inverse ``BelongsTo``\nrelationship between a ``Passenger`` model and the and the ``Spaceship``\nmodel by using the ``belongsTo()`` method:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/relationships.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n\n.. tip::\n\n   Make sure that the primary key defined in your relational database table\n   schema matches the one that your model uses. To learn more about Laravel\n   primary keys and schema definitions, see the following pages in the Laravel\n   documentation:\n\n   - `Primary Keys <https://laravel.com/docs/{+laravel-docs-version+}/eloquent#primary-keys>`__\n   - `Database: Migrations <https://laravel.com/docs/{+laravel-docs-version+}/migrations>`__\n\nThe following sample code shows how to create a ``SpaceShip`` model in\na MySQL database and related ``Passenger`` models in a MongoDB database as well\nas the data created by running the code. Click the :guilabel:`{+code-output-label+}` button\nto see the data created by running the code:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/relationships.txt"
+  },
+  {
+    "code": "   :dedent:\n   :language: php\n   :emphasize-lines: 6, 11\n\nRun or Roll Back a Migration\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nTo run the database migration from a class file, run the following command\nafter replacing the placeholder:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/schema-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin conditional create\n   :end-before: end conditional create\n\n.. _laravel-eloquent-indexes:\n\nManage Indexes\n--------------\n\nMongoDB indexes are data structures that improve query efficiency by reducing\nthe number of documents needed to retrieve query results. Certain indexes, such\nas geospatial indexes, extend how you can query the data.\n\nTo improve query performance by using an index, make sure the index covers\nthe query. To learn more about indexes and query optimization, see the\nfollowing {+server-docs-name+} entries:\n\n- :manual:`Indexes </indexes>`\n- :manual:`Query Optimization </core/query-optimization/>`\n\nThe following sections show how you can use the schema builder to create and\ndrop various types of indexes on a collection.\n\nCreate an Index\n~~~~~~~~~~~~~~~\n\nTo create indexes, call the ``create()`` method on the ``Schema`` facade\nin your migration file. Pass it the collection name and a callback\nmethod with a ``MongoDB\\Laravel\\Schema\\Blueprint`` parameter. Specify the\nindex creation details on the ``Blueprint`` instance.\n\nThe following example migration creates indexes on the following collection\nfields:\n\n- Single field index on ``mission_type``\n- Compound index on ``launch_location`` and ``launch_date``, specifying a descending sort order on ``launch_date``\n- Unique index on the ``mission_id`` field, specifying the index name ``\"unique_mission_id_idx\"``\n\nClick the :guilabel:`{+code-output-label+}` button to see the indexes created by running\nthe migration, including the default index on the ``_id`` field:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/schema-builder.txt"
+  },
+  {
+    "code": "   .. input:: /includes/schema-builder/spaceports_migration.php\n      :language: php\n      :dedent:\n      :start-after: begin create geospatial index\n      :end-before: end create geospatial index\n\n   .. output::\n      :language: json\n      :visible: false\n\n      [\n        { v: 2, key: { _id: 1 }, name: '_id_' },\n        {\n          v: 2,\n          key: { launchpad_location: '2dsphere' },\n          name: 'launchpad_location_2dsphere',\n          '2dsphereIndexVersion': 3\n        },\n        { v: 2, key: { runway_location: '2d' }, name: 'runway_location_2d' }\n      ]\n\n\nTo learn more about geospatial indexes, see\n:manual:`Geospatial Indexes </core/indexes/index-types/index-geospatial/>` in\nthe {+server-docs-name+}.\n\nDrop an Index\n~~~~~~~~~~~~~\n\nTo drop indexes from a collection, call the ``table()`` method on the\n``Schema`` facade in your migration file. Pass it the table name and a\ncallback method with a ``MongoDB\\Laravel\\Schema\\Blueprint`` parameter.\nCall the ``dropIndex()`` method with the index name on the ``Blueprint``\ninstance.\n\n.. note::\n\n   If you drop a collection, MongoDB automatically drops all the indexes\n   associated with it.\n\nThe following example migration drops an index called ``unique_mission_id_idx``\nfrom the ``flights`` collection:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/schema-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin drop index\n   :end-before: end drop index\n\n\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/eloquent-models/schema-builder.txt"
+  },
+  {
+    "code": "      :language: php\n      :dedent:\n      :start-after: begin aggregation builder sample data\n      :end-before: end aggregation builder sample data\n\n.. _laravel-aggregation-match-stage-example:\n\nMatch Stage Example\n~~~~~~~~~~~~~~~~~~~\n\nYou can chain the ``match()`` method to your aggregation pipeline to specify\na query filter. If you omit this stage, the ``aggregate()`` method outputs\nall the documents in the model's collection for the following stage.\n\nThis aggregation stage is often placed first to retrieve the data by using\navailable indexes and reduce the amount of data the subsequent stages process.\n\n.. tip::\n\n   If you omit the ``match()`` method, the aggregation pipeline matches all\n   documents in the collection that correspond to the model before other\n   aggregation stages.\n\nThis example constructs a query filter for a **match** aggregation stage by\nusing the ``MongoDB\\Builder\\Query`` builder. The match stage includes the\nfollowing criteria:\n\n- Returns results that match either of the query filters by using the\n  ``Query::or()`` function\n- Matches documents that contain an ``occupation`` field with a value of\n  ``\"designer\"`` by using the ``Query::query()`` and ``Query::eq()`` functions\n- Matches documents that contain a ``name`` field with a value of\n  ``\"Eliud Nkosana\"`` by using the ``Query::query()`` and ``Query::eq()``\n  functions\n\nClick the :guilabel:`{+code-output-label+}` button to see the documents\nreturned by running the code:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/aggregation-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: start custom operator factory function\n   :end-before: end custom operator factory function\n\nThe example aggregation pipeline includes the following stages:\n\n- ``addFields()``, which calls the custom operator factory function to extract\n  the year from the ``birthday`` field and assign it to the ``birth_year`` field\n- ``project()``, which includes only the ``name`` and ``birth_year`` fields in\n  its output\n\nClick the :guilabel:`{+code-output-label+}` button to see the data returned by\nrunning the code:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/aggregation-builder.txt"
+  },
+  {
+    "code": "          :copyable: false\n\n          'host' => 'myhost.example.com:27017',\n\n       | To specify multiple hosts, pass them in an array as shown in the\n         following example::\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/connection/connect-to-mongodb.txt"
+  },
+  {
+    "code": "          :copyable: false\n\n          'host' => ['node1.example.com:27017', 'node2.example.com:27017', 'node3.example.com:27017'],\n\n       | This option does not accept hosts that use the DNS seedlist\n         connection format.\n\n   * - ``database``\n     - Specifies the name of the MongoDB database to read and write to.\n\n   * - ``username``\n     - Specifies your database user's username credential to authenticate\n       with MongoDB.\n\n   * - ``password``\n     - Specifies your database user's password credential to authenticate\n       with MongoDB.\n\n   * - ``options``\n     - Specifies connection options to pass to MongoDB that determine the\n       connection behavior. To learn more about connection options, see\n       :ref:`laravel-connection-auth-options`.\n\n   * - ``driver_options``\n     - Specifies options specific to pass to the {+php-library+} that\n       determine the driver behavior for that connection. To learn more about\n       driver options, see :ref:`laravel-driver-options`.\n\n.. note::\n\n   You can specify the following settings in the ``dsn`` configuration\n   as parameters in your MongoDB connection string instead of as array items:\n\n   - ``host``\n   - ``username``\n   - ``password``\n   - ``options`` and ``driver_options``, which are specified by the option name\n\nThe following example shows how you can specify your MongoDB connection details\nin the ``connections`` array item:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/connection/connect-to-mongodb.txt"
+  },
+  {
+    "code": "   :caption: Example config/database.php MongoDB connection configuration\n\n   'connections' => [\n       'mongodb' => [\n           'driver' => 'mongodb',\n           'dsn' => 'mongodb+srv//myUser:myPass123@sample.host:27017/',\n           'database' => 'sample_mflix',\n           'options' => [\n               'maxPoolSize' => 20,\n               'w' => 'majority',\n           ],\n           'driver_options' => [\n               'serverApi' => 1,\n           ],\n       ],\n       // ...\n   ],\n\nThe following sections provide common ways of specifying MongoDB connections.\n\n.. _laravel-atlas-connection-example:\n\nConnection Example\n------------------\n\nThis section shows how to configure your Laravel application's DSN by using a\nMongoDB Atlas connection string.\n\nTo add your MongoDB DSN to your Laravel application, make the following changes:\n\n- Add the DSN as an environment variable in your project's ``.env`` environment\n  configuration file. Set the variable value to your Atlas connection string.\n- Add a connection entry for your MongoDB connection in the ``connections``\n  array of your ``config/database.php`` configuration file. Set the ``dsn``\n  value of the connection entry to reference the environment variable that\n  contains your DSN.\n\nThe following examples show how to specify ``\"mongodb+srv://myUser:myPass123@mongodb0.example.com/\"``\nas the connection string in the relevant configuration files:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/connection/connect-to-mongodb.txt"
+  },
+  {
+    "code": "   :caption: Sample .env environment configuration\n\n   DB_URI=\"mongodb+srv://myUser:myPass123@mongodb0.example.com/\"\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/connection/connect-to-mongodb.txt"
+  },
+  {
+    "code": "   :caption: Sample config/database.php connection entry\n   :emphasize-lines: 3\n\n   'connections' => [\n       'mongodb' => [\n           'dsn' => env('DB_URI'), // uses the value of the DB_URI environment variable\n           'driver' => 'mongodb',\n           'database' => 'sample_mflix',\n           // ...\n       ],\n     // ...\n   ]\n\n.. tip::\n\n   To retrieve your Atlas connection string, follow the\n   :ref:`Create a Connection String <laravel-quick-start-connection-string>`\n   step of the Quick Start tutorial.\n\n.. _laravel-other-ways-to-connect:\n\nOther Ways to Connect to MongoDB\n--------------------------------\n\nThe following sections show you how to connect to a single MongoDB server\ninstance or a replica set not hosted on MongoDB Atlas.\n\n.. _laravel-connect-localhost:\n\nConnect to a MongoDB Server on Your Local Machine\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThis section shows an example connection string you can use when running a\nLaravel application and MongoDB server from the same machine, such as your\nlocal development environment.\n\nTo connect your application to a MongoDB instance hosted on the same machine,\nyou must complete the following tasks:\n\n- Download, install, and run the MongoDB server.\n- Obtain the IP address and port on which your MongoDB server is running. If\n  you use the default settings of a local installation of MongoDB server,\n  the IP address is ``127.0.0.1``, and the port is ``27017``.\n- Set up your ``config/database.php`` connection to reference the environment\n  variable ``DB_URI`` for the value of the ``dsn``, as shown in the\n  :ref:`laravel-atlas-connection-example` section.\n\nThe following example shows a sample connection string that you can add to the\n``.env`` file if your application connects to a MongoDB server running on the\ndefault IP address and port:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/connection/connect-to-mongodb.txt"
+  },
+  {
+    "code": "   :caption: Sample .env environment configuration to connect to a local MongoDB server.\n\n   DB_URI=\"mongodb://127.0.0.1:27017/\";\n\nTo learn how to download  and install MongoDB server, see\n:manual:`Install MongoDB Community Edition </installation/#mongodb-installation-tutorials>`\nin the {+server-docs-name+}.\n\n.. _laravel-connect-replica-set:\n\nConnect to a Replica Set\n~~~~~~~~~~~~~~~~~~~~~~~~\n\nA MongoDB replica set deployment is a group of connected instances, or nodes,\nwhere the nodes store the same data set. This configuration of instances\nprovides data redundancy and high data availability.\n\nTo connect to a replica set deployment, specify each node's hostname and port\nnumber, separated by commas, and the replica set name as the value of the\n``replicaSet`` parameter in the connection string.\n\nThis example, which shows the connection string you can add to your\nLaravel application's ``.env`` file to connect to a replica set, uses the\nfollowing sample values:\n\n- ``host1``, ``host2``, and ``host3`` as the hostnames of the MongoDB nodes\n- ``27017`` as the port on which MongoDB runs on those hosts\n- ``myRS`` as the configured name of the replica set\n- ``myUser`` and ``myPass123`` as the credentials of a database user\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/connection/connect-to-mongodb.txt"
+  },
+  {
+    "code": "   :caption: Sample .env environment configuration to enable a direct connection\n\n   DB_URI=\"mongodb://host2:27017/?directConnection=true&readPreference=secondary\"\n\n\n\n",
+    "language": "bash",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/connection/connect-to-mongodb.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 6-10\n\n   'connections' => [\n       'mongodb' => [\n           'dsn' => 'mongodb+srv://mongodb0.example.com/',\n           'driver' => 'mongodb',\n           'database' => 'sample_mflix',\n           'options' => [\n               'appName' => 'myLaravelApp',\n               'compressors' => 'zlib',\n               'zlibCompressionLevel' => 7,\n           ],\n       ],\n   ],\n\nTo specify options as parameters in the connection string, use the following\nquery string syntax formatting:\n\n- Add the question mark character, ``?``, to separate the host information\n  from the parameters.\n- Add the options by formatting them as ``<option>=<value>``.\n- Insert the ampersand character, ``&``, between each option and value pair\n  to separate them.\n\nThe following setting example shows the connection string parameter syntax:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/connection/connection-options.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 6-9\n\n   'connections' => [\n       'mongodb' => [\n           'dsn' => 'mongodb+srv://mongodb0.example.com/',\n           'driver' => 'mongodb',\n           'database' => 'sample_mflix',\n           'driver_options' => [\n               'serverApi' => 1,\n               'allow_invalid_hostname' => false,\n           ],\n       ],\n   ]\n\nSee the `$driverOptions: array <https://www.mongodb.com/docs/php-library/current/reference/method/MongoDBClient__construct/#parameters>`__\nsection of the {+php-library+} documentation for a list of driver options.\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/connection/connection-options.txt"
+  },
+  {
+    "code": "         :emphasize-lines: 5\n\n         'connections' => [\n      \n             'mongodb' => [\n                 'driver' => 'mongodb',\n                 'dsn' => 'mongodb://<hostname>:<port>/?tls=true',\n                 'database' => 'myDB',\n             ]\n         ]\n\n   .. tab:: Connection Options\n      :tabid: options tls true\n      \n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/connection/tls.txt"
+  },
+  {
+    "code": "         :emphasize-lines: 8\n\n         'connections' => [\n      \n             'mongodb' => [\n                 'driver' => 'mongodb',\n                 'dsn' => '<connection string>',\n                 'database' => 'myDB',\n                 'options'  => [\n                     'tls' => true,\n                 ],\n             ]\n         ]\n\n      To view a full list of connection options, see\n      :ref:`laravel-fundamentals-connection-options`.\n\n.. note::\n   \n   If your connection string uses a DNS SRV record by including\n   the ``mongodb+srv`` prefix, TLS is enabled on your connection by\n   default.\n\nConfigure Certificates\n----------------------\n\nTo successfully initiate a TLS request, your application might need to present \ncryptographic certificates to prove its identity. Your application's\ncertificates must be stored as PEM files to enable TLS when connecting.\n\n.. important::\n\n   For production use, we recommend that your MongoDB deployment use valid\n   certificates generated and signed by the same certificate authority.\n   For testing, your deployment can use self-signed certificates.\n\nThe following list describes the components that your client can\npresent to establish a TLS-enabled connection:\n\n.. list-table::\n   :header-rows: 1\n   :widths: 30 70\n\n   * - TLS Component\n     - Description\n\n   * - Certificate Authority (CA)\n     - One or more certificate authorities to\n       trust when making a TLS connection. You can pass this file's path\n       to the ``tlsCAFile`` option.\n\n   * - Client Certificate\n     - A digital certificate that allows the server to verify the identity\n       of your application to establish an encrypted network connection.\n       You can pass this file's path to the ``tlsCertificateKeyFile`` option.\n\n   * - Certificate Key\n     - The client certificate private key file. This key is often\n       included within the certificate file itself. If you must\n       provide this item, the certificate and key should be concatenated\n       in one file that you can pass to the ``tlsCertificateKeyFile``\n       option.\n\n   * - Passphrase\n     - The password to decrypt the private client key if it is\n       encrypted. You can pass this file's path to the\n       ``tlsCertificateKeyFilePassword`` option.\n\nReference Certificates\n----------------------\n\nIf required, you must reference your certificates when configuring your ``mongodb``\nconnection so that the server can validate them before the client connects.\n\nWe recommend that you reference your certificates and set other TLS\noptions in the ``options`` property of your connection configuration\ninstead of in the connection string. This improves code readability in\nyour application.\n\nSet the following options in the ``options`` property to reference your\ncertificates:\n\n- ``tlsCAFile``\n- ``tlsCertificateKeyFile``\n- ``tlsCertificateKeyFilePassword``\n   \n.. note::\n\n   For **testing purposes**, you can set the following options to\n   ``true`` to disable validation:\n\n   - ``tlsAllowInvalidCertificates``\n   - ``tlsAllowInvalidHostnames``\n   \n   Or, you can set the ``tlsInsecure`` option to ``true`` to implicitly set\n   both of the preceding options.\n   \n   Specifying these options in a production environment might make\n   your application insecure. To learn more, see the :manual:`Connection\n   Options </reference/connection-string/#connection-options>`\n   reference in the Server manual.\n\nThe following example configures a connection with TLS enabled:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/connection/tls.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 1,8\n\n   'default' => 'mongodb',\n\n   'connections' => [\n\n       'mongodb' => [\n           'driver' => 'mongodb',\n           'dsn' => 'mongodb://localhost:27017/',\n           'database' => 'animals',\n       ], ...\n   ]\n\nWhen you set a default database connection, the {+odm-short+} uses that\nconnection for operations, but you can specify multiple database connections\nin your ``config/database.php`` file.\n\nThe following example shows how to specify multiple database connections\n(``mongodb`` and ``mongodb_alt``) to access the ``animals`` and\n``plants`` databases:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/database-collection.txt"
+  },
+  {
+    "code": "         :language: php\n         :dedent:\n         :start-after: start-query\n         :end-before: end-query\n\n   .. tab:: Controller Method\n      :tabid: controller\n\n      To see the query results in the ``browse_movies`` view, edit the ``show()`` function\n      in the ``MovieController.php`` file to resemble the following code:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/read-operations.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input::\n            :language: php\n\n            class MovieController\n            {\n                public function show()\n                {\n                     $movies = Movie::where('year', 2010)\n                         ->where('imdb.rating', '>', 8.5)\n                         ->get();\n\n                     return view('browse_movies', [\n                         'movies' => $movies\n                     ]);\n                }\n            }\n\n         .. output::\n            :language: none\n            :visible: false\n\n            Title: Inception\n            Year: 2010\n            Runtime: 148\n            IMDB Rating: 8.8\n            IMDB Votes: 1294646\n            Plot: A thief who steals corporate secrets through use of dream-sharing\n            technology is given the inverse task of planting an idea into the mind of a CEO.\n\n            Title: Senna\n            Year: 2010\n            Runtime: 106\n            IMDB Rating: 8.6\n            IMDB Votes: 41904\n            Plot: A documentary on Brazilian Formula One racing driver Ayrton Senna, who won the\n            F1 world championship three times before his death at age 34.\n\nTo learn how to query by using the Laravel query builder instead of the\nEloquent ORM, see the :ref:`laravel-query-builder` page.\n\nMatch Array Field Elements\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nYou can specify a query filter to match array field elements when\nretrieving documents. If your documents contain an array field, you can\nmatch documents based on if the value contains all or some specified\narray elements.\n\nYou can use one of the following ``where()`` method calls to build a\nquery on an array field:\n\n- ``where('<array field>', <array>)`` builds a query that matches documents in\n  which the array field value is exactly the specified array\n\n- ``where('<array field>', 'in', <array>)`` builds a query\n  that matches documents in which the array field value contains one or\n  more of the specified array elements\n\nAfter building your query by using the ``where()`` method, chain the ``get()``\nmethod to retrieve the query results.\n\nSelect from the following :guilabel:`Exact Array Match` and\n:guilabel:`Element Match` tabs to view the query syntax for each pattern:\n\n.. tabs::\n\n   .. tab:: Exact Array Match\n      :tabid: exact-array\n\n      This example retrieves documents in which the ``countries`` array is\n      exactly ``['Indonesia', 'Canada']``:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/read-operations.txt"
+  },
+  {
+    "code": "         :language: php\n         :dedent:\n         :start-after: start-exact-array\n         :end-before: end-exact-array\n\n   .. tab:: Element Match\n      :tabid: element-match\n\n      This example retrieves documents in which the ``countries`` array\n      contains one of the values in the array ``['Canada', 'Egypt']``:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/read-operations.txt"
+  },
+  {
+    "code": "         :language: php\n         :dedent:\n         :start-after: start-elem-match\n         :end-before: end-elem-match\n\nTo learn how to query array fields by using the Laravel query builder instead of the\nEloquent ORM, see the :ref:`laravel-query-builder-elemMatch` section in\nthe Query Builder guide.\n\n.. _laravel-retrieve-all:\n\nRetrieve All Documents in a Collection\n--------------------------------------\n\nYou can retrieve all documents in a collection by omitting the query filter.\nTo return the documents, call the ``get()`` method on an Eloquent model that\nrepresents your collection. Alternatively, you can use the ``get()`` method's\nalias ``all()`` to perform the same operation.\n\nUse the following syntax to run a find operation that matches all documents:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/read-operations.txt"
+  },
+  {
+    "code": "         :language: php\n         :dedent:\n         :start-after: start-text\n         :end-before: end-text\n\n   .. tab:: Controller Method\n      :tabid: controller\n\n      To see the query results in the ``browse_movies`` view, edit the ``show()`` function\n      in the ``MovieController.php`` file to resemble the following code:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/read-operations.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input::\n            :language: php\n\n            class MovieController\n            {\n                public function show()\n                {\n                     $movies = Movie::where('$text', ['$search' => '\"love story\"'])\n                         ->get();\n\n                     return view('browse_movies', [\n                         'movies' => $movies\n                     ]);\n                }\n            }\n\n         .. output::\n            :language: none\n            :visible: false\n\n            Title: Cafè de Flore\n            Year: 2011\n            Runtime: 120\n            IMDB Rating: 7.4\n            IMDB Votes: 9663\n            Plot: A love story between a man and woman ...\n\n            Title: Paheli\n            Year: 2005\n            Runtime: 140\n            IMDB Rating: 6.7\n            IMDB Votes: 8909\n            Plot: A folk tale - supernatural love story about a ghost ...\n\n            Title: Por un puèado de besos\n            Year: 2014\n            Runtime: 98\n            IMDB Rating: 6.1\n            IMDB Votes: 223\n            Plot: A girl. A boy. A love story ...\n\n            ...\n\nA text search assigns a numerical :manual:`text score </reference/operator/query/text/#text-score>` to indicate how closely\neach result matches the string in your query filter. You can sort the\nresults by relevance by using the ``orderBy()`` method to sort on the\n``textScore`` metadata field. You can access this metadata by using the\n:manual:`$meta </reference/operator/aggregation/meta/>` operator:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/read-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: start-text-relevance\n   :end-before: end-text-relevance\n   :emphasize-lines: 2\n\n.. tip::\n\n   To learn more about the ``orderBy()`` method, see the\n   :ref:`laravel-sort` section of this guide.\n\n.. _laravel-modify-find:\n\nModify Behavior\n---------------\n\nYou can modify the results of a find operation by chaining more methods\nto ``where()``.\n\nThe following sections demonstrate how to modify the behavior of the ``where()``\nmethod:\n\n- :ref:`laravel-skip-limit` uses the ``skip()`` method to set the number of documents\n  to skip and the ``take()`` method to set the total number of documents to return\n- :ref:`laravel-sort` uses the ``orderBy()`` method to return query\n  results in a specified order based on field values\n- :ref:`laravel-retrieve-one` uses the ``first()`` method to return the first document\n  that matches the query filter\n\n.. _laravel-skip-limit:\n\nSkip and Limit Results\n~~~~~~~~~~~~~~~~~~~~~~\n\nThis example queries for documents in which the ``year`` value is ``1999``.\nThe operation skips the first ``2`` matching documents and outputs a total of ``3``\ndocuments.\n\n.. tabs::\n\n   .. tab:: Query Syntax\n      :tabid: query-syntax\n\n      Use the following syntax to specify the query:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/read-operations.txt"
+  },
+  {
+    "code": "         :language: php\n         :dedent:\n         :start-after: start-skip-limit\n         :end-before: end-skip-limit\n\n   .. tab:: Controller Method\n      :tabid: controller\n\n      To see the query results in the ``browse_movies`` view, edit the ``show()`` function\n      in the ``MovieController.php`` file to resemble the following code:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/read-operations.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input::\n            :language: php\n\n            class MovieController\n            {\n                public function show()\n                {\n                     $movies = Movie::where('year', 1999)\n                         ->skip(2)\n                         ->take(3)\n                         ->get();\n\n                     return view('browse_movies', [\n                         'movies' => $movies\n                     ]);\n                }\n            }\n\n         .. output::\n            :language: none\n            :visible: false\n\n            Title: Three Kings\n            Year: 1999\n            Runtime: 114\n            IMDB Rating: 7.2\n            IMDB Votes: 130677\n            Plot: In the aftermath of the Persian Gulf War, 4 soldiers set out to steal gold\n            that was stolen from Kuwait, but they discover people who desperately need their help.\n\n            Title: Toy Story 2\n            Year: 1999\n            Runtime: 92\n            IMDB Rating: 7.9\n            IMDB Votes: 346655\n            Plot: When Woody is stolen by a toy collector, Buzz and his friends vow to rescue him,\n            but Woody finds the idea of immortality in a museum tempting.\n\n            Title: Beowulf\n            Year: 1999\n            Runtime: 95\n            IMDB Rating: 4\n            IMDB Votes: 9296\n            Plot: A sci-fi update of the famous 6th Century poem. In a besieged land, Beowulf must\n            battle against the hideous creature Grendel and his vengeance seeking mother.\n\n.. _laravel-sort:\n\nSort Query Results\n~~~~~~~~~~~~~~~~~~\n\nTo order query results based on the values of specified fields, use the ``where()`` method\nfollowed by the ``orderBy()`` method.\n\nYou can set an **ascending** or **descending** sort direction on\nresults. By default, the ``orderBy()`` method sets an ascending sort on\nthe supplied field name, but you can explicitly specify an ascending\nsort by passing ``\"asc\"`` as the second parameter. To\nspecify a descending sort, pass ``\"desc\"`` as the second parameter.\n\nIf your documents contain duplicate values in a specific field, you can\nhandle the tie by specifying more fields to sort on. This ensures consistent\nresults if the other fields contain unique values.\n\nThis example queries for documents in which the value of the ``countries`` field contains\n``\"Indonesia\"`` and orders results first by an ascending sort on the\n``year`` field, then a descending sort on the ``title`` field.\n\n.. tabs::\n\n   .. tab:: Query Syntax\n      :tabid: query-syntax\n\n      Use the following syntax to specify the query:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/read-operations.txt"
+  },
+  {
+    "code": "         :language: php\n         :dedent:\n         :start-after: start-sort\n         :end-before: end-sort\n\n   .. tab:: Controller Method\n      :tabid: controller\n\n      To see the query results in the ``browse_movies`` view, edit the ``show()`` function\n      in the ``MovieController.php`` file to resemble the following code:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/read-operations.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input::\n            :language: php\n\n            class MovieController\n            {\n                public function show()\n                {\n                    $movies = Movie::where('countries', 'Indonesia')\n                        ->orderBy('year')\n                        ->orderBy('title', 'desc')\n                        ->get();\n\n                    return view('browse_movies', [\n                        'movies' => $movies\n                    ]);\n                }\n            }\n\n         .. output::\n            :language: none\n            :visible: false\n\n            Title: Joni's Promise\n            Year: 2005\n            Runtime: 83\n            IMDB Rating: 7.6\n            IMDB Votes: 702\n            Plot: A film delivery man promises ...\n\n            Title: Gie\n            Year: 2005\n            Runtime: 147\n            IMDB Rating: 7.5\n            IMDB Votes: 470\n            Plot: Soe Hok Gie is an activist who lived in the sixties ...\n\n            Title: Requiem from Java\n            Year: 2006\n            Runtime: 120\n            IMDB Rating: 6.6\n            IMDB Votes: 316\n            Plot: Setyo (Martinus Miroto) and Siti (Artika Sari Dewi)\n            are young married couple ...\n\n            ...\n\n.. tip::\n\n   To learn more about sorting, see the following resources:\n\n   - :manual:`Natural order </reference/glossary/#std-term-natural-order>`\n     in the {+server-docs-name+} glossary\n   - `Ordering, Grouping, Limit, and Offset <https://laravel.com/docs/queries#ordering-grouping-limit-and-offset>`__\n     in the Laravel documentation\n\n.. _laravel-retrieve-one:\n\nReturn the First Result\n~~~~~~~~~~~~~~~~~~~~~~~\n\nTo retrieve the first document that matches a set of criteria, use the ``where()`` method\nfollowed by the ``first()`` method.\n\nChain the ``orderBy()`` method to ``first()`` to get consistent results when you query on a unique\nvalue. If you omit the ``orderBy()`` method, MongoDB returns the matching documents according to\nthe documents' natural order, or as they appear in the collection.\n\nThis example queries for documents in which the value of the ``runtime`` field is\n``30`` and returns the first matching document according to the value of the ``_id``\nfield.\n\n.. tabs::\n\n   .. tab:: Query Syntax\n      :tabid: query-syntax\n\n      Use the following syntax to specify the query:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/read-operations.txt"
+  },
+  {
+    "code": "         :language: php\n         :dedent:\n         :start-after: start-first\n         :end-before: end-first\n\n   .. tab:: Controller Method\n      :tabid: controller\n\n      To see the query results in the ``browse_movies`` view, edit the ``show()`` function\n      in the ``MovieController.php`` file to resemble the following code:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/read-operations.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input::\n            :language: php\n\n            class MovieController\n            {\n                public function show()\n                {\n                    $movie = Movie::where('runtime', 30)\n                        ->orderBy('_id')\n                        ->first();\n\n                    return view('browse_movies', [\n                        'movies' => $movie\n                    ]);\n                }\n            }\n\n         .. output::\n            :language: none\n            :visible: false\n\n            Title: Statues also Die\n            Year: 1953\n            Runtime: 30\n            IMDB Rating: 7.6\n            IMDB Votes: 620\n            Plot: A documentary of black art.\n\n.. tip::\n\n   To learn more about the ``orderBy()`` method, see the\n   :ref:`laravel-sort` section of this guide.\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/read-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :caption: Concert.php\n\n.. tip::\n\n   The ``$fillable`` attribute lets you use Laravel mass assignment for insert\n   operations. To learn more about mass assignment, see :ref:`laravel-model-mass-assignment`\n   in the Eloquent Model Class documentation.\n\n   The ``$casts`` attribute instructs Laravel to convert attributes to common\n   data types. To learn more, see `Attribute Casting <https://laravel.com/docs/{+laravel-docs-version+}/eloquent-mutators#attribute-casting>`__\n   in the Laravel documentation.\n\n.. _laravel-fundamentals-insert-documents:\n\nInsert Documents\n----------------\n\nIn this section, you can learn how to insert documents into MongoDB collections\nfrom your Laravel application by using {+odm-long+}.\n\nWhen you insert the documents, ensure the data does not violate any\nunique indexes on the collection. When inserting the first document of a\ncollection or creating a new collection, MongoDB automatically creates a\nunique index on the ``_id`` field.\n\nFor more information on creating indexes on MongoDB collections by using the\nLaravel schema builder, see the :ref:`laravel-eloquent-indexes` section\nof the Schema Builder documentation.\n\nTo learn more about Eloquent models in the {+odm-short+}, see the :ref:`laravel-eloquent-models`\nsection.\n\nInsert a Document Examples\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThese examples show how to use the ``save()`` Eloquent method to insert an\ninstance of a ``Concert`` model as a MongoDB document.\n\nWhen the ``save()`` method succeeds, you can access the model instance on\nwhich you called the method.\n\nIf the operation fails, the model instance is assigned ``null``.\n\nThis example code performs the following actions:\n\n- Creates a new instance of the ``Concert`` model\n- Assigns string values to the ``performer`` and ``venue`` fields\n- Assigns an array of strings to the ``genre`` field\n- Assigns a number to the ``ticketsSold`` field\n- Assigns a date to the ``performanceDate`` field by using the ``Carbon``\n  package\n- Inserts the document by calling the ``save()`` method\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin model insert one\n   :end-before: end model insert one\n   :caption: Insert a document by calling the save() method on an instance.\n\nYou can retrieve the inserted document's ``_id`` value by accessing the model's\n``id`` member, as shown in the following code example:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin inserted id\n   :end-before: end inserted id\n\nIf you enable mass assignment by defining either the ``$fillable`` or\n``$guarded`` attributes, you can use the Eloquent model ``create()`` method\nto perform the insert in a single call, as shown in the following example:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin model insert one mass assign\n   :end-before: end model insert one mass assign\n\nTo learn more about the Carbon PHP API extension, see the\n:github:`Carbon <briannesbitt/Carbon>` GitHub repository.\n\nInsert Multiple Documents Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThis example shows how to use the ``insert()`` Eloquent method to insert\nmultiple instances of a ``Concert`` model as MongoDB documents. This bulk\ninsert method reduces the number of calls your application needs to make\nto save the documents.\n\nWhen the ``insert()`` method succeeds, it returns the value ``1``.\n\nIf it fails, it throws an exception.\n\nThe example code saves multiple models in a single call by passing them as\nan array to the ``insert()`` method:\n\n.. note::\n\n   This example wraps the dates in the `MongoDB\\\\BSON\\\\UTCDateTime <{+phplib-api+}/class.mongodb-bson-utcdatetime.php>`__\n   class to convert it to a type MongoDB can serialize because Laravel\n   skips attribute casting on bulk insert operations.\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin model insert many\n   :end-before: end model insert many\n\n.. _laravel-fundamentals-modify-documents:\n\nModify Documents\n----------------\n\nIn this section, you can learn how to modify documents in your MongoDB\ncollection from your Laravel application. Use update operations to modify\nexisting documents or to insert a document if none match the search\ncriteria.\n\nYou can persist changes on an instance of an Eloquent model or use\nEloquent's fluent syntax to chain an update operation on methods that\nreturn a Laravel collection object.\n\nThis section provides examples of the following update operations:\n\n- :ref:`Update a document <laravel-modify-documents-update-one>`\n- :ref:`Update multiple documents <laravel-modify-documents-update-multiple>`\n- :ref:`Update or insert in a single operation <laravel-modify-documents-upsert>`\n- :ref:`Update arrays in a document <laravel-modify-documents-arrays>`\n\n.. _laravel-modify-documents-update-one:\n\nUpdate a Document Examples\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nYou can update a document in the following ways:\n\n- Modify an instance of the model and save the changes by calling the ``save()``\n  method.\n- Chain methods to retrieve an instance of a model and perform updates on it\n  by calling the ``update()`` method.\n\nThe following example shows how to update a document by modifying an instance\nof the model and calling its ``save()`` method:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin model update one save\n   :end-before: end model update one save\n   :caption: Update a document by calling the save() method on an instance.\n\nWhen the ``save()`` method succeeds, the model instance on which you called the\nmethod contains the updated values.\n\nIf the operation fails, the {+odm-short+} assigns the model instance a ``null`` value.\n\nThe following example shows how to update a document by chaining methods to\nretrieve and update the first matching document:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin model update one fluent\n   :end-before: end model update one fluent\n   :caption: Update the matching document by chaining the update() method.\n\n.. include:: /includes/fact-orderby-id.rst\n\nWhen the ``update()`` method succeeds, the operation returns the number of\ndocuments updated.\n\nIf the retrieve part of the call does not match any documents, the {+odm-short+}\nreturns the following error:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   Error: Call to a member function update() on null\n\n.. _laravel-modify-documents-update-multiple:\n\nUpdate Multiple Documents Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nTo perform an update on one or more documents, chain the ``update()``\nmethod to the results of a method that retrieves the documents as a\nLaravel collection object, such as ``where()``.\n\nThe following example shows how to chain calls to retrieve matching documents\nand update them:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin model update multiple\n   :end-before: end model update multiple\n\nWhen the ``update()`` method succeeds, the operation returns the number of\ndocuments updated.\n\nIf the retrieve part of the call does not match any documents in the\ncollection, the {+odm-short+} returns the following error:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   Error: Call to a member function update() on null\n\n.. _laravel-modify-documents-upsert:\n\nUpdate or Insert in a Single Operation\n--------------------------------------\n\nAn **upsert** operation lets you perform an update or insert in a single\noperation. This operation streamlines the task of updating a document or\ninserting one if it does not exist.\n\nStarting in v4.7, you can perform an upsert operation by using either of\nthe following methods:\n\n- ``upsert()``: When you use this method, you can perform a **batch\n  upsert** to change or insert multiple documents in one operation.\n\n- ``update()``: When you use this method, you must specify the\n  ``upsert`` option to update all documents that match the query filter\n  or insert one document if no documents are matched. Only this upsert method\n  is supported in versions v4.6 and earlier.\n\nUpsert Method\n~~~~~~~~~~~~~\n\nThe ``upsert(array $values, array|string $uniqueBy, array|null\n$update)`` method accepts the following parameters:\n\n- ``$values``: Array of fields and values that specify documents to update or insert.\n- ``$uniqueBy``: List of fields that uniquely identify documents in your\n  first array parameter.\n- ``$update``: Optional list of fields to update if a matching document\n  exists. If you omit this parameter, the {+odm-short+} updates all fields.\n\nTo specify an upsert in the ``upsert()`` method, set parameters\nas shown in the following code example:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   YourModel::upsert(\n      [/* documents to update or insert */],\n      '/* unique field */',\n      [/* fields to update */],\n   );\n\nExample\n^^^^^^^\n\nThis example shows how to use the  ``upsert()``\nmethod to perform an update or insert in a single operation. Click the\n:guilabel:`{+code-output-label+}` button to see the resulting data changes when\nthere is a document in which the value of ``performer`` is ``'Angel\nOlsen'`` in the collection already:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 4\n   :copyable: false\n\n   YourModel::where(/* match criteria */)\n      ->update(\n          [/* update data */],\n          ['upsert' => true]);\n\nWhen the ``update()`` method is chained to a query, it performs one of the\nfollowing actions:\n\n- If the query matches documents, the ``update()`` method modifies the matching\n  documents.\n- If the query matches zero documents, the ``update()`` method inserts a\n  document that contains the update data and the equality match criteria data.\n\nExample\n^^^^^^^\n\nThis example shows how to pass the ``upsert`` option to the  ``update()``\nmethod to perform an update or insert in a single operation. Click the\n:guilabel:`{+code-output-label+}` button to see the example document inserted when no\nmatching documents exist:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin array example document\n   :end-before: end array example document\n\n.. _laravel-modify-documents-add-array-values:\n\nAdd Values to an Array Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThis section shows how to use the ``push()`` method to add values to an array\nin a MongoDB document. You can pass one or more values to add and set the\noptional parameter ``unique`` to ``true`` to skip adding any duplicate values\nin the array. The following code example shows the structure of a ``push()``\nmethod call:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   YourModel::where(<match criteria>)\n      ->push(\n          <field name>,\n          [<values>], // array or single value to add\n          unique: true); // whether to skip existing values\n\nThe following example shows how to add the value ``\"baroque\"`` to\nthe ``genres`` array field of a matching document. Click the\n:guilabel:`{+code-output-label+}` button to see the updated document:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   YourModel::where(<match criteria>)\n      ->pull(\n          <field name>,\n          [<values>]); // array or single value to remove\n\nThe following example shows how to remove array values ``\"classical\"`` and\n``\"dance-pop\"`` from the ``genres`` array field. Click the\n:guilabel:`{+code-output-label+}` button to see the updated document:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   DB::connection('mongodb')\n      ->getCollection(<collection name>)\n      ->updateOne(\n          <match criteria>,\n          ['$set' => ['<array field>.$' => <replacement value>]]);\n\n\nThe following example shows how to replace the array value ``\"dance-pop\"``\nwith ``\"contemporary\"`` in the ``genres`` array field. Click the\n:guilabel:`{+code-output-label+}` button to see the updated document:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin delete one model\n   :end-before: end delete one model\n   :caption: Delete the document by calling the delete() method on an instance.\n\nWhen the ``delete()`` method succeeds, the operation returns the number of\ndocuments deleted.\n\nIf the retrieve part of the call does not match any documents in the collection,\nthe operation returns ``0``.\n\nThe following example shows how to delete a document by passing the value of\nits id to the ``Model::destroy($id)`` method:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin model delete by id\n   :end-before: end model delete by id\n   :caption: Delete the document by its id value.\n\nWhen the ``destroy()`` method succeeds, it returns the number of documents\ndeleted.\n\nIf the id value does not match any documents, the ``destroy()`` method\nreturns returns ``0``.\n\nThe following example shows how to chain calls to retrieve the first\nmatching document and delete it:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin model delete one fluent\n   :end-before: end model delete one fluent\n   :caption: Delete the matching document by chaining the delete() method.\n\n.. include:: /includes/fact-orderby-id.rst\n\nWhen the ``delete()`` method succeeds, it returns the number of documents\ndeleted.\n\nIf the ``where()`` method does not match any documents, the ``delete()`` method\nreturns returns ``0``.\n\n.. _laravel-fundamentals-delete-many:\n\nDelete Multiple Documents Examples\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nYou can delete multiple documents in the following ways:\n\n\n- Call the ``Model::destroy($ids)`` method, passing a list of the ids of the\n  documents or model instances to be deleted.\n- Chain methods to retrieve a Laravel collection object that references\n  multiple objects and delete them by calling the ``delete()`` method.\n\nThe following example shows how to delete a document by passing an array of\nid values, represented by ``$ids``, to the ``destroy()`` method:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin model delete multiple by id\n   :end-before: end model delete multiple by id\n   :caption: Delete documents by their ids.\n\n.. tip::\n\n   The ``destroy()`` method performance suffers when passed large lists. For\n   better performance, use ``Model::whereIn('id', $ids)->delete()`` instead.\n\nWhen the ``destroy()`` method succeeds, it returns the number of documents\ndeleted.\n\nIf the id values do not match any documents, the ``destroy()`` method\nreturns returns ``0``.\n\nThe following example shows how to chain calls to retrieve matching documents\nand delete them:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin model delete multiple fluent\n   :end-before: end model delete multiple fluent\n   :caption: Chain calls to retrieve matching documents and delete them.\n\nWhen the ``delete()`` method succeeds, it returns the number of documents\ndeleted.\n\nIf the ``where()`` method does not match any documents, the ``delete()`` method\nreturns ``0``.\n\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/fundamentals/write-operations.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/query-builder/QueryBuilderTest.php\n      :language: php\n      :dedent:\n      :start-after: begin query where\n      :end-before: end query where\n\n   .. output::\n      :language: json\n      :visible: false\n\n      [\n         { \"title\": \"Cosmos\",\n           \"year\": 1980,\n           \"runtime\": 60,\n           \"imdb\": {\n             \"rating\": 9.3,\n             \"votes\": 17174,\n             \"id\": 81846\n           },\n           \"plot\": \"Astronomer Carl Sagan leads us on an engaging guided tour of the various elements and cosmological theories of the universe.\",\n           ...\n         },\n         { \"title\": \"The Shawshank Redemption\",\n           \"year\": 1994,\n           \"runtime\": 142,\n           \"imdb\": {\n             \"rating\": 9.3,\n             \"votes\": 1521105,\n             \"id\": 111161\n           },\n           \"plot\": \"Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.\",\n           ...\n         },\n         { \"title\": \"The Real Miyagi\",\n           \"year\": 2015,\n           \"runtime\": 90,\n           \"imdb\": {\n             \"rating\": 9.3,\n             \"votes\": 41,\n             \"id\": 2313306\n           },\n           \"plot\": \"The life of the greatest karate master of a generation.\",\n            ...\n         }\n      ]\n\n.. _laravel-query-builder-logical-operations:\n\nLogical Conditional Operations\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe examples in this section show the query builder syntax you\ncan use to perform the following logical conditional operations:\n\n- :ref:`Logical OR to match one or more conditions <laravel-query-builder-logical-or>`\n- :ref:`Logical AND to match all conditions <laravel-query-builder-logical-and>`\n- :ref:`Logical NOT to match the negation of the condition <laravel-query-builder-logical-not>`\n- :ref:`Nested logical operator groups <laravel-query-builder-logical-nested>`\n\n.. _laravel-query-builder-logical-or:\n\nLogical OR Example\n^^^^^^^^^^^^^^^^^^\n\nThe following example shows how to chain the ``orWhere()``\nquery builder method to retrieve documents from the\n``movies`` collection in which the value of the ``_id``\nfield is ``ObjectId('573a1398f29313caabce9682')`` or\nthe value of the ``title`` field is ``\"Back to the Future\"``:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query orWhere\n   :end-before: end query orWhere\n\n.. note::\n\n   You can use the ``id`` alias in your queries to represent the\n   ``_id`` field in MongoDB documents, as shown in the preceding\n   code. When you use the query builder to run a find operation, the {+odm-short+}\n   automatically converts between ``_id`` and ``id`` field names. In query results,\n   the ``_id`` field is presented as ``id``. This provides better\n   consistency with Laravel, as the framework assumes that each record has a\n   primary key named ``id`` by default.\n   \n   Because of this behavior, you cannot have two separate ``id`` and ``_id``\n   fields in your documents.\n\n.. _laravel-query-builder-logical-and:\n\nLogical AND Example\n^^^^^^^^^^^^^^^^^^^\n\nThe following example shows how to chain the ``where()``\nquery builder method to retrieve documents from the\n``movies`` collection that match both an ``imdb.rating``\nvalue greater than ``8.5`` and a ``year`` value of less than\n``1940``:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query andWhere\n   :end-before: end query andWhere\n\n.. tip::\n\n   For compatibility with Laravel, Laravel MongoDB v5.1 supports both arrow\n   (``->``) and dot (``.``) notation to access nested fields in a query\n   filter. The preceding example uses dot notation to query the ``imdb.rating``\n   nested field, which is the recommended syntax.\n\n.. _laravel-query-builder-logical-not:\n\nLogical NOT Example\n^^^^^^^^^^^^^^^^^^^\n\nThe following example shows how to call the ``whereNot()``\nquery builder method to retrieve documents from the\n``movies`` collection that match documents that do not have an ``imdb.rating``\nvalue greater than ``2``. This is equivalent to matching all documents\nthat have an ``imdb.rating`` of less than or equal to ``2``:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query whereNot\n   :end-before: end query whereNot\n\n.. _laravel-query-builder-logical-nested:\n\nNested Logical Operator Group Example\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nThe following example shows how to chain the ``where()``\nquery builder method to retrieve documents from the\n``movies`` collection that match both of the following\nconditions. This example passes a closure as the first\nparameter of the ``where()`` query builder method to group\nthe logical OR group:\n\n- ``imdb.rating`` value is greater than ``8.5``\n- ``year`` value is either ``1986`` or ``1996``\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query nestedLogical\n   :end-before: end query nestedLogical\n\n.. _laravel-query-builder-range-type:\n\nRanges and Type Checks\n~~~~~~~~~~~~~~~~~~~~~~\n\nThe examples in this section show the query builder syntax you can use to\nmatch values by using the following range queries and type check operations:\n\n- :ref:`Values within a numerical range <laravel-query-builder-wherebetween>`\n- :ref:`Null or missing values <laravel-query-builder-null>`\n- :ref:`One or more values of a set <laravel-query-builder-wherein>`\n- :ref:`Match dates <laravel-query-builder-wheredate>`\n- :ref:`Match a text pattern <laravel-query-builder-pattern>`\n\n.. _laravel-query-builder-wherebetween:\n\nNumerical Range Example\n^^^^^^^^^^^^^^^^^^^^^^^\n\nThe following example shows how to use the ``whereBetween()``\nquery builder method to retrieve documents from the\n``movies`` collection that contain an ``imdb.rating`` value\nbetween ``9`` and ``9.5``:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/query-builder/QueryBuilderTest.php\n      :language: php\n      :dedent:\n      :start-after: begin query whereBetween\n      :end-before: end query whereBetween\n\n   .. output::\n      :language: none\n      :visible: false\n\n      [\n         { \"title\" \"The Godfather\", \"imdb\": { \"rating\": 9.2, \"votes\": 1038358, \"id\": 68646 }, ... },\n         { \"title\": \"Hollywood\", \"imdb\": { \"rating\": 9.1, \"votes\": 511,\"id\": 80230 }, ... },\n         { \"title\": \"Cosmos\", \"imdb\": { \"rating\": 9.3, \"votes\": 17174, \"id\": 81846 }, ... },\n         ...\n      ]\n\n.. _laravel-query-builder-null:\n\nNull or Missing Values Example\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nThe following example shows how to use the ``whereNull()``\nquery builder method to retrieve documents from the\n``movies`` collection that omit a ``runtime`` value\nor field:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query whereNull\n   :end-before: end query whereNull\n\n.. _laravel-query-builder-wherein:\n\nOne or More Values of a Set Example\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nThe following example shows how to use the ``whereIn()``\nquery builder method to retrieve documents from the\n``movies`` collection that match at least one of the\n``title`` values in the specified set:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/query-builder/QueryBuilderTest.php\n      :language: php\n      :dedent:\n      :start-after: begin query whereIn\n      :end-before: end query whereIn\n\n   .. output::\n      :language: json\n      :visible: false\n\n      [\n         { \"title\": \"Toy Story\", \"year\": 1995, \"runtime\": 81, ... },\n         { \"title\": \"Johnny English\", \"year\": 2003, \"runtime\": 87, ... },\n         { \"title\": \"Shrek 2\", \"year\" 2004, \"runtime\": 93, ... },\n         ...\n      ]\n\n.. _laravel-query-builder-wheredate:\n\nMatch Dates Example\n^^^^^^^^^^^^^^^^^^^\n\nThe following example shows how to use the ``where()``\nquery builder method to retrieve documents from the\n``movies`` collection in which the ``released`` value\nis January 15, 2010, specified in a ``Carbon`` object:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query where date\n   :end-before: end query where date\n\n.. note:: Date Query Filter and Result Type\n\n   Starting in {+odm-long+} v5.0, `Carbon <https://carbon.nesbot.com/docs/>`__\n   objects passed as query filters, as shown in the preceding code, are\n   converted to ``UTCDateTime`` BSON values.\n   \n   In query results, ``UTCDateTime`` BSON values in MongoDB are returned as ``Carbon``\n   objects. The {+odm-short+} applies the default timezone when performing\n   this conversion.\n\nIf you want to represent a date as a string in your query filter\nrather than as a ``Carbon`` object, use the ``whereDate()`` query\nbuilder method. The following example retrieves documents from\nthe ``movies`` collection in which the ``released`` value\nis January 15, 2010 and specifies the date as a string:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query whereDate string\n   :end-before: end query whereDate string\n\n.. _laravel-query-builder-pattern:\n\nText Pattern Match Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``like`` query operator\nwith the ``where()`` query builder method to retrieve documents from the\n``movies`` collection by using a specified text pattern.\n\nText patterns can contain text mixed with the following\nwildcard characters:\n\n- ``%`` which matches zero or more characters\n- ``_`` which matches a single character\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/query-builder/QueryBuilderTest.php\n      :language: php\n      :dedent:\n      :start-after: begin query like\n      :end-before: end query like\n\n   .. output::\n      :language: json\n      :visible: false\n\n      [\n         { \"title\": \"Kiss of the Spider Woman\", ... },\n         { \"title\": \"Spider-Man\", ... },\n         { \"title\": \"Spider-Man 2\", ...},\n         ...\n      ]\n\nwhereLike() and whereNotLike() Methods\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nThe following methods provide the same functionality as using the\n:ref:`like <laravel-query-builder-pattern>` query operator to match\npatterns:\n\n- ``whereLike()``: Matches a specified pattern. By default, this method\n  performs a case-insensitive match. You can enable case-sensitivity by\n  passing ``true`` as the last parameter to the method.\n- ``whereNotLike()``: Matches documents in which the field\n  value does not contain the specified string pattern.\n\nThe following example shows how to use the ``whereLike()`` method to\nmatch documents in which the ``title`` field has a value that matches the\npattern ``'Start%'`` with case-sensitivity enabled:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/query-builder/QueryBuilderTest.php\n      :language: php\n      :dedent:\n      :start-after: begin query whereLike\n      :end-before: end query whereLike\n\n   .. output::\n      :language: json\n      :visible: false\n\n      [\n         { \"title\": \"Start-Up\", ... },\n         { \"title\": \"Start the Revolution Without Me\", ... },\n         ...\n      ]\n\n.. _laravel-query-builder-distinct:\n\nRetrieve Distinct Values\n~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``distinct()``\nquery builder method to retrieve all the different values\nof the ``year`` field for documents in the ``movies`` collections.\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query distinct\n   :end-before: end query distinct\n\n.. _laravel-query-builder-aggregations:\n\nAggregations\n------------\n\nThe examples in this section show the query builder syntax you\ncan use to perform **aggregations**. Aggregations are operations\nthat compute values from a set of query result data. You can use\naggregations to compute and return the following information:\n\n- :ref:`Results grouped by common field values <laravel-query-builder-aggregation-groupby>`\n- :ref:`Count the number of results <laravel-query-builder-aggregation-count>`\n- :ref:`Maximum value of a field <laravel-query-builder-aggregation-max>`\n- :ref:`Minimum value of a field <laravel-query-builder-aggregation-min>`\n- :ref:`Average value of a field <laravel-query-builder-aggregation-avg>`\n- :ref:`Summed value of a field <laravel-query-builder-aggregation-sum>`\n- :ref:`Aggregate matched results <laravel-query-builder-aggregate-matched>`\n\n.. _laravel-query-builder-aggregation-groupby:\n\nResults Grouped by Common Field Values Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``groupBy()`` query builder method\nto retrieve document data grouped by shared values of the ``runtime`` field.\nThis example chains the following operations to match documents from the\n``movies`` collection that contain a ``rated`` value of ``G`` and include the\n``title`` field of one movie for each distinct ``runtime`` value:\n\n- Match only documents that contain a ``rated`` field value of ``\"G\"`` by\n  using the ``where()`` method\n- Group data by the distinct values of the ``runtime`` field, which is\n  assigned the ``_id`` field, by using the ``groupBy()`` method\n- Sort the groups by the ``runtime`` field by using the ``orderBy()`` method\n- Return ``title`` data from the last document in the grouped result by\n  specifying it in the ``get()`` method\n\n.. tip::\n\n   The ``groupBy()`` method calls the MongoDB ``$group`` aggregation operator\n   and ``$last`` accumulator operator. To learn more about these operators, see\n   :manual:`$group (aggregation) </reference/operator/aggregation/group/>`\n   in the {+server-docs-name+}.\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/query-builder/QueryBuilderTest.php\n      :language: php\n      :dedent:\n      :start-after: begin query groupBy\n      :end-before: end query groupBy\n\n   .. output::\n      :language: json\n      :visible: false\n\n      [\n        ...\n        {\n          \"_id\": { \"runtime\": 64 },\n          \"runtime\": 64,\n          \"title\": \"Stitch! The Movie\"\n        },\n        {\n           \"_id\": { \"runtime\": 67 },\n           \"runtime\": 67,\n           \"title\": \"Bartok the Magnificent\"\n         },\n         {\n           \"_id\": { \"runtime\":68 },\n           \"runtime\": 68,\n           \"title\": \"Mickey's Twice Upon a Christmas\"\n         },\n         ...\n      ]\n\n.. _laravel-query-builder-aggregation-count:\n\nNumber of Results Example\n~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``count()``\nquery builder method to return the number of documents\ncontained in the ``movies`` collection:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin aggregation count\n   :end-before: end aggregation count\n\n.. _laravel-query-builder-aggregation-max:\n\nMaximum Value of a Field Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``max()``\nquery builder method to return the highest numerical\nvalue of the ``runtime`` field from the entire\n``movies`` collection:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin aggregation max\n   :end-before: end aggregation max\n\n.. _laravel-query-builder-aggregation-min:\n\nMinimum Value of a Field Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``min()``\nquery builder method to return the lowest numerical\nvalue of the ``year`` field from the entire ``movies``\ncollection:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin aggregation min\n   :end-before: end aggregation min\n\n.. _laravel-query-builder-aggregation-avg:\n\nAverage Value of a Field Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``avg()``\nquery builder method to return the numerical average, or\narithmetic mean, of the ``imdb.rating`` values from\nthe entire ``movies`` collection.\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin aggregation avg\n   :end-before: end aggregation avg\n\n.. _laravel-query-builder-aggregation-sum:\n\nSummed Value of a Field Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``sum()``\nquery builder method to return the numerical total of\nthe ``imdb.votes`` values from the entire ``movies``\ncollection:\n\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin aggregation sum\n   :end-before: end aggregation sum\n\n.. _laravel-query-builder-aggregate-matched:\n\nAggregate Matched Results Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to aggregate data\nfrom results that match a query. The query matches all\nmovies after the year ``2000`` and computes the average\nvalue of ``imdb.rating`` of those matches by using the\n``avg()`` method:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin aggregation with filter\n   :end-before: end aggregation with filter\n\n.. _laravel-options-query-builder:\n\nSet Query-Level Options\n-----------------------\n\nYou can modify the way that the {+odm-short+} performs operations by\nsetting options on the query builder. You can pass an array of options\nto the ``options()`` query builder method to specify options for the\nquery.\n\nThe following code demonstrates how to attach a comment to\na query:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin options\n   :end-before: end options\n\nThe query builder accepts the same options that you can set for\nthe :phpmethod:`find() <phpmethod.MongoDB\\\\Collection::find()>` method in the\n{+php-library+}. Some of the options to modify query results, such as\n``skip``, ``sort``, and ``limit``, are settable directly as query\nbuilder methods and are described in the\n:ref:`laravel-modify-results-query-builder` section of this guide. We\nrecommend that you use these methods instead of passing them as options.\n\n.. _laravel-modify-results-query-builder:\n\nModify Query Results\n--------------------\n\nThis section includes query builder examples for the\nfollowing functions that modify the order and format\nof query results:\n\n- :ref:`Order results by the value of a field <laravel-query-builder-orderby>`\n- :ref:`Omit a specified number of results <laravel-query-builder-skip>`\n- :ref:`Show a subset of fields and array values in the results <laravel-query-builder-project>`\n- :ref:`Paginate the results <laravel-query-builder-paginate>`\n\n.. _laravel-query-builder-orderby:\n\nOrder Results Example\n~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``orderBy()``\nquery builder method to arrange the results that match\nthe filter specified in the ``title`` field by the\n``imdb.rating`` value in descending order:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/query-builder/QueryBuilderTest.php\n      :language: php\n      :dedent:\n      :start-after: begin query orderBy\n      :end-before: end query orderBy\n\n   .. output::\n      :language: json\n      :visible: false\n\n      [\n        { \"title\": \"Back to the Future\", \"imdb\": { \"rating\":8.5,\"votes\":636511,\"id\":88763 }, ... },\n        { \"title\": \"Back to the Future Part II\", \"imdb\": { \"rating\":7.8,\"votes\":292539,\"id\":96874 }, ... },\n        { \"title\": \"Back to the Future Part III\", \"imdb\": {\"rating\":7.4,\"votes\":242390,\"id\":99088 }, ... },\n        ...\n      ]\n\n.. _laravel-query-builder-skip:\n\nOmit a Specified Number of Results Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``skip()`` query builder method to\nomit the first four results that match the filter specified in the ``title``\nfield, sorted by the ``year`` value in ascending order:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query skip\n   :end-before: end query skip\n\n.. _laravel-query-builder-project:\n\nShow a Subset of Fields and Array Values in the Results Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``project()``\nquery builder method to match documents that contain an\n``imdb.rating`` value higher than ``8.5`` and return\nonly the following field values:\n\n- Title of the movie in the ``title``\n- Second through fourth values of the ``cast`` array field, if they exist\n- Document ``_id`` field, which is automatically included\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/query-builder/QueryBuilderTest.php\n      :language: php\n      :dedent:\n      :start-after: begin query projection\n      :end-before: end query projection\n\n   .. output::\n      :language: json\n      :visible: false\n\n      [\n        {\n          \"_id\": { ... },\n          \"title\": \"City Lights\"\n          \"cast\": [\n            \"Florence Lee\",\n            \"Harry Myers\",\n            \"Al Ernest Garcia\"\n          ],\n        },\n        {\n          \"_id\": { ... },\n          \"title\": \"Modern Times\",\n          \"cast\": [\n            \"Paulette Goddard\",\n            \"Henry Bergman\",\n            \"Tiny Sandford\"\n          ]\n        },\n        {\n          \"_id\": { ... },\n          \"title\": \"Casablanca\"\n          \"cast\": [\n            \"Ingrid Bergman\",\n            \"Paul Henreid\",\n            \"Claude Rains\"\n          ],\n        },\n        ...\n      ]\n\n.. _laravel-query-builder-paginate:\n\nPaginate the Results Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``paginate()`` query builder method\nto divide the entire ``movie`` collection into discrete result sets of 15\ndocuments. The example also includes a sort order to arrange the results by\nthe ``imdb.votes`` field in descending order and a projection that includes\nonly specific fields in the results.\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query projection with pagination\n   :end-before: end query projection with pagination\n\nTo learn more about pagination, see\n`Paginating Query Builder Results <https://laravel.com/docs/{+laravel-docs-version+}/pagination#paginating-query-builder-results>`__\nin the Laravel documentation.\n\n.. _laravel-mongodb-read-query-builder:\n\nRetrieve Data by Using MongoDB Operations\n-----------------------------------------\n\nThis section includes query builder examples that show how\nto use the following MongoDB-specific query operations:\n\n- :ref:`Match documents that contain a field <laravel-query-builder-exists>`\n- :ref:`Match documents that contain all specified fields <laravel-query-builder-all>`\n- :ref:`Match documents that contain a specific number of elements in an array <laravel-query-builder-size>`\n- :ref:`Match documents that contain a particular data type in a field <laravel-query-builder-type>`\n- :ref:`Match documents that contain a computed modulo value <laravel-query-builder-mod>`\n- :ref:`Match documents that match a regular expression <laravel-query-builder-regex>`\n- :ref:`Run MongoDB Query API operations <laravel-query-builder-whereRaw>`\n- :ref:`Match documents that contain array elements <laravel-query-builder-elemMatch>`\n- :ref:`Specify a cursor timeout <laravel-query-builder-cursor-timeout>`\n- :ref:`Match locations by using geospatial searches <laravel-query-builder-geospatial>`\n\n.. _laravel-query-builder-exists:\n\nContains a Field Example\n~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``exists()``\nquery builder method to match documents that contain the\nfield ``random_review``:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query exists\n   :end-before: end query exists\n\nTo learn more about this query operator, see\n:manual:`$exists </reference/operator/query/exists/>`\nin the {+server-docs-name+}.\n\n.. _laravel-query-builder-all:\n\nContains All Fields Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``all`` query\noperator with the ``where()`` query builder method to match\ndocuments that contain all the specified fields:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query all\n   :end-before: end query all\n\nTo learn more about this query operator, see\n:manual:`$all </reference/operator/query/all/>`\nin the {+server-docs-name+}.\n\n.. _laravel-query-builder-size:\n\nMatch Array Size Example\n~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to pass the ``size``\nquery operator with the ``where()`` query builder\nmethod to match documents that contain a ``directors``\nfield that contains an array of exactly five elements:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query size\n   :end-before: end query size\n\nTo learn more about this query operator, see\n:manual:`$size </reference/operator/query/size/>`\nin the {+server-docs-name+}.\n\n.. _laravel-query-builder-type:\n\nMatch Data Type Example\n~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to pass the ``type``\nquery operator with the ``where()`` query builder\nmethod to match documents that contain a type ``4`` value,\nwhich corresponds to an array data type, in the\n``released`` field.\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query type\n   :end-before: end query type\n\nTo learn more about the type codes and query operator, see\n:manual:`$type </reference/operator/query/type/>`\nin the {+server-docs-name+}.\n\n.. _laravel-query-builder-mod:\n\nMatch a Value Computed with Modulo Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to pass the ``mod``\nquery operator with the ``where()`` query builder\nmethod to match documents by using the expression\n``year % 2 == 0``, which matches even values for\nthe ``year`` field:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query modulo\n   :end-before: end query modulo\n\nTo learn more about this query operator, see\n:manual:`$mod </reference/operator/query/mod/>`\nin the {+server-docs-name+}.\n\n.. _laravel-query-builder-regex:\n\nMatch a Regular Expression\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to pass the ``REGEX``\nquery operator with the ``where()`` query builder\nmethod to match documents that contain a ``title``\nfield that matches the specified regular expression:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query whereRegex\n   :end-before: end query whereRegex\n\nTo learn more about regular expression queries in MongoDB, see\n:manual:`$regex </reference/operator/query/regex/>`\nin the {+server-docs-name+}.\n\n.. _laravel-query-builder-whereRaw:\n\nRun MongoDB Query API Operations Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``whereRaw()``\nquery builder method to run a query operation written by\nusing the MongoDB Query API syntax:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query raw\n   :end-before: end query raw\n\nThe following code shows the equivalent MongoDB Query API syntax:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query elemMatch\n   :end-before: end query elemMatch\n\nTo learn more about regular expression queries in MongoDB, see\nthe :manual:`$elemMatch operator </reference/operator/query/elemMatch/>`\nin the {+server-docs-name+}.\n\n.. _laravel-query-builder-cursor-timeout:\n\nSpecify Cursor Timeout Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``timeout()`` method\nto specify a maximum duration to wait for cursor operations to complete.\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query cursor timeout\n   :end-before: end query cursor timeout\n\n.. note::\n\n   This setting specifies a ``maxTimeMS`` value in seconds instead of\n   milliseconds. To learn more about the ``maxTimeMS`` value, see\n   `MongoDB\\Collection::find() <https://www.mongodb.com/docs/php-library/current/reference/method/MongoDBCollection-find/>`__\n   in the PHP Library documentation.\n\n.. _laravel-query-builder-geospatial:\n\nMatch Locations by Using Geospatial Operations\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe examples in this section show the query builder syntax you\ncan use to perform geospatial queries on GeoJSON or coordinate\npair data to retrieve the following types of locations:\n\n- :ref:`Near a position <laravel-query-builder-geospatial-near>`\n- :ref:`Within a the boundary of a GeoJSON object <laravel-query-builder-geospatial-geoWithin>`\n- :ref:`Intersecting a GeoJSON object <laravel-query-builder-geospatial-geoIntersects>`\n- :ref:`Proximity data for nearby matches <laravel-query-builder-geospatial-geoNear>`\n\n.. important::\n\n   To perform GeoJSON queries in MongoDB, you must create either ``2d`` or\n   ``2dsphere`` index on the collection. To learn how to create geospatial\n   indexes, see the :ref:`laravel-eloquent-geospatial-index` section in the\n   Schema Builder guide.\n\nTo learn more about GeoJSON objects that MongoDB supports,\nsee :manual:`GeoJSON Objects </reference/geojson/>`\nin the {+server-docs-name+}.\n\n.. _laravel-query-builder-geospatial-near:\n\nNear a Position Example\n~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``near`` query operator\nwith the ``where()`` query builder method to match documents that\ncontain a location that is up to ``50`` meters from a GeoJSON Point\nobject:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query near\n   :end-before: end query near\n\nTo learn more about this operator, see\n:manual:`$near operator </reference/operator/query/near/>`\nin the {+server-docs-name+}.\n\n.. _laravel-query-builder-geospatial-geoWithin:\n\nWithin an Area Example\n~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``geoWithin``\nquery operator with the ``where()``\nquery builder method to match documents that contain a\nlocation within the bounds of the specified ``Polygon``\nGeoJSON object:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query geoWithin\n   :end-before: end query geoWithin\n\n.. _laravel-query-builder-geospatial-geoIntersects:\n\nIntersecting a Geometry Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``geoInstersects``\nquery operator with the ``where()`` query builder method to\nmatch documents that contain a location that intersects with\nthe specified ``LineString`` GeoJSON object:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query geoIntersects\n   :end-before: end query geoIntersects\n\n.. _laravel-query-builder-geospatial-geoNear:\n\nProximity Data for Nearby Matches Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``geoNear`` aggregation operator\nwith the ``raw()`` query builder method to perform an aggregation that returns\nmetadata, such as proximity information for each match:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin query geoNear\n   :end-before: end query geoNear\n\nTo learn more about this aggregation operator, see\n:manual:`$geoNear operator </reference/operator/aggregation/geoNear/>`\nin the {+server-docs-name+}.\n\n.. _laravel-mongodb-write-query-builder:\n\nWrite Data by Using MongoDB Write Operations\n--------------------------------------------\n\nThis section includes query builder examples that show how to use the\nfollowing MongoDB-specific write operations:\n\n- :ref:`Upsert a document <laravel-mongodb-query-builder-upsert>`\n- :ref:`Increment a numerical value <laravel-mongodb-query-builder-increment>`\n- :ref:`Decrement a numerical value <laravel-mongodb-query-builder-decrement>`\n- :ref:`Add an array element <laravel-mongodb-query-builder-push>`\n- :ref:`Remove a value from an array <laravel-mongodb-query-builder-pull>`\n- :ref:`Remove a field from a document <laravel-mongodb-query-builder-unset>`\n\n.. _laravel-mongodb-query-builder-upsert:\n\nUpsert a Document Example\n~~~~~~~~~~~~~~~~~~~~~~~~~\n\nStarting in v4.7, you can perform an upsert operation by using either of\nthe following query builder methods:\n\n- ``upsert()``: When you use this method, you can perform a **batch\n  upsert** to change or insert multiple documents in one operation.\n\n- ``update()``: When you use this method, you must specify the\n  ``upsert`` option to update all documents that match the query filter\n  or insert one document if no documents are matched. Only this upsert method\n  is supported in versions v4.6 and earlier.\n\nUpsert Method\n^^^^^^^^^^^^^\n\nThe ``upsert(array $values, array|string $uniqueBy, array|null\n$update)`` query builder method accepts the following parameters:\n\n- ``$values``: Array of fields and values that specify documents to update or insert.\n- ``$uniqueBy``: List of fields that uniquely identify documents in your\n  first array parameter.\n- ``$update``: Optional list of fields to update if a matching document\n  exists. If you omit this parameter, the {+odm-short+} updates all fields.\n\nThe following example shows how to use the ``upsert()`` query builder method\nto update or insert documents based on the following instructions:\n\n- Specify a document in which the value of the ``title`` field is\n  ``'Inspector Maigret'``, the value of the ``recommended`` field is ``false``,\n  and the value of the ``runtime`` field is ``128``.\n\n- Specify a document in which the value of the ``title`` field is\n  ``'Petit Maman'``, the value of the ``recommended`` field is\n  ``true``, and the value of the ``runtime`` field is ``72``.\n\n- Indicate that the ``title`` field uniquely identifies documents in the\n  scope of your operation.\n\n- Update only the ``recommended`` field in matched documents.\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin upsert\n   :end-before: end upsert\n\nThe ``upsert()`` query builder method returns the number of\ndocuments that the operation updated, inserted, and modified.\n\n.. note::\n\n   The ``upsert()`` method does not trigger events. To trigger events\n   from an upsert operation, you can use the ``createOrFirst()`` method\n   instead.\n\nUpdate Method\n^^^^^^^^^^^^^\n\nThe following example shows how to use the ``update()`` query builder method\nand ``upsert`` option to update the matching document or insert one with the\nspecified data if it does not exist. When you set the ``upsert`` option to\n``true`` and the document does not exist, the command inserts both the data\nand the ``title`` field and value specified in the ``where()`` query operation:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin update upsert\n   :end-before: end update upsert\n\nThe ``update()`` query builder method returns the number of documents that the\noperation updated or inserted.\n\n.. _laravel-mongodb-query-builder-increment:\n\nIncrement a Numerical Value Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``increment()``\nquery builder method to add ``3000`` to the value of\nthe ``imdb.votes`` field in the matched document:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin increment\n   :end-before: end increment\n\nThe ``increment()`` query builder method returns the number of documents that the\noperation updated.\n\nStarting in {+odm-short+} v4.8, you can also use the ``incrementEach()`` query\nbuilder method to increment multiple values in a single operation. The following\nexample uses the ``incrementEach()`` method to increase the values of the ``awards.wins``\nand ``imdb.votes`` fields in the matched document:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin increment each\n   :end-before: end increment each\n\n.. note::\n\n   If you pass a field to the ``increment()`` or ``incrementEach()`` method that\n   has no value or doesn't exist in the matched documents, these methods initialize\n   the specified field to the increment value.\n\n.. _laravel-mongodb-query-builder-decrement:\n\nDecrement a Numerical Value Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``decrement()`` query builder\nmethod to subtract ``0.2`` from the value of the ``imdb.rating`` field in the\nmatched document:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin decrement\n   :end-before: end decrement\n\nThe ``decrement()`` query builder method returns the number of documents that the\noperation updated.\n\nStarting in {+odm-short+} v4.8, you can also use the ``decrementEach()`` query builder\nmethod to decrement multiple values in a single operation. The following example uses\nthe ``decrementEach()`` method to decrease the values of the ``metacritic`` and ``imdb.rating``\nfields in the matched document:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin decrement each\n   :end-before: end decrement each\n\n.. note::\n\n   If you pass a field to the ``decrement()`` or ``decrementEach()`` method that\n   has no value or doesn't exist in the matched documents, these methods initialize\n   the specified field to the decrement value.\n\n.. _laravel-mongodb-query-builder-push:\n\nAdd an Array Element Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``push()`` query builder method to\nadd ``\"Gary Cole\"`` to the ``cast`` array field in the matched document:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin push\n   :end-before: end push\n\nThe ``push()`` query builder method returns the number of documents that the\noperation updated.\n\n.. _laravel-mongodb-query-builder-pull:\n\nRemove an Array Element Example\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``pull()`` query builder method\nto remove the ``\"Adventure\"`` value from the ``genres`` field from the document\nmatched by the query:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin pull\n   :end-before: end pull\n\nThe ``pull()`` query builder method returns the number of documents that the\noperation updated.\n\n.. _laravel-mongodb-query-builder-unset:\n\nRemove a Field Example\n~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows how to use the ``unset()`` query builder method\nto remove the ``tomatoes.viewer`` field and value from the document matched\nby the query:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin unset\n   :end-before: end unset\n\nThe ``unset()`` query builder method returns the number of documents that the\noperation updated.\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/query-builder.txt"
+  },
+  {
+    "code": "         :emphasize-lines: 2-6\n\n         'connections' => [\n           'mongodb' => [\n             'driver' => 'mongodb',\n             'dsn' => env('DB_URI'),\n             'database' => 'sample_mflix',\n           ],\n         ],\n\n         // ...\n\n   .. step:: Add the {+odm-short+} provider\n\n      Open the ``providers.php`` file in the ``bootstrap`` directory and add\n      the following entry into the array:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/quick-start/configure-mongodb.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         Using version ^<version number> for laravel/installer\n\n   .. step:: Create a Laravel application\n\n      Run the following command to generate a new Laravel web application\n      called ``{+quickstart-app-name+}``:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/quick-start/download-and-install.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         INFO  Application ready in [{+quickstart-app-name+}]. You can start your local development using:\n\n         ➜ cd {+quickstart-app-name+}\n         ➜ php artisan serve\n\n         New to Laravel? Check out our bootcamp and documentation. Build something amazing!\n\n   .. step:: Add a Laravel application encryption key\n\n      Navigate to the application directory you created in the previous step:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/quick-start/download-and-install.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         \"mongodb/laravel-mongodb\": \"^{+package-version+}\"\n\n      After completing these steps, you have a new Laravel project with\n      the {+odm-short+} dependencies installed.\n\n.. include:: /includes/quick-start/troubleshoot.rst\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/quick-start/download-and-install.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         INFO  Model [app/Models/Movie.php] created successfully.\n\n         INFO  Controller [app/Http/Controllers/MovieController.php] created successfully.\n\n   .. step:: Edit the model to use the {+odm-short+}\n\n      Open the ``Movie.php`` model in your ``app/Models`` directory and\n      make the following edits:\n\n      - Replace the ``Illuminate\\Database\\Eloquent\\Model`` import with ``MongoDB\\Laravel\\Eloquent\\Model``\n      - Specify ``\"mongodb\"`` in the ``$connection`` field\n\n      The edited ``Movie.php`` file contains the following code:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/quick-start/view-data.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         INFO  View [resources/views/browse_movie.blade.php] created successfully.\n\n      Open the ``browse_movie.blade.php`` view file in the ``resources/views``\n      directory. Replace the contents with the following code and save the\n      changes:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/quick-start/view-data.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         INFO  Server running on [http://127.0.0.1:8000].\n\n         Press Ctrl+C to stop the server\n\n   .. step:: View the movie data\n\n      Open the URL http://127.0.0.1:8000/browse_movies in your web browser.\n      The page shows a list of movies and details about each of them.\n\n      .. tip::\n\n         You can run the ``php artisan route:list`` command from your application\n         root directory to view a list of available routes.\n\n.. include:: /includes/quick-start/troubleshoot.rst\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/quick-start/view-data.txt"
+  },
+  {
+    "code": "         :emphasize-lines: 4\n\n         class Movie extends Model\n         {\n              protected $connection = 'mongodb';\n              protected $fillable = ['title', 'year', 'runtime', 'imdb', 'plot'];\n         }\n\n   .. step:: Post a request to the API\n\n      Create a file called ``movie.json`` and insert the following data:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/quick-start/write-data.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :start-after: begin transaction callback\n   :end-before: end transaction callback\n\nYou can optionally pass the maximum number of times to retry a failed transaction\nas the second parameter, as shown in the following code example:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/transactions.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 4\n\n   DB::transaction(function() {\n           // transaction code\n       },\n       attempts: 5,\n   );\n\n.. _laravel-transaction-commit:\n\nBegin and Commit a Transaction\n------------------------------\n\nThis section shows how to start and commit a transaction.\n\nTo use this method of starting and committing a transaction, call the\n``DB::beginTransaction()`` method to start the transaction. Then, call the\n``DB::commit()`` method to end the transaction, which applies all the updates\nperformed within the transaction.\n\nIn the following example, the balance from the first account is moved to the\nsecond account, after which the first account is deleted:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/transactions.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :emphasize-lines: 1,9\n   :start-after: begin commit transaction\n   :end-before: end commit transaction\n\n.. _laravel-transaction-rollback:\n\nRoll Back a Transaction\n-----------------------\n\nThis section shows how to roll back a transaction. A rollback reverts all the\nwrite operations performed within that transaction. This means that the\ndata is reverted to its state before the transaction.\n\nTo perform the rollback, call the ``DB::rollback()`` function anytime before\nthe transaction is committed.\n\nIn the following example, the transaction consists of write operations that\ntransfer funds from one account, represented by the ``Account`` model, to\nmultiple other accounts. If the sender account has insufficient funds, the\ntransaction is rolled back, and none of the models are updated:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/transactions.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n   :emphasize-lines: 1,18,20\n   :start-after: begin rollback transaction\n   :end-before: end rollback transaction\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/transactions.txt"
+  },
+  {
+    "code": "     :emphasize-lines: 8-9\n\n     $document = DB::table('accounts')\n         ->where('name', 'Anita Charles')\n         ->first();\n\n     // older versions\n     $document['balance'];\n\n     // v5.0\n     $document->balance;\n\n- Removes support for the following classes:\n\n  - ``MongoDB\\Laravel\\Auth\\DatabaseTokenRepository``. Instead, use the default\n    ``Illuminate\\Queue\\Failed\\DatabaseFailedJobProvider`` class and\n    specify a connection to MongoDB.\n\n  - ``MongoDB\\Laravel\\Queue\\Failed\\MongoFailedJobProvider``. Instead,\n    use the default ``Illuminate\\Queue\\Failed\\DatabaseFailedJobProvider``\n    class and specify a connection to MongoDB.\n    \n- When using a ``DateTimeInterface`` object, including ``Carbon``, in a query,\n  the library converts the ``DateTimeInterface`` to a ``MongoDB\\BSON\\UTCDateTime``\n  object. This conversion applies to ``DateTimeInterface`` objects passed as query\n  filters to the ``where()`` method or as data passed to the ``insert()`` and\n  ``update()`` methods. \n  \n  To view an example that passes a ``Carbon`` object to the\n  ``DB::where()`` method, see the :ref:`laravel-query-builder-wheredate`\n  section of the Query Builder guide.\n\n- In query results, the library converts BSON ``UTCDateTime`` objects to ``Carbon``\n  date classes, applying the default timezone.\n\n  In v5.1, the library also performs this conversion to the ``Model::raw()``\n  method results before hydrating a Model instance.\n\n- ``id`` is an alias for the ``_id`` field in MongoDB documents, and the library\n  automatically converts between ``id`` and ``_id`` when querying data. The query\n  result object includes an ``id`` field to represent the document's ``_id`` field.\n  Because of this behavior, you cannot have two separate ``id`` and ``_id`` fields\n  in your documents.\n\n  In v5.1, the library also performs this conversion to the ``Model::raw()``\n  method results before hydrating a Model instance. When passing a complex query\n  filter, use the ``DB::where()`` method instead of ``Model::raw()``.\n\n- Removes support for the ``$collection`` property. The following code shows\n  how to assign a MongoDB collection to a variable in your ``User`` class in\n  older versions compared to v5.0:\n  \n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/upgrade.txt"
+  },
+  {
+    "code": "     :emphasize-lines: 10-11\n \n     use MongoDB\\Laravel\\Eloquent\\Model;\n \n     class User extends Model\n     {\n         protected $keyType = 'string';\n \n         // older versions\n         protected $collection = 'app_user';\n \n         // v5.0\n         protected $table = 'app_user';\n \n         ...\n     }\n  \n  This release also modifies the associated ``DB`` and ``Schema`` methods for\n  accessing a MongoDB collection. The following code shows how to access the\n  ``app_user`` collection in older versions compared to v5.0:\n  \n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/upgrade.txt"
+  },
+  {
+    "code": "     :emphasize-lines: 9-11\n \n     use Illuminate\\Support\\Facades\\Schema;\n     use Illuminate\\Support\\Facades\\DB;\n     use MongoDB\\Laravel\\Schema\\Blueprint;\n       \n     // older versions\n     Schema::collection('app_user', function (Blueprint $collection) { ... });\n     DB::collection('app_user')->find($id);\n \n     // v5.0\n     Schema::table('app_user', function (Blueprint $table) { ... });\n     DB::table('app_user')->find($id);\n\n.. _laravel-breaking-changes-v4.x:\n\nVersion 4.x Breaking Changes\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThis library version introduces the following breaking changes:\n\n- Minimum Laravel version is now 10.0. For instructions on upgrading your Laravel version,\n  see the `Upgrade Guide <https://laravel.com/docs/10.x/upgrade>`__ in the Laravel\n  documentation.\n\n- Dependency name is now ``\"mongodb/laravel-mongodb\"``. Ensure that the dependency\n  name in your ``composer.json`` file is ``\"mongodb/laravel-mongodb\": \"^4.0\"``. Then, run\n  ``composer update``.\n\n- Namespace is now ``MongoDB\\Laravel\\``. Ensure that you change the namespace from ``Jenssegers\\Mongodb\\``\n  to ``MongoDB\\Laravel\\`` in your models and config files.\n\n- Removes support for non-Laravel projects.\n\n- Removes support for the ``$dates`` property. Ensure that you change all instances of ``$dates``\n  to ``$casts`` in your model files.\n\n- ``Model::unset($field)`` does not persist the change. Ensure that you follow all calls to\n  ``Model::unset($field)`` with ``Model::save()``.\n\n- Removes the ``Query\\Builder::whereAll($column, $values)`` method. Ensure that you replace all calls\n  to ``Query\\Builder::whereAll($column, $values)`` with ``Query\\Builder::where($column, 'all', $values)``.\n\n- ``Query\\Builder::delete()`` can delete one or all documents. Ensure that you pass only the values\n  ``1`` or ``null`` to ``limit()``.\n\n- ``whereDate()``, ``whereDay()``, ``whereMonth()``, ``whereYear()``, and ``whereTime()`` methods\n  now use MongoDB operators on date fields.\n\n- Adds the ``MongoDB\\Laravel\\Eloquent\\MassPrunable`` trait. Ensure that you replace all instances of \n  ``Illuminate\\Database\\Eloquent\\MassPrunable`` with ``MongoDB\\Laravel\\Eloquent\\MassPrunable``\n  in your models.\n\n- Removes support for the following ``Query\\Builder`` methods:\n  \n  - ``toSql()``\n  - ``toRawSql()``\n  - ``whereColumn()``\n  - ``whereFullText()``\n  - ``groupByRaw()``\n  - ``orderByRaw()``\n  - ``unionAll()``\n  - ``union()``\n  - ``having()``\n  - ``havingRaw()``\n  - ``havingBetween()``\n  - ``whereIntegerInRaw()``\n  - ``orWhereIntegerInRaw()``\n  - ``whereIntegerNotInRaw()``\n  - ``orWhereIntegerNotInRaw()``\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/upgrade.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: ../includes/usage-examples/DeleteManyTest.php\n      :start-after: begin-delete-many\n      :end-before: end-delete-many\n      :language: php\n      :dedent:\n\n   .. output::\n      :language: console\n      :visible: false\n\n      Deleted documents: 7\n\n.. include:: /includes/usage-examples/fact-edit-laravel-app.rst\n\n.. tip::\n\n   To learn more about deleting documents with the {+odm-short+}, see the :ref:`laravel-fundamentals-delete-documents`\n   section of the Write Operations guide.\n\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/usage-examples/deleteMany.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: ../includes/usage-examples/DeleteOneTest.php\n      :start-after: begin-delete-one\n      :end-before: end-delete-one\n      :language: php\n      :dedent:\n\n   .. output::\n      :language: console\n      :visible: false\n\n      Deleted documents: 1\n\n.. include:: /includes/usage-examples/fact-edit-laravel-app.rst\n\n.. tip::\n\n   To learn more about deleting documents with the {+odm-short+}, see the `Deleting Models\n   <https://laravel.com/docs/{+laravel-docs-version+}/eloquent#deleting-models>`__ section of the\n   Laravel documentation.\n\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/usage-examples/deleteOne.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: ../includes/usage-examples/DistinctTest.php\n      :start-after: begin-distinct\n      :end-before: end-distinct\n      :language: php\n      :dedent:\n\n   .. output::\n      :language: console\n      :visible: false\n\n      [[5.6],[6.4],[7.2],[7.8]]\n\n.. include:: /includes/usage-examples/fact-edit-laravel-app.rst\n\n.. tip::\n\n   For more information about query filters, see the :ref:`laravel-retrieve-matching` section of\n   the Read Operations guide.\n\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/usage-examples/distinct.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: ../includes/usage-examples/FindManyTest.php\n      :start-after: begin-find\n      :end-before: end-find\n      :language: php\n      :dedent:\n\n   .. output::\n      :language:  json\n      :visible: false\n\n      // Results are truncated\n\n      [\n        {\n          \"_id\": ...,\n          \"runtime\": 1256,\n          \"title\": \"Centennial\",\n          ...,\n        },\n        {\n          \"_id\": ...,\n          \"runtime\": 1140,\n          \"title\": \"Baseball\",\n          ...,\n        },\n        ...\n      ]\n\n.. include:: /includes/usage-examples/fact-edit-laravel-app.rst\n\n.. tip::\n\n   To learn about other ways to retrieve documents with the {+odm-short+}, see the\n   :ref:`laravel-fundamentals-retrieve` guide.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/usage-examples/find.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: ../includes/usage-examples/InsertManyTest.php\n      :start-after: begin-insert-many\n      :end-before: end-insert-many\n      :language: php\n      :dedent:\n\n   .. output::\n      :language: console\n      :visible: false\n\n      Insert operation success: yes\n\n.. include:: /includes/usage-examples/fact-edit-laravel-app.rst\n\n.. tip::\n\n   To learn more about insert operations, see the :ref:`laravel-fundamentals-insert-documents` section\n   of the Write Operations guide.\n\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/usage-examples/insertMany.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: ../includes/usage-examples/InsertOneTest.php\n      :start-after: begin-insert-one\n      :end-before: end-insert-one\n      :language: php\n      :dedent:\n\n   .. output::\n      :language: json\n      :visible: false\n\n      {\n          \"title\": \"Marriage Story\",\n          \"year\": 2019,\n          \"runtime\": 136,\n          \"updated_at\": \"...\",\n          \"created_at\": \"...\",\n          \"_id\": \"...\"\n      }\n\n.. include:: /includes/usage-examples/fact-edit-laravel-app.rst\n\n.. tip::\n\n   You can also use the ``save()`` or ``insert()`` methods to insert a document into a collection.\n   To learn more about insert operations, see the :ref:`laravel-fundamentals-insert-documents` section\n   of the Write Operations guide.\n\n\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/usage-examples/insertOne.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: ../includes/usage-examples/UpdateManyTest.php\n      :start-after: begin-update-many\n      :end-before: end-update-many\n      :language: php\n      :dedent:\n\n   .. output::\n      :language: console\n      :visible: false\n\n      Updated documents: 20\n\n.. include:: /includes/usage-examples/fact-edit-laravel-app.rst\n\n.. tip::\n\n   To learn more about updating data with the {+odm-short+}, see the :ref:`laravel-fundamentals-modify-documents`\n   section of the Write Operations guide.\n\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/usage-examples/updateMany.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: ../includes/usage-examples/UpdateOneTest.php\n      :start-after: begin-update-one\n      :end-before: end-update-one\n      :language: php\n      :dedent:\n\n   .. output::\n      :language: console\n      :visible: false\n\n      Updated documents: 1\n\n.. include:: /includes/usage-examples/fact-edit-laravel-app.rst\n\n.. tip::\n\n   To learn more about updating data with the {+odm-short+}, see the :ref:`laravel-fundamentals-modify-documents`\n   section of the Write Operations guide.\n\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/usage-examples/updateOne.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n\n.. _laravel-auth-controller:\n\nCreate the User Controller \n--------------------------\n\nTo store functions that manage authentication, create an authentication controller for\nyour ``User`` model. \n\nRun the following command from your project root to create a controller:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/user-authentication.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n\nCustomize User Authentication\n-----------------------------\n\nYou can customize your authentication files to align with your application's\nneeds and enable additional authentication features.\n\nThis section describes how to use the following features to customize the MongoDB user\nauthentication process:\n\n- :ref:`laravel-user-auth-sanctum`\n- :ref:`laravel-user-auth-passport`\n- :ref:`laravel-user-auth-reminders`\n\n.. _laravel-user-auth-sanctum:\n\nLaravel Sanctum\n~~~~~~~~~~~~~~~\n\nLaravel Sanctum is an authentication package that can manage API requests and\nsingle-page application authentication. To manage API requests, Sanctum issues\nAPI tokens that are stored in the database and authenticates incoming HTTP\nrequests by using the ``Authorization`` header. To authenticate single-page applications,\nSanctum uses Laravel's cookie-based authentication services.\n\nYou can install Laravel Sanctum to manage your application's authentication\nprocess. Run the following commands from your project root to install Laravel\nSanctum and publish its migration file:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/user-authentication.txt"
+  },
+  {
+    "code": "   :language: php\n   :dedent:\n\nNext, run the following command to modify the database schema:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/user-authentication.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 6-9\n\n   'guards' => [\n      'web' => [\n         'driver' => 'session',\n         'provider' => 'users',\n      ],\n      'api' => [\n         'driver' => 'passport',\n         'provider' => 'users',\n      ],\n   ],\n\nUse Laravel Passport with Laravel MongoDB\n`````````````````````````````````````````\n\nAfter installing Laravel Passport, you must enable Passport compatibility with MongoDB by\ndefining custom {+odm-short+} models that extend the corresponding Passport models.\nTo extend each Passport model class, include the ``DocumentModel`` trait in the custom models.\nYou can define the following {+odm-short+} model classes:\n\n- ``MongoDB\\Laravel\\Passport\\AuthCode``, which extends ``Laravel\\Passport\\AuthCode``\n- ``MongoDB\\Laravel\\Passport\\Client``, which extends ``Laravel\\Passport\\Client``\n- ``MongoDB\\Laravel\\Passport\\PersonalAccessClient``, which extends ``Laravel\\Passport\\PersonalAccessClient``\n- ``MongoDB\\Laravel\\Passport\\RefreshToken``, which extends ``Laravel\\Passport\\RefreshToken``\n- ``MongoDB\\Laravel\\Passport\\Token``, which extends ``Laravel\\Passport\\Token``\n\nThe following example code extends the default ``Laravel\\Passport\\AuthCode``\nmodel class when defining a ``MongoDB\\Laravel\\Passport\\AuthCode`` class and includes\nthe ``DocumentModel`` trait:\n\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/user-authentication.txt"
+  },
+  {
+    "code": "   :language: php\n   :emphasize-lines: 26-30\n   :dedent:\n\nThen, you can use Laravel Passport and MongoDB in your application.\n\n.. _laravel-user-auth-reminders:\n\nPassword Reminders \n~~~~~~~~~~~~~~~~~~\n\nTo add support for MongoDB-based password reminders, register the following service\nprovider in your application:\n\n",
+    "language": "php",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/user-authentication.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 4\n\n   return [\n     App\\Providers\\AppServiceProvider::class,\n     MongoDB\\Laravel\\MongoDBServiceProvider::class,\n     MongoDB\\Laravel\\Auth\\PasswordResetServiceProvider::class\n   ];\n\nAdditional Information\n----------------------\n\nTo learn more about user authentication, see `Authentication <https://laravel.com/docs/{+laravel-docs-version+}/authentication>`__\nin the Laravel documentation.\n\nTo learn more about Eloquent models, see the :ref:`laravel-eloquent-model-class` guide.\n",
+    "language": "php",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/laravel-mongodb/docs/user-authentication.txt"
+  }
+]

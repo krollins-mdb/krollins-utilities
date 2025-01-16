@@ -1,0 +1,1101 @@
+[
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 14-17\n   :linenos:\n\n   apiVersion: mongodb.com/v1\n   kind: MongoDB\n   metadata:\n     name: my-tls-enabled-rs\n   spec:\n     type: ReplicaSet\n     members: 3\n     version: \"4.0.4-ent\"\n     opsManager:\n       configMapRef:\n         name: my-configmap-name\n     credentials: my-credentials\n     security:\n       tls:\n         enabled: true\n       authentication:\n         enabled: true\n         modes: [\"X509\"]\n         internalCluster: \"X509\"\n\nExample User CRD\n----------------\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/authentication.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :linenos:\n\n   apiVersion: mongodb.com/v1\n   kind: MongoDBUser\n   metadata:\n     name: user-with-roles\n   spec:\n     username: \"CN=mms-user-1,OU=cloud,O=MongoDB,L=New York,ST=New York,C=US\"\n     db: \"$external\"\n     mongodbResourceRef:\n       name: my-resource\n     roles:\n       - db: \"admin\"\n         name: \"clusterAdmin\"\n\n.. seealso::\n\n   - :ref:`mongodbuser-specification`\n   - :setting:`spec.security.authentication.agents.automationLdapGroupDN`\n   - :ref:`Manage Database Users Using X.509 Authentication <create-x509-certs>`\n   - :ref:`Manage Database Users Using SCRAM Authentication <add-db-user-scram>`\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/authentication.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 15-18,21-24\n   :linenos:\n   \n   apiVersion: mongodb.com/v1\n   kind: MongoDB\n   metadata:\n   name: my-tls-enabled-rs\n   spec:\n     type: ReplicaSet\n     members: 3\n     version: 6.0.0-ent\n\n    opsManager:\n      configMapRef:\n        name: my-project\n    credentials: my-credentials\n\n    security:\n      tls:\n        enabled: true\n        ca: <custom-ca>\n\n    ...\n    additionalMongodConfig:\n      net:\n        ssl:\n         mode: \"preferSSL\"\n\nSee the full |tls| configuration example in\n:github:`replica-set.yaml </mongodb/mongodb-enterprise-kubernetes/tree/master/samples/mongodb/tls/replica-set>`\nin the :github:`TLS </mongodb/mongodb-enterprise-kubernetes/tree/master/samples/mongodb/tls>`\nsamples directory. This directory also contains sample |tls| configurations for\nsharded clusters and standalone deployments.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/encryption.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   Error: UPGRADE FAILED: cannot patch \"mongodb-enterprise-operator\"\n   with kind Deployment: Deployment.apps \"mongodb-enterprise-operator\"\n   is invalid: ... field is immutable\n\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/facts/upgrade-error-helm.rst"
+  },
+  {
+    "code": "   :copyable: false\n\n   Forbidden: updates to statefulset spec for fields other than\n   'replicas', 'template', and 'updateStrategy' are forbidden\n\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/facts/upgrade-error.rst"
+  },
+  {
+    "code": "      :emphasize-lines: 8, 16\n\n      ##---\n      # Source: mongodb-enterprise-operator/templates/serviceaccount.yaml\n      ---\n      apiVersion: v1\n      kind: ServiceAccount\n      metadata:\n        name: mongodb-enterprise-operator\n        namespace: production\n      ##---\n      # Source: mongodb-enterprise-operator/templates/operator.yaml\n      ---\n      apiVersion: apps/v1\n      kind: Deployment\n      metadata:\n        name: mongodb-enterprise-operator\n        namespace: production\n\n      ---\n      # Example truncated\n      ---\n      ...\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/install/same-namespace-kubectl.rst"
+  },
+  {
+    "code": "      :emphasize-lines: 8, 16\n\n      ##---\n      # Source: mongodb-enterprise-operator/templates/serviceaccount.yaml\n      ---\n      apiVersion: v1\n      kind: ServiceAccount\n      metadata:\n        name: enterprise-operator\n        namespace: production\n      ##---\n      # Source: mongodb-enterprise-operator/templates/operator.yaml\n      ---\n      apiVersion: apps/v1\n      kind: Deployment\n      metadata:\n        name: enterprise-operator\n        namespace: production\n\n      ---\n      # Example truncated\n      ---\n      ...\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/install/same-namespace-oc.rst"
+  },
+  {
+    "code": "               :language: yaml\n               :start-after: START-regular-standalone\n               :end-before: END-regular-standalone\n               :emphasize-lines: 3,13\n\n        - id: repl\n          content: |\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/install/upgrade-one-crd-prereqs.rst"
+  },
+  {
+    "code": "               :language: yaml\n               :start-after: START-regular-replset\n               :end-before: END-regular-replset\n               :linenos:\n               :emphasize-lines: 3,14\n\n        - id: shard\n          content: |\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/install/upgrade-one-crd-prereqs.rst"
+  },
+  {
+    "code": "               :language: yaml\n               :start-after: START-regular-sharded\n               :end-before: END-regular-sharded\n               :linenos:\n               :emphasize-lines: 3,17\n\n   .. warning::\n\n      If you change the ``metadata.name`` field you will lose your\n      resource's data.\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/install/upgrade-one-crd-prereqs.rst"
+  },
+  {
+    "code": "      :copyable: false\n\n      NAME                                 CREATED AT\n      mongodb.mongodb.com                  2019-03-27T19:30:09Z\n      mongodbreplicasets.mongodb.com       2018-12-07T18:25:42Z\n      mongodbshardedclusters.mongodb.com   2018-12-07T18:25:42Z\n      mongodbstandalones.mongodb.com       2018-12-07T18:25:42Z\n\n#. Remove the old resources from Kubernetes.\n\n   .. important::\n\n      Removing MongoDB resources will remove the database server pods\n      and drop any client connections to the database. Connections are\n      reestablished when the new MongoDB resources are created in\n      Kubernetes.\n\n   Run each of the following commands to remove all MongoDB resources:\n      \n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/install/upgrade-one-crd.rst"
+  },
+  {
+    "code": "      :copyable: false\n\n      NAME                  CREATED AT\n      mongodb.mongodb.com   2019-03-27T19:30:09Z\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/install/upgrade-one-crd.rst"
+  },
+  {
+    "code": "  :language: yaml\n  :linenos:\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/om-upgrade-master-version.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :start-after: START-horizon-addcert-replset-upper\n         :end-before: END-horizon-addcert-replset-upper\n         :linenos:\n         :lineno-start: 1\n         :copyable: false\n   \n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/setting-k8sRsConf-spec.connectivity.replicaSetHorizons.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :start-after: START-horizon-addcert-replset-lower\n         :end-before: END-horizon-addcert-replset-lower\n         :linenos:\n         :lineno-start: 15\n         :emphasize-lines: 1-8\n   \n\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/setting-k8sRsConf-spec.connectivity.replicaSetHorizons.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :linenos:\n         :emphasize-lines: 15-34\n   \n\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/setting-k8sRsConf-spec.security.roles.rst"
+  },
+  {
+    "code": "      :language: yaml\n      :linenos:\n      :emphasize-lines: 17-20\n   \n\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/setting-k8sSaConf-spec.agent.startupOptions.rst"
+  },
+  {
+    "code": "      :language: yaml\n      :linenos:\n      :emphasize-lines: 24-27\n   \n\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/setting-k8sScConf-spec.configSrv.agent.startupOptions.rst"
+  },
+  {
+    "code": "      :language: yaml\n      :linenos:\n      :emphasize-lines: 19-22\n   \n\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/setting-k8sScConf-spec.mongos.agent.startupOptions.rst"
+  },
+  {
+    "code": "      :language: yaml\n      :linenos:\n      :emphasize-lines: 28-31\n   \n\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/setting-k8sScConf-spec.shard.agent.startupOptions.rst"
+  },
+  {
+    "code": "         :language: sh\n         :linenos:\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: sh\n         :linenos:\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: sh\n         :linenos:\n\n   \n   #. Set your default gcloud project:\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "            :language: sh\n            :linenos:\n\n\n   #. Obtain credentials and save contexts to the current ``kubeconfig``\n      file. By default, this file is located in the ``~/.kube/config`` directory\n      and referenced by the ``$KUBECONFIG`` :ref:`environment variable <set-env-vars-om-mc>`.\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: sh\n         :linenos:\n\n      All ``kubectl`` commands reference these contexts using the following variables:\n\n      - ``$K8S_CLUSTER_0_CONTEXT_NAME``\n      - ``$K8S_CLUSTER_1_CONTEXT_NAME``\n      - ``$K8S_CLUSTER_2_CONTEXT_NAME``\n\n   #. Verify that ``kubectl`` has access to |k8s| clusters:\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :copyable: true \n\n         .. input:: /includes/code-examples/ops-manager-multi-cluster/code_snippets/0030_verify_access_to_clusters.sh\n            :linenos:\n            :language: sh\n\n         .. output:: /includes/code-examples/ops-manager-multi-cluster/output/0030_verify_access_to_clusters.out\n            :linenos:\n            :language: sh\n            :visible: false\n\n   #. Install |istio| service mesh to allow cross-cluster |dns| resolution\n      and network connectivity between |k8s| clusters:\n     \n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: sh\n         :linenos:\n\n\n.. step:: Create namespaces.\n\n   .. note::\n\n      To enable |sidecar-injection| in Istio, the following commands add\n      the ``istio-injection=enabled`` labels to the ``$OPERATOR_NAMESPACE``\n      and the ``mongodb`` namespaces on each member cluster.\n      If you use another service mesh, configure it to handle network\n      traffic in the created namespaces.\n\n   - Create a separate namespace, ``mongodb-operator``, referenced by the\n     ``$OPERATOR_NAMESPACE`` :ref:`environment variable <set-env-vars-om-mc>`\n     for the |k8s-op-short| deployment.\n\n   - Create the same ``$OPERATOR_NAMESPACE`` on each member |k8s| cluster.\n     This is needed so that the :ref:`kubectl mongodb plugin <kubectl-plugin-ref>`\n     can create a service account for the |k8s-op-short| on each member cluster.\n     The |k8s-op-short| uses these service accounts on the operator\n     cluster to perform operations on each member cluster.\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "        :language: sh\n        :linenos:\n\n   - On each member cluster, including the member cluster that serves\n     as the operator cluster, create another, separate namespace, ``mongodb``.\n     The |k8s-op-short| uses this namespace for |onprem| resources and components.\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "        :language: sh\n        :linenos:\n\n.. step:: Optional. Authorize clusters to pull secrets from private image registries.\n\n   This step is optional if you use official Helm charts and images from the |quay| registry.\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "      :language: sh\n      :linenos:\n\n.. step:: Optional. Check cluster connectivity.\n\n   The following optional scripts verify whether the service mesh is\n   configured correctly for cross-cluster DNS resolution and connectivity.\n\n   a. Run this script on cluster 0:\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :linenos:\n\n   b. Run this script on cluster 1:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :linenos:\n\n   c. Run this script on cluster 2:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :linenos:\n\n   d. Run this script to wait for the creation of StatefulSets:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: sh\n         :linenos:\n\n   e. Create Pod service on cluster 0:\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :linenos:\n\n   f. Create Pod service on cluster 1:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :linenos:\n\n   g. Create Pod service on cluster 2:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :linenos:\n\n   h. Create round robin service on cluster 0:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :linenos:\n\n   i. Create round robin service on cluster 1:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :linenos:\n\n   j. Create round robin service on cluster 2:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :linenos:\n\n   k. Verify Pod 0 from cluster 1:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :copyable: true \n\n         .. input:: /includes/code-examples/ops-manager-multi-cluster/code_snippets/0090_check_cluster_connectivity_verify_pod_0_0_from_cluster_1.sh\n            :linenos:\n            :language: sh\n\n         .. output:: /includes/code-examples/ops-manager-multi-cluster/output/0090_check_cluster_connectivity_verify_pod_0_0_from_cluster_1.out\n            :linenos:\n            :language: sh\n            :visible: false\n\n   l. Verify Pod 1 from cluster 0:\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :copyable: true \n\n         .. input:: /includes/code-examples/ops-manager-multi-cluster/code_snippets/0090_check_cluster_connectivity_verify_pod_1_0_from_cluster_0.sh\n            :linenos:\n            :language: sh\n\n         .. output:: /includes/code-examples/ops-manager-multi-cluster/output/0090_check_cluster_connectivity_verify_pod_1_0_from_cluster_0.out\n            :linenos:\n            :language: sh\n            :visible: false\n\n   m. Verify Pod 1 from cluster 2:\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :copyable: true \n\n         .. input:: /includes/code-examples/ops-manager-multi-cluster/code_snippets/0090_check_cluster_connectivity_verify_pod_1_0_from_cluster_2.sh\n            :linenos:\n            :language: sh\n\n         .. output:: /includes/code-examples/ops-manager-multi-cluster/output/0090_check_cluster_connectivity_verify_pod_1_0_from_cluster_2.out\n            :linenos:\n            :language: sh\n            :visible: false\n\n   o. Verify Pod 2 from cluster 0:\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :copyable: true \n\n         .. input:: /includes/code-examples/ops-manager-multi-cluster/code_snippets/0090_check_cluster_connectivity_verify_pod_2_0_from_cluster_0.sh\n            :linenos:\n            :language: sh\n\n         .. output:: /includes/code-examples/ops-manager-multi-cluster/output/0090_check_cluster_connectivity_verify_pod_2_0_from_cluster_0.out\n            :linenos:\n            :language: sh\n            :visible: false\n\n   p. Run the cleanup script:\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: sh\n         :linenos:\n\n.. step:: Deploy a multi-cluster configuration.\n\n   In this step, you use the |kubectl-mongodb| to automate the |k8s| cluster\n   configuration that is necessary for the |k8s-op-short| to manage workloads\n   on multiple |k8s| clusters.\n\n   Because you configure the |k8s| clusters before you install the |k8s-op-short|,\n   when you deploy the |k8s-op-short| for the multi-|k8s| cluster operation,\n   all the necessary multi-cluster configuration is already in place. \n\n   As stated in the :ref:`om-multi-procedure-overview`, the |k8s-op-short|\n   has the configuration for three member clusters that you can use to deploy\n   |onprem| MongoDB databases.\n   The first cluster is also used as the operator cluster, where you\n   install the |k8s-op-short| and deploy the custom resources.\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "      :copyable: true \n\n      .. input:: /includes/code-examples/ops-manager-multi-cluster/code_snippets/0200_kubectl_mongodb_configure_multi_cluster.sh\n         :linenos:\n         :language: sh\n\n      .. output:: /includes/code-examples/ops-manager-multi-cluster/output/0200_kubectl_mongodb_configure_multi_cluster.out\n         :linenos:\n         :language: sh\n         :visible: false\n\n.. step:: Install the |k8s-op-short| using the Helm chart.\n\n   a. Add and update the MongoDB Helm repository. Verify that the local Helm cache refers to the correct |k8s-op-short| version:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :copyable: true \n\n         .. input:: /includes/code-examples/ops-manager-multi-cluster/code_snippets/0205_helm_configure_repo.sh\n            :linenos:\n            :language: sh\n\n         .. output:: /includes/code-examples/ops-manager-multi-cluster/output/0205_helm_configure_repo.out\n            :linenos:\n            :language: sh\n            :visible: false\n\n   b. Install the |k8s-op-short| into the ``$OPERATOR_NAMESPACE``, configured to watch\n      ``$NAMESPACE`` and to manage three member |k8s| clusters. At this point\n      in the procedure, :k8sdocs:`ServiceAccounts </tasks/configure-pod-container/configure-service-account/>`\n      and :k8sdocs:`roles </reference/access-authn-authz/rbac/#role-and-clusterrole>`\n      are already deployed by the |kubectl-mongodb|. Therefore, the following\n      scripts skip configuring them and set ``operator.createOperatorServiceAccount=false``\n      and ``operator.createResourcesServiceAccountsAndRoles=false``.\n      The scripts specify the ``multiCluster.clusters`` setting to instruct\n      the Helm chart to deploy the |k8s-op-short| in :ref:`multi-cluster mode <mode-multi-or-single>`.\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :copyable: true \n\n         .. input:: /includes/code-examples/ops-manager-multi-cluster/code_snippets/0210_helm_install_operator.sh\n            :linenos:\n            :language: sh\n\n         .. output:: /includes/code-examples/ops-manager-multi-cluster/output/0210_helm_install_operator.out\n            :linenos:\n            :language: sh\n            :visible: false\n\n   c. Check the |k8s-op-short| deployment:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input:: /includes/code-examples/ops-manager-multi-cluster/code_snippets/0211_check_operator_deployment.sh\n            :linenos:\n            :language: sh\n\n         .. output:: /includes/code-examples/ops-manager-multi-cluster/output/0211_check_operator_deployment.out\n            :linenos:\n            :language: sh\n            :visible: false\n\n.. step:: Prepare TLS certificates.\n\n   In this step, you enable |tls| for the {+appdb+} and the |application|.\n   If you don't want to use TLS, remove the following fields from the ``MongoDBOpsManager``\n   resources:\n\n   - :opsmgrkube:`spec.security.certsSecretPrefix`\n   - :opsmgrkube:`spec.security.tls.ca`\n   - :opsmgrkube:`spec.applicationDatabase.security.certsSecretPrefix`\n   - :opsmgrkube:`spec.applicationDatabase.security.tls.ca`\n\n   a. Optional. Generate keys and certificates:\n\n      Use the ``openssl`` command line tool to generate self-signed CAs and\n      certificates for testing purposes.\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: shell\n         :linenos:\n\n   b. Create secrets with TLS keys:\n\n      If you prefer to use your own keys and certificates, skip the previous\n      generation step and put the keys and certificates  into the following files:\n\n      - ``certs/ca.crt`` - |certauth| certificates. These are not necessary when using trusted certificates.\n      - ``certs/appdb.key`` - private key for the {+appdb+}.\n      - ``certs/appdb.crt`` - certificate for the {+appdb+}.\n      - ``certs/om.key`` - private key for |onprem|.\n      - ``certs/om.crt`` - certificate for |onprem|.\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: sh\n         :linenos:\n\n.. step:: Install |onprem|.\n\n   At this point, you have prepared the environment and the |k8s-op-short|\n   to deploy the |onprem| resource.\n\n   a. Create the necessary credentials for the |onprem| admin user that the\n      |k8s-op-short| will create after deploying the |application| instance:\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: sh\n         :linenos:\n\n   b. Deploy the simplest ``MongoDBOpsManager`` custom resource possible\n      (with |tls| enabled) on a single member cluster, which is also known as\n      the operator cluster.\n\n      This deployment is almost the same as for the :ref:`single-cluster mode <mode-multi-or-single>`,\n      but with :opsmgrkube:`spec.topology` and :opsmgrkube:`spec.applicationDatabase.topology`\n      set to ``MultiCluster``.\n\n      Deploying this way shows that a single |k8s| cluster deployment is\n      a special case of a multi-|k8s| cluster deployment on a single |k8s| member cluster.\n      You can start deploying the |application| and the {+appdb+}\n      on as many |k8s| clusters as necessary from the beginning, and don't\n      have to start with the deployment with only a single member |k8s| cluster.\n\n      At this point, you have prepared the |onprem| deployment to span more\n      than one |k8s| cluster, which you will do later in this procedure.\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :linenos:\n\n   c. Wait for the |k8s-op-short| to pick up the work and reach the\n      ``status.applicationDatabase.phase=Pending`` state. Wait for both the\n      {+appdb+} and |onprem| deployments to complete.\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input:: /includes/code-examples/ops-manager-multi-cluster/code_snippets/0311_ops_manager_wait_for_pending_state.sh\n            :linenos:\n            :language: sh\n\n         .. output:: /includes/code-examples/ops-manager-multi-cluster/output/0311_ops_manager_wait_for_pending_state.out\n            :linenos:\n            :language: sh\n            :visible: false\n\n   d. Deploy |onprem|. The |k8s-op-short| deploys |onprem| by performing\n      the following steps. It:\n\n      - Deploys the {+appdb+}\\'s replica set nodes and waits\n        for the MongoDB processes in the replica set to start running.\n      - Deploys the |application| instance with the {+appdb+}\\'s\n        connection string and waits for it to become ready.\n      - Adds the Monitoring {+mdbagent+} containers to each {+appdb+}\\'s Pod.\n      - Waits for both the |application| and the {+appdb+} Pods to start running.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input:: /includes/code-examples/ops-manager-multi-cluster/code_snippets/0312_ops_manager_wait_for_running_state.sh\n            :linenos:\n            :language: sh\n\n         .. output:: /includes/code-examples/ops-manager-multi-cluster/output/0312_ops_manager_wait_for_running_state.out\n            :linenos:\n            :language: sh\n            :visible: false\n\n      Now that you have deployed a single-member cluster in a :ref:`multi-cluster mode <mode-multi-or-single>`,\n      you can reconfigure this deployment to span more than one |k8s| cluster.\n\n   e. On the second member cluster, deploy two additional {+appdb+}\n      replica set members and one additional instance of the |application|:\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :linenos:\n\n   f. Wait for the |k8s-op-short| to pick up the work (pending phase):\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input:: /includes/code-examples/ops-manager-multi-cluster/code_snippets/0321_ops_manager_wait_for_pending_state.sh\n            :linenos:\n            :language: sh\n\n         .. output:: /includes/code-examples/ops-manager-multi-cluster/output/0321_ops_manager_wait_for_pending_state.out\n            :linenos:\n            :language: sh\n            :visible: false\n\n   g. Wait for the |k8s-op-short| to finish deploying all components:\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :copyable: true \n\n         .. input:: /includes/code-examples/ops-manager-multi-cluster/code_snippets/0322_ops_manager_wait_for_running_state.sh\n            :linenos:\n            :language: sh\n\n         .. output:: /includes/code-examples/ops-manager-multi-cluster/output/0322_ops_manager_wait_for_running_state.out\n            :linenos:\n            :language: sh\n            :visible: false\n\n.. step:: Enable backup.\n\n   In a multi-|k8s| cluster deployment of the |application|, you can configure\n   only |s3|-based backup storage. This procedure refers to ``S3_*``\n   defined in :ref:`env_variables.sh <set-env-vars-om-mc>`.\n\n   a. Optional. Install the |minio|.\n\n      This procedure deploys |s3|-compatible storage for your backups using the |minio|.\n      You can skip this step if you have |aws| |s3| or other |s3|-compatible\n      buckets available. Adjust the ``S3_*`` variables accordingly in\n      :ref:`env_variables.sh <set-env-vars-om-mc>` in this case.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: sh\n         :linenos:\n\n   b. Before you configure and enable backup, create secrets:\n\n      - ``s3-access-secret`` - contains |s3| credentials.\n      - ``s3-ca-cert`` - contains a |certauth| certificate that issued the bucket's\n        server certificate. In the case of the sample MinIO deployment used\n        in this procedure, the default |k8s| Root |certauth| certificate\n        is used to sign the certificate. Because it's not a publicly trusted\n        |certauth| certificate, you must provide it so that |onprem| can\n        trust the connection.\n\n      If you use publicly trusted certificates, you may skip this step and\n      remove the values from the :opsmgrkube:`spec.backup.s3Stores.customCertificateSecretRefs`\n      and :opsmgrkube:`spec.backup.s3OpLogStores.customCertificateSecretRefs` settings.\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: sh\n         :linenos:\n\n.. step:: Re-deploy |onprem| with backup enabled.\n\n   a. The |k8s-op-short| can configure and deploy all components,\n      the |application|, the Backup Daemon instances, and the Application\n      Database's replica set nodes in any combination on any member clusters\n      for which you configure the |k8s-op-short|.\n   \n      To illustrate the flexibility of the multi-|k8s| cluster deployment\n      configuration, deploy only one Backup Daemon instance on the third\n      member cluster and specify zero Backup Daemon members for the first\n      and second clusters.\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :language: yaml\n         :linenos:\n\n   b. Wait until the |k8s-op-short| finishes its configuration:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :copyable: true \n\n         .. input:: /includes/code-examples/ops-manager-multi-cluster/code_snippets/0522_ops_manager_wait_for_running_state.sh\n            :linenos:\n            :language: sh\n\n         .. output:: /includes/code-examples/ops-manager-multi-cluster/output/0522_ops_manager_wait_for_running_state.out\n            :linenos:\n            :language: sh\n            :visible: false\n\n.. step:: Optional. Delete the |gke| clusters and all their associated resources (VMs).\n\n   Run the following script to delete the GKE clusters and clean up your environment.\n\n   .. important::\n\n      The following commands are not reversible. They delete all clusters\n      referenced in ``env_variables.sh``. Don't run these commands if you\n      wish to retain the GKE clusters, for example, if you didn't create\n      the GKE clusters as part of this procedure.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "      :language: sh\n      :linenos:\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-deploy-k8s-om-multi-https.rst"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input::\n         \n            wget https://github.com/mongodb/mongodb-enterprise-kubernetes/releases/download/1.26.0/kubectl-mongodb_1.26.0_darwin_arm64.tar.gz\n         \n         .. output::\n         \n            Saving : « kubectl-mongodb_1.26.0_darwin_arm64.tar.gz »\n\n   .. step:: Unzip the MongoDB installation file.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-install-verify-files-pgp.rst"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input::\n         \n            tar -xvzf kubectl-mongodb_1.26.0_darwin_arm64.tar.gz\n\n         .. output::\n         \n            x kubectl-mongodb.sig\n            x kubectl-mongodb     \n   \n   .. step:: Verify the MongoDB installation file.\n      \n      Run the following command:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-install-verify-files-pgp.rst"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input::\n         \n            cosign verify-blob --key mongodb-enterprise-kubernetes-operator.pem --signature kubectl-mongodb.sig kubectl-mongodb\n\n         .. output::\n         \n            Verified OK\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/includes/steps-install-verify-files-pgp.rst"
+  },
+  {
+    "code": "     :copyable: false\n\n     spec:\n       template:\n         ...\n         spec:\n           containers:\n           - name: mongodb-enterprise-operator\n             ...\n             env:\n             ...   \n             - name: PERFORM_FAILOVER\n               value: \"true\"\n             ...\n  \n\n- **Manual(plugin-based) Failover Mode** allows you to use the\n  :ref:`MongoDB kubectl plugin <kubectl-plugin-ref>` to\n  reconfigure the |k8s-op-short| to use new healthy |k8s| clusters.\n  In this mode, you distribute replica set members across the new healthy\n  clusters by configuring the |mongodb-multi| based on your configuration.\n\n  To enable this mode, use ``--set multiCluster.performFailover=true``\n  in the `MongoDB Helm Charts for Kubernetes \n  <https://mongodb.github.io/helm-charts>`__,\n  or set the |multi-cluster| environment variable ``PERFORM_FAILOVER``\n  to ``false``, as in the following abbreviated example:\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/multi-cluster-disaster-recovery.txt"
+  },
+  {
+    "code": "     :copyable: false\n\n     spec:\n       template:\n         ...\n         spec:\n           containers:\n           - name: mongodb-enterprise-operator\n             ...\n             env:\n             ...   \n             - name: PERFORM_FAILOVER\n               value: \"false\"\n             ...\n\n.. note::\n   \n   You can't rely on the :ref:`auto or manual failover modes <disaster-recovery-modes>`\n   when a |k8s| cluster hosting one or more |k8s-op-short| instances goes\n   down, or the replica set member resides on the same failed |k8s|\n   cluster as the |k8s| that manages it.\n\n   In such cases, to restore replica set members from lost |k8s| clusters\n   to the remaining healthy |k8s| clusters, you must first restore the\n   |k8s-op-short| instance that manages your |multi-clusters|, or\n   redeploy the |k8s-op-short| to one of the remaining |k8s| clusters,\n   and rerun the |kubectl-mongodb|. To learn more, see :ref:`disaster-recovery-manual`.\n\n.. _disaster-recovery-manual:\n\nManually Recover from a Failure Using the MongoDB Plugin\n---------------------------------------------------------\n\nWhen a |k8s| cluster hosting one or more |k8s-op-short| instances goes down,\nor the replica set member resides on the same failed |k8s| cluster as the\n|k8s| that manages it, you can't rely on the\n:ref:`auto or manual failover modes <disaster-recovery-modes>`\nand must use the following procedure to manually recover from a failed\n|k8s| cluster.\n\nThe following procedure uses the :ref:`MongoDB kubectl Plugin <kubectl-plugin-ref>`\nto:\n\n- Configure new healthy |k8s| clusters.\n- Add these |k8s| clusters as new member clusters to the ``mongodb-enterprise-operator-member-list``\n  ConfigMap for your |multi-cluster|.\n- Rebalance nodes hosting |mongodb-multis| on the nodes in the healthy |k8s| clusters.\n\nThe following tutorial for manual disaster recovery assumes that you:\n\n- Deployed one central cluster and three member clusters, following the\n  :ref:`multi-cluster-quick-start-ref`. In this case, the\n  |k8s-op-short| is installed with the automated failover disabled with\n  ``--set multiCluster.performFailover=false``.\n\n- Deployed a |mongodb-multi| as follows:\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/multi-cluster-disaster-recovery.txt"
+  },
+  {
+    "code": "    :language: yaml\n\n{+appdb+} Log Rotation\n---------------------------------\nYou can configure the following log's rotation in the ``MongoDBOpsManager`` |crd|, \nas shown in the following example manifest. See the preceding table for more \ninformation about configuring the rotation of other {+appdb+}-specific logs. \n\nMongoDB Logs\n~~~~~~~~~~~~~\nYou can configure the {+appdb+} MongoDB log rotation in the \n``MongoDBOpsManager`` manifest under :opsmgrkube:`spec.applicationDatabase.agent.<component>.logRotate`.  \nMongoDB compresses log files beyond the two most recent logs by default.\n\nLogs:\n   - ``/var/log/mongodb-mms-automation/mongodb.log``\n\nAutomation Agent Logs\n~~~~~~~~~~~~~~~~~~~~~\nYou can configure the {+appdb+} Automation Agent log rotation in the \n``MongoDBOpsManager`` manifest under \n:opsmgrkube:`spec.applicationDatabase.agent.startupOptions`.  \n\nLogs:\n   - ``/var/log/mongodb-mms-automation/automation-agent-stderr.log``\n   - ``/var/log/mongodb-mms-automation/automation-agent-verbose.log``\n   - ``/var/log/mongodb-mms-automation/automation-agent.log``\n\nAudit Logs\n~~~~~~~~~~\nYou can configure the {+appdb+} Audit log rotation in the ``MongoDBOpsManager`` \nmanifest under \n:opsmgrkube:`spec.applicationDatabase.agent.mongod.auditlogRotate`.\n\nLogs:\n   - ``/var/log/mongodb-mms-automation/mongodb-audit.log``\n\nExample Manifest\n~~~~~~~~~~~~~~~~\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-crd-logging-specification.txt"
+  },
+  {
+    "code": "   :language: yaml\n\n.. _k8s-om-log-rotation:\n\n|onprem| Log Rotation\n------------------------\n\nTo manage and rotate |onprem|, you can either \n:ref:`manually override the StatefulSet <k8s-om-log-rotation-statefulset>` or  \n:ref:`use CRD settings <k8s-om-log-rotation-crd>`.\n\n.. _k8s-om-log-rotation-statefulset:\n\nConfigure |onprem| Logs with the StatefulSet\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nTo manage and rotate |onprem| logs, you can manually override the default logging \nconfiguration using a ConfigMap and StatefulSet override. This process involves \ncreating a custom ``logback.xml`` configuration file and applying it to your \n|onprem| Pods.\n\n.. procedure::\n   :style: normal\n\n   .. step:: Create the custom ``logback.xml`` configuration file.\n\n      You can retrieve the existing ``logback.xml`` to use as a template by running \n      the following command:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-crd-logging-specification.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         kubectl cp om-pod-spec-0:/mongodb-ops-manager/conf/logback.xml ~/Downloads/logback-confs/logback.xml\n\n      To learn more about creating a custom ``logback.xml``, see :ref:`change-onprem-log-rotation`.\n\n   .. step:: Create a ConfigMap from the custom ``logback.xml``.\n\n      Ensure that the key in the ConfigMap is exactly the name of the file you want\n      to replace so that the mount path and subpath only overwrite one file and \n      not the entire directory. In this example, the file name is ``logback.xml``:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-crd-logging-specification.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         kubectl create configmap logback-config --from-file=logback.xml=path/to/your/custom_logback.xml\n\n   .. step:: Override the StatefulSet configuration.\n\n      Use the StatefulSet override feature to mount the custom ``logback.xml`` in your \n      |onprem| Pods. Add the following to your StatefulSet configuration:\n\n      .. note::\n\n         The ``key`` in the following ConfigMap is ``logback.xml`` by default to ensure \n         it correctly replaces the default file with the same name.\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-crd-logging-specification.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         kubectl cp om-pod-spec-0:/mongodb-ops-manager/conf/logback.xml ~/Downloads/logback-confs/logback.xml\n\n      To learn more about creating a custom ``logback.xml``, see :ref:`change-onprem-log-rotation`.\n\n   .. step:: (Optional) Create a custom ``logback-access.xml`` configuration file.\n\n      Use the ``logback-access.xml`` file to configure logging for HTTP access requests, \n      such as those handled by a web server. If you want to customize how these access \n      logs are managed, you can create a custom ``logback-access.xml`` file similar \n      to the ``logback.xml``. \n\n      Retrieve the existing ``logback-access.xml`` to use as a template by running \n      the following command:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-crd-logging-specification.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         kubectl cp om-pod-spec-0:/mongodb-ops-manager/conf/logback-access.xml ~/Downloads/logback-confs/logback-access.xml\n\n      Modify this file according to your logging requirements.\n   \n   .. step:: Create a ConfigMap from the custom ``logback.xml`` and ``logback-access.xml``.\n\n      Ensure that the key in the ConfigMap is exactly the name of the file you want\n      to replace so that the mount path and subpath only overwrite one file and \n      not the entire directory. The following examples use default file names, \n      ``logback.xml`` and ``logback-access.xml``:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-crd-logging-specification.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         kubectl create configmap logback-config --from-file=logback.xml=path/to/your/custom_logback.xml\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-crd-logging-specification.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         kubectl create configmap logback-access-config --from-file=logback-access.xml=path/to/your/custom_access_logback.xml\n\n   .. step:: Set the |crd| logging properties.\n\n      Add the following settings to your |onprem| |crd|:\n\n      * :setting:`spec.logging.logBackAccessRef`\n      * :setting:`spec.logging.logBackRef`\n      * :setting:`spec.backup.logging.logBackAccessRef`\n      * :setting:`spec.backup.logging.logBackRef`\n\n      .. note::\n      \n         The file names ``logback.xml`` and ``logback-access.xml`` are the default file \n         names and must be the keys \n         in the ConfigMap for the |k8s-op-short| to recognize them.\n\n      For example:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-crd-logging-specification.txt"
+  },
+  {
+    "code": "   :language: yaml\n   :linenos:\n\nRequired ``MongoDBUser`` Resource Settings\n------------------------------------------\n\nThis section describes settings that you must use for all ``MongoDBUser`` resources.\n\n.. _mdbuser-api-version:\n\n``apiVersion``\n  *Type*: string\n\n  Version of the MongoDB |k8s| resource schema.\n\n.. _mdbuser-kind-spec:\n\n``kind``\n  *Type*: string\n\n  Kind of MongoDB |k8s| resource to create. Set this to ``MongoDBUser``.\n\n.. _mdbuser-metadata-name:\n\n``metadata.name``\n  *Type*: string\n\n  Human-readable name so you can identify this particular ``MongoDBUser`` resource.\n\n  Resource names must be 44 characters or less.\n\n.. _mdbuser-spec-db:\n\n``spec.db``\n  *Type*: string\n\n  Name of the MongoDB database that these users will access. The default is ``admin``.\n\n.. _mdbuser-spec-username:\n\n``spec.username``\n  *Type*: string\n\n  Human-readable label that identifies the user needed to authenticate to the MongoDB database or collection.\n\nOptional ``MongoDBUser`` Resource Settings\n------------------------------------------\n\nThe ``MongoDBUser`` custom resource can use the following settings:\n\n``spec.connectionStringSecretName``\n  *Type*: string\n\n  Name of the connection string secret that the |k8s-op-short| creates.\n\n  When you create a new MongoDB database user, |k8s-op-short| automatically\n  creates a new |k8s| |k8s-secret|. The |k8s| |k8s-secret|\n  contains the following information about the new database user:\n\n  - ``username``: Username for the database user\n  - ``password``: Password for the database user\n  - ``connectionString.standard``: :manual:`Standard connection string </reference/connection-string/#std-label-connections-standard-connection-string-format>`\n    that can connect you to the database as this database user.\n  - ``connectionString.standardSrv``: :manual:`DNS seed list connection string </reference/connection-string/#dns-seed-list-connection-format>` that can\n    connect you to the database as this database user.\n\n``spec.mongodbResourceRef.name``\n  *Type*: string\n\n  Name of the :ref:`MongoDB resource <k8s-deploy-mdb-resources>` to which this user is associated. For example, ``my-resource``.\n  \n``spec.mongodbResourceRef.namespace``\n  *Type*: string\n\n  The |k8s-ns| that contains the |k8s-secret| for this user. \n  If unspecified, the |k8s-op-short| keeps connection secrets in the same |k8s-ns| as the ``MongoDBUser`` custom resource.\n\n``spec.passwordSecretKeyRef.name``\n  *Type*: string\n  \n  ``metadata.name`` value of the secret that stores the user's password.\n  For example, ``my-secret-name``.\n\n``spec.passwordSecretKeyRef.key``\n  *Type*: string\n\n  Name of the field in the |k8s-secret| that\n  contains the password for this MongoDB database user.\n\n  To learn more, see the :k8sdocs:`Kubernetes documentation </reference/generated/kubernetes-api/v1.23/#secretkeyselector-v1-core>`.\n\n``spec.roles.db``\n  *Type*: string\n\n  MongoDB database on which the `role <https://www.mongodb.com/docs/atlas/security-add-mongodb-users/>`__ can act. For example, ``admin``.\n\n``spec.roles.name``\n  *Type*: string\n\n  Name of the `role <https://www.mongodb.com/docs/atlas/security-add-mongodb-users/>`__ to grant the database user.\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-mongodbuser-specification.txt"
+  },
+  {
+    "code": "   :language: yaml\n   :linenos:\n\nRequired ``MongoDBMultiCluster`` Resource Settings\n--------------------------------------------------\n\nThis section describes settings that you must use for your |mongodb-multi|.\n\n.. _multi-api-version:\n\n``apiVersion``\n  *Type*: string\n\n  Version of the MongoDB |k8s| resource schema.\n\n\n.. _multi-kind-spec:\n\n``kind``\n  *Type*: string\n\n  Kind of MongoDB |k8s| resource to create. Set this to ``MongoDBMultiCluster``.\n\n.. _multi-metadata-name:\n\n``metadata.name``\n  *Type*: string\n\n  Name of the MongoDB |k8s| resource you are creating.\n\n  Resource names must be 44 characters or less.\n\n.. _multi-spec-credentials:\n\n``spec.credentials``\n  *Type*: string\n\n  Name of the secret you :ref:`created <create-k8s-secret>` as |mms| |api|\n  authentication credentials for the |k8s-op-short| to communicate with |onprem|.\n\n  .. include:: /includes/admonitions/note-namespace-match-secret.rst\n\n  .. include:: /includes/admonitions/fact-k8s-operator-manages-secret.rst\n\n.. _multi-spec-type:\n\n``spec.type``\n  *Type*: string\n\n  Type of MongoDB |k8s| resource to create. The only accepted value for a |multi-cluster| is **ReplicaSet**.\n\n.. _multi-spec-version:\n\n``spec.version``\n  *Type*: string\n\n  Version of MongoDB installed for this |mongodb-multi|.\n\n  .. include:: /includes/admonitions/ubi-8-min-db-versions.rst\n\n.. _optional-multi-k8s-settings:\n\nOptional ``MongoDBMultiCluster`` Resource Settings\n--------------------------------------------------\n\n|mongodb-multis| can use the following settings:\n\n.. _multi-spec-additionalmongodconfig:\n\n``spec.additionalMongodConfig``\n  *Type*: collection\n\n  Additional :opsmgr:`configuration options\n  </reference/deployment-advanced-options/>` with\n  which you want to start MongoDB processes.\n\n  The |k8s-op-short| supports all configuration options that the MongoDB\n  version you deploy through the {+mdbagent+} supports, except that the \n  |k8s-op-short| overrides values that you provide for any of the \n  following options:\n\n  - ``net.port``\n  - ``net.tls.certificateKeyFile``\n  - ``net.tls.clusterFile``\n  - ``replication.replSetName``\n  - ``security.clusterAuthMode``\n  - ``sharding.clusterRole``\n  - ``storage.dbPath``\n  - ``systemLog.destination``\n  - ``systemLog.path``\n\n  To learn more about the configuration options that the |k8s-op-short|\n  owns, see :ref:`k8s-exclusive-settings`.\n\n  To learn which configuration options you can use, see\n  :opsmgr:`Advanced Options for MongoDB Deployments\n  </reference/deployment-advanced-options/>` in the |onprem| \n  documentation.\n\n.. _multi-spec-agent:\n\n``spec.agent``\n  *Type*: collection\n\n  {+mdbagent+} configuration settings for the MongoDB database resource.\n\n.. _multi-spec-agent-startupoption:\n\n``spec.agent.startupOptions``\n  *Type*: collection\n\n  {+mdbagent+} settings with which you want to start the MongoDB database resource.\n\n  You must provide {+mdbagent+} settings as key-value pairs. The values\n  must be strings.  \n  For a list of supported {+mdbagent+} settings, see:\n\n  - :cloudmgr:`MongoDB Agent Settings </reference/mongodb-agent-settings/>`\n    for |cloud-short| projects.\n  - :opsmgr:`MongoDB Agent Settings\n    </reference/mongodb-agent-settings/>` for the |onprem| version you\n    deployed with the |k8s-op-short|. \n\n.. _multi-spec-backup:\n\n``spec.backup``\n  *Type*: collection\n\n  The collection container for :ref:`spec.backup.mode <multi-spec-backup-mode>`,\n  which enables continuous backups for MongoDB resources in |k8s-op-short|.\n\n.. _multi-spec-backup-assignmentLabels:\n\n``spec.backup.assignmentLabels``\n  *Type*: array\n\n  A list of assignment labels for the :ref:`backup-daemon` processes.\n  Use assignment labels to identify that specific backup daemon\n  processes are associated with particular projects. If you set assignment\n  labels using the |k8s-op-short|, the values that you set in the |k8s|\n  configuration file for assignment labels override the values defined\n  in the |mms| UI. Assignment labels that you don't set using the\n  |k8s-op-short| continue to use the values set in the |mms| UI.\n\n.. _multi-spec-backup-autoterminateondeletion:\n\n``spec.backup.autoTerminateOnDeletion``\n  *Type*: boolean\n\n  Flag that indicates whether the |k8s-op-short| stops and terminates the\n  backup when you delete a |mongodb-multi|. The default value is ``false``.\n  Setting this flag to ``true`` is useful when you want to delete the\n  |mongodb-multi| while the :ref:`spec.backup.mode <multi-spec-backup-mode>` setting\n  is set to ``enabled``.\n\n.. _multi-spec-backup-encryption:\n\n``spec.backup.encryption``\n  *Type*: object\n\n  Object that contains the backup encryption configuration settings.\n\n.. _multi-spec-backup-encryption-kmip:\n\n``spec.backup.encryption.kmip``\n  *Type*: object\n\n  Object that contains the |kmip| backup encryption configuration \n  settings. To learn more, see :ref:`configure-kmip-backup-encryption`.\n\n.. _multi-spec-backup-encryption-kmip-client:\n\n``spec.backup.encryption.kmip.client``\n  *Type*: object\n\n  Object that contains the |kmip| backup encryption client configuration \n  settings.\n\n.. _multi-spec-backup-mode:\n\n``spec.backup.mode``\n  *Type*: string\n  \n  Enables continuous backups for a |mongodb-multi|.\n  Possible values are ``enabled``, ``disabled``, and\n  ``terminated``.\n  \n  .. note::\n\n     The :ref:`spec.backup.mode <multi-spec-backup-mode>`\n     setting relies on :ref:`Backup <om-rsrc-backup>` that is\n     enabled in |onprem| and requires that the\n     :opsmgrkube:`spec.backup.enabled`\n     value in the |onprem| :ref:`resource specification\n     <k8s-om-specification>` is set to ``true``.\n  \n  After you enable continuous backups for your MongoDB resource with\n  :ref:`spec.backup.mode <multi-spec-backup-mode>`, you can :ref:`check the backup status\n  <get-resource-status>`.\n\n.. _multi-spec-backup-snapshotschedule:\n\n``spec.backup.snapshotSchedule``\n  *Type*: collection\n\n  Collection container for snapshot schedule settings for\n  continuous backups for MongoDB resources in |k8s-op-short|.\n\n.. _multi-spec-dailysnapshotretentiondays:\n\n``spec.backup.snapshotSchedule.dailySnapshotRetentionDays``\n  *Type*: number\n  \n  Number of days to keep daily snapshots. You can set a value \n  between ``1`` and ``365``, inclusive. Setting the value to ``0``\n  disables this rule.\n\n.. _multi-spec-fullincrementaldayofweek:\n\n``spec.backup.snapshotSchedule.fullIncrementalDayOfWeek``\n  *Type*: string\n  \n  Day of the week when |onprem| takes a full snapshot. This setting \n  ensures a recent complete backup. |onprem| sets the default value to\n  ``SUNDAY``.\n\n.. _multi-spec-monthlysnapshotretentionmonths:\n\n``spec.backup.snapshotSchedule.monthlySnapshotRetentionMonths``\n  *Type*: number\n  \n  Number of months to keep monthly snapshots. You can set a value \n  between ``1`` and ``36``, inclusive. Setting the value to ``0``\n  disables this rule.\n \n.. _multi-spec-pointintimewindowhours:\n\n``spec.backup.snapshotSchedule.pointInTimeWindowHours``\n  *Type*: number\n  \n  Number of hours in the past for which you can create a point-in-time\n  snapshot.\n\n.. _multi-spec-referencehourofday:\n\n``spec.backup.snapshotSchedule.referenceHourOfDay``\n  *Type*: number\n  \n  |utc| hour of the day to schedule snapshots using a 24 hour clock.\n  You can set a value between ``0`` and ``23``, inclusive.\n\n.. _spec-referenceminuteofhour:\n\n``spec.backup.snapshotSchedule.referenceMinuteOfHour``\n  *Type*: number\n  \n  |utc| minute of the hour to schedule snapshots. You can\n  set a value between ``0`` and ``59``, inclusive.\n\n.. _multi-spec-snapshotintervalhours:\n\n``spec.backup.snapshotSchedule.snapshotIntervalHours``\n  *Type*: number\n  \n  Number of hours between snapshots. You can set a value of ``6``,\n  ``8``, ``12``, or ``24``.\n\n.. _multi-spec-snapshotretentiondays:\n\n``spec.backup.snapshotSchedule.snapshotRetentionDays``\n  *Type*: number\n  \n  Number of days to keep recent snapshots. You can set a value \n  between ``2`` and ``5``, inclusive.   \n\n.. _multi-spec-weeklysnapshotretentionweeks:\n\n``spec.backup.snapshotSchedule.weeklySnapshotRetentionWeeks``\n  *Type*: number\n  \n  Number of weeks to keep weekly snapshots. You can set a value \n  between ``1`` and ``52``, inclusive. Setting the value to ``0``\n  disables this rule.\n\n.. _multi-spec-cloudmanager-configmapref-name:\n\n``spec.cloudManager.configMapRef.name``\n  *Type*: string\n\n  Alias for :ref:`spec.opsManager.configMapRef.name <multi-spec-opsmanager-configmapref-name>`.\n\n..\n  Feature for unknown future release - ER 7/13/23\n  .. _multi-spec-clusterdomain:\n  \n  ``spec.clusterDomain``\n  \n  *Type*: string\n  \n  *Default*: cluster.local\n  \n  Domain name of the |k8s| cluster where you deploy the |k8s-op-short|. When\n  |k8s| creates a |k8s-statefulset|, the |k8s| assigns each |k8s-pod| a\n  |fqdn|. To update |com|, the |k8s-op-short| calculates the |fqdn| for\n  each Pod using a provided cluster name. |k8s| doesn't provide\n  an |api| to query these hostnames.\n\n  .. warning::\n\n     You must set ``spec.clusterDomain`` if your |k8s| cluster has\n     a :k8sdocs:`default domain\n     </concepts/services-networking/dns-pod-service#what-things-get-dns-names>`\n     other than the default ``cluster.local``. If you neither use the\n     default nor set the ``spec.clusterDomain`` option, the\n     |k8s-op-short| might not function as expected. \n\n.. _multi-spec-clusterspeclist:\n\n``spec.clusterSpecList``\n  *Type*: collection\n\n  List of specifications for each |k8s| cluster in a |mongodb-multi|.\n\n.. _multi-spec-agent-clusterspeclist-clustername:\n\n``spec.clusterSpecList.clusterName``\n  *Type*: string \n\n  Name of the cluster where the |k8s-op| schedules the |k8s-statefulset|. When the |k8s-op-short| deploys this |mongodb-multi|, it creates :k8sdocs:`a service account </concepts/security/service-accounts/>`. This name is what the service account in the central cluster uses to communicate with the workload clusters. \n\n.. _multi-spec-clusterspeclist-externaldomain:\n\n``spec.clusterSpecList.externalAccess.externalDomain``\n  *Type*: string\n\n  .. |hostname-format| replace:: ``<replica-set-name>-<cluster-idx>-<pod-idx>.<externalDomain>``\n\n  .. |hostname-example| replace:: ``multi-replica-set-0-1.cluster-0.example.com``\n\n  .. include:: /includes/facts/fact-external-domain-spec.rst\n\n  .. important::\n\n     Use this setting only when deploying a |multi-cluster| replica set *without\n     a service mesh*. See :ref:`multi-cluster-no-service-mesh-deploy-rs`.\n\n.. _multi-spec-clusterspeclist-externalservice:\n\n``spec.clusterSpecList.externalAccess.externalService``\n  *Type*: collection\n\n  Configuration for externally exposing a specific cluster in your |multi-cluster|. These settings\n  override the global :ref:`spec.externalAccess.externalService <multi-spec-externalaccess-externalservice>` settings.\n\n  .. |external-access| replace:: :ref:`spec.externalAccess <multi-spec-externalaccess>`\n  .. |default-values| replace:: :ref:`default values <multi-spec-externalaccess>`\n\n  .. include:: /includes/facts/fact-external-service-spec.rst\n\n.. _multi-spec-clusterspeclist-annotations:\n\n``spec.clusterSpecList.externalAccess.externalService.annotations``\n  *Type*: collection\n\n  Key-value pairs that let you add cloud provider-specific\n  configuration settings to a specific cluster in your |multi-cluster|. This setting overrides the global\n  setting, :ref:`spec.externalAccess.externalService.annotations <multi-spec-externalaccess-externalservice-annotations>`. \n  To learn more, see |k8s-annotations| and the documentation for your |k8s| cloud provider.\n\n  .. include:: /includes/list-tables/annotation-placeholders-multi-cluster.rst\n\n  .. include:: /includes/facts/annotation-placeholders-example.rst\n\n.. _multi-spec-clusterspeclist-spec:\n\n``spec.clusterSpecList.externalAccess.externalService.spec``\n  *Type*: collection\n\n  Configuration for the :k8sdocs:`ServiceSpec </reference/kubernetes-api/service-resources/service-v1/#ServiceSpec>`.\n  To learn more, see :ref:`spec.clusterSpecList.externalAccess.externalService <multi-spec-clusterspeclist-externalservice>`.\n\n.. _multi-spec-clusterspeclist-memberconfig:\n\n``spec.clusterSpecList.memberConfig``\n  *Type*: collection\n\n  Specification for each MongoDB replica set and its \n  members in your |multi-cluster|.\n\n  The order of the elements in the object for each replica set\n  must reflect the order of members in the replica set. For example, \n  the first element affects the Pod at index ``0``, the second \n  element affects index ``1``, and so on.\n  \n  .. example::\n\n     Consider the following example specification for a \n     |multi-cluster| with three replica sets:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-multi-cluster-specification.txt"
+  },
+  {
+    "code": "     :language: yaml\n     :start-after: START-horizon-addcert-replset-lower\n     :end-before: END-horizon-addcert-replset-lower\n     :linenos:\n     :lineno-start: 15\n\n.. _multi-spec-duplicateserviceobjects:\n\n``spec.duplicateServiceObjects``\n  *Type*: boolean\n\n  *Default*: true\n\n  Specifies whether the |k8s-op-short| duplicates a Pod's service mesh object in each cluster to allow |dns| resolution. Set to ``false`` if you configure a DNS proxy for your service mesh. For example, see `DNS  Proxying <https://istio.io/latest/docs/ops/configuration/traffic-management/dns-proxy/>`__ in the Istio  documentation. \n\n.. _multi-spec-externalaccess:\n\n``spec.externalAccess``\n  *Type*: collection\n\n  Specification to expose your |multi-cluster| for external connections. \n  To learn how to connect to your |multi-cluster| from outside \n  of the |k8s| cluster, see :ref:`multi-cluster-connect-from-outside-k8s`.\n  \n  These settings apply to services across all clusters. \n  To override these global settings in a specific cluster, use \n  :ref:`spec.clusterSpecList.externalAccess.externalService \n  <multi-spec-clusterspeclist-externalservice>`.\n  \n  .. include:: /includes/facts/fact-external-access-spec.rst\n\n  .. note:: \n\n     If you set :ref:`spec.clusterSpecList.externalAccess.externalDomain <multi-spec-clusterspeclist-externaldomain>`,\n     the external service adds another port (``Port Number + 1``) for backups.\n\n.. _multi-spec-externalaccess-externalservice:\n\n``spec.externalAccess.externalService``\n  *Type*: collection\n\n  Specification for overriding the default values in :setting:`spec.externalAccess`.\n\n  .. include:: /includes/facts/fact-external-service-spec.rst\n\n.. _multi-spec-externalaccess-externalservice-annotations:\n\n``spec.externalAccess.externalService.annotations``\n  *Type*: collection\n\n  Key-value pairs that let you add cloud provider-specific\n  configuration settings to all clusters in your |multi-cluster|. For cluster-specific overrides,\n  see :ref:`spec.clusterSpecList.externalAccess.externalService.annotations <multi-spec-clusterspeclist-annotations>`.\n  To learn more, see \n  |k8s-annotations| and the documentation for the cloud provider you use \n  for |k8s| deployments.\n\n  .. include:: /includes/list-tables/annotation-placeholders-multi-cluster.rst\n  \n  .. include:: /includes/facts/annotation-placeholders-example.rst\n\n.. _multi-spec-externalaccess-externalservice-spec:\n\n``spec.externalAccess.externalService.spec``\n  *Type*: collection\n\n  Configuration for the :k8sdocs:`ServiceSpec </reference/kubernetes-api/service-resources/service-v1/#ServiceSpec>`.\n  To learn more, see :ref:`spec.externalAccess.externalService <multi-spec-externalaccess-externalservice>`.\n\n.. _multi-spec-fcv:\n\n``spec.featureCompatibilityVersion``\n  *Type*: number\n\n  Limits changes to data that occur with an upgrade to a\n  new major version. This allows you to downgrade to the previous major\n  version. To learn more about feature compatibility, see :dbcommand:`setFeatureCompatibilityVersion`\n  in the MongoDB Manual.\n\n.. _multi-spec-loglevel:\n\n``spec.logLevel``\n  *Type*: string\n\n  Configures the level of Automation Agent logging inside the\n  |k8s-pod|. Accepted values include:\n\n  - ``DEBUG``\n  - ``INFO``\n  - ``WARN``\n  - ``ERROR``\n  - ``FATAL``\n\n.. _multi-spec-opsmanager-configmapref-name:\n\n``spec.opsManager.configMapRef.name``\n   *Type*: string\n\n   Name of the |k8s-configmap| with the |com| connection\n   configuration. The :ref:`spec.cloudManager.configMapRef.name <multi-spec-cloudmanager-configmapref-name>`\n   setting is an alias for this setting and can be used in its place.\n\n   .. include:: /includes/admonitions/note-namespace-match-configmap.rst\n\n   .. include:: /includes/admonitions/fact-k8s-operator-manages-configmap.rst\n\n.. _multi-spec-persistent:\n\n``spec.persistent``\n  *Type*: boolean  \n  \n  *Default*: true\n\n  .. include:: /includes/admonitions/k8s-persistent-volumes.rst\n\n.. _multi-spec-security-authentication:\n\n``spec.security.authentication``\n  *Type*: collection\n\n  Authentication specifications for your |multi-cluster|.\n\n.. _multi-spec-security-agents:\n\n``spec.security.authentication.agents``\n  *Type*: collection\n\n  {+mdbagent+} authentication configuration for the |com| project.\n\n.. _multi-spec-security-automationldapgroupdn:\n\n``spec.security.authentication.agents.automationLdapGroupDN``\n  *Type*: string\n\n  The Distinguished Name (DN) of the LDAP group to which the\n  {+mdbagent+} user belongs.\n  \n  This setting is required if:\n\n  - :ref:`spec.security.authentication.ldap.authzQueryTemplate <multi-spec-security-authzquerytemplate>` is\n    present, and\n  - :ref:`spec.security.authentication.agents.mode <multi-spec-security-agents-mode>` is ``LDAP`` or\n    ``X509``.\n\n.. _multi-spec-security-automationpasswordsecretref:\n\n``spec.security.authentication.agents.automationPasswordSecretRef``\n  *Type*: collection\n\n  Details of the |k8s-secret| that contains the password for the\n  :ref:`spec.security.authentication.agents.automationUserName <multi-spec-security-automationusername>`\n  user.\n\n  This setting is required if \n  :ref:`spec.security.authentication.agents.mode <multi-spec-security-agents-mode>` is ``LDAP``.\n\n.. _multi-spec-automationpasswordsecretref-key:\n\n``spec.security.authentication.agents.automationPasswordSecretRef.key``\n  *Type*: string\n\n  Key in the\n  :ref:`spec.security.authentication.agents.automationPasswordSecretRef.name <multi-spec-automationpasswordsecretref-name>`\n  |k8s-secret| that contains the password for the user in\n  :ref:`spec.security.authentication.agents.automationUserName <multi-spec-security-automationusername>`.\n\n  This setting is required if \n  :ref:`spec.security.authentication.agents.mode <multi-spec-security-agents-mode>` is\n  ``LDAP``.\n\n.. _multi-spec-automationpasswordsecretref-name:\n\n``spec.security.authentication.agents.automationPasswordSecretRef.name``\n  *Type*: string\n\n  Name of the |k8s-secret| that contains the password for the\n  :ref:`spec.security.authentication.agents.automationUserName <multi-spec-security-automationusername>`\n  user. You must create this secret in the same namespace to which you\n  deploy the |k8s-op-short|:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-multi-cluster-specification.txt"
+  },
+  {
+    "code": "        :language: yaml\n        :start-after: persistent: true\n        :linenos:\n\n.. _multi-spec-security-authenticationrestrictions:\n\n``spec.security.roles.authenticationRestrictions``\n  *Type*: array\n   \n  Array that defines the IP address from and to which users\n  assigned this :ref:`spec.security.roles.role <multi-spec-security-roles-role>` can\n  connect.\n\n.. _multi-spec-security-authenticationrestrictions-clientsource:\n\n``spec.security.roles.authenticationRestrictions.clientSource``\n  *Type*: array\n \n  Array of IP addresses or CIDR blocks from which users assigned this\n  :ref:`spec.security.roles.role <multi-spec-security-roles-role>` can connect. \n\n  MongoDB servers reject connection requests from users with this role\n  if the requests come from a client that is not present in this array.\n\n.. _multi-spec-security-roles-serveraddress:\n\n``spec.security.roles.authenticationRestrictions.serverAddress``\n  *Type*: array\n\n  Array of IP addresses or CIDR blocks to which users assigned this\n  :ref:`spec.security.roles.role <multi-spec-security-roles-role>` can connect. \n\n  MongoDB servers reject connection requests from users with this role\n  if the client requests to connect to a server that is not present in\n  this array.\n\n.. _multi-spec-security-roles-db:\n\n``spec.security.roles.db``\n  *Type*: string\n\n  The database in which to store the user-defined role.\n\n  .. example::\n\n     ``admin``\n\n.. _multi-spec-security-roles-privileges:\n\n``spec.security.roles.privileges``\n  *Type*: array\n\n  Array that describes the privileges that users granted this role\n  possess.\n\n.. _multi-spec-security-roles-privileges-actions:\n\n``spec.security.roles.privileges.actions``\n  *Type*: array\n\n  List of actions that users granted this role can perform. For a list\n  of accepted values, see :manual:`Privilege Actions\n  </reference/privilege-actions/#database-management-actions>` in the\n  MongoDB Manual for the MongoDB versions you deploy with the\n  |k8s-op-short|.\n\n.. _multi-spec-security-roles-privileges-resource:\n\n``spec.security.roles.privileges.resource``\n  *Type*: collection\n\n  Resources for which the privilege\n  :ref:`spec.security.roles.privileges.actions <multi-spec-security-roles-privileges-actions>`\n  apply.\n\n  This collection must include either:\n\n  - The :ref:`spec.security.roles.privileges.resource.db <multi-spec-security-roles-privileges-resource-db>` and :ref:`spec.security.roles.privileges.resource.collection <multi-spec-security-resource-collection>` settings, or\n  - The :ref:`spec.security.roles.privileges.resource.cluster <multi-spec-privileges-resource-cluster>` setting with a value of ``true``.\n\n.. _multi-spec-privileges-resource-cluster:\n\n``spec.security.roles.privileges.resource.cluster``\n  *Type*: boolean\n\n  *Default*: false\n\n  Flag that indicates that the privilege\n  :ref:`spec.security.roles.privileges.actions <multi-spec-security-roles-privileges-actions>`\n  apply to all databases and collections in the MongoDB deployment.\n\n  If set to true, do not provide values for\n  :ref:`spec.security.roles.privileges.resource.db <multi-spec-security-roles-privileges-resource-db>`\n  and \n  :ref:`spec.security.roles.privileges.resource.collection <multi-spec-security-resource-collection>`.\n\n.. _multi-spec-security-resource-collection:\n\n``spec.security.roles.privileges.resource.collection``\n  *Type*: string\n\n  Collection in the\n  :ref:`spec.security.roles.privileges.resource.db <multi-spec-security-roles-privileges-resource-db>`\n  for which the privilege\n  :ref:`spec.security.roles.privileges.actions <multi-spec-security-roles-privileges-actions>`\n  apply.\n\n  If you provide a value for this setting, you must also provide a value\n  for\n  :ref:`spec.security.roles.privileges.resource.db <multi-spec-security-roles-privileges-resource-db>`.\n\n.. _multi-spec-security-roles-privileges-resource-db:\n\n``spec.security.roles.privileges.resource.db``\n  *Type*: string\n\n  Database for which the privilege\n  :ref:`spec.security.roles.privileges.actions <multi-spec-security-roles-privileges-actions>`\n  apply.\n\n  If you provide a value for this setting, you must also provide a value\n  for\n  :ref:`spec.security.roles.privileges.resource.collection <multi-spec-security-resource-collection>`.\n\n.. _multi-spec-security-roles-role:\n\n``spec.security.roles.role``\n  *Type*: string\n   \n  Name of the user-defined role.\n\n.. _multi-spec-security-additionalcertificatedomains:\n\n``spec.security.tls.additionalCertificateDomains``\n  *Type*: collection\n  \n  List of every domain that should be added to |tls| certificates to\n  each Pod in this deployment. When you set this parameter, every |csr|\n  that the |k8s-op-short| transforms into a |tls| certificate includes\n  a |san-dns| in the form ``<pod name>.<additional cert domain>``.\n\n  Replica set resources don't need this parameter. Use\n  :ref:`spec.connectivity.replicaSetHorizons <multi-spec-connectivity-replicasethorizons>` instead.\n\n  .. note::\n\n     If you add this parameter to a |tls|\\-enabled resource, |k8s|\n     displays an error when the resource reaches the ``Pending`` state.\n     This error displays: ``Please manually remove the |csr| in order\n     to proceed.`` To remedy this issue:\n\n     1. Remove any existing |csr|\\s so that |k8s| can generate new\n        |csr|\\s. To learn how to delete a resource, see the\n        :k8sdocs:`deleting resources\n        </reference/kubectl/cheatsheet/#deleting-resources>` in the\n        |k8s| documentation.\n\n     2. Approve the |csr|\\s after |k8s| generates them.\n\n.. _multi-spec-security-tls-ca:\n\n``spec.security.tls.ca``\n  *Type*: string\n\n  Provide the name of the |k8s-configmap| that stores the |certauth|.\n\n  .. important::\n\n     If you use a custom |certauth| to sign your |tls| certificates for\n     the |mongodb-multi|, you must specify this parameter.\n\n     The |k8s-op-short| requires that you name the certificate for the\n     |mongodb-multi| ``ca-pem`` in the ConfigMap.\n\n.. _multi-spec-security-tls-enabled:\n\n``spec.security.tls.enabled``\n  *Type*: boolean\n\n  .. important::\n\n     ``spec.security.tls.enabled`` is deprecated starting in |k8s-op-short| version 1.19 \n     and will be removed in a future |k8s-op-short| release. To enable |tls|, provide a value for \n     the :ref:`spec.security.certsSecretPrefix <multi-spec-security-certssecretprefix>` setting.\n\n  Encrypts communications using TLS certificates between:\n\n  - MongoDB hosts in a replica set or sharded cluster configuration\n  - Clients (|mongo| shell, drivers, |compass|, and others) and the MongoDB deployment\n\n.. _multi-spec-statefulset-spec:\n\n``spec.statefulSet.spec``\n  *Type*: collection\n\n  Global specification for the |k8s-statefulset| that the |k8s-op| creates\n  for your |multi-cluster|.\n\n  To review which fields you can add to\n  ``spec.statefulSet.spec``, see\n  :k8sdocs:`StatefulSetSpec v1 apps\n  </reference/generated/kubernetes-api/{+k8s-api-version+}/#statefulsetspec-v1-apps>`\n  in the |k8s| documentation.\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-multi-cluster-specification.txt"
+  },
+  {
+    "code": "           :language: yaml\n           :linenos:\n\n     .. tab:: Multi-Kubernetes Cluster\n        :tabid: multi-cluster\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-om-specification.txt"
+  },
+  {
+    "code": "           :language: yaml\n           :linenos:\n\n.. _om_resource-spec-required:\n\n|onprem| Required Settings\n--------------------------\n\nThis section describes settings that you must use for all |onprem|\nresources.\n\n.. opsmgrkube:: apiVersion\n\n   *Type*: string\n\n   *Required*. Version of the MongoDB |k8s| resource schema.\n\n.. opsmgrkube:: kind\n\n   *Type*: string\n\n   *Required*. Kind of MongoDB Kubernetes resource to create. Set this\n   to ``MongoDBOpsManager``.\n\n.. opsmgrkube:: metadata.name\n\n   *Type*: string\n\n   *Required*. Name of the MongoDB |k8s| resource you are creating.\n\n   .. include:: /includes/fact-resource-name-char-limit.rst\n\n.. opsmgrkube:: spec.version\n\n   *Type*: string\n\n   *Required*. Version of |onprem| that you want to install\n   on this MongoDB |k8s| resource. \n\n.. opsmgrkube:: spec.adminCredentials\n\n   *Type*: string\n\n   *Required*. Name of the |k8s| |k8s-secret| you created for\n   the |onprem| admin user. When you deploy the |onprem| resource,\n   |k8s-op-short| creates a user with these credentials.\n\n   .. include:: /includes/facts/fact-can-change-secret-storage-tool.rst\n\n   The admin user is granted the\n   :opsmgr:`Global Owner </reference/user-roles/#global-automation-admin-role>`\n   role.\n\n.. opsmgrkube:: spec.replicas\n\n   *Type*: integer\n\n   *Conditional*. Number of |onprem| instances to run in parallel.\n   If you specify ``SingleCluster`` in :opsmgrkube:`spec.topology`, this\n   parameter is required. The mimimum accepted value is ``1``. \n\n   If you specify ``MultiCluster`` in :opsmgrkube:`spec.topology`, this\n   parameter is ignored.\n\n.. _optional-om-k8s-settings:\n\n|onprem| Optional Settings\n--------------------------\n\n|onprem| resources can also use the following settings:\n\n.. setting:: spec.backup.logging.logBackAccessRef\n\n   *Type:* string \n\n   Reference to a ConfigMap that contains a custom ``logback-access.xml`` file \n   for configuring |onprem| backup logs.\n\n   The key in the ConfigMap must exactly match the name of the ``logback-access.xml`` \n   to ensure it replaces the default file in the |onprem| Pods.\n\n   To learn more, see :ref:`k8s-om-log-rotation-crd`.\n\n.. setting:: spec.backup.logging.logBackRef\n\n   *Type:* string \n\n   Reference to a ConfigMap that contains a custom ``logback.xml`` file. This file\n   configures the general logging behavior for |onprem| backups, including log rotation\n   policies, log levels, and other logging parameters.\n\n   The key in the ConfigMap must exactly match the name of the ``logback-access.xml`` \n   to ensure it replaces the default file in the |onprem| Pods.\n   To learn more, see :ref:`k8s-om-log-rotation-crd`.\n\n.. setting:: spec.logging.logBackAccessRef\n\n   *Type:* string \n\n   Reference to a ConfigMap that contains a custom ``logback-access.xml`` file \n   for configuring |onprem| logs.\n\n   The key in the ConfigMap must be exactly ``logback-access.xml`` to ensure it \n   replaces the default file in the |onprem| Pods.\n\n   To learn more, see :ref:`k8s-om-log-rotation-crd`.\n\n.. setting:: spec.logging.logBackRef\n\n   *Type:* string \n\n   Reference to a ConfigMap that contains a custom ``logback.xml`` file. This file\n   configures the general logging behavior for |onprem|, including log rotation\n   policies, log levels, and other logging parameters.\n\n   The key in the ConfigMap must be exactly ``logback.xml`` to ensure it replaces\n   the default file in the |onprem| Pods.\n\n   To learn more, see :ref:`k8s-om-log-rotation-crd`.\n\n.. opsmgrkube:: spec.opsManagerURL\n\n   *Type*: string\n\n   *Optional*. The URL for the |onprem| resource in the |k8s-op-short|,\n   for example: ``https://link.to.configured.lb.example.com``.\n\n   - If you omit this parameter, then to connect to |onprem| instances\n     the |k8s-op-short| uses the following URL as the default for the\n     |onprem| instance: ``<om-name>-svc.{namespace}.svc.cluster.local``.\n     This is the |fqdn| of the headless service for |onprem|.\n   \n   - If you specify this parameter, this allows you to change this URL to a\n     different one.\n\n   .. note::\n\n      Don't confuse the :opsmgrkube:`spec.opsManagerURL` with the URL that\n      you :ref:`specify in a ConfigMap <create-k8s-project>` for a particular\n      deployment to configure MongoDB deployments and {+monitoring-agent+}s\n      for the {+appdb+}. The |k8s-op-short| requires to have the\n      :opsmgrkube:`spec.opsManagerURL` to directly connect to |onprem|\n      instances and to configure |onprem| and {+appdb+} deployments.\n      The |k8s-op-short| doesn't use the :opsmgrkube:`spec.opsManagerURL`\n      to manage particular MongoDB databases.\n\n   Change the :opsmgrkube:`spec.opsManagerURL` parameter to a custom URL\n   in the following cases:\n\n   - When you deploy |onprem| across multiple |k8s| clusters and the default\n     URL is not accessible from the |onprem|-hosting Pod.  For example, when\n     you deploy |onprem| on other |k8s| clusters than those on which you\n     deploy the |k8s-op-short|, the |fqdn| for the |onprem| service might\n     not be accessible. In this case, you can specify a custom URL.\n\n   - When you configure external access to the |onprem| instance on an external\n     domain, you can specify a custom URL.\n     This also requires the |k8s-op-short| and the {+appdb+}\\'s\n     {+monitoring-agent+}s to use this custom URL instead of the default one.\n\n.. opsmgrkube:: spec.clusterDomain\n\n   *Type*: string\n\n   |k8s| assigns each |k8s-pod| a |fqdn|. The |k8s-op-short| calculates\n   the |fqdn| for each |k8s-pod| using a provided ``clusterDomain``.\n   |k8s| doesn't provide an |api| to query these hostnames.\n\n.. opsmgrkube:: spec.clusterName\n\n   .. important:: ``spec.clusterName`` is Deprecated\n\n      Use :setting:`spec.clusterDomain` instead.\n\n   *Type*: string\n\n   |k8s| assigns each |k8s-pod| a |fqdn|. The |k8s-op-short| calculates\n   the |fqdn| for each |k8s-pod| using a provided ``clusterName``. |k8s|\n   doesn't provide an |api| to query these hostnames.\n\n.. opsmgrkube:: spec.configuration\n\n   *Type*: collection\n\n   |onprem| configuration properties.\n   See :opsmgr:`Ops Manager Configuration Settings\n   </reference/configuration/>` for property names and descriptions.\n   Each property takes a value of type ``string``.\n\n   .. include:: /includes/admonitions/mms-centralurl-external-mdb.rst\n\n.. opsmgrkube:: spec.configuration.mms.featureFlag.automation.verifyDownloads\n\n   *Type*: string\n\n   When set to ``enabled``, the {+mdbagent+} requires signature files \n   for all MongoDB deployments that your |onprem| instance manages. \n\n   When you upgrade the {+mdbagent+} with this option enabled, the current version \n   of the {+mdbagent+} requires signature files of the new {+mdbagent+} binary. \n\n   To learn more, see :ref:`k8s-signatures`.\n.. opsmgrkube:: spec.configuration.mms.featureFlag.backup.queryable\n\n   *Type*: boolean\n\n   Set to ``false`` to disable :opsmgr:`queryable backups </tutorial/query-backup/>`.\n\n.. opsmgrkube:: spec.configuration.mms.featureFlag.backup.wt.queryable\n\n   *Type*: boolean\n\n   Set to ``false`` to disable :opsmgr:`queryable backups </tutorial/query-backup/>`\n   when using WiredTiger.\n\n.. opsmgrkube:: spec.configuration.mms.mongoDbUsage.defaultUsageType\n\n   *Type*: string\n\n   The |k8s| service's :opsmgr:`default server type\n   </reference/config/ui-settings>`.\n\n   Accepted values are: ``PRODUCTION_SERVER``, ``TEST_SERVER``, ``DEV_SERVER``, and\n   ``RAM_POOL``.\n\n.. opsmgrkube:: spec.jvmParameters\n\n   *Type*: array of strings\n\n   *Optional*. |jvm| parameters passed to the |application| in the\n   container. Any parameters given replace the default |jvm| parameters\n   for the |application|.\n\n   This |k8s-op-short| parameter defaults to an empty list.\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-om-specification.txt"
+  },
+  {
+    "code": "            :language: yaml\n\n     - id: replicaset\n       name: Replica Set Pod\n       content: |\n\n         The following example shows a resource specification for a\n         :manual:`replica set </reference/glossary/#std-term-replica-set>` with every setting provided:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-specification.txt"
+  },
+  {
+    "code": "            :language: yaml\n\n     - id: shardedcluster\n       name: Sharded Cluster Pod\n       content: |\n\n         The following example shows a resource specification for a\n         :manual:`sharded cluster </reference/glossary/#std-term-sharded-cluster>` with every setting provided:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-specification.txt"
+  },
+  {
+    "code": "            :language: yaml\n\n.. _statefulset-settings:\n\nStatefulSet Settings\n--------------------\n\nThe following |k8s-statefulsets| settings apply only to replica set and\nsharded cluster resource types.\n\n.. setting:: spec.statefulSet.spec\n\n   *Type*: collection\n\n   Specification for the |k8s-statefulset| that the |k8s-op| creates\n   for |k8s-mdbrscs|.\n\n.. setting:: spec.statefulSet.spec.serviceName\n\n   *Type*: string\n\n   *Default*: ``<resource_name>-svc`` and ``<resource_name>-svc-external``\n\n   Name of the |k8s| service to be created or used for a |k8s-statefulset|.\n   If the service with this name already exists, the |k8s-op-full| doesn't\n   delete or recreate it. This setting lets you create your own custom\n   services and lets the |k8s-op-short| reuse them.\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/k8s-operator-specification.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 7-8\n\n   NAME                                           READY   STATUS    RESTARTS   AGE\n   mongodb-enterprise-operator-6495bdd947-ttwqf   1/1     Running   0          50m\n   my-sharded-cluster-0-0                         1/1     Running   0          12m\n   my-sharded-cluster-1-0                         1/1     Running   0          12m\n   my-sharded-cluster-config-0                    1/1     Running   0          12m\n   my-sharded-cluster-config-1                    1/1     Running   0          12m\n   my-sharded-cluster-mongos-0                    1/1     Running   0          11m\n   my-sharded-cluster-mongos-1                    1/1     Running   0          11m\n   om-0                                           1/1     Running   0          42m\n   om-db-0                                        2/2     Running   0          44m\n   om-db-1                                        2/2     Running   0          43m\n   om-db-2                                        2/2     Running   0          43m\n\n.. _k8s-private-cluster-on-gke:\n\nUpdate Google Firewall Rules to Fix WebHook Issues\n--------------------------------------------------\n\nWhen you deploy |k8s-op-short| to |gke| private clusters, the\n|k8s-mdbrscs| or MongoDBOpsManager resource creation could time out.\nThe following message might appear in the logs: ``Error setting state\nto reconciling: Timeout: request did not complete within requested\ntimeout 30s``.\n\nGoogle configures its firewalls to restrict access to your |k8s|\n|k8s-pods|. To use the webhook service,\n:gcp:`add a new firewall rule </kubernetes-engine/docs/how-to/private-clusters#add_firewall_rules>`\nto grant |gke| control plane access to your webhook service.\n\nThe |k8s-op-short| webhook service runs on port 443.\n\nConfigure Persistent Storage Correctly\n--------------------------------------\n\nIf there are no\n:k8sdocs:`persistent volumes </concepts/storage/persistent-volumes/>`\navailable when you create a resource, the resulting |k8s-pod| stays in\ntransient state and the Operator fails  (after 20 retries) with the\nfollowing error:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/known-issues.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   Failed to apply default image tag \"cp.icr.io/cp/cpd/ibm-cpd-mongodb-agent@\n   sha256:10.14.24.6505-1\": couldn't parse image reference \"cp.icr.io/cp/cpd/\n   ibm-cpd-mongodb-agent@sha256:10.14.24.6505-1\": invalid reference format\n\nAs a workaround, update the Ops Manager {+appdb+} resource definition \nin ``spec.applicationDatabase.podSpec.``:setting:`~spec.podSpec.podTemplate` to \nspecify the new names for the |k8s-op-short| images that contain the digest SHAs, \nsimilar to the following example.\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/known-issues.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n               - name: INIT_APPDB_IMAGE_REPOSITORY\n                 value: quay.io/mongodb/mongodb-enterprise-init-appdb-ubi\n\n.. _agent-image:\n\nAGENT_IMAGE\n-----------\n\n|url| of the repository from which the |k8s-op-short| downloads\nthe {+mdbagent+} image for non-static database deployments. Include the {+mdbagent+} \nversion. To learn more, see :ref:`k8s-container-images`.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n        spec:\n         serviceAccountName: mongodb-enterprise-operator\n           containers:\n             - name: mongodb-enterprise-operator\n               image: <operatorVersionUrl>\n               imagePullPolicy: <policyChoice>\n               env:\n                - name: AGENT_IMAGE\n                  value: quay.io/mongodb/mongodb-agent-ubi:<version>\n\n.. _meko-appdb-agent-version:\n\nAPPDB_AGENT_VERSION\n-------------------\n\n.. include:: /includes/op-setting-descs/appdb-agent-version.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n               - name: APPDB_AGENT_VERSION\n                 value: {+appdb-agent-version+}\n\nAPPDB_IMAGE_REPOSITORY\n----------------------\n\n.. include:: /includes/op-setting-descs/appdb-image-repository.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n        spec:\n         serviceAccountName: mongodb-enterprise-operator\n           containers:\n             - name: mongodb-enterprise-operator\n               image: <operatorVersionUrl>\n               imagePullPolicy: <policyChoice>\n               env:\n                - name: APPDB_IMAGE_REPOSITORY\n                  value: quay.io/mongodb/mongodb-enterprise-appdb-ubi\n\n\n.. _multi-cluster-client-timeout:\n\nCLUSTER_CLIENT_TIMEOUT\n----------------------\n\n.. include:: /includes/op-setting-descs/multi-cluster-client-timeout.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n   \n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n               - name: CLUSTER_CLIENT_TIMEOUT\n                 value: 10\n\n.. _kubectl-database-version:\n\nDATABASE_VERSION\n----------------\n\n.. include:: /includes/op-setting-descs/database-version.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n               - name: DATABASE_VERSION\n                 value: {+version+}\n\nIMAGE_PULL_POLICY\n-----------------\n\n.. include:: /includes/op-setting-descs/image-pull-policy.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n               - name: IMAGE_PULL_POLICY\n                 value: Always\n\nINIT_APPDB_IMAGE_REPOSITORY\n---------------------------\n\n.. include:: /includes/op-setting-descs/init-appdb-image-repository.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n        spec:\n          serviceAccountName: mongodb-enterprise-operator\n            containers:\n              - name: mongodb-enterprise-operator\n                image: <operatorVersionUrl>\n                imagePullPolicy: <policyChoice>\n                env:\n                  - name: INIT_APPDB_IMAGE_REPOSITORY\n                    value: quay.io/mongodb/mongodb-enterprise-init-appdb-ubi\n\nINIT_APPDB_VERSION\n------------------\n\n.. include:: /includes/op-setting-descs/init-appdb-version.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n               - name: INIT_APPDB_VERSION\n                 value: {+version+}\n\nINIT_DATABASE_IMAGE_REPOSITORY\n------------------------------\n\n.. include:: /includes/op-setting-descs/init-database-image-repository.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n               - name: INIT_DATABASE_IMAGE_REPOSITORY\n                 value: quay.io/mongodb/mongodb-enterprise-init-database-ubi\n\nINIT_DATABASE_VERSION\n---------------------\n\n.. include:: /includes/op-setting-descs/init-database-version.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n               - name: INIT_DATABASE_VERSION\n                 value: {+version+}\n\nINIT_OPS_MANAGER_IMAGE_REPOSITORY\n---------------------------------\n\n.. include:: /includes/op-setting-descs/init-ops-manager-image-repository.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n              - name: INIT_OPS_MANAGER_IMAGE_REPOSITORY\n                value: quay.io/mongodb/mongodb-enterprise-init-ops-manager-ubi\n\n\nINIT_OPS_MANAGER_VERSION\n------------------------\n\n.. include:: /includes/op-setting-descs/init-ops-manager-version.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n           serviceAccountName: mongodb-enterprise-operator\n           containers:\n             - name: mongodb-enterprise-operator\n               image: <operatorVersionUrl>\n               imagePullPolicy: <policyChoice>\n               env:\n                 - name: INIT_OPS_MANAGER_VERSION\n                   value: {+version+}\n\n.. _log-file-path:\n\nLOG_FILE_PATH\n-------------\n\nPath to the rotated ``readiness.log`` backup files maintained by the \nReadiness Probe.\n\nThe default value is ``/var/log/mongodb-mms-automation/readiness.log``.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n           serviceAccountName: mongodb-enterprise-operator\n           containers:\n             - name: mongodb-enterprise-operator\n               image: <operatorVersionUrl>\n               imagePullPolicy: <policyChoice>\n               env:\n                 - name: LOG_FILE_PATH\n                   value: /var/log/mongodb-mms-automation/readiness.log\n\nMANAGED_SECURITY_CONTEXT\n------------------------\n\n.. include:: /includes/op-setting-descs/managed-security-context.rst\n\n.. tabs::\n\n   .. tab:: Kubernetes\n      :tabid: k8s\n   \n      The default value is **false**.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "         :linenos:\n\n         spec:\n           template:\n             spec:\n               serviceAccountName: mongodb-enterprise-operator\n               containers:\n                 - name: mongodb-enterprise-operator\n                   image: <operatorVersionUrl>\n                   imagePullPolicy: <policyChoice>\n                   env:\n                     - name: MANAGED_SECURITY_CONTEXT\n                       value: false\n\n   .. tab:: OpenShift\n      :tabid: os\n   \n      The default value is **true**.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "         :linenos:\n\n         spec:\n           template:\n             spec:\n               serviceAccountName: mongodb-enterprise-operator\n               containers:\n                 - name: mongodb-enterprise-operator\n                   image: <operatorVersionUrl>\n                   imagePullPolicy: <policyChoice>\n                   env:\n                     - name: MANAGED_SECURITY_CONTEXT\n                       value: true\n\n.. _agent-image-repo:\n\nMDB_AGENT_IMAGE_REPOSITORY\n--------------------------\n\n|url| of the repository from which the |k8s-op-short| downloads\nthe {+mdbagent+} image for database deployments. To learn more, see :ref:`k8s-container-images`.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n        spec:\n         serviceAccountName: mongodb-enterprise-operator\n           containers:\n             - name: mongodb-enterprise-operator\n               image: <operatorVersionUrl>\n               imagePullPolicy: <policyChoice>\n               env:\n                - name: MDB_AGENT_IMAGE_REPOSITORY\n                  value: quay.io/mongodb/mongodb-agent-ubi\n\n.. _old-suffix:\n\nMDB_APPDB_ASSUME_OLD_FORMAT\n---------------------------\n\n.. include:: /includes/summary-1-20-suffix-change.rst\n\nThe default value is ``false``, which automatically updates the image suffix. \n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n   \n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n               - name: MDB_APPDB_ASSUME_OLD_FORMAT\n                 value: false\n\n.. _mdb-automatic-recovery-enable:\n\nMDB_AUTOMATIC_RECOVERY_ENABLE\n-----------------------------\n\n.. include:: /includes/op-setting-descs/mdb-automatic-recovery-enable.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n        spec:\n           serviceAccountName: mongodb-enterprise-operator\n           containers:\n             - name: mongodb-enterprise-operator\n               image: <operatorVersionUrl>\n               imagePullPolicy: <policyChoice>\n               env:\n                - name: MDB_AUTOMATIC_RECOVERY_ENABLE\n                  value: false\n\n.. _mdb-automatic-backoff-time-s:\n\nMDB_AUTOMATIC_RECOVERY_BACKOFF_TIME_S\n-------------------------------------\n\n.. include:: /includes/op-setting-descs/mdb-automatic-backoff-time-s.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n        spec:\n           serviceAccountName: mongodb-enterprise-operator\n           containers:\n             - name: mongodb-enterprise-operator\n               image: <operatorVersionUrl>\n               imagePullPolicy: <policyChoice>\n               env: \n                - name: MDB_AUTOMATIC_RECOVERY_BACKOFF_TIME_S\n                  value: 3600\n\n.. _mdb-default-architecture:\n\nMDB_DEFAULT_ARCHITECTURE\n------------------------\n\nDetermines the container architecture used by all your deployments:\n\n- The default non-static containers that download the MongoDB binary at runtime, or\n-  :ref:`static-containers` that are immutable at runtime.\n\nTo enable static containers for a single deployment, \nuse :setting:`metadata.annotations.mongodb.com/v1.architecture` in \nthe :ref:`MongoDB resource <k8s-specification>` instead.\n\nThe default is ``non-static``.\n\nTo enable static containers, set to ``static``.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n        spec:\n           serviceAccountName: mongodb-enterprise-operator\n           containers:\n             - name: mongodb-enterprise-operator\n               image: <operatorVersionUrl>\n               imagePullPolicy: <policyChoice>\n               env: \n                - name: MDB_DEFAULT_ARCHITECTURE\n                  value: static\n\n.. _mdb-image-type:\n\nMDB_IMAGE_TYPE\n--------------\n\nThe suffix of the :term:`application database` image. \n\n.. include:: /includes/summary-1-20-suffix-change.rst\n\nThe default is ``-ubi8``.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n   \n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n               - name: MDB_IMAGE_TYPE\n                 value: ubi8\n\n.. _mdb-agent-file-logging:\n\nMDB_WITH_AGENT_FILE_LOGGING\n---------------------------\n\nControls whether log files are output to standard output, such as when \nyou run ``kubectl describe``.\n\nThe default is ``true``.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n              - name: MDB_WITH_AGENT_FILE_LOGGING\n                value: true\n\n.. _mdb-max-concurrent-reconciles:\n\nMDB_MAX_CONCURRENT_RECONCILES\n------------------------------\n\n.. include:: /includes/op-setting-descs/mdb-max-concurrent-reconciles.rst\n\n.. example::\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "      :linenos:\n      \n      spec:\n        template:\n          spec:\n            serviceAccountName: mongodb-enterprise-operator\n            containers:\n              - env:\n                - name: MDB_MAX_CONCURRENT_RECONCILES\n                  value: \"10\"\n\nMONGODB_ENTERPRISE_DATABASE_IMAGE\n---------------------------------\n\n.. include:: /includes/op-setting-descs/mongodb-enterprise-db-image.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n        spec:\n           serviceAccountName: mongodb-enterprise-operator\n           containers:\n             - name: mongodb-enterprise-operator\n               image: <operatorVersionUrl>\n               imagePullPolicy: <policyChoice>\n               env:\n                - name: MONGODB_ENTERPRISE_DATABASE_IMAGE\n                  value: quay.io/mongodb/mongodb-enterprise-database-ubi\n\nOPERATOR_ENV\n------------\n\n.. include:: /includes/op-setting-descs/operator-env.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "    :linenos:\n\n    spec:\n      template:\n        spec:\n          serviceAccountName: mongodb-enterprise-operator\n          containers:\n            - name: mongodb-enterprise-operator\n              image: <operatorVersionUrl>\n              imagePullPolicy: <policyChoice>\n              env:\n                - name: OPERATOR_ENV\n                  value: prod\n\nOPS_MANAGER_IMAGE_PULL_POLICY\n-----------------------------\n\n.. include:: /includes/op-setting-descs/ops-manager-image-pull-policy.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n               - name: OPS_MANAGER_IMAGE_PULL_POLICY\n                 value: Always\n\nOPS_MANAGER_IMAGE_REPOSITORY\n----------------------------\n\n.. include:: /includes/op-setting-descs/ops-manager-image-repository.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n              - name: OPS_MANAGER_IMAGE_REPOSITORY\n                value: quay.io/mongodb/mongodb-enterprise-ops-manager-ubi\n\n.. _readiness-probe-logger-backups:\n\nREADINESS_PROBE_LOGGER_BACKUPS\n------------------------------\n\n.. include:: /includes/op-setting-descs/readiness-probe-logger-backups.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n              - name: READINESS_PROBE_LOGGER_BACKUPS\n                value: 1\n\n.. _readiness-probe-logger-compress:\n\nREADINESS_PROBE_LOGGER_COMPRESS\n-------------------------------\n\nControls whether the rotated ``readiness.log`` backup files maintained by the \nReadiness Probe are compressed to ``readiness.log.gz`` files.\n\nThe default value is ``false``, which leaves the ``readiness.log`` files uncompressed.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n              - name: READINESS_PROBE_LOGGER_COMPRESS\n                value: true\n\n.. _readiness-probe-logger-max-size:\n\nREADINESS_PROBE_LOGGER_MAX_SIZE\n-------------------------------\n\n.. include:: /includes/op-setting-descs/readiness-probe-logger-max-size.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n              - name: READINESS_PROBE_LOGGER_MAX_SIZE\n                value: 125\n\n.. _readiness-probe-logger-max-age:\n\nREADINESS_PROBE_LOGGER_MAX_AGE\n------------------------------\n\n.. include:: /includes/op-setting-descs/readiness-probe-logger-max-age.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n   spec:\n     template:\n       spec:\n         serviceAccountName: mongodb-enterprise-operator\n         containers:\n           - name: mongodb-enterprise-operator\n             image: <operatorVersionUrl>\n             imagePullPolicy: <policyChoice>\n             env:\n              - name: READINESS_PROBE_LOGGER_MAX_AGE\n                value: 3\n\nWATCH_NAMESPACE\n---------------\n\n.. include:: /includes/op-setting-descs/watch-namespace.rst\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :linenos:\n\n    spec:\n      template:\n        spec:\n          serviceAccountName: mongodb-enterprise-operator\n          containers:\n            - name: mongodb-enterprise-operator\n              image: <operatorVersionUrl>\n              imagePullPolicy: <policyChoice>\n              env:\n                - name: WATCH_NAMESPACE\n                  value: <testNamespace>\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/kubectl-operator-settings.txt"
+  },
+  {
+    "code": "   :copyable: false\n \n   error when creating \"my-ops-manager.yaml\":\n   admission webhook \"ompolicy.mongodb.com\" denied the request:\n   shardPodSpec field is not configurable for application databases as\n   it is for sharded clusters and appdb replica sets\n\nWhen the |k8s-op-short| reconciles each resource, it also validates that\nresource. The |k8s-op-short| doesn't require the validation webhook to\ncreate or update resources.\n\nIf you omit the validation webhook, or if you remove the webhook's role\nand binding from the default configuration, or have insufficient\nprivileges to run the configuration, the |k8s-op-short| issues warnings,\nas these are not critical errors. If the |k8s-op-short| encounters a\ncritical error, it marks the resource as ``Failed``.\n\n.. note:: |gke| deployments\n\n   |gke| has a known issue with the webhook when deploying to private\n   clusters. To learn more, see :ref:`k8s-private-cluster-on-gke`.\n\nView All |k8s-mdbrsc| Specifications\n------------------------------------\n\nTo view all |k8s-mdbrsc| specifications in the provided\n|k8s-ns|:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/troubleshooting.txt"
+  },
+  {
+    "code": "      :copyable: false\n\n      apiVersion: mongodb.com/v1\n      kind: MongoDB\n      metadata:\n        annotations:\n          kubectl.kubernetes.io/last-applied-configuration: |\n            {\"apiVersion\":\"mongodb.com/v1\",\"kind\":\"MongoDB\",\"metadata\":{\"annotations\":{},\"name\":\"dublin\",\"namespace\":\"mongodb\"},\"spec\":{\"credentials\":\"credentials\",\"persistent\":false,\"podSpec\":{\"memory\":\"1Gi\"},\"project\":\"my-om-config\",\"type\":\"Standalone\",\"version\":\"4.0.0-ent\"}}\n        clusterDomain: \"\"\n        creationTimestamp: 2018-09-12T17:15:32Z\n        generation: 1\n        name: dublin\n        namespace: mongodb\n        resourceVersion: \"337269\"\n        selfLink: /apis/mongodb.com/v1/namespaces/mongodb/mongodbstandalones/dublin\n        uid: 7442095b-b6af-11e8-87df-0800271b001d\n      spec:\n        credentials: my-credentials\n        type: Standalone\n        persistent: false\n        project: my-om-config\n        version: 4.2.2-ent\n\n.. _k8s-rollback-failure:\n\nRestore StatefulSet that Failed to Deploy\n-----------------------------------------\n\nA StatefulSet |k8s-pod| may hang with a status of ``Pending`` if it\nencounters an error during deployment.\n\n``Pending`` |k8s-pods| do not automatically terminate, even if you\nmake *and apply* configuration changes to resolve the error.\n\nTo return the StatefulSet to a healthy state, apply the configuration\nchanges to the MongoDB resource in the ``Pending`` state, then delete\nthose pods.\n\n.. example::\n\n   A host system has a number of running |k8s-pods|:\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/troubleshooting.txt"
+  },
+  {
+    "code": "      :copyable: false\n      :emphasize-lines: 5\n\n      kubectl get pods\n\n      my-replica-set-0     1/1 Running 2 2h\n      my-replica-set-1     1/1 Running 2 2h\n      my-replica-set-2     0/1 Pending 0 2h\n\n   ``my-replica-set-2`` is stuck in the ``Pending`` stage. To gather\n   more data on the error, run:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/troubleshooting.txt"
+  },
+  {
+    "code": "      :copyable: false\n      :emphasize-lines: 1,5\n\n      kubectl describe pod my-replica-set-2\n\n      <describe output omitted>\n\n      Warning FailedScheduling 15s (x3691 over 3h) default-scheduler\n      0/3 nodes are available: 1 node(s) had taints that the pod\n      didn't tolerate, 2 Insufficient memory.\n\n   The output indicates an error in memory allocation.\n\n   Updating the memory allocations in the MongoDB resource is\n   insufficient, as the pod does not terminate automatically after\n   applying configuration updates.\n\n   To remedy this issue, update the configuration, apply the\n   configuration, then delete the hung pod:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/troubleshooting.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   scheduler error: pvc not found to schedule the pod\n\nTo recover from this error, you must :k8sdocs:`manually create a new PVC\n</tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim>`\nwith the PVC object's name that corresponds to this replica set Pod,\nsuch as ``data-<replicaset-pod-name>``.\n\n.. _k8s-disable-feature-controls:\n\nDisable |onprem| Feature Controls\n---------------------------------\n\nWhen you manage an |onprem| project through the |k8s-op-short|, the\n|k8s-op-short| places the ``EXTERNALLY_MANAGED_LOCK``\n:opsmgr:`feature control policy </reference/api/controlled-features/get-all-feature-control-policies/#response>`\non the project. This policy disables certain features in the |onprem|\napplication that might compromise your |k8s-op-short| configuration. If\nyou need to use these blocked features, you can remove the policy\nthrough the :opsmgr:`feature controls API </reference/api/controlled-features/update-controlled-features-for-one-project/>`,\nmake changes in the |onprem| application, and then restore the original\npolicy through the :opsmgr:`API </reference/api/controlled-features/update-controlled-features-for-one-project/>`.\n\n.. warning::\n\n   The following procedure enables you to use features in the |onprem|\n   application that are otherwise blocked by the |k8s-op-short|.\n\n1. :opsmgr:`Retrieve the feature control policies\n   </reference/api/controlled-features/get-controlled-features-for-one-project/>`\n   for your |onprem| project.\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/troubleshooting.txt"
+  },
+  {
+    "code": "      :emphasize-lines: 3-7\n\n      {\n       \"created\": \"2020-02-25T04:09:42Z\",\n       \"externalManagementSystem\": {\n         \"name\": \"mongodb-enterprise-operator\",\n         \"systemId\": null,\n         \"version\": \"1.4.2\"\n       },\n       \"policies\": [\n         {\n           \"disabledParams\": [],\n           \"policy\": \"EXTERNALLY_MANAGED_LOCK\"\n         },\n         {\n           \"disabledParams\": [],\n           \"policy\": \"DISABLE_AUTHENTICATION_MECHANISMS\"\n         }\n       ],\n       \"updated\": \"2020-02-25T04:10:12Z\"\n      }\n\n#. :opsmgr:`Update </reference/api/controlled-features/update-controlled-features-for-one-project/>`\n   the ``policies`` array with an empty list:\n\n   .. note::\n\n      The values you provide for the ``externalManagementSystem``\n      object, like the ``externalManagementSystem.version`` field, must\n      match values that you received in the response in Step 1.\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/troubleshooting.txt"
+  },
+  {
+    "code": "      :emphasize-lines: 8-12\n\n      curl --user \"{USERNAME}:{APIKEY}\" --digest \\\n           --header \"Accept: application/json\" \\\n           --header \"Content-Type: application/json\" \\\n           --include \\\n           --request PUT \"https://{OPSMANAGER-HOST}:{PORT}/api/public/v1.0/groups/{PROJECT-ID}/controlledFeature?pretty=true\" \\\n           --data\n             '{\n               \"externalManagementSystem\": {\n                 \"name\": \"mongodb-enterprise-operator\",\n                 \"systemId\": null,\n                 \"version\": \"1.4.2\"\n               },\n               \"policies\": []\n             }'\n\n   The previously blocked features are now available in the\n   |onprem| application.\n\n#. Make your changes in the |onprem| application.\n\n#. :opsmgr:`Update </reference/api/controlled-features/update-controlled-features-for-one-project/>`\n   the ``policies`` array with the original feature control policies:\n\n   .. note::\n\n      The values you provide for the ``externalManagementSystem``\n      object, like the ``externalManagementSystem.version`` field, must\n      match values that you received in the response in Step 1.\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/troubleshooting.txt"
+  },
+  {
+    "code": "      :emphasize-lines: 8-12\n\n      curl --user \"{USERNAME}:{APIKEY}\" --digest \\\n           --header \"Accept: application/json\" \\\n           --header \"Content-Type: application/json\" \\\n           --include \\\n           --request PUT \"https://{OPSMANAGER-HOST}:{PORT}/api/public/v1.0/groups/{PROJECT-ID}/controlledFeature?pretty=true\" \\\n           --data\n             '{\n               \"externalManagementSystem\": {\n                 \"name\": \"mongodb-enterprise-operator\",\n                 \"systemId\": null,\n                 \"version\": \"1.4.2\"\n               },\n               \"policies\": [\n                 {\n                   \"disabledParams\": [],\n                   \"policy\": \"EXTERNALLY_MANAGED_LOCK\"\n                 },\n                 {\n                   \"disabledParams\": [],\n                   \"policy\": \"DISABLE_AUTHENTICATION_MECHANISMS\"\n                 }\n               ]\n             }'\n\n   The features are now blocked again, preventing you from making\n   further changes through the |onprem| application. However, the\n   |k8s-op-short| retains any changes you made in the |onprem|\n   application while features were available.\n\n.. _k8s-delete-om:\n\nRemove Resources when the |k8s-op-short| Fails\n----------------------------------------------\n\nWhen you delete a MongoDB custom resource through the |k8s-op-short|, the\n|k8s-op-short| handles the removal of the deployment in |cloud-short| or |onprem|.\nTo learn more, see :ref:`remove-k8s-resource`.\n\nHowever, the removal of resources might :ref:`fail <remove-rsrcs-before-removing-k8s>`\nin |k8s|. For example, if the |k8s-op-short| fails before you delete the MongoDB\nresource, you must manually remove the deployments and delete their projects in\n|cloud-short| or |onprem|.\n\nTo remove |onprem| or |cloud-short| resources manually:\n\n1. :ref:`Disable Ops Manager feature controls <k8s-disable-feature-controls>`.\n\n#. Remove a deployment from |onprem| or |cloud-short| in the project by using the UI\n   or the API.\n\n   Remove a deployment in the |onprem| or |cloud-short| UI.\n   In |onprem|, :opsmgr:`remove a deployment from Automation </tutorial/unmanage-deployment/>`\n   and :opsmgr:`remove a deployment from Monitoring </tutorial/remove-process-from-monitoring/>`.\n\n   In |cloud-short|, :cloudmgr:`remove a deployment from Automation </tutorial/unmanage-deployment/>`\n   and :cloudmgr:`remove a deployment from Monitoring </tutorial/remove-process-from-monitoring/>`.\n\n   Alternatively, remove a deployment by using the API for updating the Automation\n   configuration in |onprem| or |cloud-short| with an empty configuration using\n   the :opsmgr:`Ops Manager API </reference/api/automation-config/update-automation-config/>` request,\n   or the :cloudmgr:`Cloud Manager API </reference/api/automation-config/update-automation-config/>` request.\n\n   Run the command similar to the following |onprem| example:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/troubleshooting.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   TLS attempt failed : x509: certificate is valid for foo.svc.local,\n   not mongo-0-0.mongo-0.mongodb.svc.cluster.local\n\n.. include:: /includes/prereqs/pem-file-domain-name.rst\n\nTo check whether you have correctly configured |tls| certificates:\n\n1. Run:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/troubleshooting.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   Failed to create/update (Ops Manager reconciliation phase):\n   Status: 400 (Bad Request), Detail:\n   Invalid config: MongoDB <version> is not available.\n\nThis may mean that the {+mdbagent+} could not successfully download a\ncorresponding MongoDB binary to the :file:`/var/lib/mongodb-mms-automation`\ndirectory. In cases when the {+mdbagent+} can download the MongoDB\nbinary for the specified MongoDB version successfully, this directory\ncontains a MongoDB binary folder, such as :file:`mongodb-linux-x86_64-4.4.0`.\n\nTo check whether a MongoDB binary folder is present:\n\n1. Specify the Pod's name to this command:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/troubleshooting.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   NAME                                           READY   STATUS    RESTARTS   AGE\n   enterprise-operator-767884c9b4-ltkln           1/1     Running   0          122m\n   mongodb-enterprise-operator-6d69686679-9fzs7   1/1     Running   0          68m\n   \nYou can safely remove the ``enterprise-operator`` deployment. Run the\nfollowing command to remove it:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/troubleshooting.txt"
+  },
+  {
+    "code": "      :linenos:\n\n      spec:\n        template:\n           spec:\n              serviceAccountName: mongodb-enterprise-operator\n              containers:\n                - name: mongodb-enterprise-operator\n                  image: <operatorVersionUrl>\n                  imagePullPolicy: <policyChoice>\n                  env:\n                   - name: MDB_AUTOMATIC_RECOVERY_ENABLE\n                     value: true\n                   - name: MDB_AUTOMATIC_RECOVERY_BACKOFF_TIME_S\n                     value: 1200\n\nTo learn how to define environment variables, see \n:k8sdocs:`Define Environment Variables for a Container \n</tasks/inject-data-application/define-environment-variable-container>`.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/reference/troubleshooting.txt"
+  },
+  {
+    "code": "  :language: shell\n  :linenos:\n\nAdjust the settings in the previous example for your needs as instructed\nin the comments and source them into your shell as follows:\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/deploy-om-multi-cluster.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   source env_variables.sh\n\n.. important::\n\n   Each time after you update ``env_variables.sh``, run ``source env_variables.sh`` \n   to ensure that the scripts in this section use updated variables.\n\n.. _deploy-om-mc-procedure:\n\nProcedure\n---------\n\nThis procedure applies to deploying an |onprem| instance on multiple\n|k8s| clusters.\n\n.. procedure::\n   :style: normal\n\n   .. include:: /includes/steps-deploy-k8s-om-multi-https.rst\n\n",
+    "language": "shell",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/deploy-om-multi-cluster.txt"
+  },
+  {
+    "code": "            :copyable: false\n\n            helm install enterprise-operator mongodb/enterprise-operator\n\n         This example shows how to install the |k8s-op-short| with the image \n         created at midnight on February 5th, 2021:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/install-k8s-operator.txt"
+  },
+  {
+    "code": "            :copyable: false\n\n            helm install enterprise-operator mongodb/enterprise-operator \\\n              --set build=-b20210205T000000Z\n\n      .. note::\n         \n         MongoDB recommends using the default (latest) build.\n  \n.. _install-k8s-openshift:\n\nInstall with OpenShift\n----------------------\n\nBefore you begin, ensure that the ``MANAGED_SECURITY_CONTEXT`` flag is set \nto ``true`` when you deploy the |k8s-op-short| to OpenShift. This value is \npre-defined in the `values-openshift.yaml \n<https://raw.githubusercontent.com/mongodb/helm-charts/main/charts/enterprise-operator/values-openshift.yaml>`__ file.\n\nThe installation procedure varies based on how you want to configure your\nenvironment:\n\n.. tabs::\n\n   .. tab:: Using oc\n      :tabid: os\n\n      .. include:: /includes/install/same-namespace-oc.rst\n\n      .. include:: /includes/steps/install-oc.rst\n\n   .. tab:: Using Helm\n      :tabid: os-helm-online\n\n      Use the `MongoDB Helm Charts for Kubernetes <https://mongodb.github.io/helm-charts>`__.\n\n      .. include:: /includes/install/install-os-online-helm.rst\n      \n      Install a Specific Daily Build with Helm\n      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n      MongoDB rebuilds |k8s-op-short| images every day to integrate the \n      latest security and OS updates.\n\n      By default, ``helm`` installs the latest build for the version of \n      the |k8s-op-short| you specify.\n\n      To install an earlier build, specify the build ID as a parameter with \n      ``--set build=<build-id>``. Build IDs are always in the format \n      ``-b<YYYYMMDD>T000000Z``, where ``<YYYYMMDD>`` is the date that the \n      build you want to use was created.\n\n      .. example::\n\n         This example shows how to install the |k8s-op-short| with the latest \n         image:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/install-k8s-operator.txt"
+  },
+  {
+    "code": "            :copyable: false\n\n            helm install enterprise-operator mongodb/enterprise-operator\n\n         This example shows how to install the |k8s-op-short| with the image \n         created at midnight on February 5th, 2021:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/install-k8s-operator.txt"
+  },
+  {
+    "code": "            :copyable: false\n\n            helm install enterprise-operator mongodb/enterprise-operator \\\n              --set build=-b20210205T000000Z\n\n      .. note::\n         \n         MongoDB recommends using the default (latest) build.\n\nVerify the Installation\n-----------------------\n\n.. include:: /includes/install/verify-meko-installation.rst\n\nNext Steps\n----------\n\nAfter installing the |k8s-op-full|, you can:\n\n- :doc:`Create an instance of Ops Manager </tutorial/deploy-om-container>`\n\n- :doc:`Configure the Kubernetes Operator to deploy MongoDB resources </configure-k8s-operator-for-mdb-resources>`\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/install-k8s-operator.txt"
+  },
+  {
+    "code": "      :linenos:\n\n      spec:\n        template:\n          spec:\n            serviceAccountName: mongodb-enterprise-operator\n            containers:\n              - name: mongodb-enterprise-operator\n                image: <operatorVersionUrl>\n                imagePullPolicy: <policyChoice>\n                env:\n                  - name: INIT_APPDB_IMAGE_REPOSITORY\n                    value: quay.io/mongodb/mongodb-enterprise-init-appdb\n\n   After adding the necessary suffix, your configuration should match the\n   configuration below:\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/migrate-k8s-images.txt"
+  },
+  {
+    "code": "      :linenos:\n\n      spec:\n        template:\n          spec:\n            serviceAccountName: mongodb-enterprise-operator\n            containers:\n              - name: mongodb-enterprise-operator\n                image: <operatorVersionUrl>\n                imagePullPolicy: <policyChoice>\n                env:\n                  - name: INIT_APPDB_IMAGE_REPOSITORY\n                    value: quay.io/mongodb/mongodb-enterprise-init-appdb-ubi\n\nAfter saving the changes, reapply your configuration file.\n\nFor users running vanilla Kubernetes: \n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/migrate-k8s-images.txt"
+  },
+  {
+    "code": "      :copyable: false\n\n      > kubectl exec -n <metadata.namespace> -it <pod-name> -- cat /proc/sys/net/ipv4/tcp_keepalive_time\n\n\n      > 120\n\n.. seealso::\n\n   :manual:`Operating System Configuration \n   </administration/production-checklist-operations/#linux>` in the\n   MongoDB Manual.\n\nBuild Custom Images with Dockerfile Templates\n---------------------------------------------\n\nYou can modify MongoDB Dockerfile templates to create custom \n|k8s-op-short| images that suit your use case. To build a \ncustom image, you need:\n\n- Your custom Dockerfile, modified from a MongoDB template.\n\n- The MongoDB-provided context image for your template.\n\nMongoDB Dockerfile Templates\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe Dockerfiles used to build container images are publicly \navailable from the \n`MongoDB Enterprise Kubernetes GitHub repository <https://github.com/mongodb/mongodb-enterprise-kubernetes/tree/master/dockerfiles>`__.\n\nThe Dockerfile directory is organized by resource name, version and \ndistribution:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/modify-resource-image.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   ├── <resource name>\n   │   └── <image version>\n   │       └── <base distribution>\n   │           └── Dockerfile template\n\nCopy the template you want to use to your own Dockerfile and modify as \ndesired.\n\nContext Images\n~~~~~~~~~~~~~~\n\nTo build an image from any MongoDB Dockerfile template, you must supply \nits context image. \n\nEach Dockerfile template has one associated context image, retrievable \nfrom the same |quay| registry as the original images. Context image are\nalways tagged in the format ``quay.io/mongodb/<resource-name>:<image-version>-context``.\n\nTo supply a context image to ``docker build``, include the \n``--build-arg`` option with the ``imagebase`` variable set to a \nQuay.io tag, where ``<resource-name>`` and ``<image-version>`` match \nyour Dockerfile template.\n\n.. example::\n   \n   If you want to build the ``mongodb-enterprise-database`` version \n   2.0.0 image for any distribution, include:\n   \n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/modify-resource-image.txt"
+  },
+  {
+    "code": "      :copyable: false\n\n      --build-arg imagebase=quay.io/mongodb/mongodb-enterprise-database:2.0.0-context\n\n``docker build`` Example\n~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe Ubuntu distribution for ``mongodb-enterprise-operator`` version \n1.9.1 is based on ``ubuntu:1604`` by default. In this example, that \nbase Dockerfile template is modified to use ``ubuntu:1804`` and \nsaved as ``myDockerfile``.\n\nThe following command builds the custom image and gives it the tag \n``1.9.1-ubuntu-1804``:\n \n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/modify-resource-image.txt"
+  },
+  {
+    "code": "   :copyable: false\n \n   cat myDockerfile | docker build --build-arg imagebase=quay.io/mongodb/mongodb-enterprise-operator:1.9.1-context \\\n   --tag mongodb-enterprise-operator:1.9.1-ubuntu-1804 -\n\n.. note::\n\n   Include a hyphen (``-``) at the end of ``docker build`` to read \n   the output of ``cat myDockerfile`` instead of providing a \n   local directory as build context.\n      \n.. seealso::\n   \n   To learn more about ``docker build``, see the \n   `Docker documentation <https://docs.docker.com/engine/reference/commandline/build/>`__.\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/modify-resource-image.txt"
+  },
+  {
+    "code": "           :language: yaml\n           :linenos:\n\n5. The |k8s-op-short| connects to the |onprem| instances referencing either:\n\n   - The default |fqdn| of the service it creates for the |onprem| resource,\n     ``<om_resource_name>-svc.<namespace>.svc.cluster.local``, or\n   - The URL that you specify in :opsmgrkube:`spec.opsManagerURL`.\n     In some deployments, such as when the cluster where you installed the\n     |k8s-op-short| isn't attached to the service mesh, the default service\n     |fqdn| might be unreachable. In this case, the |k8s-op-short| reports\n     the ``MongoDBOpsManager`` resource status as ``Failed`` indicating a\n     connection error. To account for such cases, provide the URL to |onprem|\n     in the :opsmgrkube:`spec.opsManagerURL`. This URL might be a hostname of\n     an externally exposed |onprem| instance. To learn more, see :ref:`om-networking-overview`.\n\n6. Two member clusters host the :term:`Ops Manager Application <Ops Manager Application>`.\n   In each cluster, the |k8s-op-short| deploys a StatefulSet named ``<om_resource_name>-<cluster_index>``.\n\n   - The StatefulSet deploys two instances of the |application| in ``Member Cluster 1``\n     and one instance in ``Member Cluster 2``.\n\n   - You define the number of instances in :opsmgrkube:`spec.clusterSpecList.members`.\n     You might set the number of instances to zero so that this cluster doesn't\n     deploy any |application| instances. This is useful, if, for example,\n     you would like to use this cluster for hosting only Backup Daemon instances.\n\n     If you remove a cluster from :opsmgrkube:`spec.clusterSpecList`, this is\n     equivalent to specifying zero members in :opsmgrkube:`spec.clusterSpecList.members`\n     and :opsmgrkube:`spec.clusterSpecList[*].backup.members`.\n\n   - For each StatefulSet in each cluster, the |k8s-op-short| configures a\n     |k8s-service| of type ``ClusterIP``, named ``<om_resource_name>-svc``,\n     that contains all Pods on the cluster's endpoints list. This service's\n     FQDN, ``<om_resource_name>-svc.<namespace>.svc.cluster.local``, is a\n     default hostname that the |k8s-op-short| uses to access the deployed\n     endpoint for the |application|.\n\n   - If you specify :opsmgrkube:`spec.externalConnectivity`, the |k8s-op-short|\n     also creates an external |k8s| ``LoadBalancer``-type service, named\n     ``<om_resource_name>-svc-ext``, for each cluster. In each cluster,\n     you can specify its own configuration for this external service using\n     :opsmgrkube:`spec.clusterSpecList.externalConnectivity`. For example,\n     you can change the service's type or define annotations.\n\n7. {+appdb+}. The |k8s-op-short| deploys the {+appdb+} on two clusters.\n\n   - The ``Member Cluster 1`` contains three |mongod| processes for the\n     {+appdb+}, and the ``Member Cluster 2`` contains two |mongod|\n     processes..\n\n   - You define the {+appdb+} configuration using the\n     :opsmgrkube:`spec.applicationDatabase` settings. On each member cluster,\n     the |k8s-op-short| creates a StatefulSet named ``<om_resource_name>-db-<cluster_index>``\n     with the number of member clusters defined in :opsmgrkube:`spec.applicationDatabase.clusterSpecList.members`.\n     In multi-cluster mode, the |k8s-op-short| ignores values that you set\n     for the :setting:`spec.applicationDatabase.members <spec.members>` field.\n     The |k8s-op-short| configures one replica set formed from |mongod|\n     processes deployed across all member clusters.\n\n   - For each Pod in ``<statefulset_name>-<pod_index>`` hosting a MongoDB\n     process named ``<om_resource_name>-db-<cluster_index>-<pod_index>``,\n     the |k8s-op-short| creates a |k8s| ``ClusterIP``-type service for accessing\n     the individual |mongod| processes by its |fqdn|,\n     ``<om_resource_name>-db-<cluster_index>-<pod_index>-svc``. Each |mongod|\n     process in the replica set must be uniquely addressable.\n\n     The processes in the replica set configuration must have their process hostnames\n     configured to that Pod service's |fqdn|: ``<om_resource_name>-db-<cluster_index>-<pod_index>-svc.<namespace>.svc.cluster.local``.\n\n   - Each Pod has its persistent volume attached via a |k8s-pvc| that the\n     |k8s-op-short| creates.\n\n   - To form a replica set from all |mongod| processes, each process must\n     connect to each other process for replication purposes. To achieve this,\n     include all member clusters on which you deploy the {+appdb+}\n     into the same service mesh configuration.\n\n     The service mesh handles cross-cluster DNS queries and routes the traffic accordingly.\n     The service mesh assists in resolving each Pod service's |fqdn|\n     ``<om_resource_name>-db-<cluster_index>-<pod-index>-svc.<namespace>.svc.cluster.local``\n     across all clusters and allows connectivity on the exposed |mongod| port\n     (27017 by default).\n\n     For example, when a |mongod| process running in the ``om-db-1-0`` Pod\n     in ``Member Cluster 1`` connects to a |mongod| running in the\n     ``om-db-2-1`` Pod in ``Member Cluster 2``, the first |mongod| process\n     uses its hostname from the Automation Configuration, ``om-db-2-1-svc.om-ns.svc.cluster.local:27017``,\n     and the service mesh routes this request to ``Member Cluster 2`` to\n     the ``om-db-2-1-svc`` service.\n     Without the service mesh, the |k8s| ``Member Cluster 1`` has no information\n     about the ``om-db-2-1-svc`` service deployed in the ``Member Cluster 2``\n     and the DNS resolution of ``om-db-2-1-svc.om-ns.svc.cluster.local``\n     would fail.\n\n   - When the {+appdb+} and the |application| instances are in a\n     ``Running`` state, the |k8s-op-short| adds an additional monitoring\n     container to the {+appdb+} StatefulSets. This results in\n     a rolling restart of all {+appdb+} Pods in all clusters.\n     The |k8s-op-short| updates the StatefulSets across all clusters\n     sequentially, so that during the rolling restart process, in each\n     cluster, only one replica set's member becomes temporarily unavailable.\n\n   - The {+monitoring-agent+} connects to the |application| instances using\n     the |onprem| service's |fqdn|, ``<om_resource_name>-svc.<namespace>.svc.cluster.local``,\n     or the value in :opsmgrkube:`spec.opsManagerURL` if you specify it.\n\n     The |application| and the Backup Daemon always use the connection string\n     to the {+appdb+} that contains all replica set members in it.\n     The connection string is always constructed using the service-per-pod\n     FQDNs.\n\n8. The |k8s-op-short| deploys the Backup Daemon StatefulSets if you set\n   the :opsmgrkube:`spec.backup.enabled` to ``true``. \n   \n   - On each member cluster listed in the :opsmgrkube:`spec.clusterSpecList`, the |k8s-op-short|\n     creates one Backup Daemon StatefulSet, named ``<om_resource_name>-backup-daemon-<cluster_index>``\n     with the number of Backup Daemon instances set to :opsmgrkube:`spec.backup.members`.\n   \n     Alternatively, you can configure the number of Backup Daemon instances\n     for each cluster in :opsmgrkube:`spec.clusterSpecList[*].backup.members`.\n\n   - The Backup Daemon instances connect only to the {+appdb+}\n     replica set using the same connection string as the |application|\n     instances.\n\nIn addition, in this diagram, you can observe the service mesh and the\nnetworking connections between the components:\n\n- The dotted lines surrounding the diagram show the single service mesh that\n  includes the networking configuration for all clusters.\n- The dotted lines surrounding the |application| across member clusters\n  indicate that these instances are stateless and the traffic can be\n  equally distributed to all instances, for example by using using a\n  round-robin load balancer.\n\n- The dotted lines surrounding the {+appdb+} across member\n  clusters indicate that these instances communicate with each other and\n  form a single MongoDB replica set.\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/om-diagram-multi-cluster.txt"
+  },
+  {
+    "code": "      :copyable: false\n      :linenos:\n\n      apiVersion: mongodb.com/v1\n      kind: MongoDB\n      metadata:\n        name: my-replica-set\n      spec:\n        members: 3\n        version: 4.2.1-ent\n        service: my-service\n\n        ...\n          podTemplate:\n            spec:\n              affinity:\n                podAffinity:\n                  requiredDuringSchedulingIgnoredDuringExecution:\n                    - labelSelector:\n                        matchExpressions:\n                          - key: security\n                            operator: In\n                            values:\n                              - S1\n                      topologyKey: failure-domain.beta.kubernetes.io/zone\n                nodeAffinity:\n                  requiredDuringSchedulingIgnoredDuringExecution:\n                    nodeSelectorTerms:\n                      - matchExpressions:\n                          - key: kubernetes.io/e2e-az-name\n                            operator: In\n                            values:\n                              - e2e-az1\n                              - e2e-az2\n                podAntiAffinity:\n                  requiredDuringSchedulingIgnoredDuringExecution:\n                  - podAffinityTerm:\n                      topologyKey: nodeId\n\nSee the full example of multiple availability zones and node affinity\nconfiguration in\n:github:`replica-set-affinity.yaml </mongodb/mongodb-enterprise-kubernetes/blob/master/samples/mongodb/affinity/replica-set-affinity.yaml>`\nin the :github:`Affinity Samples </mongodb/mongodb-enterprise-kubernetes/tree/master/samples/mongodb/persistent-volumes>`\ndirectory.\n\nThis directory also contains sample affinity and multiple\nzones configurations for sharded clusters and standalone\nMongoDB deployments.\n\n.. seealso::\n\n   - :k8sdocs:`Assigning Pods to Nodes </concepts/scheduling-eviction/assign-pod-node/#nodeselector>`\n   - :k8sdocs:`Node affinity and anti-affinity </concepts/configuration/assign-pod-node/#affinity-and-anti-affinity>`\n   - :k8sdocs:`Kubernetes PodSpec v1 core API </reference/generated/kubernetes-api/{+k8s-api-version+}/#podspec-v1-core>`\n\nName Your MongoDB Service with its Purpose\n------------------------------------------\n\nSet the :setting:`spec.service` parameter to a value that identifies\nthis deployment's purpose, as illustrated in the following example.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/plan-k8s-op-considerations.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :linenos:\n   :emphasize-lines: 8\n\n   apiVersion: mongodb.com/v1\n   kind: MongoDB\n   metadata:\n     name: my-replica-set\n   spec:\n     members: 3\n     version: \"6.0.0-ent\"\n     service: drilling-pumps-geosensors\n     featureCompatibilityVersion: \"4.0\"\n\n.. seealso::\n\n   :setting:`spec.service`\n\nUse Labels to Differentiate Between Deployments\n-----------------------------------------------\n\nUse the :k8sdocs:`Pod affinity\n</concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity>`\n|k8s| feature to:\n\n- Separate different MongoDB resources, such as ``test``, ``staging``,\n  and ``production`` environments.\n\n- Place |k8s-pods| on some specific nodes to take advantage of\n  features such as |ssd| support.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/plan-k8s-op-considerations.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :linenos:\n\n   mongosPodSpec:\n     podAffinity:\n       requiredDuringSchedulingIgnoredDuringExecution:\n         - labelSelector:\n           matchExpressions:\n           - key: security\n             operator: In\n             values:\n             - S1\n           topologyKey: failure-domain.beta.kubernetes.io/zone\n\n.. seealso::\n\n  :k8sdocs:`Pod affinity\n  </concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity>`\n\nCustomize the CustomResourceDefinitions that the |k8s-op-short| Watches\n-----------------------------------------------------------------------\n\nYou can specify which custom resources you want the |k8s-op-short|\nto watch. This allows you to install the CustomResourceDefinition for\nonly the resources that you want the |k8s-op-short| to manage.\n\nYou must use ``helm`` to configure the |k8s-op-short| to watch only the\ncustom resources you specify. Follow the relevant ``helm``\n:ref:`installation instructions <install-k8s-operator>`,\nbut make the following adjustments:\n\n1. Decide which CustomResourceDefinitions you want to install. You can\n   install any number of the following:\n\n   .. include:: /includes/list-tables/crds.rst\n\n#. Install the Helm Chart and specify which \n   CustomResourceDefinitions you want the \n   |k8s-op-short| to watch.\n   \n   Separate each custom resource with a comma:\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/plan-k8s-op-considerations.txt"
+  },
+  {
+    "code": "   :linenos:\n   :emphasize-lines: 8, 13-19\n   \n\n   apiVersion: mongodb.com/v1\n   kind: MongoDB\n   metadata:\n     name: my-replica-cluster\n   spec:\n     \n     ...\n     persistent: true\n     \n     \n     shardPodSpec:\n     ...\n       persistence:\n         multiple:\n           data:\n             storage: \"20Gi\"\n           logs:\n             storage: \"4Gi\"\n             storageClass: standard\n\nFor a full example of persistent volumes configuration, see\n:github:`replica-set-persistent-volumes.yaml \n</mongodb/mongodb-enterprise-kubernetes/blob/master/samples/mongodb/persistent-volumes/replica-set-persistent-volumes.yaml>`\nin the :github:`Persistent Volumes Samples\n</mongodb/mongodb-enterprise-kubernetes/tree/master/samples/mongodb/persistent-volumes>` directory. This\ndirectory also contains sample persistent volumes configurations for\nsharded clusters and standalone deployments.\n\n.. seealso::\n\n   - :setting:`spec.persistent`\n   - :setting:`spec.podSpec.persistence.single`\n   - :setting:`spec.podSpec.persistence.multiple.data`\n\n.. _operator_pod_resources:\n\nSet CPU and Memory Utilization Bounds for the |k8s-op-short| Pod\n----------------------------------------------------------------\n\nWhen you deploy MongoDB replica sets with the |k8s-op-short|, the initial \nreconcilliation process increases CPU usage for the Pod running the \n|k8s-op-short|. However, when the replica set deployment process completes, \nthe CPU usage by the |k8s-op-short| reduces considerably. \n\n.. note:: \n\n   The severity of CPU usage spikes in the |k8s-op-short| is directly impacted\n   by :ref:`the thread count <increase-thread-count-ops-manager>` of the \n   |k8s-op-short|, as the thread count (defined by the :ref:`MDB_MAX_CONCURRENT_RECONCILES <mdb-max-concurrent-reconciles>` value) \n   is equal to the number of reconcilliation processes that can be running in \n   parallel at any given time.\n\nFor production deployments, to satisfy deploying up to 50 MongoDB\nreplica sets or sharded clusters in parallel with the |k8s-op-short|,\nset the CPU and memory resources and limits for the |k8s-op-short| Pod\nas follows:\n\n- ``spec.template.spec.containers.resources.requests.cpu`` to 500m\n- ``spec.template.spec.containers.resources.limits.cpu`` to 1100m\n- ``spec.template.spec.containers.resources.requests.memory`` to 200Mi\n- ``spec.template.spec.containers.resources.limits.memory`` to 1Gi\n\n\nIf you use Helm to deploy resources, define these values in \nthe :ref:`values.yaml file <k8s-op-resources-setting>`. \n  \nThe following abbreviated example shows the configuration with\nrecommended CPU and memory bounds for the |k8s-op-short| Pod in your\ndeployment of 50 replica sets or sharded clusters. If you are\ndeploying fewer than 50 MongoDB clusters, you may use lower\nnumbers in the configuration file for the |k8s-op-short| Pod.\n\n.. example::\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/plan-k8s-op-considerations.txt"
+  },
+  {
+    "code": "      :copyable: false\n      :linenos:\n      :emphasize-lines: 24-25, 34-40\n\n      apiVersion: apps/v1\n      kind: Deployment\n      metadata:\n       name: mongodb-enterprise-operator\n       namespace: mongodb\n      spec:\n       replicas: 1\n       selector:\n        matchLabels:\n           app.kubernetes.io/component: controller\n           app.kubernetes.io/name: mongodb-enterprise-operator\n           app.kubernetes.io/instance: mongodb-enterprise-operator\n       template:\n        metadata:\n         labels:\n           app.kubernetes.io/component: controller\n           app.kubernetes.io/name: mongodb-enterprise-operator\n           app.kubernetes.io/instance: mongodb-enterprise-operator\n         spec:\n           serviceAccountName: mongodb-enterprise-operator\n           securityContext:\n             runAsNonRoot: true\n             runAsUser: 2000\n           containers:\n           - name: mongodb-enterprise-operator\n             image: quay.io/mongodb/mongodb-enterprise-operator:1.9.2\n             imagePullPolicy: Always\n             args:\n              - \"-watch-resource=mongodb\"\n              - \"-watch-resource=opsmanagers\"\n              - \"-watch-resource=mongodbusers\"\n             command:\n              - \"/usr/local/bin/mongodb-enterprise-operator\"\n             resources:\n               limits:\n                 cpu: 1100m\n                 memory: 1Gi\n               requests:\n                 cpu: 500m\n                 memory: 200Mi\n\nFor a full example of CPU and memory utilization resources and limits\nfor the |k8s-op-short| Pod that satisfy parallel deployment of up to\n50 MongoDB replica sets, see the :github:`mongodb-enterprise.yaml\n</mongodb/mongodb-enterprise-kubernetes/blob/master/mongodb-enterprise.yaml#L219-L235>`\nfile.\n\n.. seealso::\n\n   - :k8sdocs:`Requests and Limits </concepts/configuration/manage-resources-containers/#requests-and-limits>`\n   - :k8sdocs:`Assign CPU Resources to Containers and Pods </tasks/configure-pod-container/assign-cpu-resource/>`\n\n.. _mdb_pods_resources:\n\nSet CPU and Memory Utilization Bounds for MongoDB Pods\n-------------------------------------------------------\n\nThe values for Pods hosting replica sets or sharded clusters map\nto the :k8sdocs:`requests field </reference/generated/kubernetes-api/{+k8s-api-version+}/#resourcerequirements-v1-core>`\nfor CPU and memory for the created Pod. These values are consistent\nwith :manual:`considerations </administration/production-notes#allocate-sufficient-ram-and-cpu>`\nstated for MongoDB hosts.\n\nThe |k8s-op-short| uses its allocated memory for processing, for the\nWiredTiger cache, and for storing packages during the deployments.\n\nFor production deployments, set the CPU and memory resources and limits\nfor the MongoDB Pod as follows:\n\n- ``spec.podSpec.podTemplate.spec.containers.resources.requests.cpu`` to 0.25\n- ``spec.podSpec.podTemplate.spec.containers.resources.limits.cpu`` to 0.25\n- ``spec.podSpec.podTemplate.spec.containers.resources.requests.memory`` to 512M\n- ``spec.podSpec.podTemplate.spec.containers.resources.limits.memory`` to 512M\n\nIf you use Helm to deploy resources, define these values in \nthe :ref:`values.yaml file <k8s-op-resources-setting>`. \n\nThe following abbreviated example shows the configuration with\nrecommended CPU and memory bounds for each Pod hosting a MongoDB\nreplica set member in your deployment.\n\n.. example::\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/plan-k8s-op-considerations.txt"
+  },
+  {
+    "code": "     :linenos:\n     :emphasize-lines: 5, 12-20\n     :copyable: false\n\n     apiVersion: mongodb.com/v1\n     kind: MongoDB\n     metadata:\n     name: my-replica-set\n     spec:\n       members: 3\n       version: 4.0.0-ent\n       service: my-service\n       ...\n\n       persistent: true\n       podSpec:\n         podTemplate:\n           spec:\n             containers:\n             - name: mongodb-enterprise-database\n               resources:\n                 limits:\n                   cpu: \"0.25\"\n                   memory: 512M\n\nFor a full example of CPU and memory utilization resources and limits\nfor Pods hosting MongoDB replica set members, see the\n:github:`replica-set-podspec.yaml </mongodb/mongodb-enterprise-kubernetes/blob/master/samples/mongodb/podspec/replica-set-podspec.yaml#L38-L45>`\nfile in the :github:`MongoDB Podspec Samples </mongodb/mongodb-enterprise-kubernetes/tree/master/samples/mongodb/podspec>` directory.\n\nThis directory also contains sample CPU and memory limits\nconfigurations for Pods used for:\n\n- A sharded cluster, in the :github:`sharded-cluster-podspec.yaml </mongodb/mongodb-enterprise-kubernetesblob/master/samples/mongodb/podspec/sharded-cluster-podspec.yaml#L62-91>`.\n- Standalone MongoDB deployments, in the :github:`standalone-podspec.yaml </mongodb/mongodb-enterprise-kubernetesblob/master/samples/mongodb/podspec/standalone-podspec.yaml#L36-39>`.\n\n.. seealso::\n\n   - :setting:`spec.podSpec.podTemplate.spec`\n   - :k8sdocs:`Requests and Limits </concepts/configuration/manage-resources-containers/#requests-and-limits>`\n   - :k8sdocs:`Assign CPU Resources to Containers and Pods </tasks/configure-pod-container/assign-cpu-resource/>`\n\nUse Multiple Availability Zones\n-------------------------------\n\nSet the |k8s-op-short| and |k8s-statefulsets| to distribute all members\nof one replica set to different |k8s-nodes| to ensure high\navailability.\n\nThe following abbreviated example shows affinity and multiple\navailability zones configuration.\n\n.. example::\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/plan-k8s-op-considerations.txt"
+  },
+  {
+    "code": "      :copyable: false\n      :linenos:\n\n      apiVersion: mongodb.com/v1\n      kind: MongoDB\n      metadata:\n        name: my-replica-set\n      spec:\n        members: 3\n        version: 4.2.1-ent\n        service: my-service\n        ...\n          podAntiAffinityTopologyKey: nodeId\n          podAffinity:\n            requiredDuringSchedulingIgnoredDuringExecution:\n            - labelSelector:\n              matchExpressions:\n              - key: security\n                operator: In\n                values:\n                - S1\n              topologyKey: failure-domain.beta.kubernetes.io/zone\n\n          nodeAffinity:\n             requiredDuringSchedulingIgnoredDuringExecution:\n               nodeSelectorTerms:\n               - matchExpressions:\n                 - key: kubernetes.io/e2e-az-name\n                 operator: In\n                 values:\n                 - e2e-az1\n                 - e2e-az2\n\nIn this example, the |k8s-op-short| schedules the Pods deployment to\nthe nodes which have the label ``kubernetes.io/e2e-az-name`` in ``e2e-az1`` or\n``e2e-az2`` availability zones. Change ``nodeAffinity`` to\nschedule the deployment of Pods to the desired availability zones.\n\nSee the full example of multiple availability zones configuration in\n:github:`replica-set-affinity.yaml </mongodb/mongodb-enterprise-kubernetes/blob/master/samples/mongodb/affinity/replica-set-affinity.yaml>`\nin the :github:`Affinity Samples </mongodb/mongodb-enterprise-kubernetes/tree/master/samples/mongodb/persistent-volumes>`\ndirectory.\n\nThis directory also contains sample affinity and multiple zones\nconfigurations for sharded clusters and standalone MongoDB deployments.\n\n.. seealso::\n\n   - :k8sdocs:`Running in Multiple Zones </setup/best-practices/multiple-zones/>`\n   - :k8sdocs:`Node affinity </concepts/scheduling-eviction/assign-pod-node/#node-affinity>`\n\n.. _increase-thread-count-ops-manager:\n\nIncrease Thread Count to Run multiple Reconciliation Processes in Parallel\n--------------------------------------------------------------------------\n\nIf you plan to deploy more than 10 MongoDB replica sets in parallel, \nyou can configure the |k8s-op-short| to run multiple reconciliation processes \nin parallel by setting :ref:`MDB_MAX_CONCURRENT_RECONCILES <mdb-max-concurrent-reconciles>` environment variable in your |k8s-op-short| \ndeployment or or through the :ref:`operator.maxConcurrentReconciles <mdb-max-concurrent-reconciles-helm>` field in your Helm \n``values.yaml`` file to configure a higher thread count. \n\nIncreasing the thread count of the |k8s-op-short| allows you to vertically scale your |k8s-op-short| \ndeployment to hundreds of |k8s-mdbrscs| running within your |k8s| cluster  \nand optimize CPU utilization.\n\nPlease monitor |k8s| API server and |k8s-op-short| resource usage and adjust their respective \nresource allocation if necessary.\n\n.. note:: \n\n   - Proceed with caution when increasing the :ref:`MDB_MAX_CONCURRENT_RECONCILES <mdb-max-concurrent-reconciles>` beyond 10.\n     In particular, you must monitor the |k8s-op-short|, and the |k8s| API \n     closely to avoid downtime resulting from increased load on those components. \n\n     To determine the thread count that suits your deployment's needs, \n     use the following guidelines:\n\n     - Your requirements for how responsive the |k8s-op-short| must be when \n       reconciling many resources\n\n     - The compute resources available within your |k8s| environment and \n       the total processing load your |k8s| compute resources are under, including \n       resources that may be unrelated to MongoDB\n   \n   - An alternative to increasing the thread count of a single |k8s-op-short| \n     instance, while still increasing the number of |k8s-mdbrscs| you can support \n     in your |k8s| cluster, is to deploy multiple |k8s-op-short| instances within \n     your |k8s| cluster. However, deploying multiple |k8s-op-short| \n     instances requires that you ensure that no two |k8s-op-short| instances\n     are monitoring the same |k8s-mdbrscs|.\n\n     Running more than one instance of the |k8s-op-short| should be done with care, \n     as more |k8s-op-short| instances (especially with parallel reconciliation enabled) \n     put the API server at greater risk of being overwhelmed. \n\n   - Scaling of the |k8s| API server is not a valid reason to run \n     more than one instance of the |k8s-op-short|. If you observe that performance of \n     the API server is affected, adding more instances of the |k8s-op-short| is \n     likely to compound the problem.\n\n",
+    "language": "yaml",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/plan-k8s-op-considerations.txt"
+  },
+  {
+    "code": "      :language: yaml\n      :copyable: false\n      :linenos:\n\n   Replace the example values with the values you want your |onprem| to\n   use.\n\n.. _om-rsrc-backup:\n\nBackup\n~~~~~~\n\n|k8s-op-short| enables :ref:`mms-backup-functional-overview` by\ndefault. The |k8s-op-short| deploys a |k8s-statefulset| comprised of\none Pod to host the :ref:`backup-daemon` and then creates a |k8s-pvc|\nand |k8s-pv| for the Backup Daemon's :term:`head database`. The\n|k8s-op-short| uses the :opsmgr:`Ops Manager API </reference/api/>` to\nenable the Backup Daemon and configure the head database.\n\n.. important::\n\n   To configure Backup, you must create the |k8s-mdbrscs| or |mongodb-multis|\n   for the :term:`oplog store <Oplog Store Database>` and for one of the\n   following:\n\n   - :term:`oplog store <Oplog Store Database>` or |s3| oplog store.\n     If you deploy both the oplog store and the |s3|  oplog store, |onprem|\n     chooses one to use for Backup at random.\n   - |s3| :term:`snapshot store <S3 Snapshot Store>` or :term:`blockstore <Backup Blockstore Database>`.\n     If you deploy both an |s3| :term:`snapshot store <S3 Snapshot Store>` and a\n     :term:`blockstore <Backup Blockstore Database>`, |onprem| chooses one\n     to use for Backup at random.\n\n   The |onprem| resource remains in a ``Pending`` state until you configure these Backup resources.\n   \n   You can also :ref:`encrypt backup jobs <configure-kmip-backup-encryption>`, but \n   :ref:`limitations <kmip-limitations>` apply to deployments where the same \n   |k8s-op-short| instance is not managing both the \n   :ref:`MongoDBOpsManager <k8s-om-specification>` and :ref:`MongoDB <k8s-specification>` \n   custom resources.\n\nOplog Store\n+++++++++++\n\nYou must deploy a three-member replica set to store your\n:term:`oplog slices <Oplog Slice>`.\n\n.. include:: /includes/admonitions/fact-backing-db-auth.rst\n\nS3 Oplog Store\n++++++++++++++\n\nTo configure an |s3| oplog store, you must create an |aws| |s3| or\n|s3|-compatible bucket to store your database Backup Oplog.\n\nYou can configure the oplog store for both |k8s-mdbrsc| and |mongodb-multi|,\nusing the :opsmgrkube:`spec.backup.s3OpLogStores.mongodbResourceRef.name` setting\nin the |onprem| resource definition.\n\nBlockstore\n++++++++++\n\nTo configure a :term:`blockstore <Backup Blockstore Database>`, you\nmust deploy a replica set to store snapshots.\n\nS3 Snapshot Store\n+++++++++++++++++\n\nTo configure an |s3| :term:`snapshot store <S3 Snapshot Store>`, you\nmust create an |aws| |s3| or |s3|-compatible bucket to store your\ndatabase Backup :opsmgr:`snapshots </reference/glossary/#std-term-snapshot>`.\n\nThe default configuration stores snapshot metadata in the Application\nDatabase. You can also deploy a replica set to store snapshot metadata,\nthen configure it using the\n:opsmgrkube:`spec.backup.s3Stores.mongodbResourceRef.name` settings in\nthe |onprem| resource definition.\n\nYou can configure the |s3| snapshot store for both |k8s-mdbrsc| and |mongodb-multi|.\n\nYou can update any additional |s3|\n:opsmgr:`configuration settings </tutorial/manage-s3-blockstore-storage/#provide-the-s3-blockstore-details>`\nthat |k8s-op-short| doesn't manage through the |application|.\n\nDisable Backup\n++++++++++++++\n\nTo disable backup after you enabled it:\n\n1. Set the |onprem| |k8s| |k8s-obj| :opsmgrkube:`spec.backup.enabled`\n   setting to ``false``.\n\n#. :opsmgr:`Disable backups </tutorial/disable-backup>` in the\n   |application|.\n\n#. Delete the :ref:`backup-daemon` |k8s-statefulset|:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/plan-om-resource.txt"
+  },
+  {
+    "code": "                  :language: yaml\n                  :linenos:\n\n            #. Create local |k8s| |k8s-service-accounts|:\n\n               .. include:: /includes/facts/fact-service-accounts-and-namespaces.rst\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/set-scope-k8s-operator.txt"
+  },
+  {
+    "code": "                  :language: yaml\n                  :linenos:\n\n            #. Create local |k8s| |k8s-service-accounts|:\n\n               .. include:: /includes/facts/fact-service-accounts-and-namespaces.rst\n\n         .. tab:: Using Helm\n            :tabid: openshift-helm\n\n            Before you deploy the |k8s-op-short|, configure the following\n            items:\n\n            1. Configure the |k8s-op-short| to watch all namespaces:\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/set-scope-k8s-operator.txt"
+  },
+  {
+    "code": "                  :language: yaml\n                  :linenos:\n\n            #. Create local |k8s| |k8s-service-accounts|:\n\n               .. include:: /includes/facts/fact-service-accounts-and-namespaces.rst\n\n",
+    "language": "yaml",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/set-scope-k8s-operator.txt"
+  },
+  {
+    "code": "   :copyable: true \n\n   .. input:: \n            \n      cosign verify --key mongodb-enterprise-kubernetes-operator.pem quay.io/mongodb/mongodb-enterprise-operator-ubi:1.26.0 --insecure-ignore-tlog\n         \n   .. output::\n\n      WARNING: Skipping tlog verification is an insecure practice that lacks of transparency and auditability verification for the signature.\n\n      Verification for quay.io/mongodb/mongodb-enterprise-operator-ubi:1.26.0 --\n      The following checks were performed on each of these signatures:\n      - The cosign claims were validated\n      - The signatures were verified against the specified public key\n\n      [{\"critical\":{\"identity\":{\"docker-reference\":\"quay.io/mongodb/mongodb-enterprise-operator-ubi:1.26.0\"},\"image\":{\"docker-manifest-digest\":\"sha256:9281935b4c36e0e4feebcf577abf21291ce0b517e7f637e6eaaf9769642abdd3\"},\"type\":\"cosign container image signature\"},\"optional\":null}]\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-k8s-operator/source/tutorial/verify-mongodb-packages.txt"
+  }
+]

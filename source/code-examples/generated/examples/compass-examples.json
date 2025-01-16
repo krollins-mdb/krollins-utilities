@@ -1,0 +1,275 @@
+[
+  {
+    "code": "   :emphasize-lines: 2, 3\n\n   [\n      { \"n\": \"-2.1\" },\n      { \"n\": \"-10\" },\n      { \"n\": \"1\" },\n      { \"n\": \"2\" },\n      { \"n\": \"2.0\" }\n      { \"n\": \"2.20\" },\n      { \"n\": \"3\" },\n      { \"n\": \"10\" },\n      { \"n\": \"20\" },\n      {\"n\": \"20.1\" }\n   ]\n\n- ``numericOrdering: true`` sorts the string values in ascending order as if \n  they were numeric values.\n\n- The two negative values ``-2.1`` and ``-10`` are not sorted in the \n  expected sort order because they have unsupported ``-`` characters.\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/collections/collation-collection.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n    <path/to/compass/executable> \n    <connection string> \n    --username <username> --password <password>\n\n.. note:: \n\n   If the username and password arguments are not provided, Compass uses\n   the credentials in the connection string.\n\n\nBasic Connection String\n~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example uses a basic connection string for a `MongoDB\nUniversity <https://learn.mongodb.com/>`__ training cluster. Modify the\nconnection details to connect to your MongoDB installation:  \n\n",
+    "language": "shell",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/connect/connect-from-the-command-line.txt"
+  },
+  {
+    "code": "   :copyable: true\n \n   mongodb-compass mongodb+srv://cluster0.xxxxxx.mongodb.net/library\n\nUsername and Password Parameters\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThis example uses the ``username`` and ``password`` parameters to \nauthenticate Compass to the MongoDB deployment provided in the \nconnection string:\n\n",
+    "language": "shell",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/connect/connect-from-the-command-line.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   mongodb-compass mongodb+srv://cluster0.xxxxxx.mongodb.net/library \n   --username user1 --password password1\n\n.. _compass-connect-file-based:\n\nConfiguration File Connection Specification\n-------------------------------------------\n\nThe command line invocation for |compass-short| can specify a\nconfiguration file. \n\nThe format is:\n\n",
+    "language": "shell",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/connect/connect-from-the-command-line.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   mongodb-compass --file=learningConnectionFile \\\n                   --passphrase=superSecret\n\nIf you have multiple favorites, include the connection id from the\nconfiguration file to specify which connection to use: \n\n",
+    "language": "shell",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/connect/connect-from-the-command-line.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   mongodb-compass --file=multipleConnectionFile \\\n                   --passphrase=superSecret \\\n                   27ba0eda-c27e-46f5-a74a-2c041b1b58c4\n\nLearn More \n----------\n\n- :ref:`cli-options`\n\n",
+    "language": "shell",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/connect/connect-from-the-command-line.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   Exporting connections to \"/tmp/compass-connections/favorites-encrypted.json\" (with passphrase)\n\nResults\n```````\n\nAfter the export completes, the\n``/tmp/compass-connections/favorites-encrypted.json`` file resembles the\nfollowing:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/connect/favorite-connections/import-export-cli/export.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   Exporting connections to \"/tmp/compass-connections/favorites.json\" (without passphrase)\n\nResults\n```````\n\nAfter the export completes, the\n``/tmp/compass-connections/favorites.json`` file resembles the\nfollowing:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/connect/favorite-connections/import-export-cli/export.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   Importing connections from \"/tmp/compass-connections/favorites-encrypted.json\" (with passphrase)\n   \nMongoDB Compass starts and you will see the imported connections under\n:guilabel:`Saved Connections` on the Connect screen.\n\nErrors\n~~~~~~\n\nWhen you try to import encrypted saved connections, you may\nsee these errors:\n\n- If do not specify a passphrase, you will see this error:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/connect/favorite-connections/import-export-cli/import.txt"
+  },
+  {
+    "code": "     :copyable: false\n\n     Failed to perform operation Be [Error]: Input file contains encrypted\n     secrets but no passphrase was provided\n   \n- If you specify an incorrect passphrase, you will see this error:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/connect/favorite-connections/import-export-cli/import.txt"
+  },
+  {
+    "code": "     :copyable: false\n  \n     Failed to perform operation Be [Error]: Cannot decrypt due to corrupt\n     data or wrong passphrase\n\nImport Unencrypted Saved Connections\n---------------------------------------\n\nUse this procedure to import a list of saved connections that is not\nencrypted with a passphrase.\n\nProcedure\n~~~~~~~~~\n\nTo import unencrypted saved connections with the |compass-short|\n:abbr:`CLI (Command-Line Interface)`, specify:\n\n- The path to the |compass| executable. The name and file path of the\n  executable depend on your operating system.\n\n- The ``--import-connections`` option set to the destination of the file\n  containing saved connections.\n\nYour operation should resemble the following prototype:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/connect/favorite-connections/import-export-cli/import.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   Importing connections from \"/tmp/compass-connections/favorites.json\" (without passphrase)\n   \nMongoDB Compass starts and you will see the imported connections under\n:guilabel:`Saved Connections` on the Connect screen.\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/connect/favorite-connections/import-export-cli/import.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   Invalid UTF-8 string in BSON document. \n\nTo query or export this data, disable UTF8 validation by setting \nthe ``enableUtf8Validation`` URI option to ``false``. \n\n.. warning::\n\n   **Editing data** with ``enableUtf8Validation=false`` can result in \n   loss of data. This approach is a temporary workaround to \n   query or export data only.\n\nThe following URI disables UTF8 validation:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/includes/fact-non-utf8-data.rst"
+  },
+  {
+    "code": "    :copyable: false\n\n    gpg: key CEED0419D361CB16: public key \"MongoDB Compass Signing Key <compass@mongodb.com>\" imported\n    gpg: Total number processed: 1\n    gpg:               imported: 1\n\nIf you have previously imported the key, the command returns:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/includes/verification-gpg-results.rst"
+  },
+  {
+    "code": "    :copyable: false\n\n    gpg: key A8130EC3F9F5F923: \"MongoDB Compass Signing Key <compass@mongodb.com>\" not changed\n    gpg: Total number processed: 1\n    gpg:              unchanged: 1\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/includes/verification-gpg-results.rst"
+  },
+  {
+    "code": "   :copyable: false\n\n   Authority=Developer ID Application: MongoDB, Inc. (4XWMY46275)\n   Authority=Developer ID Certification Authority\n   Authority=Apple Root CA\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/install/verify-signatures/disk-images.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         gpg: Signature made Mon Jan 22 10:22:53 2024 CET\n         gpg:                using RSA key AB1B92FFBE0D3740425DAD16A8130EC3F9F5F923\n         gpg: Good signature from \"MongoDB Compass Signing Key <compass@mongodb.com>\" [unknown]\n         \n      If the package is signed but the signing key is not added to your\n      local ``trustdb``, the command returns:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/install/verify-signatures/gpg.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         gpg: WARNING: This key is not certified with a trusted signature!\n         gpg:          There is no indication that the signature belongs to the owner.\n         \n      If the package is not signed properly, the command returns an\n      error message:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/install/verify-signatures/gpg.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         gpg: Signature made Mon Jan 22 10:22:53 2024 CET\n         gpg:                using RSA key AB1B92FFBE0D3740425DAD16A8130EC3F9F5F923\n         gpg: BAD signature from \"MongoDB Compass Signing Key <compass@mongodb.com>\" [unknown]\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/install/verify-signatures/gpg.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         <path_to_compass_rpm_file> digests signatures OK\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/install/verify-signatures/rpm.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   SignerCertificate     Status     Path                               \n   -----------------     ------     ----\n   F2D7C28591847B...     Valid      <path_to_compass_exe_or_msi>\n\n.. _compass-verify-signatures-windows-check-properties:\n\nVerify Packages by Checking Properties\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n.. procedure::\n   :style: normal\n\n   .. step:: Open the properties for your |compass| package\n\n   .. step:: Check the package's digital signatures\n\n      In the properties window, open the :guilabel:`Digital Signatures`\n      tab.\n\n      If the package is properly signed, the Digital Signatures show\n      these properties:\n\n      .. list-table::\n         :header-rows: 1\n      \n         * - Name of signer\n           - Digest algorithm\n           - Timestamp\n         * - MONGODB, INC.\n           - sha256\n           - <Timestamp>\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/install/verify-signatures/windows.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n      \"_id\": { \"$oid\": \"5e349915cebae490877d561d\" },\n      \"name\": \"Andrea Le\",\n      \"email\": \"andrea_le@fake-mail.com\",\n      \"school\": {\n         \"name\": \"Northwestern\"\n      },\n      \"version\": 5,\n      \"scores\": [ 85, 95, 75 ],\n      \"dateCreated\": { \"$date\": \"2003-03-26\" }\n   }\n\nMatch by Multiple Conditions ($and)\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following query filter finds all documents where ``scores`` array\ncontains the value ``75``, and the ``name`` is ``Greg Powell``:\n\n",
+    "language": "JSON",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query/filter.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n      \"_id\": { \"$oid\":\"5a9427648b0beebeb69579cf\" },\n      \"name\": \"Greg Powell\",\n      \"email\": \"greg_powell@fake-mail.com\",\n      \"version\": 1,\n      \"scores\": [ 65, 75, 80 ],\n      \"dateCreated\": { \"$date\": \"1999-02-10\" }\n   }\n\nMatch by Multiple Possible Conditions ($or)\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following query filter uses the :query:`$or` operator to find\ndocuments where ``version`` is ``4``, or ``name`` is ``Andrea Le``:\n\n",
+    "language": "JSON",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query/filter.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   [\n      {\n         \"_id\": { \"$oid\": \"5e349915cebae490877d561d\" },\n         \"name\": \"Andrea Le\",\n         \"email\": \"andrea_le@fake-mail.com\",\n         \"school\": {\n            \"name\": \"Northwestern\"\n         },\n         \"version\": 5,\n         \"scores\": [ 85, 95, 75 ],\n         \"dateCreated\": { \"$date\": \"2003-03-26\" }\n      },\n      {\n         \"_id\": { \"$oid\":\"5e349915cebae490877d561e\" },\n         \"email\": \"no_name@fake-mail.com\",\n         \"version\": 4,\n         \"scores\": [ 90, 90, 70 ],\n         \"dateCreated\": { \"$date\": \"2001-04-15\" }\n      }\n   ]\n\nMatch by Exclusion ($not)\n~~~~~~~~~~~~~~~~~~~~~~~~~\n         \nThe following query filter uses the :query:`$not` operator to find all\ndocuments where the value of the ``name`` field is **not** equal to\n\"Andrea Le\", or the ``name`` field does not exist:\n\n",
+    "language": "JSON",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query/filter.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   [\n      {\n         \"_id\": { \"$oid\":\"5e349915cebae490877d561e\" },\n         \"email\": \"no_name@fake-mail.com\",\n         \"version\": 4,\n         \"scores\": [ 90, 90, 70 ],\n         \"dateCreated\": { \"$date\": \"2001-04-15\" }\n      },\n      {\n         \"_id\": { \"$oid\":\"5a9427648b0beebeb69579cf\" },\n         \"name\": \"Greg Powell\",\n         \"email\": \"greg_powell@fake-mail.com\",\n         \"version\": 1,\n         \"scores\": [ 65, 75, 80 ],\n         \"dateCreated\": { \"$date\": \"1999-02-10\" }\n      }\n   ]\n\n.. seealso::\n\n   For a complete list of logical query operators, see \n   :manual:`Logical Query Operators</reference/operator/query-logical/>`.\n\n\nMatch with Comparison Operators\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n         \nThe following query filter uses the :query:`$lte` operator to find all\ndocuments where ``version`` is less than or equal to ``4``:\n\n",
+    "language": "JSON",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query/filter.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   [\n      {\n         \"_id\": { \"$oid\":\"5e349915cebae490877d561e\" },\n         \"email\": \"no_name@fake-mail.com\",\n         \"version\": 4,\n         \"scores\": [ 90, 90, 70 ],\n         \"dateCreated\": { \"$date\": \"2001-04-15\" }\n      },\n      {\n         \"_id\": { \"$oid\":\"5a9427648b0beebeb69579cf\" },\n         \"name\": \"Greg Powell\",\n         \"email\": \"greg_powell@fake-mail.com\",\n         \"version\": 1,\n         \"scores\": [ 65, 75, 80 ],\n         \"dateCreated\": { \"$date\": \"1999-02-10\" }\n      }\n   ]\n\n.. seealso::\n\n   For a complete list of comparison operators, see \n   :manual:`Comparison Query Operators </reference/operator/query-comparison/>`.\n\nMatch by Date\n~~~~~~~~~~~~~\n         \nThe following query filter uses the :query:`$gt` operator and\n:method:`Date()` method to find all documents where the ``dateCreated``\nfield value is later than June 22nd, 2000:\n\n",
+    "language": "JSON",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query/filter.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   [\n      {\n         \"_id\": { \"$oid\": \"5e349915cebae490877d561d\" },\n         \"name\": \"Andrea Le\",\n         \"email\": \"andrea_le@fake-mail.com\",\n         \"school\": {\n            \"name\": \"Northwestern\"\n         },\n         \"version\": 5,\n         \"scores\": [ 85, 95, 75 ],\n         \"dateCreated\": { \"$date\": \"2003-03-26\" }\n      },\n      {\n         \"_id\": { \"$oid\": \"5e349915cebae490877d561e\" },\n         \"email\": \"no_name@fake-mail.com\",\n         \"version\": 4,\n         \"scores\": [ 90, 90, 70 ],\n         \"dateCreated\": { \"$date\": \"2001-04-15\" }\n      }\n   ]\n         \nMatch by Array Conditions\n~~~~~~~~~~~~~~~~~~~~~~~~~\n         \nThe following query filter uses the :query:`$elemMatch` operator\nto find all documents where at least one value in the ``scores``\narray is greater than ``80`` and less than ``90``:\n\n",
+    "language": "JSON",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query/filter.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n      \"_id\": { \"$oid\": \"5e349915cebae490877d561d\" },\n      \"name\": \"Andrea Le\",\n      \"email\": \"andrea_le@fake-mail.com\",\n      \"school\": {\n         \"name\": \"Northwestern\"\n      },\n      \"version\": 5,\n      \"scores\": [ 85, 95, 75 ],\n      \"dateCreated\": { \"$date\": \"2003-03-26\" }\n   }\n\nFor more query examples, see \n:manual:`Query Documents </tutorial/query-documents/>` \nin the MongoDB manual.\n\nMatch by Substring \n~~~~~~~~~~~~~~~~~~\n\nThe following query filter uses the :query:`$regex` operator\nto find all documents where the value of ``email`` includes the term\n\"andrea_le\":\n\n",
+    "language": "JSON",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query/filter.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 4\n\n   {\n      \"_id\": { \"$oid\": \"5e349915cebae490877d561d\" },\n      \"name\": \"Andrea Le\",\n      \"email\": \"andrea_le@fake-mail.com\",\n      \"school\": {\n         \"name\": \"Northwestern\"\n      },\n      \"version\": 5,\n      \"scores\": [ 85, 95, 75 ],\n      \"dateCreated\": { \"$date\": \"2003-03-26\" }\n   }\n\nMatch by Embedded Field\n~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following query filter finds the\ndocument with the ``school.name`` subfield of \"Northwestern\":\n\n",
+    "language": "JSON",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query/filter.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 6\n\n   {\n      \"_id\": { \"$oid\": \"5e349915cebae490877d561d\" },\n      \"name\": \"Andrea Le\",\n      \"email\": \"andrea_le@fake-mail.com\",\n      \"school\": {\n         \"name\": \"Northwestern\"\n      },\n      \"version\": 5,\n      \"scores\": [ 85, 95, 75 ],\n      \"dateCreated\": { \"$date\": \"2003-03-26\" }\n   }\n\n\nFor more query examples, see \n:manual:`Query Documents </tutorial/query-documents/>` \nin the MongoDB manual.\n\nSupported Data Types in the Query Bar\n-------------------------------------\n\nThe |compass-short| :guilabel:`Filter` supports using the\n:binary:`~bin.mongosh` representation of the MongoDB\nExtended JSON :manual:`BSON data types </reference/mongodb-extended-json#bson-data-types-and-associated-representations>`.\n\n.. example::\n\n   The following filter returns documents where\n   ``start_date`` is greater than than the BSON ``Date``\n   ``2017-05-01``:\n\n",
+    "language": "JSON",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query/filter.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         [\n            {\n               $match: {\n                  year: 1999\n               },\n            },\n            {\n               $count: \"total_movies\",\n            }\n         ]\n\n   * - ``Which comedy genre movie has the most awards?``\n     - \n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query-with-natural-language/prompt-natural-language-aggregation.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         [\n            {\n               $match: {\n                  genres: \"Comedy\"\n               }\n            },\n            {\n               $sort: {\n                  \"awards.wins\": -1,\n                  \"awards.nominations\": -1\n               }\n            },\n            {\n               $limit: 1\n            },\n            {\n               $project: {\n                  _id: 0,\n                  title: 1,\n                  \"awards.wins\": 1,\n                  \"awards.nominations\": 1\n               }\n            }\n         ]\n\n   * - ``How many movies have a imdb.rating > 4?``\n     - \n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query-with-natural-language/prompt-natural-language-aggregation.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         [\n            {\n               $match: {\n                  \"imdb.rating\": { $gt: 4 }\n               }\n            },\n            {\n               $group: {\n                  _id: null,\n                  count: { $sum: 1 }\n               }\n            }\n         ]\n\nNext Steps\n----------\n\n:ref:`compass-prompt-natural-language-query`\n\nLearn More\n----------\n\n:ref:`compass-query-natural-language`\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query-with-natural-language/prompt-natural-language-aggregation.txt"
+  },
+  {
+    "code": "          :copyable: false\n\n          {\"rated\": \"PG\"}\n\n   * - ``Which movies include \"David Mamet\" in the writers array field?``\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query-with-natural-language/prompt-natural-language-query.txt"
+  },
+  {
+    "code": "          :copyable: false\n\n          {\"writers\": \"David Mamet\"}\n\n   * - ``Which movies have a runtime greater than 90?``\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query-with-natural-language/prompt-natural-language-query.txt"
+  },
+  {
+    "code": "          :copyable: false\n\n          {\"runtime\": {$gt: 90}}\n\nNext Steps\n----------\n\n:ref:`compass-prompt-natural-language-agg`\n\nLearn More\n----------\n\n:ref:`compass-query-natural-language`\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/query-with-natural-language/prompt-natural-language-query.txt"
+  },
+  {
+    "code": "   :linenos:\n   :copyable: true\n\n   [\n     {\n       \"_id\": { \"$oid\":\"5e8359ba7782b98ba98c16fd\" },\n       \"sport\": \"Baseball\",\n       \"equipment\": [ \"bat\", \"baseball\", \"glove\", \"helmet\" ]\n     },\n     {\n       \"_id\": { \"$oid\":\"5e835a727782b98ba98c16fe\" },\n       \"sport\": \"Football\",\n       \"variants\": {\n           \"us\":\"Soccer\",\n           \"eu\":\"Football\"\n       }\n     },\n     {\n       \"_id\": { \"$oid\":\"5e835ade7782b98ba98c16ff\" },\n       \"sport\": \"Cricket\",\n       \"origin\": \"England\"\n     }\n   ]\n\nYou can import the above example to |compass| to experiment with schema \noutputs. To import the example collection into |compass|:\n\n1. :guilabel:`Copy` the JSON documents above.\n\n#. In |compass|, select a collection or create a new collection to \n   import the copied documents to. The :guilabel:`Documents` tab \n   displays.\n\n#. Click :guilabel:`Add Data`.\n\n#. Select :guilabel:`Insert Document` from the dropdown.\n\n#. In the JSON view of the dialog, paste the copied documents and click \n   :guilabel:`Insert`.\n\nThe example above outputs the following schema:\n   \n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/schema/export.txt"
+  },
+  {
+    "code": "   :linenos:\n   :copyable: false\n         \n   {\n     \"fields\": [\n       {\n         \"name\": \"_id\",\n         \"path\": \"_id\",\n         \"count\": 3,\n         \"types\": [\n           {\n             \"name\": \"ObjectID\",\n             \"bsonType\": \"ObjectID\",\n             \"path\": \"_id\",\n             \"count\": 3,\n             \"values\": [\n               \"5e8359ba7782b98ba98c16fd\",\n               \"5e835a727782b98ba98c16fe\",\n               \"5e835ade7782b98ba98c16ff\"\n             ],\n             \"total_count\": 0,\n             \"probability\": 1,\n             \"unique\": 3,\n             \"has_duplicates\": false\n           }\n         ],\n         \"total_count\": 3,\n         \"type\": \"ObjectID\",\n         \"has_duplicates\": false,\n         \"probability\": 1\n       },\n       {\n         \"name\": \"equipment\",\n         \"path\": \"equipment\",\n         \"count\": 1,\n         \"types\": [\n           {\n             \"name\": \"Undefined\",\n             \"type\": \"Undefined\",\n             \"path\": \"equipment\",\n             \"count\": 2,\n             \"total_count\": 0,\n             \"probability\": 0.6666666666666666,\n             \"unique\": 1,\n             \"has_duplicates\": true\n           },\n           {\n             \"name\": \"Array\",\n             \"bsonType\": \"Array\",\n             \"path\": \"equipment\",\n             \"count\": 1,\n             \"types\": [\n               {\n                 \"name\": \"String\",\n                 \"bsonType\": \"String\",\n                 \"path\": \"equipment\",\n                 \"count\": 4,\n                 \"values\": [\n                   \"bat\",\n                   \"baseball\",\n                   \"glove\",\n                   \"helmet\"\n                 ],\n                 \"total_count\": 0,\n                 \"probability\": 1,\n                 \"unique\": 4,\n                 \"has_duplicates\": false\n               }\n             ],\n             \"lengths\": [\n               4\n             ],\n             \"total_count\": 4,\n             \"probability\": 0.3333333333333333,\n             \"average_length\": 4\n           }\n         ],\n         \"total_count\": 3,\n         \"type\": [\n           \"Undefined\",\n           \"Array\"\n         ],\n         \"has_duplicates\": true,\n         \"probability\": 0.3333333333333333\n       },\n       {\n         \"name\": \"origin\",\n         \"path\": \"origin\",\n         \"count\": 1,\n         \"types\": [\n           {\n             \"name\": \"Undefined\",\n             \"type\": \"Undefined\",\n             \"path\": \"origin\",\n             \"count\": 2,\n             \"total_count\": 0,\n             \"probability\": 0.6666666666666666,\n             \"unique\": 1,\n             \"has_duplicates\": true\n           },\n           {\n             \"name\": \"String\",\n             \"bsonType\": \"String\",\n             \"path\": \"origin\",\n             \"count\": 1,\n             \"values\": [\n               \"England\"\n             ],\n             \"total_count\": 0,\n             \"probability\": 0.3333333333333333,\n             \"unique\": 1,\n             \"has_duplicates\": false\n           }\n         ],\n         \"total_count\": 3,\n         \"type\": [\n           \"Undefined\",\n           \"String\"\n         ],\n         \"has_duplicates\": true,\n         \"probability\": 0.3333333333333333\n       },\n       {\n         \"name\": \"sport\",\n         \"path\": \"sport\",\n         \"count\": 3,\n         \"types\": [\n           {\n             \"name\": \"String\",\n             \"bsonType\": \"String\",\n             \"path\": \"sport\",\n             \"count\": 3,\n             \"values\": [\n               \"Baseball\",\n               \"Football\",\n               \"Cricket\"\n             ],\n             \"total_count\": 0,\n             \"probability\": 1,\n             \"unique\": 3,\n             \"has_duplicates\": false\n           }\n         ],\n         \"total_count\": 3,\n         \"type\": \"String\",\n         \"has_duplicates\": false,\n         \"probability\": 1\n       },\n       {\n         \"name\": \"variants\",\n         \"path\": \"variants\",\n         \"count\": 1,\n         \"types\": [\n           {\n             \"name\": \"Undefined\",\n             \"type\": \"Undefined\",\n             \"path\": \"variants\",\n             \"count\": 2,\n             \"total_count\": 0,\n             \"probability\": 0.6666666666666666,\n             \"unique\": 1,\n             \"has_duplicates\": true\n           },\n           {\n             \"name\": \"Document\",\n             \"bsonType\": \"Document\",\n             \"path\": \"variants\",\n             \"count\": 1,\n             \"fields\": [\n               {\n                 \"name\": \"eu\",\n                 \"path\": \"variants.eu\",\n                 \"count\": 1,\n                 \"types\": [\n                   {\n                     \"name\": \"String\",\n                     \"bsonType\": \"String\",\n                     \"path\": \"variants.eu\",\n                     \"count\": 1,\n                     \"values\": [\n                       \"Football\"\n                     ],\n                     \"total_count\": 0,\n                     \"probability\": 1,\n                     \"unique\": 1,\n                     \"has_duplicates\": false\n                   }\n                 ],\n                 \"total_count\": 1,\n                 \"type\": \"String\",\n                 \"has_duplicates\": false,\n                 \"probability\": 1\n               },\n               {\n                 \"name\": \"us\",\n                 \"path\": \"variants.us\",\n                 \"count\": 1,\n                 \"types\": [\n                   {\n                     \"name\": \"String\",\n                     \"bsonType\": \"String\",\n                     \"path\": \"variants.us\",\n                     \"count\": 1,\n                     \"values\": [\n                       \"Soccer\"\n                     ],\n                     \"total_count\": 0,\n                     \"probability\": 1,\n                     \"unique\": 1,\n                     \"has_duplicates\": false\n                   }\n                 ],\n                 \"total_count\": 1,\n                 \"type\": \"String\",\n                 \"has_duplicates\": false,\n                 \"probability\": 1\n               }\n             ],\n             \"total_count\": 0,\n             \"probability\": 0.3333333333333333\n           }\n         ],\n         \"total_count\": 3,\n         \"type\": [\n           \"Undefined\",\n           \"Document\"\n         ],\n         \"has_duplicates\": true,\n         \"probability\": 0.3333333333333333\n       }\n     ],\n     \"count\": 3\n   }\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/schema/export.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   connection 3 to cluster0-shard-00-00-a1b2c.mongodb.net:27017 closed\n\nLikely Cause\n~~~~~~~~~~~~\n\nThe most common source of this error is a missing |service|\n:atlas:`IP access list </security-accesslist/>` entry for the public IP\naddress where |compass-short| is running.\n\nSolution\n~~~~~~~~\n\nEnsure the public IP address where |compass-short| is running is\nincluded in your |service| project's IP access list.\n\nTo configure your |service| access list:\n\n1. Use the :guilabel:`Context` dropdown in the top-left of |service|\n   to select your desired |service| project.\n\n#. Click the :guilabel:`Security` tab.\n\n#. Click the :guilabel:`IP Access List` menu option.\n\n#. If your IP address is not in the access list, click\n   :guilabel:`Add IP Address`.\n\n#. Click :guilabel:`Add Current IP Address`.\n\n#. Click :guilabel:`Confirm`.\n\n|service| recognizes which entries in the access list include your\ncurrent IP address, and appends these addresses with\n:guilabel:`(includes your current IP address)`.\n\n.. seealso::\n\n   For more information on configuring access list entries, see\n   :atlas:`Configure Access List Entries </security-accesslist/>` in the\n   |service| documentation.\n\nNot Primary or Secondary is Not Writable\n----------------------------------------\n\nThis error message indicates that you have connected to one of the\nsecondary members of a replica set without providing the correct\nreplica set name *and* requiring a connection to a primary in your\n:guilabel:`Read Preference`.\n\nSolutions\n~~~~~~~~~\n\nVerify Atlas Replica Set Name\n`````````````````````````````\n\nYou should ensure that you are providing the correct replica set name\nin the |compass-short| connect dialog.\n\nIf your cluster is hosted in |service|, you can obtain the correct\nreplica set name using the following procedure:\n\n.. include:: /includes/fact-get-replica-set-name-steps.rst\n\nAllow Compass to Connect to the Secondary\n`````````````````````````````````````````\nAnother approach to resolving this error is to allow |compass-short| to\nconnect to a secondary cluster member. Change your\n:guilabel:`Read Preference` to either :guilabel:`Primary Preferred` or\n:guilabel:`Secondary Preferred` in your connection settings. This\nshould allow you to bypass this error and connect.\n\n.. note::\n\n   When you connect to a secondary cluster member, you cannot\n   create or modify documents, indexes, or databases. Only use this\n   solution when you do not need to perform any write operations.\n\n.. seealso:: \n\n   For more information on read preferences, see\n   :manual:`Read Preference </core/read-preference/>` in the MongoDB\n   manual.\n\nAuthentication Failed\n---------------------\n\nWhen you attempt to connect to your cluster using |compass-short|, you\nmay encounter an error message stating\n:guilabel:`Authentication Failed`.\n\nLikely Causes\n~~~~~~~~~~~~~\n\nThis error message is often the result of one of five conditions:\n\n- Your :guilabel:`Password` is missing after autofilling your\n  connection details from a copied connection string. |compass-short|\n  requires you to manually enter your password in the connection dialog\n  as a security precaution.\n\n- Your :guilabel:`Username` and/or :guilabel:`Password` are incorrect.\n\n- You have not :atlas:`configured any MongoDB users\n  </security-add-mongodb-users/>` for your |service| cluster.\n\n- You did not select the correct :guilabel:`Authentication` method.\n\n- You did not specify the correct :guilabel:`Authentication Database`.\n  This setting corresponds to the :manual:`authSource\n  </reference/connection-string/#urioption.authSource>` connection\n  string option.\n\n  .. note::\n\n     For |service| clusters, the :guilabel:`Authentication Database` is\n     usually ``admin``.\n\nSolutions\n~~~~~~~~~\n\n- Ensure you provided the correct :guilabel:`Username` and\n  :guilabel:`Password`.\n\n- Ensure that the MongoDB user you are authenticating as exists.\n\n- Verify your :guilabel:`Authentication Database` and authentication\n  mechanism.\n\n- Verify that your selected authentication mechanism is supported by\n  your MongoDB database.\n\nCheck the Compass Logs\n----------------------\n\nThe |compass-short| logs can provide additional information on\nconnection errors. You may find more detailed error messages to help\ndiagnose your issue. For more information, see :ref:`compass-logs`.\n\nAdditional Resources\n--------------------\n\n- :atlas:`Connect to Atlas via Compass </compass-connection/>`\n\n- :atlas:`Troubleshoot Atlas Connections </troubleshoot-connection/>`\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-compass/source/troubleshooting/connection-errors.txt"
+  }
+]

@@ -1,18 +1,7 @@
 import * as fs from "fs-extra";
 import * as path from "path";
+import repos from "./docs-repos.json";
 
-// Look for these rST directives:
-// ..code-block
-// ..io-code-block
-
-// Output code examples to JSON. JSON objects should include the following properties:
-// - code: the code example
-// - language: the language of the code example
-// - type: the type of code example (e.g., code-block, io-code-block)
-// - id: a unique identifier for the code example
-// - path: the path to the file containing the code example
-
-// Create a typescript type for JSON code example object
 interface CodeExample {
   code: string;
   language: string;
@@ -21,12 +10,21 @@ interface CodeExample {
   path: string;
 }
 
+interface Stats {
+  total: number;
+  languages: Record<string, number>;
+  repos: Record<string, number>;
+}
+
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
-const inputPath = path.join(__dirname, "../../../cloud-docs/source/");
-const outputPath = "./source/code-examples";
-const examplesOutputPath = `${outputPath}/code-examples.json`;
-const analysisOutputPath = `${outputPath}/analysis.json`;
-const docsRepoPaths = []; // Implement after I have a list of repos.
+const outputPath = "./source/code-examples/generated";
+const docsRepoPaths: string[] = [];
+
+// for every object in repos, get the pathName and push it to docsRepoPaths
+for (const repo of repos) {
+  const absolutePath = path.join(__dirname, "../../../", repo.pathName);
+  docsRepoPaths.push(absolutePath);
+}
 
 async function getCodeExamples(filePath: string): Promise<CodeExample[]> {
   try {
@@ -45,24 +43,43 @@ async function getCodeExamples(filePath: string): Promise<CodeExample[]> {
     // figure out how to properly parse the rST so that we programmatically know
     // when a directive starts and ends. Probably need to pull in a real
     // parser for that.
-    for (const line of lines) {
-      const codeBlockMatch = line.match(
-        /^\s*\.\.\s*(code-block|io-code-block|literalinclude)::\s*$/
-      );
 
-      if (codeBlockMatch) {
+    // TODO: handle language shorthand and standardize. For example, "js" and "javascript"
+    // TODO: refactor to use a switch statement to control flow
+    for (const line of lines) {
+      if (
+        line.includes(".. code-block::") ||
+        line.includes(".. io-code-block::") ||
+        line.includes(".. literalinclude::")
+      ) {
         if (inCodeBlock && codeBlock) {
           codeExamples.push({ code: codeBlock, language, type, id, path });
           codeBlock = "";
         }
-        type = codeBlockMatch[1];
+        type = line.includes("code-block")
+          ? "code-block"
+          : line.includes("io-code-block")
+          ? "io-code-block"
+          : "literalinclude";
         inCodeBlock = true;
-        language = "";
+        if (type === "code-block") {
+          const languageMatch = line.match(
+            /^\s*\.\.\s*code-block::\s*(\w+)\s*$/
+          );
+          if (languageMatch) {
+            language = languageMatch[1];
+          }
+        } else {
+          language = "";
+        }
       } else if (inCodeBlock) {
-        const languageMatch = line.match(/^\s*:\s*language:\s*(\w+)\s*$/);
-        if (languageMatch) {
-          language = languageMatch[1];
-        } else if (line.trim() === "" && codeBlock.trim() === "") {
+        if (type !== "code-block") {
+          const languageMatch = line.match(/^\s*:\s*language:\s*(\w+)\s*$/);
+          if (languageMatch) {
+            language = languageMatch[1];
+          }
+        }
+        if (line.trim() === "" && codeBlock.trim() === "") {
           // End of code block
           inCodeBlock = false;
           if (codeBlock) {
@@ -70,7 +87,7 @@ async function getCodeExamples(filePath: string): Promise<CodeExample[]> {
             codeBlock = "";
           }
         } else {
-          codeBlock += line + "\n";
+          codeBlock += line + "\n"; // Accumulate lines of code within the code block
         }
       }
     }
@@ -115,10 +132,19 @@ async function iterateDirectory(dir: string): Promise<CodeExample[]> {
   return codeExamples;
 }
 
-async function analyzeCodeExamples(codeExamples: CodeExample[]): Promise<void> {
-  const analysis = {
+interface AnalyzeCodeExamplesParams {
+  codeExamples: CodeExample[];
+  name: string;
+}
+
+async function analyzeCodeExamples({
+  codeExamples,
+  name,
+}: AnalyzeCodeExamplesParams): Promise<Stats> {
+  const analysis: Stats = {
     total: codeExamples.length,
     languages: {} as Record<string, number>,
+    repos: {} as Record<string, number>,
   };
 
   for (const example of codeExamples) {
@@ -127,18 +153,88 @@ async function analyzeCodeExamples(codeExamples: CodeExample[]): Promise<void> {
     } else {
       analysis.languages[example.language] = 1;
     }
+
+    const repoName = name;
+    if (analysis.repos[repoName]) {
+      analysis.repos[repoName]++;
+    } else {
+      analysis.repos[repoName] = 1;
+    }
   }
 
-  await fs.writeJson(analysisOutputPath, analysis, { spaces: 2 });
-  console.log(`Analysis written to ${analysisOutputPath}`);
+  return analysis;
 }
 
 async function main() {
-  const examples = await iterateDirectory(inputPath);
-  await fs.writeJson(examplesOutputPath, examples, { spaces: 2 });
-  console.log(`Code examples written to ${outputPath}`);
+  let overallStats: Stats = {
+    total: 0,
+    languages: {},
+    repos: {},
+  };
 
-  await analyzeCodeExamples(examples);
+  for (const repo of repos) {
+    // replace all non-alphanumeric characters with a dash in repo.name
+    const safeRepoName = repo.name.replace(/[^a-z0-9]/gi, "-").toLowerCase();
+
+    try {
+      const absolutePath = path.join(__dirname, "../../../", repo.pathName);
+      await fs.access(absolutePath);
+      console.log(`Analyzing ${repo.name} at ${absolutePath}`);
+
+      const examples = await iterateDirectory(absolutePath);
+
+      // If there are examples, write them to a file
+      if (examples.length) {
+        await fs.writeJson(
+          `${outputPath}/examples/${safeRepoName}-examples.json`,
+          examples,
+          {
+            spaces: 2,
+          }
+        );
+      }
+
+      const stats = await analyzeCodeExamples({
+        codeExamples: examples,
+        name: repo.name,
+      });
+
+      // if there is at least 1 code example, write stats to a file
+      if (stats.total) {
+        await fs.writeJson(
+          `${outputPath}/analysis/${safeRepoName}-analysis.json`,
+          stats,
+          {
+            spaces: 2,
+          }
+        );
+      }
+
+      // add stat values to overallStats
+      overallStats.total += stats.total;
+      for (const language in stats.languages) {
+        if (overallStats.languages[language]) {
+          overallStats.languages[language] += stats.languages[language];
+        } else {
+          overallStats.languages[language] = stats.languages[language];
+        }
+      }
+      for (const repo in stats.repos) {
+        if (overallStats.repos[repo]) {
+          overallStats.repos[repo] += stats.repos[repo];
+        } else {
+          overallStats.repos[repo] = stats.repos[repo];
+        }
+      }
+    } catch (error) {
+      console.error(`Path does not exist: ${repo.pathName}`);
+    }
+  }
+
+  await fs.writeJson(`${outputPath}/analysis.json`, overallStats, {
+    spaces: 2,
+  });
+  console.log(`Analysis written to ${outputPath}-analysis.json`);
 }
 
 main();

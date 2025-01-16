@@ -1,0 +1,555 @@
+[
+  {
+    "code": "          :copyable: false\n\n          SELECT * \n          FROM CUSTOMERS\n     - \n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-queries.txt"
+  },
+  {
+    "code": "          :copyable: false\n\n          async function query(db) {\n            return await db.collection('Customers').find({\n            }).toArray();\n          }\n\n   * -\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-queries.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         SELECT CONTACTNAME, CITY \n         FROM CUSTOMERS \n         WHERE CONTACTNAME LIKE '%SMITH%'\n\n     - \n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-queries.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         async function query(db) {\n         return await db.collection('Customers').find({\n               ContactName: { $regex: '.*SMITH.*' }\n            }, {\n               projection: { ContactName: 1, City: 1, _id: 0 }\n            }).toArray();\n         }\n\n   * -\n",
+    "language": "node",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-queries.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         SELECT CUSTOMERID, CITY\n         FROM CUSTOMERS AS C\n         JOIN ORDERS AS O\n            ON C.CUSTOMERID = O.CUSTOMERID\n         WHERE CONTACTNAME IN('ABI','JIM')\n\n     -\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-queries.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         const query = async (db) => {\n         return await db.collection('Customers').aggregate([\n            {\n               $lookup: {\n                  from: 'Orders',\n                  localField: 'CustomerId',\n                  foreignField: 'CustomerId',\n                  as: 'customer_orders'\n               }\n            },\n            {\n               $match: {\n               CONTACTNAME: { $in: ['ABI', 'JIM'] }\n               }\n            },\n            {\n               $project: {\n               CustomerId: 1,\n               City: 1\n               }\n            }\n            ]).toArray();\n         };\n\nNext Steps\n----------\n\n- :ref:`rm-convert-views`\n- :ref:`rm-convert-stored-procedures`\n\nLearn More\n----------\n\n- :ref:`sql-to-mongodb-mapping`\n- :manual:`SQL to Aggregation Mapping Chart </reference/sql-aggregation-comparison>`\n\n",
+    "language": "node",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-queries.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         BEGIN\n            DECLARE v_rentals INT;\n            DECLARE v_out \tINT;\n            SELECT COUNT(*) INTO v_rentals\n            FROM rental\n            WHERE inventory_id = p_inventory_id;\n            IF v_rentals = 0 THEN\n               RETURN TRUE;\n            END IF;\n            SELECT COUNT(rental_id) INTO v_out\n            FROM inventory LEFT JOIN rental USING(inventory_id)\n            WHERE inventory.inventory_id = p_inventory_id\n            AND rental.return_date IS NULL;\n            IF v_out > 0 THEN\n               RETURN FALSE;\n            ELSE\n               RETURN TRUE;\n            END IF;\n         END\n\n   .. tab:: MongoDB Output\n      :tabid: mongodb-output-1\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-stored-procedures.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         async function query(db, p_inventory_id) {\n         const v_rentals = await db.collection('rental').countDocuments(\n            { inventoryId: p_inventory_id }\n         );\n         if (v_rentals === 0) {\n            return true;\n         }\n         const v_out = await db.collection('inventory').aggregate([\n            {\n               $lookup: {\n               from: 'rental',\n               localField: 'inventoryId',\n               foreignField: 'inventoryId',\n               as: 'rentalData'\n               }\n            },\n            {\n               $match: {\n               inventoryId: p_inventory_id,\n               'rentalData.returnDate': { $exists: false }\n               }\n            },\n            {\n               $count: 'rentalId'\n            }\n            ]).toArray();\n            if (v_out.length > 0 && v_out[0].rentalId > 0) {\n               return false;\n            } else {\n               return true;\n            }\n            }\n\nC#\n~~\n\nThe following example shows a MySQL stored procedure\nconverted to C#:\n\n.. tabs::\n\n   .. tab:: Relational Input\n      :tabid: sql-input-2\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-stored-procedures.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         BEGIN\n               DECLARE v_customer_id INT;\n               DECLARE EXIT HANDLER FOR NOT FOUND RETURN NULL;\n               SELECT customer_id INTO v_customer_id\n               FROM rental\n               WHERE return_date IS NULL\n               AND inventory_id = p_inventory_id;\n               RETURN v_customer_id;\n            END\n\n\n   .. tab:: MongoDB Output\n      :tabid: mongodb-output-2\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-stored-procedures.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         async Task<int?> Query(IMongoDatabase db)\n         {\n            var rentalCollection = db.GetCollection<BsonDocument>(\"rental\");\n            var filter = Builders<BsonDocument>.Filter.Eq(\"inventoryId\", p_inventory_id) & Builders<BsonDocument>.Filter.Eq(\"returnDate\", null);\n            var result = await rentalCollection.Find(filter).FirstOrDefaultAsync();\n            return result != null ? result[\"customerId\"].AsInt32 : (int?)null;\n         }\n\nJava\n~~~~\n\nThe following example shows a MySQL stored procedure\nconverted to Java:\n\n.. tabs::\n\n   .. tab:: Relational Input\n      :tabid: sql-input-3\n\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-stored-procedures.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         BEGIN\n            SELECT inventory_id\n            FROM inventory\n            WHERE film_id = p_film_id\n            AND store_id = p_store_id\n            AND NOT inventory_in_stock(inventory_id);\n            SELECT COUNT(*)\n            FROM inventory\n            WHERE film_id = p_film_id\n            AND store_id = p_store_id\n            AND NOT inventory_in_stock(inventory_id)\n            INTO p_film_count;\n         END\n\n   .. tab:: MongoDB Output\n      :tabid: mongodb-output-3\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-stored-procedures.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         void query(MongoDatabase db) {\n            int p_film_id = 0;\n            int p_store_id = 0;\n            int p_film_count = 0;\n\n            MongoCollection<Document> inventoryCollection = db.getCollection(\"inventory\");\n\n            Bson filter = Filters.and(Filters.eq(\"filmId\", p_film_id), Filters.eq(\"storeId\", p_store_id), Filters.not(inventory_in_stock(\"inventoryId\")));\n            FindIterable<Document> result = inventoryCollection.find(filter);\n\n            for (Document doc : result) {\n               System.out.println(doc.getInteger(\"inventoryId\"));\n            }\n\n            p_film_count = (int) inventoryCollection.countDocuments(filter);\n         }\n\nNext Steps\n----------\n\n- :ref:`rm-convert-queries`\n- :ref:`rm-convert-views`\n\nLearn More\n----------\n\n- :ref:`sql-to-mongodb-mapping`\n- :manual:`SQL to Aggregation Mapping Chart </reference/sql-aggregation-comparison>`\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-stored-procedures.txt"
+  },
+  {
+    "code": "                  :copyable: false\n\n                  // Collection Name: products\n                  // Operation Type: Insert\n\n         #. Enter a name for the trigger in the :guilabel:`Name` text \n            field.\n\n         #. Select the :guilabel:`Cluster Name`, the \n            :guilabel:`Database Name` and the \n            :guilabel:`Collection Name`.\n\n         #. Select the :guilabel:`Operation Type` as \n            :guilabel:`Insert Document`.\n\n         #. Toggle the :guilabel:`Document Preimage` and \n            :guilabel:`Full Document` switches to on.\n\n         #. Enter converted MongoDB code in the :guilabel:`Function`\n            text field.\n\n            .. important::\n\n               Update the ``clusterName`` and ``databaseName`` in \n               the generated Atlas code to match your cluster and \n               database name.\n\n         #. Click :guilabel:`Save` to save the Atlas trigger.\n\nExample\n-------\n\nConvert a MySQL Trigger\n~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example shows a MySQL trigger converter to Atlas:\n\n.. tabs::\n\n   .. tab:: Relational Input\n      :tabid: sql-input-1\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-triggers.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         CREATE TRIGGER TRIGGER_UPPER_PRODUCTS\n         BEFORE INSERT\n         ON MYDATABASE.PRODUCTS\n         FOR EACH ROW\n         SET NEW.FULL_NAME = UPPER(new.FULL_NAME)\n\n   .. tab:: MongoDB Output\n      :tabid: mongodb-output-1\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-triggers.txt"
+  },
+  {
+    "code": "         :emphasize-lines: 14-15\n         :copyable: false\n\n         // The relational database trigger has been converted to MongoDB Atlas Triggers format.\n         // To create a trigger, open your Atlas project (https://cloud.mongodb.com) and choose Triggers\n         // For more on Atlas triggers see the docs: https://www.mongodb.com/docs/atlas/triggers/\n         // Create your trigger using the following settings and paste the code into the Function section:\n         // Watch Against: Collection\n         // Cluster Name: Ensure clusterName matches selection in Atlas Trigger configuration\n         // Database Name: Ensure databaseName matches selection in Atlas Trigger configuration\n         // Collection Name: products\n         // Operation Type: Insert\n         // Full Document: On\n         // Document Preimage: Off\n\n         exports = async function(changeEvent) {\n            const clusterName = \"clusterName\";\n            const databaseName = \"databaseName\";\n\n            const { fullDocument } = changeEvent;\n            const db = context.services.get(clusterName).db(databaseName);\n            const collection = db.collection('products');\n\n            if (fullDocument && fullDocument.fullName) {\n               fullDocument.fullName = fullDocument.fullName.toUpperCase();\n               await collection.updateOne({ _id: fullDocument._id }, { $set: { fullName: fullDocument.fullName } });\n            }\n         };\n\nLearn More\n----------\n\n- :ref:`rm-convert-views`\n- :ref:`rm-convert-queries`\n- :ref:`rm-convert-stored-procedures`\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-triggers.txt"
+  },
+  {
+    "code": "          :copyable: false\n\n          SELECT \n          O.ORDER_ID,\n          O.CUSTOMER_ID,\n          O.ORDER_DATE,\n          OD.UNIT_PRICE,\n          OD.DISCOUNT\n\n          FROM ORDERS AS O\n          INNER JOIN ORDER_DETAILS AS OD \n             ON O.ORDER_ID = OD.ORDER_ID;\n     - \n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-views.txt"
+  },
+  {
+    "code": "          :copyable: false\n          :emphasize-lines: 3-26\n\n          async function query(db) {\n            return await db.collection('orders').aggregate(\n            [\n             {\n                $lookup: \n                {\n                   from: \"orderDetails\",\n                   localField: \"orderId\",\n                   foreignField: \"orderId\",\n                   as: \"orderDetails\"\n                },\n             },\n             {\n                $unwind: \"$orderDetails\",\n             },\n             {\n                $project: \n                   {\n                      orderId: 1,\n                      customerId: 1,\n                      orderDate: 1,\n                      unitPrice: \"$orderDetails.unitPrice\",\n                      discount: \"$orderDetails.discount\"\n                   }\n             }\n            ]\n            ).toArray();\n           }\n\nThe shell command to create this view in MongoDB is:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-views.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 2-25\n\n   db.createView(\"VW_OrderDetails\", \"orders\", \n      [\n       {\n         $lookup: \n          {\n            from: \"orderDetails\",\n            localField: \"orderId\",\n            foreignField: \"orderId\",\n            as: \"orderDetails\"\n          },\n       },\n       {\n          $unwind: \"$orderDetails\",\n       },\n       {\n          $project: \n             {\n               orderId: 1,\n               customerId: 1,\n               orderDate: 1,\n               unitPrice: \"$orderDetails.unitPrice\",\n               discount: \"$orderDetails.discount\"\n             }\n       }\n      ]\n    )\n\nThe following example shows an aggregated group by view converted \nto MongoDB:\n\n.. list-table::\n   :header-rows: 1\n   :widths: 40 60\n\n   * - SQL Syntax\n     - MongoDB Syntax\n\n   * - \n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-views.txt"
+  },
+  {
+    "code": "          :copyable: false\n\n          SELECT \n          POSTAL_CODE, \n          COUNT(*) AS CUSTOMERCOUNT\n\n          FROM CUSTOMERS\n          GROUP BY POSTAL_CODE\n          ORDER BY CUSTOMERCOUNT DESC;\n     - \n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-views.txt"
+  },
+  {
+    "code": "          :copyable: false\n          :emphasize-lines: 3-14\n\n          async function query(db) {\n             return db.collection('customers').aggregate(\n             [\n                {\n                   $group: \n                   {\n                     _id: \"$postal_code\",\n                     customercount: { $sum: 1 }\n                   }\n                },\n                {\n                   $sort: { customercount: -1 }\n                }\n             ]\n            ).toArray();\n          }\n\nThe shell command to create this view in MongoDB is:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-views.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 2-13\n\n   db.createView(\"VW_Customers\", \"customers\",\n      [\n         {\n            $group: \n            {\n               _id: \"$postal_code\",\n               customercount: { $sum: 1 }\n            }\n         },\n         {\n            $sort: { customercount: -1 }\n         }\n      ]\n   )\n\nNext Steps\n----------\n\n- :ref:`rm-convert-queries`\n- :ref:`rm-convert-stored-procedures`\n\nLearn More\n----------\n\n- :ref:`sql-to-mongodb-mapping`\n- :manual:`SQL to Aggregation Mapping Chart </reference/sql-aggregation-comparison>`\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/convert-views.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         CREATE OR REPLACE PROCEDURE PUBLIC.CANCEL_CUSTOMER_ORDERS(IN CUST_ID INTEGER)\n         LANGUAGE PLPQSQL\n\n         AS $PROCEDURE$\n         BEGIN \n            UPDATE ORDERS SET STATUS = 'CANCELLED' WHERE CUSTOMER_ID = CUST_ID;\n         END;$PROCEDURE$\n\n      Specify the ``CUST_ID`` in the :guilabel:`Source Script` text field\n      by replacing ``<value>`` with the customer ID:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/test-converted-queries/compare-converted-queries.txt"
+  },
+  {
+    "code": "         :copyable: false\n         :emphasize-lines: 7\n\n         DO \n         $$\n            DECLARE\n               CUST_ID INTEGER;\n            BEGIN\n               --TODO: Set parameter values here\n               CUST_ID := <value>\n\n               CALL public.cancel_customer_orders(cust_id);\n            END;\n         $$  \n\n   .. step:: Run the source query\n\n      a. On the :guilabel:`Test Queries`\n         pane, click the :guilabel:`Run Source Query` \n         button.\n\n      #. Enter the connection details to your source database.\n\n      #. On the :guilabel:`Connection Details` form, click :guilabel:`Run`.\n\n         The data from the source database populates in the\n         :guilabel:`Results` user interface. You can click \n         the :guilabel:`Messages` pill to see execution \n         statistics such as ``Execution Time``, ``Row Count``, \n         error messages, and print statements.\n      \n   .. step:: Run the converted query\n\n      a. On the :guilabel:`Test Queries`\n         pane, click :guilabel:`Run Converted Query` \n         button.\n\n      #. Enter the connection details to your database.\n\n      #. On the :guilabel:`Connection Details` form, click :guilabel:`Run`.\n         \n\n         The data from the destination database populates \n         on the right-side of the :guilabel:`Results` user \n         interface.\n\n      #. You can use the :guilabel:`Results` pane to compare the \n         source and destination data and types.\n\n         .. note::\n\n            You can click the :icon-lg:`Menu` and \n            :icon-lg:`Apps` buttons to switch between \n            the document and row view for the data. \n\n   .. step:: *(Optional)* Edit the converted query\n\n            If the destination query needs to be changed, you can make \n            code changes in the :guilabel:`Converted MongoDB Query`\n            pane and run the updated query.\n            \n            a. On the :guilabel:`Converted MongoDB Query` pane, \n               click the :icon-lg:`Edit` button.\n            \n            #. Edit the code and click :guilabel:`Save`.\n            \n            #. Click :guilabel:`Run Converted Query`.\n\nLearn More\n----------\n\n- :ref:`rm-convert-queries`\n- :ref:`rm-convert-views`\n- :ref:`rm-convert-stored-procedures`\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/test-converted-queries/compare-converted-queries.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         {\n         \"status\":\"ok\",\n         \"server\":\"App Mod Language Runner\",\n         \"commitHash\":\"159119004c2bf8c534e15e5895acb9bc1bfb5b8d\",\n         \"version\":\"20240627\"\n         }\n\nNext Steps\n----------\n\n- :ref:`rm-compare-converted-queries`\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/code-generation/query-converter/test-converted-queries/install-query-runner.txt"
+  },
+  {
+    "code": "      :copyable: true\n\n      CREATE USER '<user>'@'localhost' IDENTIFIED BY '<password>';\n\n#. Confirm that the service account owns the tables in the migration job.\n\n   Required permissions depend on whether the service account owns the tables\n   used in the migration job. To check table ownership, run the following query:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/includes/fact-data-prep-oracle-step1.rst"
+  },
+  {
+    "code": "      :copyable: true\n\n      SELECT TABLE_NAME, OWNER \n      FROM ALL_TABLES \n      WHERE TABLE_NAME ='<table_name>'\n      ORDER BY OWNER, TABLE_NAME;\n\n#. Grant permissions to the service account.\n\n   .. important::\n      \n      If you're migrating a multi-tenant container database as a\n      common user, append ``CONTAINER=ALL`` when granting permissions. For\n      example:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/includes/fact-data-prep-oracle-step1.rst"
+  },
+  {
+    "code": "         :copyable: false\n      \n         GRANT CREATE SESSION TO <user> CONTAINER=ALL;\n   \n   If the service account *is* the table owner:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/includes/fact-data-prep-oracle-step1.rst"
+  },
+  {
+    "code": "      :copyable: true\n\n      GRANT CREATE SESSION TO <user>;\n      GRANT SELECT ON V$DATABASE TO <user>;\n\n   If the service account *is not* the table owner:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/includes/fact-data-prep-oracle-step1.rst"
+  },
+  {
+    "code": "      :copyable: true\n\n      GRANT CREATE SESSION TO <user>;\n      GRANT SELECT_CATALOG_ROLE TO <user>;\n      GRANT SELECT ANY TABLE TO <user>;\n      GRANT SELECT ON V$DATABASE TO <user>;\n      GRANT FLASHBACK ANY TABLE TO <user>;\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/includes/fact-data-prep-oracle-step1.rst"
+  },
+  {
+    "code": "   :copyable: true\n\n   USE MyDB\n   GO\n   EXEC sys.sp_cdc_enable_db\n   GO\n\nFor SQL Server instances hosted on AWS RDS:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/includes/fact-enable-cdc-database.rst"
+  },
+  {
+    "code": "   :copyable: true\n\n   USE MyDB \n   GO \n   EXEC msdb.dbo.rds_cdc_enable_db 'MyDB'; \n   GO\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/includes/fact-enable-cdc-database.rst"
+  },
+  {
+    "code": "         :copyable: true\n\n         CREATE USER 'user'@'localhost' IDENTIFIED BY 'password';\n\n   #. Grant the required permissions to the service account:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/includes/fact-my-sql-setup-user-permission-step.rst"
+  },
+  {
+    "code": "         :copyable: true\n         \n         GRANT SELECT, RELOAD, SHOW DATABASES, REPLICATION SLAVE, REPLICATION CLIENT \n         ON *.* \n         TO 'user'@'%';\n\n   #. Apply the user privilege changes:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/includes/fact-my-sql-setup-user-permission-step.rst"
+  },
+  {
+    "code": "         :copyable: true\n\n         FLUSH PRIVILEGES; \n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/includes/fact-my-sql-setup-user-permission-step.rst"
+  },
+  {
+    "code": "   :copyable: false\n\n   using MongoDB.Bson;\n   using MongoDB.Driver;\n   using System;\n   \n   public class TicketManagement\n   {\n       private readonly IMongoDatabase db;\n   \n       public TicketManagement(IMongoDatabase database)\n       {\n           db = database;\n           Initialize();\n       }\n   \n       private decimal g_max_person_id;\n       private decimal g_min_person_id;\n   \n       private void Initialize()\n       {\n           var personCollection = db.GetCollection<BsonDocument>(\"person\");\n           var result = personCollection.Aggregate()\n               .Group(new BsonDocument\n               {\n                   { \"_id\", BsonNull.Value },\n                   { \"minId\", new BsonDocument(\"$min\", \"$id\") },\n                   { \"maxId\", new BsonDocument(\"$max\", \"$id\") }\n               })\n               .FirstOrDefault();\n   \n           g_min_person_id = result[\"minId\"].AsDecimal;\n           g_max_person_id = result[\"maxId\"].AsDecimal;\n       }\n   \n   public void sellTickets(decimal person_id, decimal event_id, int quantity = 1)\n   {\n       var notEnoughSeats = new Exception(\"Not enough seats\");\n   \n       var p_person_id = person_id;\n       var p_event_id = event_id;\n       var p_quantity = quantity;\n   \n       int r_seat_level;\n       string r_seat_section;\n       string r_seat_row;\n   \n       var event_rec = get_event_details(p_event_id);\n   \n       try\n       {\n           var seatQuery = db.GetCollection<BsonDocument>(\"sportingEventTicket\")\n               .Aggregate()\n               .Match(new BsonDocument { { \"sportingEventId\", p_event_id }, { \"ticketholderId\", BsonNull.Value } })\n               .Group(new BsonDocument { { \"_id\", new BsonDocument { { \"seatLevel\", \"$seatLevel\" }, { \"seatSection\", \"$seatSection\" }, { \"seatRow\", \"$seatRow\" } } }, { \"count\", new BsonDocument(\"$sum\", 1) } })\n               .Match(new BsonDocument(\"count\", new BsonDocument(\"$gte\", p_quantity)))\n               .Limit(1)\n               .Project(new BsonDocument { { \"seatLevel\", \"$_id.seatLevel\" }, { \"seatSection\", \"$_id.seatSection\" }, { \"seatRow\", \"$_id.seatRow\" } })\n               .FirstOrDefault();\n   \n           if (seatQuery == null)\n           {\n               throw notEnoughSeats;\n           }\n   \n           r_seat_level = seatQuery[\"seatLevel\"].AsInt32;\n           r_seat_section = seatQuery[\"seatSection\"].AsString;\n           r_seat_row = seatQuery[\"seatRow\"].AsString;\n       }\n       catch\n       {\n           throw notEnoughSeats;\n       }\n   \n       var adjacentSeatsCursor = db.GetCollection<BsonDocument>(\"sportingEventTicket\")\n           .Find(new BsonDocument { { \"sportingEventId\", p_event_id }, { \"seatLevel\", r_seat_level }, { \"seatSection\", r_seat_section }, { \"seatRow\", r_seat_row } })\n           .Sort(new BsonDocument { { \"seatLevel\", 1 }, { \"seatSection\", 1 }, { \"seatRow\", 1 } })\n           .ToCursor();\n   \n       using (var session = db.Client.StartSession())\n       {\n           session.StartTransaction();\n   \n           try\n           {\n               for (int i = 0; i < p_quantity; i++)\n               {\n                   if (!adjacentSeatsCursor.MoveNext())\n                   {\n                       throw notEnoughSeats;\n                   }\n   \n                   var cur_ticket = adjacentSeatsCursor.Current;\n   \n                   var updateFilter = Builders<BsonDocument>.Filter.Eq(\"_id\", cur_ticket[\"_id\"]);\n                   var update = Builders<BsonDocument>.Update.Set(\"ticketholderId\", p_person_id);\n                   db.GetCollection<BsonDocument>(\"sportingEventTicket\").UpdateOne(updateFilter, update);\n   \n                   var purchaseHistDoc = new BsonDocument\n                   {\n                       { \"sportingEventTicketId\", cur_ticket[\"id\"] },\n                       { \"purchasedById\", p_person_id },\n                       { \"transactionDateTime\", DateTime.Now },\n                       { \"purchasePrice\", cur_ticket[\"ticketPrice\"] }\n                   };\n                   db.GetCollection<BsonDocument>(\"ticketPurchaseHist\").InsertOne(purchaseHistDoc);\n               }\n   \n               session.CommitTransaction();\n           }\n           catch\n           {\n               session.AbortTransaction();\n               throw;\n           }\n       }\n   }\n   \n   public void generateTicketActivity(decimal transaction_delay, int max_transactions = 1000)\n   {\n       int txn_count = 0;\n   \n       while (txn_count < max_transactions)\n       {\n           sellRandomTickets();\n           txn_count += 1;\n           System.Threading.Thread.Sleep((int)(transaction_delay * 1000));\n       }\n   }\n   \n   public void generateTransferActivity(int transaction_delay = 5, int max_transactions = 100)\n   {\n       int txn_count = 0;\n       decimal min_tik_id, max_tik_id, tik_id;\n       decimal new_ticketholder;\n       bool xfer_all;\n       bool chg_price;\n       decimal? new_price;\n   \n       while (txn_count < max_transactions)\n       {\n           var minMaxResult = db.GetCollection<BsonDocument>(\"ticketPurchaseHist\")\n               .Aggregate()\n               .Group(new BsonDocument \n               { \n                   { \"_id\", BsonNull.Value }, \n                   { \"min_tik_id\", new BsonDocument(\"$min\", \"$sporting_event_ticket_id\") }, \n                   { \"max_tik_id\", new BsonDocument(\"$max\", \"$sporting_event_ticket_id\") } \n               })\n               .FirstOrDefault();\n   \n           if (minMaxResult == null)\n           {\n               Console.WriteLine(\"No tickets available to transfer.\");\n               return;\n           }\n   \n           min_tik_id = minMaxResult[\"min_tik_id\"].AsDecimal;\n           max_tik_id = minMaxResult[\"max_tik_id\"].AsDecimal;\n   \n           var tikResult = db.GetCollection<BsonDocument>(\"ticketPurchaseHist\")\n               .Find(Builders<BsonDocument>.Filter.Lte(\"sporting_event_ticket_id\", new BsonDecimal128(new Random().NextDouble() * (double)(max_tik_id - min_tik_id) + (double)min_tik_id)))\n               .Sort(Builders<BsonDocument>.Sort.Descending(\"sporting_event_ticket_id\"))\n               .FirstOrDefault();\n   \n           if (tikResult == null)\n           {\n               Console.WriteLine(\"No tickets available to transfer.\");\n               return;\n           }\n   \n           tik_id = tikResult[\"sporting_event_ticket_id\"].AsDecimal;\n   \n           new_ticketholder = (decimal)(new Random().NextDouble() * (double)(g_max_person_id - g_min_person_id) + (double)g_min_person_id);\n   \n           xfer_all = new Random().Next(1, 6) < 5;\n   \n           new_price = null;\n   \n           chg_price = new Random().Next(1, 4) == 1;\n           if (chg_price)\n           {\n               var ticketResult = db.GetCollection<BsonDocument>(\"sportingEventTicket\")\n                   .Find(Builders<BsonDocument>.Filter.Eq(\"id\", tik_id))\n                   .FirstOrDefault();\n   \n               if (ticketResult != null)\n               {\n                   new_price = ticketResult[\"ticket_price\"].AsDecimal * (decimal)(new Random().NextDouble() * 0.4 + 0.8);\n               }\n           }\n   \n           transferTicket(tik_id, new_ticketholder, xfer_all, new_price);\n   \n           txn_count++;\n           System.Threading.Thread.Sleep(transaction_delay * 1000);\n       }\n   }\n   \n   public List<BsonDocument> get_open_events()\n   {\n       var event_tab = new List<BsonDocument>();\n   \n       var open_events = db.GetCollection<BsonDocument>(\"sportingEvent\")\n                           .Find(Builders<BsonDocument>.Filter.Eq(\"soldOut\", 0))\n                           .Sort(Builders<BsonDocument>.Sort.Ascending(\"startDateTime\"))\n                           .ToList();\n   \n       foreach (var oe_rec in open_events)\n       {\n           event_tab.Add(oe_rec);\n       }\n   \n       return event_tab;\n   }\n   \n   public eventRecType get_event_details(decimal event_id)\n   {\n       var eventRec = new eventRecType();\n       var p_event_id = event_id;\n   \n       var pipeline = new[]\n       {\n           new BsonDocument(\"$match\", new BsonDocument(\"id\", p_event_id)),\n           new BsonDocument(\"$lookup\", new BsonDocument\n           {\n               { \"from\", \"sportTeam\" },\n               { \"localField\", \"homeTeamId\" },\n               { \"foreignField\", \"id\" },\n               { \"as\", \"homeTeam\" }\n           }),\n           new BsonDocument(\"$lookup\", new BsonDocument\n           {\n               { \"from\", \"sportTeam\" },\n               { \"localField\", \"awayTeamId\" },\n               { \"foreignField\", \"id\" },\n               { \"as\", \"awayTeam\" }\n           }),\n           new BsonDocument(\"$lookup\", new BsonDocument\n           {\n               { \"from\", \"sportLocation\" },\n               { \"localField\", \"locationId\" },\n               { \"foreignField\", \"id\" },\n               { \"as\", \"location\" }\n           }),\n           new BsonDocument(\"$unwind\", \"$homeTeam\"),\n           new BsonDocument(\"$unwind\", \"$awayTeam\"),\n           new BsonDocument(\"$unwind\", \"$location\"),\n           new BsonDocument(\"$project\", new BsonDocument\n           {\n               { \"sport_name\", \"$sportTypeName\" },\n               { \"home_team_name\", \"$homeTeam.name\" },\n               { \"away_team_name\", \"$awayTeam.name\" },\n               { \"home_field\", \"$location.name\" },\n               { \"date_time\", \"$startDateTime\" }\n           })\n       };\n   \n       var result = db.GetCollection<BsonDocument>(\"sportingEvent\").Aggregate<BsonDocument>(pipeline).FirstOrDefault();\n   \n       if (result != null)\n       {\n           eventRec.sport_name = result[\"sport_name\"].AsString;\n           eventRec.home_team_name = result[\"home_team_name\"].AsString;\n           eventRec.away_team_name = result[\"away_team_name\"].AsString;\n           eventRec.home_field = result[\"home_field\"].AsString;\n           eventRec.date_time = result[\"date_time\"].ToUniversalTime();\n       }\n   \n       return eventRec;\n   }\n   \n   void sellRandomTickets()\n   {\n       var eventTab = getOpenEvents();\n       var rowCt = eventTab.Count;\n       var eventIdx = (int)Math.Truncate(new Random().NextDouble() * (rowCt - 1)) + 1;\n       var eventId = eventTab[eventIdx].id;\n       var ticketHolder = (int)Math.Truncate(new Random().NextDouble() * (g_max_person_id - g_min_person_id) + g_min_person_id);\n       var quantity = (int)Math.Truncate(new Random().NextDouble() * 5) + 1;\n       sellTickets(ticketHolder, eventId, quantity);\n   }\n   \n   void transferTicket(decimal ticket_id, decimal new_ticketholder_id, bool transfer_all = false, decimal? price = null)\n   {\n       var p_ticket_id = ticket_id;\n       var p_new_ticketholder_id = new_ticketholder_id;\n       var p_price = price;\n       var xferall = transfer_all ? 1 : 0;\n       decimal old_ticketholder_id;\n       DateTime last_txn_date;\n   \n       var txfr_cur = db.GetCollection<BsonDocument>(\"ticketPurchaseHist\")\n           .Find(Builders<BsonDocument>.Filter.And(\n               Builders<BsonDocument>.Filter.Eq(\"purchased_by_id\", old_ticketholder_id),\n               Builders<BsonDocument>.Filter.Eq(\"transaction_date_time\", last_txn_date)\n           )).ToList();\n   \n       var result = db.GetCollection<BsonDocument>(\"ticketPurchaseHist\").Aggregate()\n           .Match(Builders<BsonDocument>.Filter.And(\n               Builders<BsonDocument>.Filter.Eq(\"sporting_event_ticket_id\", p_ticket_id),\n               Builders<BsonDocument>.Filter.Eq(\"purchased_by_id\", old_ticketholder_id),\n               Builders<BsonDocument>.Filter.Or(\n                   Builders<BsonDocument>.Filter.Eq(\"sporting_event_ticket_id\", p_ticket_id),\n                   Builders<BsonDocument>.Filter.Eq(\"xferall\", 1)\n               )\n           ))\n           .Group(new BsonDocument\n           {\n               { \"_id\", \"$ticketholder_id\" },\n               { \"transaction_date_time\", new BsonDocument(\"$max\", \"$transaction_date_time\") }\n           })\n           .FirstOrDefault();\n   \n       if (result != null)\n       {\n           last_txn_date = result[\"transaction_date_time\"].ToUniversalTime();\n           old_ticketholder_id = result[\"_id\"].AsDecimal;\n   \n           foreach (var xrec in txfr_cur)\n           {\n               db.GetCollection<BsonDocument>(\"sportingEventTicket\").UpdateOne(\n                   Builders<BsonDocument>.Filter.Eq(\"id\", xrec[\"sporting_event_ticket_id\"]),\n                   Builders<BsonDocument>.Update.Set(\"ticketholder_id\", p_new_ticketholder_id)\n               );\n   \n               db.GetCollection<BsonDocument>(\"ticketPurchaseHist\").InsertOne(new BsonDocument\n               {\n                   { \"sporting_event_ticket_id\", xrec[\"sporting_event_ticket_id\"] },\n                   { \"purchased_by_id\", p_new_ticketholder_id },\n                   { \"transferred_from_id\", old_ticketholder_id },\n                   { \"transaction_date_time\", DateTime.UtcNow },\n                   { \"purchase_price\", p_price ?? xrec[\"purchase_price\"].AsDecimal }\n               });\n           }\n       }\n       else\n       {\n           throw new Exception(\"No tickets available to transfer.\");\n       }\n   }\n   }\n",
+    "language": "csharp",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/includes/query-conversion-examples/oracle-package-csharp.rst"
+  },
+  {
+    "code": "   :copyable: false\n\n   public class TicketManagement {\n       private MongoDatabase db;\n       private Decimal128 g_max_person_id;\n       private Decimal128 g_min_person_id;\n   \n       public TicketManagement(MongoDatabase db) {\n           this.db = db;\n           initialize();\n       }\n   \n       private void initialize() {\n           MongoCollection<Document> personCollection = db.getCollection(\"person\");\n           Document minMaxPersonId = personCollection.aggregate(Arrays.asList(\n                   Aggregates.group(null, Accumulators.min(\"minId\", \"$id\"), Accumulators.max(\"maxId\", \"$id\"))\n           )).first();\n           if (minMaxPersonId != null) {\n               g_min_person_id = minMaxPersonId.get(\"minId\", Decimal128.class);\n               g_max_person_id = minMaxPersonId.get(\"maxId\", Decimal128.class);\n           }\n       }\n   \n   public void sellTickets(Number person_id, Number event_id, Number quantity) {\n       try {\n           Document eventRec = get_event_details(event_id);\n           Document seatInfo = db.getCollection(\"sportingEventTicket\")\n               .aggregate(Arrays.asList(\n                   Aggregates.match(Filters.and(\n                       Filters.eq(\"sportingEventId\", event_id),\n                       Filters.eq(\"ticketholderId\", null)\n                   )),\n                   Aggregates.group(new Document(\"seatLevel\", \"$seatLevel\")\n                       .append(\"seatSection\", \"$seatSection\")\n                       .append(\"seatRow\", \"$seatRow\"),\n                       Accumulators.sum(\"count\", 1)\n                   ),\n                   Aggregates.match(Filters.gte(\"count\", quantity)),\n                   Aggregates.limit(1)\n               )).first();\n   \n           if (seatInfo == null) {\n               throw new Exception(\"not_enough_seats\");\n           }\n   \n           Number r_seat_level = seatInfo.getInteger(\"_id.seatLevel\");\n           String r_seat_section = seatInfo.getString(\"_id.seatSection\");\n           String r_seat_row = seatInfo.getString(\"_id.seatRow\");\n   \n           MongoCursor<Document> cursor = db.getCollection(\"sportingEventTicket\")\n               .find(Filters.and(\n                   Filters.eq(\"sportingEventId\", event_id),\n                   Filters.eq(\"seatLevel\", r_seat_level),\n                   Filters.eq(\"seatSection\", r_seat_section),\n                   Filters.eq(\"seatRow\", r_seat_row)\n               ))\n               .sort(Sorts.ascending(\"seatLevel\", \"seatSection\", \"seatRow\"))\n               .iterator();\n   \n           for (int i = 0; i < quantity; i++) {\n               if (!cursor.hasNext()) {\n                   throw new Exception(\"not_enough_seats\");\n               }\n               Document cur_ticket = cursor.next();\n               db.getCollection(\"sportingEventTicket\").updateOne(\n                   Filters.eq(\"_id\", cur_ticket.getObjectId(\"_id\")),\n                   Updates.set(\"ticketholderId\", person_id)\n               );\n               db.getCollection(\"ticketPurchaseHist\").insertOne(new Document()\n                   .append(\"sportingEventTicketId\", cur_ticket.getDecimal(\"id\"))\n                   .append(\"purchasedById\", person_id)\n                   .append(\"transactionDateTime\", new Date())\n                   .append(\"purchasePrice\", cur_ticket.getDecimal(\"ticketPrice\"))\n               );\n           }\n       } catch (Exception e) {\n           if (e.getMessage().equals(\"not_enough_seats\")) {\n               System.out.println(\"Sorry, there aren't \" + quantity + \" adjacent seats for event:\");\n               System.out.println(\"   \" + eventRec.getString(\"home_team_name\") + \" VS \" + eventRec.getString(\"away_team_name\") + \"   (\" + eventRec.getString(\"sport_name\") + \")\");\n               System.out.println(\"   \" + eventRec.getString(\"home_field\") + \":  \" + new SimpleDateFormat(\"dd-MMM-yyyy HH:mm\").format(eventRec.getDate(\"date_time\")));\n           } else {\n               e.printStackTrace();\n           }\n       }\n   }\n   \n   public void generateTicketActivity(int transaction_delay, int max_transactions) {\n       int txn_count = 0;\n       while (txn_count < max_transactions) {\n           sellRandomTickets();\n           txn_count++;\n           try {\n               Thread.sleep(transaction_delay * 1000);\n           } catch (InterruptedException e) {\n               Thread.currentThread().interrupt();\n           }\n       }\n   }\n   \n   public void generateTransferActivity(double transaction_delay, int max_transactions) {\n       int txn_count = 0;\n       Decimal128 min_tik_id;\n       Decimal128 max_tik_id;\n       Decimal128 tik_id;\n       Decimal128 new_ticketholder;\n       boolean xfer_all;\n       boolean chg_price;\n       Decimal128 new_price;\n   \n       while (txn_count < max_transactions) {\n           Document minMaxResult = db.getCollection(\"ticketPurchaseHist\")\n               .aggregate(Arrays.asList(\n                   Aggregates.group(null, \n                       Accumulators.min(\"min_tik_id\", \"$sportingEventTicketId\"), \n                       Accumulators.max(\"max_tik_id\", \"$sportingEventTicketId\")\n                   )\n               )).first();\n   \n           if (minMaxResult == null) {\n               System.out.println(\"No tickets available to transfer.\");\n               return;\n           }\n   \n           min_tik_id = minMaxResult.get(\"min_tik_id\", Decimal128.class);\n           max_tik_id = minMaxResult.get(\"max_tik_id\", Decimal128.class);\n   \n           Document tikResult = db.getCollection(\"ticketPurchaseHist\")\n               .aggregate(Arrays.asList(\n                   Aggregates.match(Filters.lte(\"sportingEventTicketId\", new Decimal128(Math.random() * (max_tik_id.doubleValue() - min_tik_id.doubleValue()) + min_tik_id.doubleValue()))),\n                   Aggregates.group(null, Accumulators.max(\"tik_id\", \"$sportingEventTicketId\"))\n               )).first();\n   \n           if (tikResult == null) {\n               System.out.println(\"No tickets available to transfer.\");\n               return;\n           }\n   \n           tik_id = tikResult.get(\"tik_id\", Decimal128.class);\n           new_ticketholder = new Decimal128(Math.floor(Math.random() * (g_max_person_id.doubleValue() - g_min_person_id.doubleValue()) + g_min_person_id.doubleValue()));\n   \n           xfer_all = (Math.round(Math.random() * 4) < 4); // transfer all tickets 80% of the time\n           new_price = null;\n   \n           chg_price = (Math.round(Math.random() * 2) == 0); // 30% of the time change price\n           if (chg_price) {\n               Document priceResult = db.getCollection(\"sportingEventTicket\")\n                   .find(Filters.eq(\"id\", tik_id))\n                   .projection(Projections.include(\"ticketPrice\"))\n                   .first();\n   \n               if (priceResult != null) {\n                   new_price = new Decimal128(priceResult.getDouble(\"ticketPrice\") * (Math.random() * 0.4 + 0.8));\n               }\n           }\n   \n           transferTicket(tik_id, new_ticketholder, xfer_all, new_price);\n   \n           txn_count++;\n           try {\n               Thread.sleep((long) (transaction_delay * 1000));\n           } catch (InterruptedException e) {\n               Thread.currentThread().interrupt();\n           }\n       }\n   }\n   \n   public List<Document> getOpenEvents() {\n       List<Document> eventTab = new ArrayList<>();\n       MongoCollection<Document> sportingEventCollection = db.getCollection(\"sportingEvent\");\n       FindIterable<Document> openEvents = sportingEventCollection.find(Filters.eq(\"soldOut\", 0))\n               .sort(Sorts.ascending(\"startDateTime\"));\n   \n       for (Document oeRec : openEvents) {\n           eventTab.add(oeRec);\n       }\n       return eventTab;\n   }\n   \n   public eventRecType get_event_details(Number event_id) {\n       eventRecType eventRec = new eventRecType();\n       Number p_event_id = event_id;\n       \n       List<Document> pipeline = Arrays.asList(\n           new Document(\"$match\", new Document(\"id\", p_event_id)),\n           new Document(\"$lookup\", new Document(\"from\", \"sportTeam\")\n               .append(\"localField\", \"homeTeamId\")\n               .append(\"foreignField\", \"id\")\n               .append(\"as\", \"home_team\")),\n           new Document(\"$lookup\", new Document(\"from\", \"sportTeam\")\n               .append(\"localField\", \"awayTeamId\")\n               .append(\"foreignField\", \"id\")\n               .append(\"as\", \"away_team\")),\n           new Document(\"$lookup\", new Document(\"from\", \"sportLocation\")\n               .append(\"localField\", \"locationId\")\n               .append(\"foreignField\", \"id\")\n               .append(\"as\", \"location\")),\n           new Document(\"$unwind\", \"$home_team\"),\n           new Document(\"$unwind\", \"$away_team\"),\n           new Document(\"$unwind\", \"$location\"),\n           new Document(\"$project\", new Document(\"sport_name\", \"$sportTypeName\")\n               .append(\"home_team_name\", \"$home_team.name\")\n               .append(\"away_team_name\", \"$away_team.name\")\n               .append(\"home_field\", \"$location.name\")\n               .append(\"date_time\", \"$startDateTime\"))\n       );\n   \n       MongoCollection<Document> collection = db.getCollection(\"sportingEvent\");\n       AggregateIterable<Document> result = collection.aggregate(pipeline);\n   \n       Document doc = result.first();\n       if (doc != null) {\n           eventRec.sport_name = doc.getString(\"sport_name\");\n           eventRec.home_team_name = doc.getString(\"home_team_name\");\n           eventRec.away_team_name = doc.getString(\"away_team_name\");\n           eventRec.home_field = doc.getString(\"home_field\");\n           eventRec.date_time = doc.getDate(\"date_time\");\n       }\n   \n       return eventRec;\n   }\n   \n   public void sellRandomTickets() {\n       List<Document> eventTab = getOpenEvents();\n       int rowCt = eventTab.size();\n       int eventIdx = (int) Math.floor(Math.random() * rowCt);\n       Document event = eventTab.get(eventIdx);\n       Decimal128 eventId = event.get(\"id\", Decimal128.class);\n       Decimal128 ticketHolder = new Decimal128(Math.floor(Math.random() * (g_max_person_id.doubleValue() - g_min_person_id.doubleValue()) + g_min_person_id.doubleValue()));\n       int quantity = (int) Math.floor(Math.random() * 5) + 1;\n       sellTickets(ticketHolder, eventId, quantity);\n   }\n   \n   public void transferTicket(int ticket_id, int new_ticketholder_id, boolean transfer_all, Double price) {\n       int p_ticket_id = ticket_id;\n       int p_new_ticketholder_id = new_ticketholder_id;\n       Double p_price = price;\n       int xferall = transfer_all ? 1 : 0;\n       int old_ticketholder_id;\n       Date last_txn_date;\n   \n       List<Document> txfr_cur;\n   \n       try {\n           Document result = db.getCollection(\"ticketPurchaseHist\").aggregate(Arrays.asList(\n               Aggregates.match(Filters.eq(\"sportingEventTicketId\", p_ticket_id)),\n               Aggregates.group(\"$ticketholderId\", Accumulators.max(\"transaction_date_time\", \"$transactionDateTime\")),\n               Aggregates.lookup(\"sportingEventTicket\", \"ticketholderId\", \"ticketholderId\", \"ticket\"),\n               Aggregates.unwind(\"$ticket\"),\n               Aggregates.match(Filters.or(\n                   Filters.eq(\"ticket.id\", p_ticket_id),\n                   Filters.eq(\"xferall\", 1)\n               )),\n               Aggregates.project(Projections.fields(\n                   Projections.computed(\"transaction_date_time\", \"$transaction_date_time\"),\n                   Projections.computed(\"ticketholder_id\", \"$ticket.ticketholderId\")\n               ))\n           )).first();\n   \n           if (result != null) {\n               last_txn_date = result.getDate(\"transaction_date_time\");\n               old_ticketholder_id = result.getInteger(\"ticketholder_id\");\n   \n               txfr_cur = db.getCollection(\"ticketPurchaseHist\").find(Filters.and(\n                   Filters.eq(\"purchased_by_id\", old_ticketholder_id),\n                   Filters.eq(\"transaction_date_time\", last_txn_date)\n               )).into(new ArrayList<>());\n   \n               for (Document xrec : txfr_cur) {\n                   db.getCollection(\"sportingEventTicket\").updateOne(\n                       Filters.eq(\"id\", xrec.getInteger(\"sportingEventTicketId\")),\n                       Updates.set(\"ticketholder_id\", p_new_ticketholder_id)\n                   );\n   \n                   db.getCollection(\"ticketPurchaseHist\").insertOne(new Document()\n                       .append(\"sportingEventTicketId\", xrec.getInteger(\"sportingEventTicketId\"))\n                       .append(\"purchased_by_id\", p_new_ticketholder_id)\n                       .append(\"transferred_from_id\", old_ticketholder_id)\n                       .append(\"transaction_date_time\", new Date())\n                       .append(\"purchase_price\", p_price != null ? p_price : xrec.getDouble(\"purchase_price\"))\n                   );\n               }\n           }\n   \n           db.getCollection(\"sportingEventTicket\").getDatabase().runCommand(new Document(\"commitTransaction\", 1));\n       } catch (Exception e) {\n           db.getCollection(\"sportingEventTicket\").getDatabase().runCommand(new Document(\"abortTransaction\", 1));\n       }\n   }\n   }\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/includes/query-conversion-examples/oracle-package-java.rst"
+  },
+  {
+    "code": "   :copyable: false\n   \n   class TicketManagement {\n     constructor(db) {\n       this.db = db;\n       this.g_max_person_id = null;\n       this.g_min_person_id = null;\n     }\n   \n   async sellTickets(person_id, event_id, quantity = 1) {\n     const notEnoughSeats = new Error('not_enough_seats');\n     const p_person_id = person_id;\n     const p_event_id = event_id;\n     const p_quantity = quantity;\n   \n     let r_seat_level, r_seat_section, r_seat_row;\n     let event_rec;\n   \n     try {\n       event_rec = await this.get_event_details(p_event_id);\n   \n       const seatData = await this.db.collection('sportingEventTicket').aggregate([\n         { $match: { sportingEventId: p_event_id, ticketholderId: null } },\n         { $group: { _id: { seatLevel: \"$seatLevel\", seatSection: \"$seatSection\", seatRow: \"$seatRow\" }, count: { $sum: 1 } } },\n         { $match: { count: { $gte: p_quantity } } },\n         { $limit: 1 },\n         { $project: { _id: 0, seatLevel: \"$_id.seatLevel\", seatSection: \"$_id.seatSection\", seatRow: \"$_id.seatRow\" } }\n       ]).toArray();\n   \n       if (seatData.length === 0) throw notEnoughSeats;\n   \n       r_seat_level = seatData[0].seatLevel;\n       r_seat_section = seatData[0].seatSection;\n       r_seat_row = seatData[0].seatRow;\n   \n       const adjacentSeatsCursor = this.db.collection('sportingEventTicket').find({\n         sportingEventId: p_event_id,\n         seatLevel: r_seat_level,\n         seatSection: r_seat_section,\n         seatRow: r_seat_row\n       }).sort({ seatLevel: 1, seatSection: 1, seatRow: 1 });\n   \n       for (let i = 0; i < p_quantity; i++) {\n         const cur_ticket = await adjacentSeatsCursor.next();\n         if (!cur_ticket) throw notEnoughSeats;\n   \n         await this.db.collection('sportingEventTicket').updateOne(\n           { _id: cur_ticket._id },\n           { $set: { ticketholderId: p_person_id } }\n         );\n   \n         await this.db.collection('ticketPurchaseHist').insertOne({\n           sportingEventTicketId: cur_ticket.id,\n           purchasedById: p_person_id,\n           transactionDateTime: new Date(),\n           purchasePrice: cur_ticket.ticketPrice\n         });\n       }\n   \n     } catch (err) {\n       if (err === notEnoughSeats) {\n         console.log(`Sorry, there aren't ${p_quantity} adjacent seats for event:`);\n         console.log(`   ${event_rec.home_team_name} VS ${event_rec.away_team_name}   (${event_rec.sport_name})`);\n         console.log(`   ${event_rec.home_field}:  ${event_rec.date_time.toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}`);\n       } else {\n         throw err;\n       }\n     }\n   }\n   \n   async $transferTicket(ticket_id, new_ticketholder_id, transfer_all = false, price = null) {\n     const p_ticket_id = ticket_id;\n     const p_new_ticketholder_id = new_ticketholder_id;\n     const p_price = price;\n     const xferall = transfer_all ? 1 : 0;\n   \n     try {\n       const ticket = await this.db.collection('sportingEventTicket').findOne({ id: p_ticket_id });\n       if (!ticket) throw new Error('Ticket not found');\n   \n       const lastTransaction = await this.db.collection('ticketPurchaseHist').aggregate([\n         { $match: { purchased_by_id: ticket.ticketholderId, $or: [{ sporting_event_ticket_id: p_ticket_id }, { xferall: 1 }] } },\n         { $group: { _id: '$ticketholderId', last_txn_date: { $max: '$transaction_date_time' } } }\n       ]).toArray();\n   \n       if (lastTransaction.length === 0) throw new Error('No transaction found');\n   \n       const old_ticketholder_id = ticket.ticketholderId;\n       const last_txn_date = lastTransaction[0].last_txn_date;\n   \n       const transactions = await this.db.collection('ticketPurchaseHist').find({\n         purchased_by_id: old_ticketholder_id,\n         transaction_date_time: last_txn_date\n       }).toArray();\n   \n       for (const xrec of transactions) {\n         await this.db.collection('sportingEventTicket').updateOne(\n           { id: xrec.sporting_event_ticket_id },\n           { $set: { ticketholderId: p_new_ticketholder_id } }\n         );\n   \n         await this.db.collection('ticketPurchaseHist').insertOne({\n           sporting_event_ticket_id: xrec.sporting_event_ticket_id,\n           purchased_by_id: p_new_ticketholder_id,\n           transferred_from_id: old_ticketholder_id,\n           transaction_date_time: new Date(),\n           purchase_price: p_price !== null ? p_price : xrec.purchase_price\n         });\n       }\n     } catch (error) {\n       console.error(error);\n       throw error;\n     }\n   }\n   \n   async generateTicketActivity(transaction_delay, max_transactions = 1000) {\n     let txn_count = 0;\n     while (txn_count < max_transactions) {\n       await this.sellRandomTickets();\n       txn_count += 1;\n       await new Promise(resolve => setTimeout(resolve, transaction_delay * 1000));\n     }\n   }\n   \n   async generateTransferActivity(transaction_delay = 5, max_transactions = 100) {\n     let txn_count = 0;\n     let min_tik_id, max_tik_id, tik_id, new_ticketholder, xfer_all, chg_price, new_price;\n   \n     while (txn_count < max_transactions) {\n       const minMaxResult = await this.db.collection('ticketPurchaseHist').aggregate([\n         {\n           $group: {\n             _id: null,\n             min_tik_id: { $min: \"$sportingEventTicketId\" },\n             max_tik_id: { $max: \"$sportingEventTicketId\" }\n           }\n         }\n       ]).toArray();\n   \n       if (minMaxResult.length === 0) {\n         console.log('No tickets available to transfer.');\n         return;\n       }\n   \n       min_tik_id = minMaxResult[0].min_tik_id;\n       max_tik_id = minMaxResult[0].max_tik_id;\n   \n       const tikResult = await this.db.collection('ticketPurchaseHist').aggregate([\n         {\n           $match: {\n             sportingEventTicketId: { $lte: Math.random() * (max_tik_id - min_tik_id) + min_tik_id }\n           }\n         },\n         {\n           $group: {\n             _id: null,\n             tik_id: { $max: \"$sportingEventTicketId\" }\n           }\n         }\n       ]).toArray();\n   \n       if (tikResult.length === 0) {\n         console.log('No tickets available to transfer.');\n         return;\n       }\n   \n       tik_id = tikResult[0].tik_id;\n   \n       new_ticketholder = Math.floor(Math.random() * (this.g_max_person_id - this.g_min_person_id) + this.g_min_person_id);\n   \n       xfer_all = Math.round(Math.random() * 4) < 4;\n   \n       new_price = null;\n   \n       chg_price = Math.round(Math.random() * 2) === 0;\n       if (chg_price) {\n         const priceResult = await this.db.collection('sportingEventTicket').findOne({ id: tik_id });\n         new_price = Math.random() * (1.2 - 0.8) + 0.8 * priceResult.ticketPrice;\n       }\n   \n       await this.transferTicket(tik_id, new_ticketholder, xfer_all, new_price);\n   \n       txn_count++;\n       await new Promise(resolve => setTimeout(resolve, transaction_delay * 1000));\n     }\n   }\n   \n   async $get_event_details(event_id) {\n     const p_event_id = event_id;\n     const result = await this.db.collection('sportingEvent').aggregate([\n       {\n         $match: { id: p_event_id }\n       },\n       {\n         $lookup: {\n           from: 'sportTeam',\n           localField: 'homeTeamId',\n           foreignField: 'id',\n           as: 'home_team'\n         }\n       },\n       {\n         $lookup: {\n           from: 'sportTeam',\n           localField: 'awayTeamId',\n           foreignField: 'id',\n           as: 'away_team'\n         }\n       },\n       {\n         $lookup: {\n           from: 'sportLocation',\n           localField: 'locationId',\n           foreignField: 'id',\n           as: 'location'\n         }\n       },\n       {\n         $unwind: '$home_team'\n       },\n       {\n         $unwind: '$away_team'\n       },\n       {\n         $unwind: '$location'\n       },\n       {\n         $project: {\n           sport_name: '$sportTypeName',\n           home_team_name: '$home_team.name',\n           away_team_name: '$away_team.name',\n           home_field: '$location.name',\n           date_time: '$startDateTime'\n         }\n       }\n     ]).toArray();\n   \n     if (result.length === 0) {\n       throw new Error('Event not found');\n     }\n   \n     return result[0];\n   }\n   \n   async sellRandomTickets() {\n     const eventTab = await this.get_open_events();\n     const row_ct = eventTab.length;\n     const event_idx = Math.floor(Math.random() * row_ct);\n     const event_id = eventTab[event_idx].id;\n     const ticket_holder = Math.floor(Math.random() * (this.g_max_person_id - this.g_min_person_id + 1)) + this.g_min_person_id;\n     const quantity = Math.floor(Math.random() * 6) + 1;\n     await this.sellTickets(ticket_holder, event_id, quantity);\n   }\n   \n   async get_open_events() {\n     const openEvents = await this.db.collection('sportingEvent').find({ soldOut: 0 }).sort({ startDateTime: 1 }).toArray();\n     return openEvents;\n   }\n   }\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/includes/query-conversion-examples/oracle-package-js.rst"
+  },
+  {
+    "code": "   :copyable: false\n\n   CREATE OR REPLACE EDITIONABLE PACKAGE \"TICKETMANAGEMENT\" IS\n     procedure sellTickets(person_id IN NUMBER, event_id IN NUMBER, quantity IN NUMBER DEFAULT 1);\n     procedure generateTicketActivity(transaction_delay NUMBER, max_transactions IN NUMBER DEFAULT 1000);\n     procedure generateTransferActivity(transaction_delay IN NUMBER DEFAULT 5, max_transactions IN NUMBER DEFAULT 100);\n   end ticketManagement;\n   /\n\n   CREATE OR REPLACE EDITIONABLE PACKAGE BODY \"TICKETMANAGEMENT\" AS\n   -- forward type declaration\n     TYPE eventTab IS TABLE OF sporting_event%ROWTYPE INDEX BY BINARY_INTEGER;\n     TYPE eventRecType IS RECORD ( sport_name sport_type.name%TYPE,\n                                   home_team_name sport_team.name%TYPE,\n                                   away_team_name sport_team.name%TYPE,\n                                   home_field     sport_location.name%TYPE,\n                                   date_time      sporting_event.start_date_time%TYPE);\n   \n   -- package variables\n     g_max_person_id person.id%TYPE;\n     g_min_person_id person.id%TYPE;\n  \n   -- forward declarations\n     function get_open_events return eventTab;\n     function get_event_details(event_id IN NUMBER) RETURN eventRecType;\n     procedure sellRandomTickets;\n\n   --------------------------------\n   -- sell tickets proc\n   -------------------------------- \n   procedure sellTickets(person_id IN NUMBER, event_id IN NUMBER, quantity IN NUMBER DEFAULT 1) IS\n     not_enough_seats EXCEPTION;\n     \n     p_person_id person.id%TYPE := person_id;\n     p_event_id sporting_event.id%TYPE := event_id;\n     p_quantity NUMBER := quantity;\n     \n     r_seat_level   sporting_event_ticket.seat_level%TYPE;\n     r_seat_section sporting_event_ticket.seat_section%type;\n     r_seat_row     sporting_event_ticket.seat_row%type;\n     \n     event_rec eventRecType;\n     \n     CURSOR adjacent_seats(p_seat_level NUMBER, p_seat_section VARCHAR2, p_seat_row VARCHAR2) IS\n     SELECT * FROM sporting_event_ticket\n     WHERE sporting_event_id = p_event_id\n     AND   seat_level = p_seat_level\n     AND   seat_section = p_seat_section\n     AND   seat_row = p_seat_row\n     ORDER BY  seat_level, seat_section, seat_row\n     FOR UPDATE OF ticketholder_id;\n     \n     cur_ticket sporting_event_ticket%ROWTYPE;\n   \n   BEGIN\n     event_rec := get_event_details(p_event_id);\n     BEGIN\n       SELECT seat_level, seat_section, seat_row\n       INTO  r_seat_level, r_seat_section, r_seat_row\n       FROM (SELECT seat_level,seat_section,seat_row\n             FROM sporting_event_ticket\n             WHERE sporting_event_id = p_event_id\n             AND   ticketholder_id IS NULL\n             GROUP BY seat_level,seat_section,seat_row\n             HAVING COUNT(*) >= p_quantity)\n       WHERE rownum < 2;\n     EXCEPTION WHEN NO_DATA_FOUND THEN\n       RAISE not_enough_seats;\n     END;\n     \n     OPEN adjacent_seats(r_seat_level,r_seat_section,r_seat_row);\n     \n     FOR i IN 1..p_quantity LOOP\n       \n       FETCH adjacent_seats INTO cur_ticket;\n       UPDATE sporting_event_ticket\n       SET    ticketholder_id = p_person_id\n       WHERE CURRENT OF adjacent_seats;\n       \n       INSERT INTO ticket_purchase_hist(sporting_event_ticket_id, purchased_by_id, transaction_date_time, purchase_price)\n       VALUES(cur_ticket.id, p_person_id, SYSDATE, cur_ticket.ticket_price);\n     \n     END LOOP;\n     COMMIT;\n   \n   EXCEPTION WHEN not_enough_seats THEN\n     DBMS_OUTPUT.PUT_LINE('Sorry, there aren''t ' || p_quantity || ' adjacent seats for event:');\n     DBMS_OUTPUT.PUT_LINE('   ' || event_rec.home_team_name || ' VS ' || event_rec.away_team_name || '   (' || event_rec.sport_name || ')' );\n     DBMS_OUTPUT.PUT_LINE('   ' || event_rec.home_field || ':  ' || TO_CHAR(event_rec.date_time,'DD-MON-YYYY HH:MI'));\n   END;\n\n   --------------------------------\n   -- transfer ticket\n   --------------------------------\n   procedure transferTicket(ticket_id IN NUMBER, new_ticketholder_id IN NUMBER, transfer_all IN BOOLEAN DEFAULT FALSE, price IN NUMBER DEFAULT NULL) IS\n     p_ticket_id           NUMBER := ticket_id;\n     p_new_ticketholder_id NUMBER := new_ticketholder_id;\n     p_price               NUMBER := price;\n     xferall               NUMBER := 0;\n     old_ticketholder_id   NUMBER;\n     \n     last_txn_date         DATE;\n     \n     CURSOR txfr_cur(p_purchased_by NUMBER, p_txn_date_time DATE) IS\n     SELECT * FROM ticket_purchase_hist\n     WHERE  purchased_by_id = p_purchased_by\n     AND    transaction_date_time = p_txn_date_time;\n   \n   BEGIN\n     IF transfer_all THEN\n       xferall := 1;\n     END IF;\n     \n     SELECT max(h.transaction_date_time) as transaction_date_time\n           ,t.ticketholder_id as ticketholder_id\n     INTO  last_txn_date, old_ticketholder_id\n     FROM   ticket_purchase_hist h\n           ,sporting_event_ticket t\n     WHERE  t.id = p_ticket_id\n     AND    h.purchased_by_id = t.ticketholder_id\n     AND    ((h.sporting_event_ticket_id = p_ticket_id) OR (xferall = 1) )\n     GROUP BY t.ticketholder_id;\n     \n     FOR xrec IN txfr_cur(old_ticketholder_id, last_txn_date) LOOP\n       UPDATE sporting_event_ticket\n       SET    ticketholder_id = p_new_ticketholder_id\n       WHERE  id = xrec.sporting_event_ticket_id;\n       \n       INSERT INTO ticket_purchase_hist(sporting_event_ticket_id, purchased_by_id, transferred_from_id, transaction_date_time, purchase_price)\n       VALUES(xrec.sporting_event_ticket_id,  p_new_ticketholder_id, old_ticketholder_id, SYSDATE, NVL(p_price,xrec.purchase_price));\n     \n     END LOOP;\n     \n     COMMIT;  -- commit the group\n   \n   EXCEPTION WHEN OTHERS THEN\n     ROLLBACK;\n   END;\n\n   ---------------------------------------\n   -- generate ticket purchase activity\n   ---------------------------------------\n   PROCEDURE generateTicketActivity(transaction_delay NUMBER, max_transactions IN NUMBER DEFAULT 1000) IS\n    txn_count NUMBER := 0;\n   BEGIN\n     WHILE txn_count < max_transactions LOOP\n       sellRandomTickets;\n       txn_count := txn_count +1;\n       dbms_lock.sleep(transaction_delay);\n     END LOOP;\n   END;\n\n   ---------------------------------------\n   -- generate ticket purchase activity\n   ---------------------------------------\n   PROCEDURE generateTransferActivity(transaction_delay IN NUMBER DEFAULT 5, max_transactions IN NUMBER DEFAULT 100) IS\n     txn_count NUMBER := 0;\n     min_tik_id sporting_event_ticket.id%TYPE;\n     max_tik_id sporting_event_ticket.id%TYPE;\n     tik_id     sporting_event_ticket.id%TYPE;\n     new_ticketholder person.id%TYPE;\n     xfer_all  BOOLEAN;\n     chg_price BOOLEAN;\n     new_price sporting_event_ticket.ticket_price%TYPE;\n   \n   \n   BEGIN\n     WHILE txn_count < max_transactions LOOP\n         SELECT min(sporting_event_ticket_id), max(sporting_event_ticket_id)\n         INTO   min_tik_id, max_tik_id\n         FROM  ticket_purchase_hist;\n         \n         SELECT MAX(sporting_event_ticket_id)\n         INTO   tik_id\n         FROM   ticket_purchase_hist\n         WHERE  sporting_event_ticket_id <= dbms_random.value(min_tik_id,max_tik_id);\n         \n         new_ticketholder := TRUNC(dbms_random.value(g_min_person_id,g_max_person_id));\n         \n         xfer_all := (ROUND(dbms_random.value(1,5)) < 5);   -- transfer all tickets 80% of the time\n         \n         new_price := NULL;\n         \n         chg_price := (ROUND(dbms_random.value(1,3)) = 1);  --  30% of the time change price\n         IF chg_price  THEN\n           SELECT dbms_random.value(0.8,1.2) * ticket_price INTO new_price\n           FROM   sporting_event_ticket\n           WHERE  id = tik_id;\n         END IF;\n         \n         transferTicket(tik_id, new_ticketholder, xfer_all, new_price);\n         \n         txn_count := txn_count +1;\n         dbms_lock.sleep(transaction_delay);\n       END LOOP;\n   \n   EXCEPTION WHEN NO_DATA_FOUND THEN\n       dbms_output.put_line('No tickets available to transfer.');\n   END;   \n\n   --------------------------------\n   -- get event details\n   --------------------------------\n   function get_event_details(event_id IN NUMBER) RETURN eventRecType IS\n     eventRec eventRecType;\n     p_event_id sporting_event.id%TYPE := event_id;\n   BEGIN\n     SELECT e.sport_type_name\n           ,h.name\n           ,a.name\n           ,l.name\n           ,e.start_date_time\n     INTO eventRec.sport_name, eventRec.home_team_name, eventRec.away_team_name, eventRec.home_field, eventRec.date_time\n     FROM sporting_event e\n         ,sport_team h\n         ,sport_team a\n         ,sport_location l\n     WHERE e.id = p_event_id\n     AND e.home_team_id = h.id\n     AND e.away_team_id = a.id\n     AND e.location_id = l.id;\n    \n    RETURN eventRec;\n   END;\n\n   --------------------------------\n   -- sell random tickets proc\n   --------------------------------\n   procedure sellRandomTickets IS\n     event_tab eventTab;\n     ticket_holder person.id%TYPE;\n     \n     row_ct NUMBER(8);\n     event_idx NUMBER(8);\n     event_id NUMBER;\n     quantity NUMBER;\n   BEGIN\n       event_tab := get_open_events;\n       row_ct    := event_tab.COUNT;\n       event_idx := TRUNC(dbms_random.value(1,row_ct));\n       event_id := event_tab(event_idx).id;\n       ticket_holder := TRUNC(dbms_random.value(g_min_person_id,g_max_person_id));\n       quantity := dbms_random.value(1,6);\n       sellTickets(ticket_holder,event_id,quantity);\n   END;\n\n   ---------------------------------------\n   -- get open events function\n   ---------------------------------------\n     function get_open_events return eventTab IS\n       event_tab eventTab;\n       \n       CURSOR open_events IS\n       SELECT *\n       FROM   sporting_event\n       WHERE  sold_out = 0\n       ORDER BY start_date_time;\n       row_num BINARY_INTEGER := 1;\n     BEGIN\n       FOR oe_rec IN open_events LOOP\n         event_tab(row_num) := oe_rec;\n         row_num := row_num +1;\n       END LOOP;\n       return event_tab;\n     END;\n   \n   BEGIN\n       --- initialize\n       select min(id),max(id) INTO g_min_person_id,g_max_person_id from person;\n   \n   END ticketManagement;\n   /\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/includes/query-conversion-examples/oracle-package-original.rst"
+  },
+  {
+    "code": "         :copyable: false\n\n         CONTAINER ID   IMAGE                                              COMMAND                  CREATED         STATUS         PORTS                    NAMES\n         82b1f8adca43 public.ecr.aws/v4d7k6c9/relational-migrator:latest   \"/opt/mongodb-relati…\"   46 seconds ago   Up 44 seconds 0.0.0.0:8080->8080/tcp   pedantic_kirch\n\n   .. step:: Open the application\n\n      To view the application, navigate to: `<http://localhost:8080>`__.\n\n      .. note::\n\n         If you changed the port number in the ``docker run`` command, \n         you also need to change the port in the url above.\n\nNext Steps\n----------\n\n- :ref:`rm-connection-strings`\n- :ref:`rm-create-project-live`\n- :ref:`rm-mapping-rules`\n\nLearn More\n----------\n\n- :ref:`rm-projects`\n- :ref:`rm-manage-relational-model`\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/installation/install-with-docker.txt"
+  },
+  {
+    "code": "            :copyable: false\n\n            INFO || Added plugin 'io.debezium.connector.sqlserver.SqlServerConnector'\n\n   .. step:: Install the Relational Migrator Sink Connect Plugin\n\n      a. Download the latest version of the ``kafka-connect-migrator.jar`` file.\n\n         To download the latest ``kafka-connect-migrator.jar`` file, see the `Migrator Installer \n         Repository <https://migrator-installer-repository.s3.ap-southeast-2.amazonaws.com/index.html>`__.\n\n      b. Copy the ``.jar`` file to the ``kafka-connect-migrator`` directory.\n\n         The new ``kafka-connect-migrator`` directory is found at Kafka Connect’s `plugin.path \n         <https://kafka.apache.org/documentation/#connectconfigs_plugin.path>`__. For example: \n         ``/kafka/connect/kafka-connect-migrator``. \n\n      c. Restart your Kafka Connect cluster. \n\n         When the  plugin is successfully registered, the following log statement \n         appears in the ``kafka-connect`` start up logs:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/installation/kafka-deployments/install-kafka-cluster.txt"
+  },
+  {
+    "code": "            :copyable: false\n\n            INFO || Added plugin 'com.mongodb.migrator.kafka.connect.MigratorSinkConnector'\n\n   .. step:: Install Relational Migrator\n\n      From the `download center <https://www.mongodb.com/try/download/relational-migrator>`__, \n      select the latest version of the Relational Migrator installer.\n\n   .. step:: Run Relational Migrator in kafka-integrated mode\n\n      To run in ``kafka-integrated`` mode, update the following configurations in your \n      ``user.properties`` file.\n\n      Your ``user.properties`` file is located in an OS specific location. For more \n      information, see :ref:`Relational Migrator File Locations <file-location>`.\n\n      .. include:: /includes/kafka-cluster-properties.rst\n\n   .. step:: Confirm successful installation\n\n      Start Relational Migrator and check the logs. Confirm that the Kafka profile \n      is active and that there are no errors.\n\n      Your ``log`` file is located in an OS specific location. For more \n      information, see :ref:`Relational Migrator File Locations <file-location>`.\n\nNext Steps\n----------\n\n- :ref:`rm-projects`\n- :ref:`rm-create-jobs` \n\nLearn More\n----------\n\n- :ref:`kafka-intro`\n- :ref:`install-docker`\n- :ref:`install-confluent-kafka`\n- :ref:`advanced-settings`\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/installation/kafka-deployments/install-kafka-cluster.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         CREATE SCHEMA \"ASNCDC\";\n\n   .. step:: Create the ``IBMSNAP_REGISTER`` table in the ``ASNCDC`` schema\n\n      Use the following statements to create the table:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/db2.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         CREATE TABLE \"ASNCDC\".\"IBMSNAP_REGISTER\" \n         (SYNCHPOINT INTEGER, CD_NEW_SYNCHPOINT INTEGER);\n   \n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/db2.txt"
+  },
+  {
+    "code": "                        :copyable: true\n\n                        SELECT variable_value as \"BINARY LOGGING STATUS (log-bin) ::\"\n\n                        FROM performance_schema.global_variables WHERE variable_name='log_bin'; \n\n                  .. tab:: MySql 5.x\n                     :tabid: mysql-5x\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/my-sql.txt"
+  },
+  {
+    "code": "                        :copyable: true\n\n                        SELECT variable_value as \"BINARY LOGGING STATUS (log-bin) ::\"\n\n                        FROM information_schema.global_variables WHERE variable_name='log_bin';\n\n         .. step:: Locate and update the MySQL configuration file\n\n            a. Run the following SQL query to get the ``server_id`` \n               value for your MySQL instance:\n\n               .. tabs::\n\n                  .. tab:: MySql 8.x\n                     :tabid: mysql-8x\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/my-sql.txt"
+  },
+  {
+    "code": "                        :copyable: true\n\n                        SELECT variable_value \n                        FROM \n                        performance_schema.global_variables \n                        WHERE variable_name='server_id';\n\n                  .. tab:: MySql 5.x\n                     :tabid: mysql-5x\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/my-sql.txt"
+  },
+  {
+    "code": "                        :copyable: true\n\n                        SELECT variable_value \n                        FROM \n                        information_schema.global_variables \n                        WHERE variable_name='server_id';\n\n            #. Locate the config file for your MySQL instance by running \n               the following ``mysqld`` command in your terminal:\n\n               .. tabs::\n\n                  .. tab:: Windows\n                     :tabid: windows\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/my-sql.txt"
+  },
+  {
+    "code": "                        :copyable: true\n\n                        mysql --help | findstr cnf\n\n                  .. tab:: MacOS / Linux\n                     :tabid: macos-linux\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/my-sql.txt"
+  },
+  {
+    "code": "                        :copyable: true\n\n                        mysql --help | grep cnf\n\n            #. Under the ``[mysqld]`` section of your MySQL \n               configuration file add the following lines. Replace \n               the ``XXXXX`` value with the ``server_id`` from the \n               previous query:\n\n               .. tabs::\n\n                  .. tab:: MySql 8.x\n                     :tabid: mysql-8x\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/my-sql.txt"
+  },
+  {
+    "code": "                        :copyable: true\n\n                        server-id = XXXXX\n                        log_bin = mysql-bin\n                        binlog_format = ROW\n                        binlog_row_image = FULL\n                        binlog_expire_logs_seconds = 864000\n\n                  .. tab:: MySql 5.x\n                     :tabid: mysql-5x\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/my-sql.txt"
+  },
+  {
+    "code": "                        :copyable: true\n\n                        server-id = XXXXX\n                        log_bin = mysql-bin\n                        binlog_format = ROW\n                        binlog_row_image = FULL\n                        expire_log_days = 10 \n\n               .. note::\n\n                  If you're running MySQL on AWS RDS and `automated backups \n                  <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html>`__\n                  are not enabled, ``Binlog`` will be disabled, even if \n                  the values are set in the configuration file. \n\nLearn More\n----------\n\nRelational Migrator relies on the open-source Debezium connector to \ncapture row-level changes. For more details, see\n`Debezium MySQL <https://debezium.io/documentation/reference/stable/connectors/mysql.html>`__.\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/my-sql.txt"
+  },
+  {
+    "code": "                  :copyable: true\n\n                  GRANT SET CONTAINER TO <user>;\n                  GRANT EXECUTE_CATALOG_ROLE TO <user>;\n                  GRANT SELECT ANY TRANSACTION TO <user>;\n                  GRANT LOGMINING TO <user>;\n                  GRANT CREATE TABLE TO <user>;\n                  GRANT LOCK ANY TABLE TO <user>;\n                  GRANT CREATE SEQUENCE TO <user>;\n                  GRANT SELECT ON DBA_TABLESPACES TO <user>; \n                  GRANT EXECUTE ON DBMS_LOGMNR TO <user>;\n                  GRANT EXECUTE ON DBMS_LOGMNR_D TO <user>;\n                  GRANT SELECT ON V$LOG TO <user>;\n                  GRANT SELECT ON V$LOG_HISTORY TO <user>;\n                  GRANT SELECT ON V$LOGMNR_LOGS TO <user>;\n                  GRANT SELECT ON V$LOGMNR_CONTENTS TO <user>;\n                  GRANT SELECT ON V$LOGMNR_PARAMETERS TO <user>;\n                  GRANT SELECT ON V$LOGFILE TO <user>;\n                  GRANT SELECT ON V$ARCHIVED_LOG TO <user>;\n                  GRANT SELECT ON V$ARCHIVE_DEST_STATUS TO <user>;\n                  GRANT SELECT ON V$TRANSACTION TO <user>;\n                  GRANT SELECT ON V_$MYSTAT TO <user>;\n                  GRANT SELECT ON V_$STATNAME TO <user>; \n\n         .. step:: Turn on archive logging\n            \n            a. To see if archive logging is already enabled, run the following query:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/oracle.txt"
+  },
+  {
+    "code": "                  :copyable: true\n\n                  SELECT LOG_MODE FROM V$DATABASE;\n\n               This outputs ``ARCHIVELOG`` if logging is enabled, or\n               ``NOARCHIVELOG`` if it isn't.\n            \n            #. If archive logging isn't already enabled,  enable it. \n            \n               Relational Migrator can automatically generate code to enable\n               logging. The following code is an example. If you're migrating a\n               multi-tenant database, run these commands on the container/\n               master database.\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/oracle.txt"
+  },
+  {
+    "code": "                  :copyable: true\n\n                  ALTER SYSTEM SET db_recovery_file_dest_size = 10G;\n                  ALTER SYSTEM SET db_recovery_file_dest = '/opt/oracle/oradata/recovery_area' scope=spfile;\n                  SHUTDOWN IMMEDIATE;\n                  STARTUP MOUNT\n                  ALTER DATABASE ARCHIVELOG;\n                  ALTER DATABASE OPEN;\n    \n         .. step:: Enable supplemental logging\n\n            a. Enable supplemental logging on the database:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/oracle.txt"
+  },
+  {
+    "code": "                  :copyable: true\n\n                  ALTER DATABASE ADD SUPPLEMENTAL LOG DATA; \n\n            #. Enable supplemental logging for every table in the migration:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/oracle.txt"
+  },
+  {
+    "code": "                  :copyable: true\n\n                  ALTER TABLE schemaName.tableName ADD SUPPLEMENTAL LOG DATA (ALL) COLUMNS;\n                  /* Additional ALTER TABLE STATEMENTS... */ \n\nLearn More\n----------\n\n- Relational Migrator relies on the open-source Debezium connector to \n  capture row-level changes. For more details, see `Debezium Oracle \n  <https://debezium.io/documentation/reference/stable/connectors/oracle.html#_preparing_the_databas>`__\n- For details on enabling archive logging, see `Managing Archived Redo Logs \n  <https://docs.oracle.com/cd/B19306_01/server.102/b14231/archredo.htm>`__.\n- For additional troubleshooting and debugging information, see the \n  `Debezium Oracle help blog post\n  <https://debezium.io/blog/2022/09/30/debezium-oracle-series-part-1/#configure-oracle-users>`__.\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/oracle.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         GRANT USAGE ON SCHEMA <schema_name> TO <database_user_name>;\n         GRANT SELECT ON TABLE <schema_name>.<table_name> TO <database_user_name>;\n\n   .. tab:: Continuous Jobs\n      :tabid: enable-continuous-jobs\n\n      .. procedure::\n         :style: normal\n\n         For continuous jobs against PostgreSQL, you must enable \n         logical replication, grant role permissions to the service \n         account, and create a publication.\n\n         .. step:: Enable logical replication \n\n            Logical replication may not be enabled by default. To enable logical \n            replication, change the `wal_level <https://postgresqlco.nf/doc/en/param/wal_level>`__ \n            configuration in the \n            `postgresql.conf configuration file <https://www.postgresql.org/docs/current/config-setting.html>`__. \n            You *must restart the database instance* after changing the configuration file. \n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/postgres.txt"
+  },
+  {
+    "code": "                  :copyable: true\n\n                  SELECT name,setting \n                  FROM pg_settings \n                  WHERE name IN ('wal_level','rds.logical_replication');\n\n         .. step:: Create a SQL replication role\n\n            a. Create a role with ``REPLICATION`` and ``LOGIN`` \n               database permissions:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/postgres.txt"
+  },
+  {
+    "code": "                  :copyable: true\n\n                  GRANT USAGE ON SCHEMA <schema> TO <role>;\n                  GRANT SELECT ON <schema>.<table> TO <role>;\n                  -- ADDITIONAL GRANT SELECT STATEMENTS...\n\n            #. Grant the role to the service account\n\n               Replace ``<original_owner>`` with the owner of the \n               participating tables.\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/postgres.txt"
+  },
+  {
+    "code": "                  :copyable: true\n\n                  GRANT <role> TO <original_owner>;\n                  GRANT <role> TO <database_user_name>;\n\n         .. step:: Grant ownership of each table to the role\n            \n            Each table in the migration requires a ``ALTER TABLE`` \n            statement:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/postgres.txt"
+  },
+  {
+    "code": "               :copyable: true\n\n               ALTER TABLE <schema>.<table> OWNER TO <role>;\n               -- ADDITIONAL ALTER TABLE STATEMENTS...\n\n         .. step:: Create a publication\n\n            Create a `publication <https://www.postgresql.org/docs/current/logical-replication-publication.html>`__ \n            each table in the migration must be specified \n            in the ``FOR`` statement separated by commas:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/postgres.txt"
+  },
+  {
+    "code": "               :copyable: true\n\n               CREATE PUBLICATION \"MIGRATOR_<name>_PUBLICATION\" \n               FOR TABLE \"<schema>\".\"<table1>\",\"<schema>\".\"<table2>\"; \n\n         .. step:: Set replica identity to full\n\n            Each table in the migration requires a ``ALTER TABLE`` \n            statement:\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/postgres.txt"
+  },
+  {
+    "code": "               :copyable: true\n\n               ALTER TABLE <schema>.<table> REPLICA IDENTITY FULL;\n               -- ADDITIONAL ALTER TABLE STATEMENTS...\n\nLearn More\n----------\n\nRelational Migrator relies on the open-source Debezium connector to \ncapture row-level changes. For more details, see\n`Debezium PostgreSQL <https://debezium.io/documentation/reference/stable/connectors/postgresql.html>`__.\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/postgres.txt"
+  },
+  {
+    "code": "               :copyable: true\n\n               USE MyDB\n               GO\n               EXEC sys.sp_cdc_enable_table\n               @source_schema = N'dbo',\n               @source_name   = N'MyTable',\n               @role_name     = N'MyRole',\n               @filegroup_name = N'MyDB_CT',\n               @supports_net_changes = 1\n               GO\n\nLearn More\n----------\n\nRelational Migrator relies on the open-source Debezium connector to \ncapture row-level changes. For more details, see\n`Debezium SQL Server <https://debezium.io/documentation/reference/stable/connectors/sqlserver.html#_enabling_cdc_on_a_sql_server_table>`__.\n\n\n",
+    "language": "sql",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/jobs/prerequisites/sql-server.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   \"John Smith\"\n\nSplit Strings\n~~~~~~~~~~~~~\n\nSplit column values into an array based on a specified character.\n\nThe following example splits the ``fullName`` column into an array using\na space character as a delimiter, and returns the first element of the\narray.\n\nExpression:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/fields/calculated-fields/add-calculated-fields.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   \"John\"\n\nReplace Strings\n~~~~~~~~~~~~~~~\n\nApply regex patterns to replace string values in a column.\n\nThe following example performs a case-insensitive regex search on the\n``fullName`` column for the string ``smith``. If a match is found, the\nexpression replaces the matching string with ``Doe``.\n\nExpression:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/fields/calculated-fields/add-calculated-fields.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   \"John Doe\"\n\nCheck for String Values\n~~~~~~~~~~~~~~~~~~~~~~~\n\nReturn true or false based on whether a column contains a string value.\n\nThe following example returns ``true`` if the value in the ``fullName``\ncolumn includes the string ``Smith``. If the ``fullName`` column does\nnot include the string ``Smith``, the expression returns ``false``.\n\nExpression:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/fields/calculated-fields/add-calculated-fields.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   true\n\nPerform Mathematic Operations\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nPerform mathematic operations on column values.\n\nThe following example multiplies values from the columns ``col1`` and\n``col2``.\n\nExpression:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/fields/calculated-fields/add-calculated-fields.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   6\n\nAssign Values Based on Logical Conditions\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nAssign column values based on logical conditions.\n\nThe following example returns ``yes`` if the value of ``col1`` is\n``3``, and ``no`` if ``col1`` is a value other than ``3``.\n\nExpression:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/fields/calculated-fields/add-calculated-fields.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   yes\n\nExtract JSON Values\n~~~~~~~~~~~~~~~~~~~\n\nAccess data stored as JSON data type with calculated field expressions.\nRequires JSON data type columns (Postgres).\n\nThe following example returns the value of the embedded ``state`` field\nfrom values in the ``Employee`` column.\n\nExpression:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/fields/calculated-fields/add-calculated-fields.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   \"California\"\n\nAccess Array Elements\n~~~~~~~~~~~~~~~~~~~~~\n\nAccess data stored as array data type with calculated fields\nexpressions. Requires array data type columns (Postgres or MySQL).\n\nThe following example returns the second element of the values in the\n``myArray`` column.\n\nExpression:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/fields/calculated-fields/add-calculated-fields.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   \"b\"\n\nParse Dates\n~~~~~~~~~~~\n\nParse an ISO8601-formatted date string into a date.\n\nThe following example converts string values from the ``dateAsString``\ncolumn into dates.\n\nExpression:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/fields/calculated-fields/add-calculated-fields.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   2009-02-11T0:00:00Z\n\nLearn More\n----------\n\n- :ref:`rm-delete-calculated-fields`\n- :ref:`rm-edit-calculated-fields`\n- :ref:`rm-view-calculated-fields`\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/fields/calculated-fields/add-calculated-fields.txt"
+  },
+  {
+    "code": "         :copyable: false\n         :emphasize-lines: 7-19\n\n         {  \n         \"_id\": {    \"CustomerID\": 1  },\n         \"Name\": \"Joelynn Fawthrop\",\n         \"Address1\": \"86 Dwight Pass\",\n         \"Address2\": \"Carregal\",\n         \"Address3\": \"3800-854\",\n         \"Orders\": \n            [    \n               {  \"OrderID\": 1,\n                  \"CustomerID\": 1,\n                  \"TotalAmount\": 50,\n                  \"OrderStatusID\": 1\n               },    \n               {  \"OrderID\": 4, \n                  \"CustomerID\": 1, \n                  \"TotalAmount\": 500,\n                  \"OrderStatusID\": 1    \n               }  \n            ]\n         }\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/mapping-rule-options/embedded-array.txt"
+  },
+  {
+    "code": "         :copyable: false\n         :emphasize-lines: 8-13,22-27\n\n         {\n         ObjectID: {\n            OrderLineID: 1,\n         },\n         OrderID: 1,\n         ProductID: 1,\n         Quantity: 1,\n         Orders: {\n            OrderID: 1,\n            CustomerID: 1,\n            TotalAmount: 550,\n            OrderStatusID: 1,\n         },\n         },\n         {\n         ObjectID: {\n            OrderLineID: 4,\n         },\n         OrderID: 1,\n         ProductID: 3,\n         Quantity: 1,\n         Orders: {\n            OrderID: 1,\n            CustomerID: 1,\n            TotalAmount: 550,\n            OrderStatusID: 1,\n         },\n         }\n\nMerge fields into the parent\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nIn this example:\n\n- The ``OrderLine`` table has four rows and the Order table has three rows.\n- A :guilabel:`Embedded Documents` mapping rule is applied to the ``Order`` table.\n- The parent collection is set to :guilabel:`OrderLine`.\n- :guilabel:`Merge fields into the parent` is selected.\n- The :guilabel:`Prefix` is set to :guilabel:`(root)`.\n\n\nClick the tabs below to see the input and output for this example:\n\n.. tabs::\n\n   .. tab:: Relational Input\n      :tabid: merge-parent-in\n\n      ``OrderLine`` table:\n\n      .. list-table::\n         :header-rows: 1\n\n         * - OrderLineID\n           - OrderID\n           - ProductID\n           - Quantity\n         * - 1\n           - 1\n           - 1\n           - 1\n         * - 2\n           - 2\n           - 2\n           - 1\n         * - 3\n           - 3\n           - 3\n           - 1\n         * - 4\n           - 1\n           - 3\n           - 1\n\n      ``Order`` table:\n\n      .. list-table::\n         :header-rows: 1\n\n         * - OrderID\n           - CustomerID\n           - TotalAmount\n           - OrderStatusID\n         * - 1\n           - 1\n           - 550.00\n           - 1\n         * - 2\n           - 2\n           - 100.00\n           - 2\n         * - 3\n           - 3\n           - 500.00\n           - 3\n\n   .. tab:: MongoDB Output\n      :tabid: merge-parent-out\n\n      The documents in the ``OrderLine`` collection have the ``Order`` details\n      merged into the parent document as fields.\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/mapping-rule-options/embedded-documents.txt"
+  },
+  {
+    "code": "         :copyable: false\n         :emphasize-lines: 8-10,19-21,30-32,41-43\n\n         {\n         _id: {\n            orderLineId: 1,\n         },\n         orderId: 1,\n         productId: 1,\n         quantity: 1,\n         customerId: 1,\n         orderStatusId: 1,\n         totalAmount: 550,\n         },\n         {\n         _id: {\n            orderLineId: 2,\n         },\n         orderId: 2,\n         productId: 2,\n         quantity: 1,\n         customerId: 2,\n         orderStatusId: 2,\n         totalAmount: 100,\n         },\n         {\n         _id: {\n            orderLineId: 3,\n         },\n         orderId: 3,\n         productId: 3,\n         quantity: 1,\n         customerId: 3,\n         orderStatusId: 3,\n         totalAmount: 500,\n         },\n         {\n         _id: {\n            orderLineId: 4,\n         },\n         orderId: 1,\n         productId: 3,\n         quantity: 1,\n         customerId: 1,\n         orderStatusId: 1,\n         totalAmount: 550,\n         }\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/mapping-rule-options/embedded-documents.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   [\n       {\n           \"customerId\": \"ANATR\",\n           \"address\": \"Avda. de la Constitución 2222\",\n           \"city\": \"México D.F.\",\n           \"companyName\": \"Ana Trujillo Emparedados y helados\",\n           \"country\": \"Mexico\",\n           \"phone\": \"5-555-4729\",\n           \"postalCode\": \"05021\",\n       },\n       {\n           \"customerId\": \"ANTON\",\n           \"address\": \"Mataderos  2312\",\n           \"city\": \"México D.F.\",\n           \"companyName\": \"Antonio Moreno Taquería\",\n           \"country\": \"Mexico\",\n           \"phone\": \"5-555-3932\",\n           \"postalCode\": \"05023\",\n       }\n   ]\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/mapping-rule-options/mapping-rule-filters.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         {  \n            \"_id\": {    \"CustomerID\": 1  },\n            \"Name\": \"Joelynn Fawthrop\",\n            \"Address1\": \"86 Dwight Pass\",\n            \"Address2\": \"Carregal\",\n            \"Address3\": \"3800-854\"\n         }\n\nLearn More\n----------\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/mapping-rule-options/new-documents.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         {\n         rental_date: {\n            $date: \"2005-05-24T22:53:30.000Z\",\n         },\n         last_updated: \"2006-02-16T01:30:53Z\",\n         customerId: 130,\n         rental_date: {\n            $date: \"2005-05-26T22:04:30.000Z\",\n         },\n         _id: {\n            $oid: \"661597470a883992d56d60d6\",\n         },\n         inventory_id: 367,\n         staff_id: 1,\n         rental_id: 1,\n         }\n\nLearn More\n----------\n\n- :manual:`Time Series Best Practices </core/timeseries/timeseries-best-practices>`\n- :ref:`Optimize Time Series Query Performance <tsc-best-practice-optimize-query-performance>`\n- :ref:`timeseries-add-secondary-index`\n- :ref:`time-series-fields`\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-relational-migrator/source/mapping-rules/mapping-rule-options/time-series.txt"
+  }
+]

@@ -1,0 +1,422 @@
+[
+  {
+    "code": "   :copyable: false \n\n   // This code produces an error and mongosync stops syncing \n   use admin\n   db.runCommand( { renameCollection: \"students.graduate\", to: \"students.notAFilteredCollection\" } )\n\nWhen the whole target database is included in the filter, you can rename\ncollections to add them to the filter: \n\n- Source collection is specified in the filter\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/includes/example-filter-collection-with-renaming.rst"
+  },
+  {
+    "code": "     :copyable: false\n\n     \"namespaceRemap\": [\n       {\n          \"from\": { \"database\": \"us-west\" },\n          \"to\": {\"database\": \"us-accounts\" }\n       },\n       {\n          \"from\": { \"database\": \"us-south\" },\n          \"to\": { \"database\": \"us-accounts\" }\n       }\n     ]\n\n  If each database on the source cluster contains a ``texas`` collection,\n  ``mongosync`` may fail, corrupt data, or exhibit unexpected behavior.\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/includes/fact-valid-namespace-remap.rst"
+  },
+  {
+    "code": "   :language: shell\n\nIf the :ref:`start <c2c-api-start>` request is successful, ``mongosync``\nreturns ``{ \"success\": true }`` and starts to synchronize existing data on\nthe source cluster with the destination cluster. At this point,\n``mongosync`` enters the ``RUNNING`` state and applies subsequent source\ncluster writes to the destination cluster. \n\nTo check the status of the sync, call the :ref:`progress\n<c2c-api-progress>` endpoint:\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/quickstart.txt"
+  },
+  {
+    "code": "   :language: shell\n   \nIf the ``progress`` response includes the\nfield ``canCommit: true``, the clusters are in sync and the destination\ncluster continuously replicates data from the source cluster.\n\nThe command interface for ``mongosync`` is an HTTP server that publishes\nan HTTP API. To control ``mongosync``, use the API endpoints. The API\ndocumentation provides details on using the following endpoints:\n\n.. list-table::\n   :header-rows: 1\n\n   * - Endpoint\n     - Description\n \n   * - :ref:`c2c-api-start`\n     - Starts the synchronization between a source and destination\n       cluster.\n   * - :ref:`c2c-api-progress`\n     - Returns the status of the synchronization process.\n   * - :ref:`c2c-api-pause`\n     - Pauses the current synchronization operation.\n   * - :ref:`c2c-api-resume`\n     - Resumes a paused synchronization session based on data stored on\n       the destination cluster.\n   * - :ref:`c2c-api-commit`\n     - Commits the synchronization operation to the destination\n       cluster.\n   * - :ref:`c2c-api-reverse`\n     - Reverses the direction of a committed sync operation.\n\nFinalize Cutover Process\n------------------------\n\nYou can finalize a migration and transfer your application\nworkload from the source to the destination cluster using the\n``mongosync`` cutover process. \n\nFor more information, see :ref:`c2c-cutover-process`.\n\nOne-Time Sync\n-------------\n\nAfter initializing data synchronization, call the :ref:`progress\n<c2c-api-progress>` endpoint to see the status of the synchronization\nprocess: \n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/quickstart.txt"
+  },
+  {
+    "code": "   :language: shell\n\nFor a one time sync, verify that the ``progress`` response includes the\nfollowing field values:\n\n- ``state: \"RUNNING\"``\n- ``canCommit: true``\n- ``lagTimeSeconds`` is near ``0`` (*Recommended, but not required*)\n\nThen, call the :ref:`commit <c2c-api-commit>` endpoint to commit the\nsynchronization operation to the destination cluster and stop continuous\nreplication:\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/quickstart.txt"
+  },
+  {
+    "code": "   :language: shell\n\nIf the ``commit`` request is successful, ``mongosync`` returns \n``{ \"success\": true }`` and enters the ``COMMITTING`` state. After the sync\nis complete, ``mongosync`` enters the ``COMMITTED`` state and the\nclusters are no longer in continuous sync. \n\nData Verification\n-----------------\n\n.. include:: /includes/fact-verification\n\nSynchronization Notes\n---------------------\n\n- The default port for the HTTP API is ``27182``.  Use the ``--port``\n  option with ``mongosync`` to :ref:`configure another port\n  <c2c-config>`.\n\n- ``mongosync`` can swap the source and destination clusters to enable\n  :ref:`reverse synchronization <c2c-api-reverse>`.  \n  \n  For more information, see the :ref:`c2c-api-reverse` endpoint.\n\n- .. include:: /includes/fact-permissions-body.rst\n\n  To determine the correct the user permissions for your use case, see\n  :ref:`c2c-permissions-and-roles`.\n\n- You may need to increase the file descriptor ``ulimits`` on the host\n  that is running ``mongosync``. This applies to any UNIX-like system,\n  but macOS in particular has low defaults. See :ref:`UNIX ulimit\n  settings <system-resource-utilization>`.\n\n- To estimate the size of ``oplog`` needed for initial synchronization,\n  see :ref:`c2c-oplog-sizing`.\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/quickstart.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   POST /api/v1/commit \n\nRequest Body Parameters\n~~~~~~~~~~~~~~~~~~~~~~~\n\n.. include:: includes/api/facts/no-body-parameters.rst\n\nResponse\n--------\n\n.. include:: /includes/api/tables/basic-response.rst\n\nExample\n-------\n\nThe following example commits the synchronization operation to the\ndestination cluster.\n\nConfirm that the Synchronization is Ready\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nBefore sending a request to the ``commit`` endpoint, use the\n:ref:`progress <c2c-api-progress>` endpoint to confirm that the\nsynchronization is ready to be committed.\n\nRequest\n```````\n\n",
+    "language": "http",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/commit.txt"
+  },
+  {
+    "code": "   :language: shell\n\nResponse\n````````\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/commit.txt"
+  },
+  {
+    "code": "   :language: shell\n   :emphasize-lines: 5\n   :copyable: false\n\nThe ``progress`` endpoint returned ``\"canCommit\":true``, which means\nthat the ``commit`` request can run successfully.\n\nSend the Commit Request\n~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following command sends a request to the ``commit`` endpoint:\n\nRequest\n```````\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/commit.txt"
+  },
+  {
+    "code": "   :language: shell\n\nResponse\n````````\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/commit.txt"
+  },
+  {
+    "code": "   :language: json\n   :copyable: false\n\nBehavior\n--------\n\nState\n~~~~~\n\nIf the ``commit`` request is successful, ``mongosync`` enters the\n``COMMITTED`` state. Once ``mongosync`` enters the ``COMMITTED`` state,\ncontinuous sync between the clusters stops. \n\nData Verification\n~~~~~~~~~~~~~~~~~\n\n.. include:: /includes/fact-verification\n\n.. _c2c-collection-changes:\n\nCollection Characteristic Changes\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n``commit`` restores collection characteristics that ``mongosync`` temporarily\nalters during synchronization. \n\nThe following table illustrates the impact of ``commit`` on collection\ncharacteristics that ``mongosync`` alters during the synchronization process.\n\n.. list-table::\n   :header-rows: 1\n\n   * - Collection Characteristic\n     - Impact of ``commit`` \n   * - Unique Indexes\n     - ``commit`` resets unique indexes that ``mongosync`` replicated as\n       non-unique on the destination cluster.\n\n   * - TTL Indexes\n     - ``commit`` resets ``expireAfterSeconds`` which ``mongosync`` set\n       to the value of ``MAX_INT`` on the destination cluster.\n\n   * - Hidden Indexes\n     - ``commit`` resets hidden indexes that ``mongosync``\n       replicated as non-hidden on the destination cluster.\n\n   * - Write Blocking\n     - If you enable write-blocking, ``mongosync`` blocks writes: \n       \n       - On the destination cluster during sync.\n       - On the source cluster when ``commit`` is received.\n\n       See also:\n       :ref:`c2c-write-blocking`\n  \n   * - Capped Collections\n     - ``commit`` resets the required maximum size of capped collections\n       which ``mongosync`` set to the maximum allowable size on the\n       destination cluster.\n\n\nEndpoint Protection\n~~~~~~~~~~~~~~~~~~~\n\n.. |endpoint| replace:: ``commit``\n.. include:: /includes/fact-api-endpoint\n\n\n\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/commit.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   POST /api/v1/pause \n\nRequest Body Parameters\n~~~~~~~~~~~~~~~~~~~~~~~\n\n.. include:: includes/api/facts/no-body-parameters.rst\n\nResponse\n--------\n\n.. include:: /includes/api/tables/basic-response.rst\n\nExample\n-------\n\nThe following example pauses the current synchronization operation.\n\nRequest\n~~~~~~~\n\n",
+    "language": "http",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/pause.txt"
+  },
+  {
+    "code": "   :language: shell\n\nResponse\n~~~~~~~~\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/pause.txt"
+  },
+  {
+    "code": "   :language: json\n   :copyable: false\n\nBehavior\n--------\n\n- If the ``pause`` request is successful, ``mongosync`` enters the\n  ``PAUSED`` state.\n\n- If you plan to pause synchronization for an extended period of time,\n  increase the size of the replica set :term:`oplog` in the source\n  cluster. To learn more, see :ref:`Frequently Asked Questions\n  <c2c-faq-increase-oplog>`. \n\nEndpoint Protection\n~~~~~~~~~~~~~~~~~~~\n\n.. |endpoint| replace:: ``pause``\n.. include:: /includes/fact-api-endpoint\n\n\n\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/pause.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   GET /api/v1/progress \n\nResponse\n--------\n\nThe ``progress`` endpoint returns either an updated status or an error.\n\nSuccessful Response\n~~~~~~~~~~~~~~~~~~~\n\nThe response object contains 2 top-level fields, ``success`` and\n``progress``. \n\nThe ``success`` field contains the status of the ``progress`` command. \nValue is ``true`` if always ``true``. \n\nIf ``mongosync`` successfully gets the status of the sync process, \nall response fields are wrapped in the top-level ``progress`` object \nwith the following fields:\n\n.. include:: /includes/api/tables/progress-response.rst\n\nError Response\n~~~~~~~~~~~~~~\n\nIf ``mongosync`` encounters an error, the ``progress`` endpoint returns \nthe following fields:\n\n.. include:: /includes/api/tables/progress-error-response.rst\n\nBehavior\n--------\n\n- When ``mongosync`` is in the ``IDLE`` state, all output\n  fields except ``state`` and ``canCommit`` are ``null``.\n  \n- When ``mongosync`` is in the ``PAUSED`` state, the\n  ``lagTimeSeconds`` field is ``null``.\n\n- The endpoint does not auto-refresh. To get updated status, call the\n  ``progress`` endpoint again.\n\n- Calls to ``/progress`` before ``mongosync`` reaches the collection\n  copy phase return 0 for ``estimatedCopiedBytes`` and 1 for \n  ``estimatedTotalBytes``.\n\n- ``estimatedTotalBytes`` may change throughout the collection copy \n  phase if documents are inserted or deleted on the source cluster.\n\n- ``estimatedCopiedBytes`` is never greater than \n  ``estimatedTotalBytes``. Progress reaches 100% at the end of the \n  collection copy phase (``estimatedCopiedBytes`` = \n  ``estimatedTotalBytes``).\n\n- When performing a live upgrade from an earlier version to 1.8.0 or \n  higher, the collection copy data starts over from \n  ``[0 bytes copied / 1 bytes total]``. After a live upgrade, \n  ``/progress`` only reports the progress of data copied after the \n  upgrade completed.\n\n  .. include:: /includes/fact-restart-resume-delay.rst\n\nEndpoint Protection\n~~~~~~~~~~~~~~~~~~~\n\n.. |endpoint| replace:: ``progress``\n.. include:: /includes/fact-api-endpoint\n\n\nExample\n-------\n\nThe following example returns the status of the synchronization process.\n\nRequest\n~~~~~~~\n\n",
+    "language": "http",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/progress.txt"
+  },
+  {
+    "code": "   :language: shell\n\nResponse\n~~~~~~~~\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/progress.txt"
+  },
+  {
+    "code": "   :language: json\n   :copyable: false\n\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/progress.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   POST /api/v1/resume \n\nRequest Body Parameters\n~~~~~~~~~~~~~~~~~~~~~~~\n\n.. include:: includes/api/facts/no-body-parameters.rst\n\nResponse\n--------\n\n.. include:: /includes/api/tables/basic-response.rst\n\nExample\n-------\n\nThe following example resumes a paused synchronization operation.\n\nRequest\n~~~~~~~\n\n",
+    "language": "http",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/resume.txt"
+  },
+  {
+    "code": "   :language: shell\n\nResponse\n~~~~~~~~\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/resume.txt"
+  },
+  {
+    "code": "   :language: shell\n   :copyable: false\n\nBehavior\n--------\n\n- When you send a ``resume`` request, ``mongosync`` might take at least two \n  minutes before resuming the migration. To see if the migration resumed, you \n  can call the :ref:`c2c-api-progress` endpoint.\n\n- If the ``resume`` request is successful, ``mongosync`` enters the\n  ``RUNNING`` state.\n\nEndpoint Protection\n~~~~~~~~~~~~~~~~~~~\n\n.. |endpoint| replace:: ``resume``\n.. include:: /includes/fact-api-endpoint\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/resume.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   POST /api/v1/reverse \n\nRequest Body Parameters\n~~~~~~~~~~~~~~~~~~~~~~~\n\n.. include:: includes/api/facts/no-body-parameters.rst\n\nResponse\n--------\n\n.. include:: /includes/api/tables/basic-response.rst\n\nExample\n-------\n\nThe following example reverses the direction of a committed sync operation.\n\nRequest\n~~~~~~~\n\n",
+    "language": "http",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/reverse.txt"
+  },
+  {
+    "code": "   :language: shell\n\nResponse\n~~~~~~~~\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/reverse.txt"
+  },
+  {
+    "code": "   :language: json\n   :copyable: false\n\nBehavior\n--------\n\nThe ``reverse`` endpoint starts the ``REVERSING`` state. ``mongosync`` swaps the \nsource and destination clusters and resumes applying change events.\n\nIf the ``reverse`` sync is successful, ``mongosync`` enters the\n``RUNNING`` state. The synchronization continues in the reverse\ndirection from the original sync job. You do not need to restart the\nentire sync process to copy the original data.\n\nTo view the mapping direction for the synchronization of the source and\ndestination clusters, use the :ref:`progress <c2c-api-progress>`\nendpoint and check the ``directionMapping`` object.\n\nEmbedded Verifier\n~~~~~~~~~~~~~~~~~\n\nThe embedded verifier is enabled by default for replica set\nmigrations and performs verification checks for the forward\ndirection of reversible sync. When you call the ``/reverse``\nendpoint, ``mongosync`` disables the verifier. The verifier\nremains disabled, even after additional calls to the\n``/reverse`` endpoint.\n\nEndpoint Protection\n~~~~~~~~~~~~~~~~~~~\n\n.. |endpoint| replace:: ``reverse``\n.. include:: /includes/fact-api-endpoint\n\nLimitations\n~~~~~~~~~~~\n\nThe ``reverse`` endpoint does not support :ref:`filtered sync\n<c2c-filtered-sync>`.\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/reverse.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   POST /api/v1/start \n\nRequest Body Parameters\n~~~~~~~~~~~~~~~~~~~~~~~\n\n.. list-table::\n   :header-rows: 1\n   :stub-columns: 1\n   :widths: 20 13 13 54\n\n   * - Parameter\n     - Type\n     - Necessity\n     - Description\n\n   * - ``source``\n     - string\n     - Required\n     - Name of the source cluster.\n    \n   * - ``destination``\n     - string\n     - Required\n     - Name of the destination cluster.\n\n   * - ``buildIndexes``\n     - string\n     - Optional\n     - Configures index builds during sync.\n\n       Supported Options:\n\n       - ``beforeDataCopy`` (the default) causes ``mongosync`` to build indexes\n         on the destination cluster. These include both existing indexes and\n         any indexes created during migration on the source cluster.\n\n       - ``never`` causes ``mongosync`` to skip building unnecessary indexes\n         during sync. This can improve migration performance, especially with\n         index heavy workloads.\n\n         .. include:: /includes/fact-verifier-buildIndexes\n\n         :red:`WARNING:` Do **not** manually build indexes while ``mongosync`` is \n         performing a migration.  Wait until the migration is fully \n         committed.\n\n         For more information on the indexes it does build, see \n         :ref:`c2c-required-indexes`.\n\n       ``/start`` returns an error when ``buildIndexes`` is set to ``never``\n       and ``reversible`` is set to ``true``.\n\n       If you call ``/start`` without specifying the ``buildIndexes`` option,\n       ``mongosync`` builds indexes on the destination cluster.\n\n       .. versionadded:: 1.3.0\n\n   * - ``enableUserWriteBlocking``\n     - boolean\n     - Optional\n     - If set to ``true``, blocks writes on the destination cluster\n       while the synchronization is in progress. After the\n       synchronization is committed to the destination cluster, the\n       original source cluster blocks writes and the destination cluster\n       accepts writes.\n\n       To reverse sync, the ``enableUserWriteBlocking`` field must be set\n       to ``true``. To allow the source cluster to accept writes again,\n       for example after running migration tests, run the following\n       command: \n\n",
+    "language": "http",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/start.txt"
+  },
+  {
+    "code": "   :language: shell\n\nResponse:\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/start.txt"
+  },
+  {
+    "code": "   :language: json\n   :copyable: false\n\nStart a Reversible Sync Job\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n.. include:: /includes/intro-start-api-example-intro.rst\n\nThe ``reversible`` and ``enableUserWriteBlocking`` fields allow the sync\nto be reversed. To reverse the sync direction, see: :ref:`reverse\n<c2c-api-reverse>`.\n\nRequest:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/start.txt"
+  },
+  {
+    "code": "   :language: shell\n\nResponse:\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/start.txt"
+  },
+  {
+    "code": "   :language: json\n   :copyable: false\n\n\nStart a Filtered Sync Job\n~~~~~~~~~~~~~~~~~~~~~~~~~\n\n.. include:: /includes/example-filter-collection.rst\n\nThe ``includeNamespaces`` option creates a filter. To filter the sync,\nsee: :ref:`c2c-filtered-sync`\n\nRequest:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/start.txt"
+  },
+  {
+    "code": "   :language: shell\n\nResponse:\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/start.txt"
+  },
+  {
+    "code": "   :language: json\n   :copyable: false\n\nStart Sync from Replica Set to Sharded Cluster\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nRequest:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/start.txt"
+  },
+  {
+    "code": "   :language: json\n   :copyable: false\n\n\n.. _c2c-disabled-verifier:\n\nStart with the Verifier Disabled\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nStarting in 1.9, the embedded verifier runs by default when you\nstart a migration. If you need to disable it, set\n``verification.enabled`` to ``false``.\n\nRequest:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/start.txt"
+  },
+  {
+    "code": "   :language: json\n   :copyable: false\n\nYou should verify that a migration was successful before\ntransferring your application load to the destination cluster.\nIf you need to disable the verifier for any reason, use an\nalternative :ref:`method <c2c-verification>` to verify sync.\n\nBehavior\n--------\n\n.. _c2c-start-verifier:\n\nEmbedded Verifier\n~~~~~~~~~~~~~~~~~\n\nStarting in 1.9, ``mongosync`` provides an embedded verifier to\ndetermine whether data transfer from the source cluster to the\ndestination was successful.\n\nWhen enabled, the verifier performs a series of verification\nchecks on the destination cluster. If any of these checks return\nan error, the verifier fails the migration. If all checks\nsucceed, ``mongosync`` transitions to the ``COMMITTED`` state.\n\nTo disable the verifier, see :ref:`c2c-disabled-verifier`.\n\nThe ``/start`` endpoint returns an error if you enable\nverification checks that are not supported by the source or\ndestination cluster or if there is insufficient memory. \n\nState\n~~~~~\n\nIf the ``start`` request is successful, ``mongosync`` enters the\n``RUNNING`` state.\n\n.. _c2c-shard-replica-sets:\n\nShard Replica Sets \n~~~~~~~~~~~~~~~~~~\n\nSync from a replica set to a sharded cluster requires the \n``sharding`` option. This option configures how ``mongosync`` shards\ncollections.\n\nThe ``sharding.shardingEntries`` array specifies the collections to shard.\nCollections that are not listed in this array replicate as unsharded.\n\nFor more information, see :ref:`Sharded Cluster Behavior\n<c2c-sharded-cluster-behavior>`. \n\n.. _c2c-supporting-index-behavior:\n\nSupporting Indexes\n~~~~~~~~~~~~~~~~~~\n\n``mongosync`` syncs indexes from the source cluster to the destination\ncluster. When syncing from a replica set to a sharded cluster,\n``mongosync`` may require an additional index to support the shard key,\nwhich may not exist on the source cluster.\n\n``mongosync`` can create supporting indexes for sharded collections during sync.\nThis is done by setting the ``sharding.createSupportingIndexes`` option.\n\nWhen ``sharding.createSupportingIndexes`` is ``false`` (the default): \n\n* Each shard key you provide for the ``sharding.shardingEntries`` option\n  must have an existing index on the source cluster.\n\n* One of the indexes used for the shard key must have simple collation if the \n  collection uses any other collation.\n\n* To use a unique index in the shard key, you must specify its uniqueness when\n  you create the index on the source cluster. \n\n* Unique indexes on the source cluster that are incompatible with the requested\n  shard key on the destination cluster, such as a unique index on the source\n  that does not contain the requested shard key as a prefix on the destination,\n  can cause ``mongosync`` to fail.\n\nWhen ``sharding.createSupportingIndexes`` is ``true``: \n\n* If the supporting indexes exist on the source cluster, ``mongosync`` \n  syncs the indexes to the destination cluster and uses them \n  as shard keys. \n\n* If the supporting indexes don't exist, ``mongosync`` creates them on the\n  destination cluster.\n\nThe ``sharding.createSupportingIndexes`` option affects all sharded\ncollections.\n\n.. _rename-during-sync:\n\nRename During Sync\n~~~~~~~~~~~~~~~~~~\n\nCollections listed in the ``sharding.shardingEntries`` array \nwhen synced from a replica set to a sharded cluster \nbecome sharded collections on the destination cluster.\n\nRenaming a collection (such as with the :dbcommand:`renameCollection` command)\non the source cluster after calling ``start`` but before ``mongosync`` begins \nto copy the collection can block the collection from sharding on the destination.\n\n.. note:: \n\n   Renaming collections to use a different database while syncing from a\n   replica set to a sharded cluster is not supported.\n    \n\nTo check whether it is safe to rename collections, call the \n:ref:`c2c-api-progress` endpoint and check the value of the \n``collectionCopy.estimatedCopiedBytes`` field in the return document. \n\n* A value of 0 indicates that ``mongosync`` has not started to copy the\n  collection.\n\n  Renaming a collection at this point may result in an unsharded collection \n  on the destination cluster, as the transition to copying can happen before\n  the rename takes effect on the source.\n\n* A value greater than 0 indicates that ``mongosync`` has started the copy.\n  Renaming the collection from this point on does not block\n  its sharding on the destination cluster, even in the event  of a crash.\n\n.. _c2c-required-indexes:\n\nRequired Indexes\n~~~~~~~~~~~~~~~~\n\nWhen you call ``/start`` with the ``buildIndexes`` option set to ``never``,\n``mongosync`` skips building unnecessary indexes.\n\nIndexes that are always built include:\n\n* ``mongosync`` builds an index on the ``_id`` field of every\n  collection it copies.\n\n* ``mongosync`` builds dummy indexes for each sharded collection that \n  does not have an index to support the shard key on the destination \n  cluster. When ``buildIndexes`` is set to ``never``, ``mongosync`` \n  retains this index after commit.\n\nEndpoint Protection\n~~~~~~~~~~~~~~~~~~~\n\n.. |endpoint| replace:: ``start``\n.. include:: /includes/fact-api-endpoint\n\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/api/start.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 5\n\n   curl <host>:<port>/api/v1/start -XPOST \\\n   --data '\n      {\n         <options>,\n         \"destinationDataHandling\": <string>\n      } '\n\nCommand Option\n--------------\n\nThe following table shows the strings you can set for\n``\"destinationDataHandling\"``:\n\n.. list-table::\n   :header-rows: 1\n   :widths: 20 80\n \n   * - String\n     - Description\n \n   * - ``\"requireEmptyDestination\"``\n     - ``mongosync`` requires databases on the destination\n       cluster that you want to replicate from the source\n       cluster are empty. ``\"requireEmptyDestination\"`` is the default.\n   * - ``\"ignorePreExistingNamespaces\"``\n     - ``mongosync`` ignores existing databases on the destination\n       cluster. Ensure your destination namespaces are different from\n       those ``mongosync`` replicates from the source cluster.\n\n       ``\"ignorePreExistingNamespaces\"`` is not compatible with\n       :ref:`c2c-api-reverse`.     \n\nIf you omit a ``\"destinationDataHandling\"`` string, and the destination\ncluster has user data, ``mongosync`` returns an error. Otherwise,\n``mongosync`` continues the sync operation.\n\nBehavior\n--------\n\nVerification\n~~~~~~~~~~~~\n\n.. |beta-feature| replace:: Destination Data Handling\n.. include:: /includes/fact-verifier-beta-unsupport\n\nSteps\n-----\n\n.. procedure::\n   :style: normal\n\n   .. step:: Connect the source and destination clusters\n\n      The following example connects a source cluster (``cluster0``)\n      with a destination cluster (``cluster1``):\n\n",
+    "language": "shell",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/beta-program-private/destinationDataHandling.txt"
+  },
+  {
+    "code": "         :emphasize-lines: 6\n\n         curl localhost:27182/api/v1/start -XPOST \\\n         --data '\n            {\n               \"source\": \"cluster0\",\n               \"destination\": \"cluster1\",\n               \"destinationDataHandling\": \"ignorePreExistingNamespaces\"\n            } '\n\n      The sync operation continues.\n\nLearn More\n----------\n\n- :ref:`c2c-quickstart`\n- :ref:`c2c-sharded-clusters`\n\n.. include:: /includes/beta-feature.rst\n\n",
+    "language": "shell",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/beta-program-private/destinationDataHandling.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   \"documentFilter\" : {\n      \"field\" : <field-name>,\n      \"matchValues\" : [<field-values>] \n   }\n\nParameter Fields \n----------------\n\n.. list-table::\n   :header-rows: 1\n\n   * - Field \n     - Type \n     - Necessity \n     - Description \n\n   * - ``field`` \n     - String\n     - Required \n     - Field name  \n\n   * - ``matchValues`` \n     - Array \n     - Required \n     - Field value(s) that a document must have in order to migrate.\n\nBehavior\n--------\n\nLimitations\n~~~~~~~~~~~\n\n.. include:: /includes/document-filtering-limitations\n\nVerification\n~~~~~~~~~~~~\n\n.. |beta-feature| replace:: Document Filtering\n.. include:: /includes/fact-verifier-beta-unsupport.rst\n\n.. note:: Invalid Document Filter Handling\n\n   If you provide an invalid document filter in the start request, ``mongosync``\n   does not crash. Instead, the start request fails. You can re-issue the\n   start request with a valid document filter without needing to restart \n   ``mongosync``.\n\nExamples \n--------\n\nStart ``mongosync`` with a Document Filter\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n.. include:: /includes/intro-start-api-example-intro.rst\n\n``cluster0`` contains the ``travel`` database, which includes the \n``restaurants``, ``attractions``, and ``lodging`` collections. Documents in the \n``restaurants``, ``attractions``, and ``lodging`` collections all contain a \n``city`` field. \n\nThe ``documentFilter`` document in this example filters for documents where the \n``city`` field is either ``Los Angeles``, ``New York``, or ``San Francisco``. \n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/beta-program-private/document-filtering.txt"
+  },
+  {
+    "code": "         :language: shell\n\n      Example response:\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/beta-program-private/namespace-remapping.txt"
+  },
+  {
+    "code": "         :language: json\n         :copyable: false\n\nLearn More\n----------\n\n- :ref:`/start <c2c-api-start>`\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/beta-program-private/namespace-remapping.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   ./bin/mongosync \\\n         --cluster0 \"mongodb://localhost:27000\" \\\n         --cluster1 \"mongodb://localhost:27001\" \\\n         --oplogRolloverResilienceIntervalSeconds 60\n\nBehavior \n--------\n\nORR increases the resilience of ``mongosync`` to oplog rollover during initial \nsync but does not prevent rollover entirely.\n\nYou might exceed the :term:`oplog window` if you: \n\n- Sync from a high write rate source cluster for an extended\n  period.\n- Pause sync for an extended period.\n\nTo increase the size of the oplog on the source cluster, use\n:setting:`~replication.oplogSizeMB`. \n\nLearn More \n----------\n\n- :ref:`c2c-beta-program`\n- :ref:`Change Oplog Size <tutorial-change-oplog-size>`\n- :ref:`Workloads that Might Requre a Large Oplog Size \n  <replica-set-large-oplog-required>`\n\n",
+    "language": "shell",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/beta-program-private/orr.txt"
+  },
+  {
+    "code": "   :copyable: false\n  \n   MongoDB restricts access to beta features via the beta build. Your use \n   of the beta is governed by the language specified in the Cloud \n   Subscription Agreement, Cloud Terms of Service, or other applicable \n   agreement between you and MongoDB with respect to your use of \n   mongosync.\n   \n   You understand that features are available through the beta build, and \n   flags are not generally available. All use of beta builds is at your own \n   risk. Beta builds provide no stability guarantees; API, UI, options, and \n   behaviors may change or be removed any time. MongoDB will never issue a \n   Critical Advisory or notify about defects in beta builds. \n   \n   You should follow feature usage guidance provided by Field and R&D \n   without deviation and should only use beta builds for one-time, human-\n   supervised migrations (e.g., not for continuous sync or automated \n   migrations). Beta capabilities are not intended for use to migrate \n   production workloads.\n\n.. seealso:: \n\n   - `Cloud Subscription Agreement <https://www.mongodb.com/cloud-subscription-agreement/november-2023>`_\n   - `Cloud Terms of Service <https://www.mongodb.com/legal/terms-and-conditions/cloud>`_\n\n\nBeta Features\n-------------\n\n{+c2c-beta-program-short+} {+version+} includes the following features:\n\n.. list-table::\n   :header-rows: 1\n   :stub-columns: 1\n\n   * - Feature\n     - Description\n\n   * - :ref:`c2c-beta-abc-migration`\n     - .. include:: /includes/abc-migration-intro.rst\n\n   * - :ref:`c2c-beta-document-filtering`\n     - .. include:: /includes/document-filtering-intro.rst\n\n   * - :ref:`c2c-beta-destination-data-handling`\n     - .. include:: /includes/destinationDataHandling-introduction.rst\n\n   * - :ref:`c2c-beta-namespace-remapping`\n     - .. include:: /includes/namespace-remapping-intro.rst\n\n   * - :ref:`c2c-beta-many-to-one`\n     - .. include:: /includes/many-to-one-cluster.rst\n\n   * - :ref:`c2c-beta-orr`\n     - .. include:: /includes/orr-intro.rst\n\n   * - Pre-6.0 Server Version Support \n     - In {+c2c-beta-program-short+}, you can perform migrations between \n       clusters running MongoDB server versions older than 6.0. To see \n       guidelines and restrictions for migrating between older server \n       versions, you must have access to the {+c2c-beta-program-short+} binary.\n\n.. note:: \n\n   Mongosync :ref:`c2c-api-reverse` mode is not compatible with any beta \n   features except :ref:`c2c-beta-orr`.\n\nFeature Compatibility Matrix\n----------------------------\n\n.. |checkmark| unicode:: U+2713\n\nThe following table shows supported combinations of beta features:\n\n.. warning:: \n\n   Unsupported feature combinations do not have guardrails and can result in \n   undefined behavior.  \n\n.. include:: /includes/table-beta-compatibility.rst\n\n.. toctree::\n   :titlesonly:\n\n   A->B->C Migrations </reference/beta-program-private/abc-migration>\n   Many-To-One Migrations </reference/beta-program-private/many-to-one>\n   Document Filtering </reference/beta-program-private/document-filtering>\n   Pre-Existing Data Handling </reference/beta-program-private/destinationDataHandling> \n   Namespace Remapping </reference/beta-program-private/namespace-remapping>\n   Oplog Rollover Resilience </reference/beta-program-private/orr> \n\n",
+    "language": "shell",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/beta-program-private.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n      \"databaseRegex\": {\n         \"pattern\": \"<string>\",\n         \"options\": \"<string>\"\n      },\n      \"collectionsRegex\": {\n         \"pattern\": \"<string>\",\n         \"options\": \"<string>\"\n      }\n   }\n\nRegular expressions in filter documents use the following fields:\n\n.. list-table::\n   :header-rows: 1\n\n   * - Option\n     - Type\n     - Description\n\n   * - ``collectionsRegex``\n     - document\n     - Specifies which collections you want the filter\n       to match.\n\n   * - ``collectionsRegex.options``\n     - string\n     - Regular expression options to use in the match.\n       \n   * - ``collectionsRegex.pattern``\n     - string\n     - Regular expression pattern to match.\n\n\n   * - ``databaseRegex``\n     - document\n     - Specifies which databases you want the filter \n       to match.\n\n   * - ``databaseRegex.options``\n     - string\n     - Regular expression options to use in the match.\n\n   * - ``databaseRegex.pattern``\n     - string\n     - Regular expression pattern to match.\n\nThese options are available to use with both the ``includeNamespaces``\nand ``excludeNamespaces`` parameters.\n\nUse Cases\n=========\n\nRegular expressions allow you match multiple databases or collections with a\nsingle pattern.  If you want to match multiple similarly named \ndatabases or collections, a regular expression may be easier to match than\ncreating a series of filters for individual databases or groups of collections.\n\nDetails\n=======\n\nRegular Expression Options\n--------------------------\n\n``databaseRegex`` and ``collectionsRegex`` each supports an ``options`` field,\nwhich you can use to configure regular expression options.\nInternally, ``mongosync`` passes the filter and options to the\n:query:`$regex` operator. Options available to that operator can be used\nwith Filtred Sync.\n\nFor example, this filter would match collections in the ``sales`` database\nthat begin start with the ``accounts_`` string:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/collection-level-filtering/filter-regex.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   \"includeNamespaces\": [\n       {\n          \"database\": \"<database-name>\",\n          \"collections\": [\n             \"<collection-name>\"\n          ]\n          \"databaseRegex\": {\n             \"pattern\": \"<regex-pattern>\",\n             \"options\": \"<options>\"\n          },\n          \"collectionsRegex\": {\n             \"pattern\": \"<regex-pattern>\",\n             \"options\": \"<options>\"\n          }\n       }\n    ],\n    \"excludeNamespaces\": [\n       {\n          \"database\": \"<database-name>\",\n          \"collections\": [\n             \"<collection-name>\"\n          ]\n          \"databaseRegex\": {\n             \"pattern\": \"<regex-pattern>\",\n             \"options\": \"<options>\"\n          },\n          \"collectionsRegex\": {\n             \"pattern\": \"<regex-pattern>\",\n             \"options\": \"<options>\"\n          }\n       }\n    ]\n\nFilters must include either the ``database`` field or the ``databaseRegex`` field.\n\nIf you need the filter to match specific collections, you can use either \nthe ``collections`` array to specify collections individually or define \na regular expression using the ``collectionsRegex`` field.\n\n.. _c2c-configure-filter:\n\nConfigure a Filter\n------------------\n\n.. important::\n\n   Once you start ``mongosync`` with a filter in place, the filter\n   cannot be modified. If you do need to create a new filter,\n   see: :ref:`c2c-change-filter`.\n\n.. procedure::\n   :style: normal\n\n   .. step:: Identify Databases and Collections.\n\n      Identify the databases and collections that you want to sync to\n      the destination cluster. \n\n      - When you add a set of databases to the filter, you also exclude any\n        other databases in the cluster.\n      \n      - When you specify a collection in your filter, you also exclude any\n        other collections that are in the same database.\n\n   .. step:: Create a Filter.\n\n      The :ref:`c2c-api-start` API accepts two parameters that configure\n      optional filters: \n      \n      - The ``includeNamespaces`` parameter takes an array of filters, which\n        are used to determines which databases and collections ``mongosync`` \n        should include in the sync.\n      - The ``excludeNamespaces`` parameter takes an array of filters, which\n        are used to determine which databases and collections ``mongosync``\n        should exclude from the sync.\n     \n      If you don't specify a filter, ``mongosync`` performs a full cluster\n      sync.\n\n      Create inclusion and/or exclusion filters to identify the databases and\n      collections you want to sync.\n\n      For example, this inclusion filter would configure ``mongosync`` to only\n      sync collections whose names begin with ``accounts_`` from the ``sales`` \n      database, except for the ``accounts_old`` collection:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/collection-level-filtering.txt"
+  },
+  {
+    "code": "         :language: bash\n\nFor an example configuration, see: :ref:`c2c-example-start-with-filter`.\n\n.. _c2c-change-filter:\n\nReplace an Existing Filter\n--------------------------\n\nYou cannot update an existing filter. You must stop the ongoing sync\nprocess, prepare the destination cluster, and restart ``mongosync`` with\na new filter. \n\nWhen ``mongosync`` ran your original filter, it created databases with\nyour data (\"user databases\") and the\n``mongosync_reserved_for_internal_use`` system database on the\ndestination cluster. You must remove those databases before restarting\n``mongosync`` with your new filter.\n\nFollow these steps to prepare the destination cluster for a new filter.\n\n.. procedure::\n   :style: normal\n\n   .. step:: Remove ``mongosync_reserved_for_internal_use``.\n\n      a. Stop the ``mongosync`` process. \n      \n      #. Connect to the destination cluster with :binary:`mongosh`. If\n         the destination is a sharded cluster, connect to the\n         :binary:`mongos` instance. If the destination is a replica set,\n         connect to the primary :binary:`mongod` instance.\n\n      #. Drop the ``mongosync_reserved_for_internal_use`` system\n         database.\n\n",
+    "language": "bash",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/collection-level-filtering.txt"
+  },
+  {
+    "code": "         :language: shell\n\n      Response\n      ~~~~~~~~\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/cutover-process.txt"
+  },
+  {
+    "code": "         :language: json\n         :copyable: false\n         :emphasize-lines: 5, 8\n\n   .. step:: Stop any write operations to the synced collections on the source.\n\n      - If you start ``mongosync`` with ``enableUserWriteBlocking``\n        set to ``true``, ``mongosync`` blocks all write operations on\n        the entire source cluster during the commit (step 4) for you.\n      - If you didn't start ``mongosync`` with\n        ``enableUserWriteBlocking``, ensure that you disable writes.\n        For example, run the :dbcommand:`setUserWriteBlockMode` command on the\n        source cluster:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/cutover-process.txt"
+  },
+  {
+    "code": "         :language: shell\n\n      Response\n      ~~~~~~~~\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/cutover-process.txt"
+  },
+  {
+    "code": "         :language: json\n         :copyable: false\n\n      .. note::\n\n         After you submit a ``commit`` request, call the ``progress`` endpoint\n         to ensure that the ``mongosync`` state is ``COMMITTING`` or\n         ``COMMITTED``.\n\n      Once you complete this step, ``mongosync`` blocks writes on the source cluster.\n\n   .. step:: Wait until you can perform writes on the destination cluster.\n\n      Call the ``progress`` endpoint to determine if ``canWrite`` is\n      ``true``. If ``canWrite`` is ``false``, wait until ``progress``\n      shows ``canWrite`` is ``true``.\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/cutover-process.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input::\n            :language: bash\n\n            curl -sS localhost:27182/api/v1/progress -XGET | jq \".progress.canWrite\"\n\n         .. output::\n            :language: json\n\n            true\n\n   .. step:: Verify data transfer.\n\n      Verify the successful sync of data from the source to the\n      destination cluster.\n\n      For more information, see :ref:`c2c-verification`.\n\n   .. step:: Enable application writes on the destination cluster.\n\n      To enable writes, update :dbcommand:`setUserWriteBlockMode`:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/cutover-process.txt"
+  },
+  {
+    "code": "         :copyable: true\n\n         .. input::\n            :language: bash\n\n            curl -sS localhost:27182/api/v1/progress -XGET | jq \".progress.state\"\n\n         .. output::\n            :language: json\n\n            \"COMMITTED\"\n   \nBehavior\n--------\n\n.. _c2c-canWrite-committed:\n\ncanWrite and COMMITTED\n~~~~~~~~~~~~~~~~~~~~~~\n\n``mongosync`` permits writes on the destination cluster at an\nearlier stage than the ``COMMITTED`` state.\n\nIn the initial sync, ``mongosync`` replicates unique indexes on\nthe source cluster as non-unique indexes on the destination\ncluster. During commit, the relevant non-unique indexes on the\ndestination cluster are set to ``prepareUnique``. When this is\ndone, the ``/progress`` endpoint begins to return ``canWrite:\ntrue``. Collections with ``prepareUnique`` indexes reject\nnew documents that violate the unique index constraint.\n``mongosync`` then converts the ``prepareUnique``\nindexes into unique indexes. When this is done, ``mongosync``\nchanges its state to ``COMMITTED``.\n\n.. note::\n\n   The conversion of ``prepareUnique`` indexes to unique\n   indexes can be resource intensive when syncing large\n   collections. This can result in a long time between the\n   ``/progress`` endpoint returning ``canWrite: true`` and\n   ``mongosync`` reaching the ``COMMITTED`` state.\n\nLearn More\n----------\n\n- :ref:`c2c-verification`\n- :ref:`c2c-api-start`\n- :ref:`c2c-api-commit`\n- :ref:`c2c-api-progress`\n- :ref:`c2c-states`\n\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/cutover-process.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\"level\":\"info\",\"mongosyncID\":\"shard02\",\"verbosity\":\"INFO\",\"id\":\"shard02\",\"port\":27301,\"time\":\"2022-06-21T11:15:33-04:00\",\"message\":\"Mongosync Options\"}\n   {\"level\":\"info\",\"mongosyncID\":\"shard02\",\"time\":\"2022-06-21T11:15:33-04:00\",\"message\":\"Initialized client0 with URI: mongodb://192.0.2.1:27130 and client1 with URI: mongodb://192.0.2.2:27140.\"}\n   {\"level\":\"info\",\"mongosyncID\":\"shard02\",\"time\":\"2022-06-21T11:15:33-04:00\",\"message\":\"Preflight checks completed.\"}\n   {\"level\":\"info\",\"mongosyncID\":\"shard02\",\"time\":\"2022-06-21T11:15:33-04:00\",\"message\":\"Launch replication thread\"}\n\nLog to File\n^^^^^^^^^^^\n\nTo output log messages to file, start ``mongosync`` with the \n:option:`--logPath` option or set the :setting:`logPath` setting\nin the configuration file.\n\nWhen logging to file, ``mongosync`` writes logs to a file in the configured\ndirectory.  The directory is created if it does not exist.  If a ``mongosync.log``\nfile already exists in the directory, ``mongosync`` rotates the log files to\npreserve the old logs as it begins a new file.\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/logging.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   mongosync-2022-06-17T16-27-58.187.log  mongosync.log\n   mongosync-2022-06-21T13-31-42.668.log\n\nThe currently active log file is ``mongosync.log``.  The other files are older\nlogs that ``mongosync`` has rotated.\n\nRotate Log File\n```````````````\n\n.. include:: /includes/fact-log-rotation-usr1-signal \n\nVerbosity\n---------\n\n``mongosync`` supports user-defined verbosity to \nincrease or decrease the level of log messages ``mongosync`` outputs.\n\nThe verbosity level can be set using the :option:`--verbosity` option from the\ncommand-line or the :setting:`verbosity` setting in the configuration file.\n\nFormat\n------\n\n``mongosync`` outputs log messages in structured \nJSON format. Each log message is a document that holds the key-value pairs for \nthat entry. The keys label the log message elements, the values are the \nreported events.\n\nFor example:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/logging.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   {\n        \"level\": \"info\",\n        \"mongosyncID\": \"shard01\",\n        \"componentName\": \"Change Event Application\",\n        \"time\": \"2022-06-21T09:31:42-04:00\",\n        \"message\": \"Starting change stream reader.\"\n   }\n\nExamples\n--------\n\nTo view log messages, check the ``mongosync.log`` file in the log directory.\nYou can format the log by piping its contents to ``jq`` or a similar command:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/logging.txt"
+  },
+  {
+    "code": "   :copyable: false\n \n   {\n      \"level\": \"info\",\n      \"mongosyncID\": \"shard02\",\n      \"verbosity\": \"INFO\",\n      \"id\": \"shard02\",\n      \"port\":27301,\n      \"time\": \"2022-06-21T11:15:33-04:00\",\n      \"message\": \"Mongosync Options\"\n   }\n   {\n      \"level\": \"info\",\n      \"mongosyncID\": \"shard02\",\n      \"time\": \"2022-06-21T11:15:33-04:00\",\n      \"message\": \"Initialized client0 with URI: mongodb://192.0.2.1:27130 and client1 with URI: mongodb://192.0.2.2:27140.\"\n   }\n   {\n      \"level\": \"info\",\n      \"mongosyncID\": \"shard02\",\n      \"time\": \"2022-06-21T11:15:33-04:00\",\n      \"message\": \"Preflight checks completed.\"\n   }\n   {\n      \"level\": \"info\",\n      \"mongosyncID\": \"shard02\",\n      \"time\": \"2022-06-21T11:15:33-04:00\",\n      \"message\": \"Launch replication thread\"\n   }\n\n\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/logging.txt"
+  },
+  {
+    "code": "         :language: json\n         :copyable: false\n\n      Note, the verifier is enabled by default for replica set\n      migrations.\n\n   .. step:: Examine Progress\n\n      To examine the status of the sync, use the :ref:`/progress\n      <c2c-api-progress>` endpoint:\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/verification/embedded.txt"
+  },
+  {
+    "code": "         :language: shell\n\n      Example output:\n\n",
+    "language": "shell",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/verification/embedded.txt"
+  },
+  {
+    "code": "         :language: json\n         :copyable: false\n\n      Examine the ``verification`` response field for\n      information on the status of the embedded verifier.\n\nBehavior\n--------\n\nVerification Checks\n~~~~~~~~~~~~~~~~~~~\n\nThe embedded verifier performs a series of checks on the\ndestination cluster. It checks all supported collections to\nconfirm that ``mongosync`` was successful in transferring\ndocuments from the source cluster to the destination.\n\nIf the verifier encounters errors, it fails the migration with\nan error. If the verifier finds no errors, the ``/progress``\nendpoint returns ``canWrite: true``. To learn more about the ``canWrite`` field, \nsee :ref:`c2c-canWrite-committed`.\n\nPlease `contact <https://mongodb.com/contact>`__ support to\ninvestigate verification issues.\n\nMemory Requirements\n~~~~~~~~~~~~~~~~~~~\n\n.. include:: /includes/fact-verifier-memory\n\n\nLearn More\n----------\n\n- :ref:`/start <c2c-api-start>`\n- :ref:`/progress <c2c-api-progress>`\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/verification/embedded.txt"
+  },
+  {
+    "code": "          :copyable: true\n\n          .. input::\n             :language: javascript \n\n             db.getSiblingDB(\"config\").collections.find({ _id : \"records.pets\" }) \n\n          .. output:: \n             :language: javascript\n             :emphasize-lines: 5-7\n             :visible: false\n\n             {\n                 \"_id\" : \"records.pets\",\n                 \"lastmod\" : ISODate(\"2021-07-21T15:48:15.193Z\"),\n                 \"timestamp\": Timestamp(1626882495, 1),\n                 \"key\" : {\n                       \"_id\" : 1\n                 },\n                 \"unique\" : false,\n                 \"lastmodEpoch\" : ObjectId(\"5078407bd58b175c5c225fdc\"),\n                 \"uuid\" :  UUID(\"f8669e52-5c1b-4ea2-bbdc-a00189b341da\")\n             }\n\n   * - :ref:`Migration Verifier <c2c-migration-verifier>`\n     - Migration Verifier connects to the source and destination\n       clusters and performs a series of verification checks,\n       comparing documents, views, and indexes to confirm the\n       sync was successful.\n\nThe specific method you use to verify your data depends on your\napplication workload and the complexity of the data.\n\n.. toctree::\n   :hidden:\n\n   Use Embedded Verifier </reference/verification/embedded>\n   Use Document Counts </reference/verification/count>\n   Use Hash Comparison </reference/verification/hash>\n   Use Migration Verifier </reference/verification/verifier>\n\nLearn More\n----------\n\n- :method:`db.collection.countDocuments`\n\n- :dbcommand:`dbHash`\n\n\n\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/reference/verification.txt"
+  },
+  {
+    "code": "     :copyable: false\n\n     Ambiguous field name found in array (do not use numeric field names in embedded elements in an array)\n\n  or a similar error. This fix makes this crash less likely, but it does not\n  elimiate the possibility that it will occur.\n\n- Fixed a bug where ``mongosync`` can fail to copy certain documents if the\n  insertion of documents causes duplicate key errors at the same time as a\n  write concern error. This bug has been present in mongosync since its first\n  release and may have arisen if the destination cluster logs reported a write\n  concern error alongside a duplicate key error.\n\n- Fixed a bug introduced in ``mongosync`` 1.5 where change events may be\n  skipped during the Collection Copy phase when there is little write activity\n  on the source cluster.\n\n- Fixed a rare bug introduced in ``mongosync`` v1.5.0 and discovered by our\n  internal testing where there may be a small continuity gap between Oplog\n  Rollover Resilience (ORR) cycles in a specific situation, causing the ORR\n  mechanism to potentially miss a change event to be applied during the\n  Collection Copy phase. \n\n  This is an extreme case as it requires consistently\n  little write activity on the source cluster (i.e. ``mongosync`` replication\n  lag is consistently near zero during Collection Copy) as well as the change\n  event to fall in specific ``_id`` ranges between ORR cycles.\n\n- Fixed a bug introduced in v1.5.0 where ``mongosync`` could cause data\n  consistency errors in collections with non-default collation. \n  \n  This issue only affects collections with non-simple collation that are\n  present during ``mongosync`` initialization and contain documents with string\n  ``_id`` values. Any collections with non-simple collation created after\n  ``mongosync`` initialization or whose documents have all non-string ``_id``\n  values are unaffected.\n\n  .. note::\n\n     In order to mitigate this issue, ``mongosync`` v1.6.0 automatically\n     disables Oplog Rollover Resilience if it finds at least one collection\n     with non-simple collation during Mongosync initialization. \n     \n     We will investigate a more permanent solution for future releases.\n\nMinimum Supported Version\n-------------------------\n\nIn 1.6, the minimum supported versions of MongoDB are 6.0.8 and 7.0.0.\n\n\n",
+    "language": "text",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/release-notes/1.6.txt"
+  },
+  {
+    "code": "         :copyable: false\n         :emphasize-lines: 3,9\n\n           shards: [\n             {\n               _id: 'shard01',\n               host: 'shard01/localhost:27501,localhost:27502,localhost:27503',\n               state: 1,\n               topologyTime: Timestamp({ t: 1656612236, i: 2 })\n             },\n             {\n               _id: 'shard02',\n               host: 'shard02/localhost:27504,localhost:27505,localhost:27506',\n               state: 1,\n               topologyTime: Timestamp({ t: 1656612240, i: 4 })\n             }\n           ]\n\n   .. step:: Connect the ``mongosync`` instances\n\n      .. _c2c-shard-config-connect:\n\n      These instructions use a generic connection string. To modify the\n      connection string for your cluster architecture, refer to the\n      architecture specific :ref:`connection details <c2c-connecting>`.\n\n      .. tip::\n       \n         A single host server can run multiple ``mongosync`` instances. To\n         improve performance, run ``mongosync`` on multiple host servers.\n\n      Run the first ``mongosync`` instance:\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/topologies/multiple-mongosyncs.txt"
+  },
+  {
+    "code": "        :emphasize-lines: 4\n\n         mongosync \\\n           --cluster0 \"mongodb://user:password@cluster0host:27500\" \\\n           --cluster1 \"mongodb://user:password@cluster1host:27500\" \\\n           --id shard02 --port 27602\n\n      The connection strings for the :option:`--cluster0` and \n      :option:`--cluster1` options should point to ``mongos`` instances.\n      In the example, they use the same ``mongos`` instance.\n\n      Each ``mongosync`` instance:\n\n      - Connects to ``mongos`` instances in the source cluster.\n      - Connects to ``mongos`` instances in the destination cluster.\n      - Replicates a single shard from the source cluster, \n        identified by the :option:`--id` option.\n      - Specifies a unique port to use during synchronization.\n        Consider designating a range of ports to simplify scripting\n        {+c2c-product-name+} operations.\n\n.. _c2c-sharded-start:\n\nStart Multiple ``mongosync`` Instances\n--------------------------------------\n\nUse ``curl`` or another HTTP client to issue the :ref:`start\n<c2c-api-start>` command to each of the ``mongosync`` instances.\n\n",
+    "language": "javascript",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/topologies/multiple-mongosyncs.txt"
+  },
+  {
+    "code": "          :language: json\n          :copyable: false\n\nNext Steps\n----------\n\nYou can finalize a migration and transfer your application workload from the \nsource to the destination cluster using the ``mongosync`` \n:ref:`cutover process <c2c-cutover-process>`.\n\nLimitations\n-----------\n\n- You cannot use the :ref:`reverse <c2c-api-reverse>` endpoint between a \n  replica set and a sharded cluster. \n\n.. include:: /includes/limitations-rs-to-sharded.rst\n\n- If the source replica set has :ref:`arbiters <c2c-faq-arbiters>`, the source \n  replica set must have more than 2 non-arbiter nodes and you must sync from a \n  non-arbiter node. \n\nFor more details, see :ref:`c2c-limitations`.\n\nLearn More\n----------\n\n- :ref:`c2c-quickstart`\n- :ref:`Sync Sharded Clusters <c2c-sharded-clusters>`\n- :ref:`About mongosync <about-mongosync>`\n- :ref:`mongosync <c2c-mongosync>`\n- :ref:`mongosync States <c2c-states>`\n\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-cluster-to-cluster-sync/source/topologies/rs-to-sharded.txt"
+  }
+]

@@ -1,0 +1,240 @@
+[
+  {
+    "code": "   :copyable: false\n\n   status:\n     conditions:\n       - type: Ready\n         status: True\n       - type: RolesReady\n         status: True\n       - type: UsersReady\n         status: True\n\nTo learn about the available parameters for this resource, \nsee :ref:`atlasfederatedauth-custom-resource`.\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-configure-federated-authentication.txt"
+  },
+  {
+    "code": "         :emphasize-lines: 24-34\n\n         cat <<EOF | kubectl apply -f -\n         apiVersion: atlas.mongodb.com/v1\n         kind: AtlasDeployment\n         metadata:\n           name: my-atlas-cluster\n           namespace: mongodb-atlas-system\n         spec:\n           projectRef:\n             name: my-project\n           deploymentSpec:\n             backupEnabled: true\n             clusterType: REPLICASET\n             name: Test-cluster-M10\n             replicationSpecs:\n             - regionConfigs:\n               - backingProviderName: AWS\n                 electableSpecs:\n                   instanceSize: M10\n                   nodeCount: 3\n                 priority: 7\n                 providerName: AWS\n                 regionName: US_EAST_1\n               zoneName: Zone 1\n             searchIndexes:\n             - DBName: sample_airbnb\n               collectionName: listingsAndReviews\n               name: my-index\n               search:\n                 mappings:\n                   dynamic: true\n                 searchConfigurationRef:\n                   name: atlassearchindexconfig-sample\n                   namespace: mongodb-atlas-system\n               type: search\n             terminationProtectionEnabled: false\n         EOF\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-create-atlas-search-index.txt"
+  },
+  {
+    "code": "         :emphasize-lines: 24-33\n\n         cat <<EOF | kubectl apply -f -\n         apiVersion: atlas.mongodb.com/v1\n         kind: AtlasDeployment\n         metadata:\n           name: my-atlas-cluster\n           namespace: mongodb-atlas-system\n         spec:\n           projectRef:\n             name: my-project\n           deploymentSpec:\n             backupEnabled: true\n             clusterType: REPLICASET\n             name: Test-cluster-M10\n             replicationSpecs:\n             - regionConfigs:\n               - backingProviderName: AWS\n                 electableSpecs:\n                   instanceSize: M10\n                   nodeCount: 3\n                 priority: 7\n                 providerName: AWS\n                 regionName: US_EAST_1\n               zoneName: Zone 1\n             searchIndexes:\n             - DBName: sample_airbnb\n               collectionName: listingsAndReviews\n               name: my-index\n               vectorSearch:\n                 fields: |\n                   [\n                     {\"my-field\":{\"type\": \"vector\", { ...},\n                   ]\n               type: vectorSearch\n             terminationProtectionEnabled: false\n         EOF\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-create-vector-search-index.txt"
+  },
+  {
+    "code": "               :language: sh\n               :emphasize-lines: 9\n\n   .. tab:: Azure Key Vault\n      :tabid: azure-key-vault\n\n      .. procedure::\n         :style: normal\n\n         .. step:: Create a |k8s-secret| with your |azure| credentials.\n\n            Create a secret with the values for the following \n            parameters:\n\n            .. list-table::\n               :widths: 25 75\n               :header-rows: 1\n\n               * - Parameter\n                 - Description\n\n               * - ``KeyIdentifier``\n                 - Web address with a unique key that identifies your \n                   |azure| Key Vault.\n                    \n               * - ``KeyVaultName``\n                 - Unique string that identifies the |azure| Key Vault \n                   that contains your key.\n\n               * - ``Secret``\n                 - Private data associated with the |azure| Key Vault \n                   tenant you specify in \n                   ``spec.encryptionAtRest.azureKeyVault.tenantID``.\n      \n               * - ``SubscriptionID``\n                 - Unique 36-hexadecimal character string that \n                   identifies your |azure| subscription. |azure| \n                   displays the subscription ID on the subscription's \n                   details page.\n\n            To create and label a secret, run the following \n            commands with your |azure| credentials:\n  \n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-encryption-at-rest-customer-keys.txt"
+  },
+  {
+    "code": "               :language: sh\n               :emphasize-lines: 9\n\n   .. tab:: {+gcp+} KMS\n      :tabid: gcp-kms\n\n      .. procedure::\n         :style: normal\n\n         .. step:: Create a |k8s-secret| with your |gcp| credentials.\n\n            Create a secret with the values for the following \n            parameters:\n\n            .. list-table::\n               :widths: 25 75\n               :header-rows: 1\n\n               * - Parameter\n                 - Description\n\n               * - ``KeyVersionResourceID``\n                 - Unique resource path that displays the key version \n                   resource ID for your {+gcp+} |kms|.\n                    \n               * - ``ServiceAccountKey``\n                 - |json| file that contains the {+gcp+} |kms|\n                   credentials from your {+gcp+} account.\n\n                   :gold:`IMPORTANT:` You must format the |json| object properly. \n                   Ensure you properly indent the credential fields \n                   within the file.\n\n            The following example shows the contents of a \n            ``ServiceAccountKey`` |json| file:\n            \n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-encryption-at-rest-customer-keys.txt"
+  },
+  {
+    "code": "               :language: sh\n               :emphasize-lines: 9\n\n",
+    "language": "sh",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-encryption-at-rest-customer-keys.txt"
+  },
+  {
+    "code": "         :copyable: true \n\n         kubectl edit deployments.apps -n default <your-mongodb-atlas-operator>\n\n   .. step:: Locate the ``atlas-domain`` setting under ``spec.containers.args`` in the file.\n\n",
+    "language": "shell",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-for-gov.txt"
+  },
+  {
+    "code": "         :copyable: false \n         :emphasize-lines: 19\n\n         apiVersion: apps/v1\n         kind: Deployment\n         metadata:\n           ...\n         spec:\n           progressDeadlineSeconds: 600\n           replicas: 1\n           revisionHistoryLimit: 10\n           selector:\n             ...\n           strategy:\n            ...\n           template:\n             metadata:\n               ...\n             spec:\n               containers:\n               - args:\n                 - --atlas-domain=https://cloud.mongodb.com/\n                 - --leader-elect\n                 - --health-probe-bind-address=:8081\n                 - --metrics-bind-address=127.0.0.1:8080\n                 - --log-level=info\n                 - --log-encoder=json\n                 command:\n                 - /manager\n                 env:\n                 - name: OPERATOR_POD_NAME\n          ...\n\n   .. step:: Modify the domain to set the target to |service| for Government.\n\n      To configure the domain, replace the value of ``--atlas-domain``\n      with the following |url|: \n\n",
+    "language": "shell",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-for-gov.txt"
+  },
+  {
+    "code": "         :copyable: true \n\n         https://cloud.mongodbgov.com/\n\n   .. step:: Deploy |ak8so|. \n\n      Follow the procedure in the :ref:`ak8so-quick-start-ref` to deploy\n      |ak8so|.\n      \n   .. step:: Set the |aws| region for |service| for Government.\n\n      Use the ``spec.regionUsageRestrictions`` parameter in the\n      ``AtlasProject`` custom resource to set the |aws| region for \n      |service| for Government. If you omit the\n      ``spec.regionUsageRestrictions`` parameter,\n      |ak8so| restricts the project to |aws| `FedRamp\n      <https://www.fedramp.gov/>`__ Moderate standard regions by\n      default. To learn more, see\n      :setting:`spec.regionUsageRestrictions`.\n\n",
+    "language": "shell",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-for-gov.txt"
+  },
+  {
+    "code": "\t    :emphasize-lines: 5-6\n\n\t    apiVersion: atlas.mongodb.com/v1\n\t    kind: AtlasProject\n\t    metadata:\n\t     name: my-project\n\t     annotations: \n\t       mongodb.com/atlas-reconciliation-policy: \"skip\"\n\t    spec:\n\t     name: Test project\n\t     connectionSecretRef:\n\t       name: my-atlas-key\n\t     projectIpAccessList:\n\t       - cidrBlock: \"203.0.113.0/24\"\n\t\t comment: \"CIDR block for Application Server B - D\"     \n\n         .. warning::\n\n            If you do not apply this annotation, |ak8so| will continue\n\t    to attempt reconciliation as you modify your other\n\t    resources. For users with :ref:`<deletion-protection>`\n\t    disabled, this can result in |ak8so| removing the\n\t    |service| project when you remove the ``atlasProject``\n\t    resource, or entering a blocked state attempting to remove\n\t    a project with active subresources such as database users\n\t    or deployments.\n\n      #. Modify the project reference to point to an |service|\n         :atlas:`project ID <project-id>` instead of an\n         ``atlasProject`` name.\n\n\t For example, to decouple an ``atlasDatabaseUser`` resource:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-independent-crd.txt"
+  },
+  {
+    "code": "\t    :emphasize-lines: 9-10\n\n\t    apiVersion: atlas.mongodb.com/v1\n\t    kind: AtlasDatabaseUser\n\t    metadata:\n\t     name: my-database-user\n\t    spec:\n\t     roles:\n\t       - roleName: readWriteAnyDatabase\n\t\t databaseName: admin\n\t     externalProjectRef:\n\t       id: 671998971c8520583f24f411\n\t     username: theuser\n\t     passwordSecretRef:\n\t       name: the-user-password       \n\n   .. step:: Wait for |ak8so| to sync the new resource status.\n\n   .. step:: (Conditional) Remove the ``atlasProject`` CRD.\n\n      To stop managing your project with |ak8so|, you can now remove\n      the ``atlasProject`` CRD. To continue managing your project and\n      attached subresources with |ak8so|, skip to the next step.\n      \n   .. step:: (Conditional) Remove the reconciliation policy annotation\n\n      If you want to continue managing your project with |ak8so|, as in\n      a scenario where you still have resources subordinate to your\n      ``atlasProject``, reactivate reconciliation by removing the\n      reconciliation policy annotation from the ``atlasProject`` CRD.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-independent-crd.txt"
+  },
+  {
+    "code": "            :emphasize-lines: 2\n\n            \"VpcEndpoint\": {\n                     \"VpcEndpointId\": \"vpce-XXXXXX”,\n                     \"VpcEndpointType\": \"Interface\",\n                     \"VpcId\": \"vpc-XXXXX”,\n                     \"ServiceName\": \"com.amazonaws.vpce.{aws-region}.vpce-svc-XXXX”,\n                     \"State\": \"pendingAcceptance\", \n                     }\n\n      To learn more, see :aws:`Creating an Interface Endpoint \n      </vpc/latest/userguide/vpce-interface.html#create-interface-endpoint>` in the |aws| \n      documentation.\n\n   .. step:: Specify the ``spec.privateEndpoints`` parameter.\n\n      Specify the :ref:`spec.privateEndpoints \n      <fdi-setting-spec.privateEndpoints>` parameter for \n      the :ref:`atlasdatafederation-custom-resource`. Replace\n      ``vpce-id`` with  the ``VpcEndpointId`` value from the previous\n      step and run the following command:\n\n      .. note::\n             \n         You can find the unique identifier of the peer \n         |aws| |vpc| on the |vpc| dashboard in your |aws| account.\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-private-link-datafederation.txt"
+  },
+  {
+    "code": "                  :copyable: false\n\n                  - ipAddress: 10.0.0.00\n                    endpointName: {endpoint-name}-0\n                  - ipAddress: 10.0.0.01\n                    endpointName: {endpoint-name}-1\n                  - ipAddress: 10.0.0.02\n                    endpointName: {endpoint-name}-2\n                  - ipAddress: 10.0.0.03\n                    endpointName: {endpoint-name}-3\n                  - ipAddress: 10.0.0.04\n                    endpointName: {endpoint-name}-4\n                  - ipAddress: 10.0.0.05\n                    endpointName: {endpoint-name}-5\n\n         .. step:: Update the ``spec.privateEndpoints`` parameter.\n\n            Update the :setting:`spec.privateEndpoints` parameter for \n            the :ref:`atlasproject-custom-resource`. Specify the \n            :ref:`Google Cloud Platform region <google-gcp>`, :guilabel:`Google Cloud Project ID`,\n            :guilabel:`Private Service Endpoint Prefix`, your output \n            information, and run the following command:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-private-link-dedicated.txt"
+  },
+  {
+    "code": "                  :emphasize-lines: 2\n\n                  \"VpcEndpoint\": {\n                           \"VpcEndpointId\": \"vpce-XXXXXX\",\n                           \"VpcEndpointType\": \"Interface\",\n                           \"VpcId\": \"vpc-XXXXX\",\n                           \"ServiceName\": \"com.amazonaws.vpce.{aws-region}.vpce-svc-XXXX\",\n                           \"State\": \"pendingAcceptance\", \n\n            To learn more, see :aws:`Creating an Interface Endpoint \n            </vpc/latest/userguide/vpce-interface.html#create-interface-endpoint>` in the |aws| \n            documentation.\n\n         .. step:: Update the ``spec.serverlessSpec.privateEndpoints`` parameter.\n\n            Update the :setting:`spec.serverlessSpec.privateEndpoints` \n            parameter for the :ref:`atlasdeployment-custom-resource`. \n            Replace the ``vpce-id`` with the ``VpcEndpointId`` values \n            for your private endpoints and run the following command:\n\n            .. note::\n             \n               You can find the unique identifier of the peer \n               |aws| |vpc| on the |vpc| dashboard in your |aws| account.\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-private-link-serverless.txt"
+  },
+  {
+    "code": "         :emphasize-lines: 12,13\n\n         cat <<EOF | kubectl apply -f -\n         apiVersion: atlas.mongodb.com/v1\n         kind: AtlasProject     \n         metadata:\n           name: my-project      \n         spec:                 \n           name: Test Project\n           projectIpAccessList:     \n             - ipAddress: \"192.0.2.15\"\n               comment: \"IP address for Application\"\n           cloudProviderIntegrations:\n           - providerName: \"AWS\"\n             iamAssumedRoleArn: \"\"\n         EOF\n\n      .. important::\n\n         Complete this entire procedure to configure the role for the\n         empty value placeholder before adding any additional access\n         roles to your ``AtlasProject`` custom resource.\n\n   .. step:: Retrieve the project's ``atlasAWSAccountArn`` and ``atlasAssumedRoleExternalId``.\n\n      a. Run the command to retrieve the ``atlasAWSAccountArn``, which\n         you need for the next steps.\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-unified-access.txt"
+  },
+  {
+    "code": "         :emphasize-lines: 13\n\n         cat <<EOF | kubectl apply -f -\n         apiVersion: atlas.mongodb.com/v1\n         kind: AtlasProject     \n         metadata:\n           name: my-project      \n         spec:                 \n           name: Test Project\n           projectIpAccessList:     \n             - ipAddress: \"192.0.2.15\"\n               comment: \"IP address for Application\"\n           cloudProviderIntegrations:\n           - providerName: \"AWS\"\n             iamAssumedRoleArn: \"arn:aws:iam::123456789012:role/aws-service-role/support.amazonaws.com/myRole\"\n         EOF\n\n   .. step:: Check the status of the ``cloudProviderIntegrations``.\n\n      a. Run the command to retrieve the status:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-unified-access.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   make verify {IMG}=mongodb/mongodb-atlas-kubernetes-operator:2.2.0 {SIGNATURE_REPO}=mongodb/signatures\n\nIf the command is successful, it prints ``VERIFIED OK``. Otherwise, it\nprints an error such as ``Error: no matching signatures``.\n\n.. _verify-with-cosign:\n\nVerify with Cosign\n------------------\n\n.. procedure:: \n\n   .. step:: Install `Cosign <https://docs.sigstore.dev/system_config/installation/>`__.\n    \n   .. step:: Obtain our signing key.\n      \n      Run the following command to obtain the signing key from our team to\n      verify the signatures against:\n  \n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-verify-packages.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         mongodb/mongodb-atlas-kubernetes-operator@sha256:c7420df24f236831d21cd591c32aeafcd41787382eb093afcc2ce456c30f3a17\n\n   .. step:: Verify the package.\n      \n      Run the following command to verify the {+ak8so+} package. Replace the following placeholders with your values:\n\n      .. list-table::\n        :widths: 25 75\n        :header-rows: 1\n\n        * - Placeholder\n          - Description\n\n        * - ``IMG``\n          - The image reference you want to verify.\n\n        * - ``KEY_FILENAME``\n          - The name of the file you downloaded the signature key PEM to.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/ak8so-verify-packages.txt"
+  },
+  {
+    "code": "      :copyable: false\n\n      Another object with the same value for property servicePrincipalNames already exists.\n\n#. Copy the following example ``peering-role.json`` file and save it\n   to your current working directory:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/includes/api/vpc-create-peering-azure-api-prereqs.rst"
+  },
+  {
+    "code": "      :linenos:\n\n      {\n        \"Name\":\"AtlasPeering/<azureSubscriptionId>/<resourceGroupName>/<vnetName>\",\n        \"IsCustom\":true,\n        \"Description\":\"Grants MongoDB access to manage peering connections on network /subscriptions/<azureSubscriptionId>/resourceGroups/<resourceGroupName>/providers/Microsoft.Network/virtualNetworks/<vnetName>\",\n        \"Actions\":[\n            \"Microsoft.Network/virtualNetworks/virtualNetworkPeerings/read\",\n            \"Microsoft.Network/virtualNetworks/virtualNetworkPeerings/write\",\n            \"Microsoft.Network/virtualNetworks/virtualNetworkPeerings/delete\",\n            \"Microsoft.Network/virtualNetworks/peer/action\"\n        ],\n        \"AssignableScopes\":[\n            \"/subscriptions/<azureSubscriptionId>/resourceGroups/<resourceGroupName>/providers/Microsoft.Network/virtualNetworks/<vnetName>\"\n        ]\n      }\n\n#. Replace the variables in the ``peering-role.json`` with details\n   about the Azure VNet to which you want to create a peering\n   connection:\n\n   .. list-table::\n      :header-rows: 1\n      :widths: 30 70\n\n      * - Variable\n        - Description\n\n      * - ``azureSubscriptionId``\n        - Unique identifer of the Azure subscription in which the\n          VNet resides.\n\n      * - ``resourceGroupName``\n        - Name of your Azure resource group.\n\n      * - ``vnetName``\n        - Name of your Azure VNet.\n\n#. Run the following Azure CLI command to create the role definition\n   using the ``peering-role.json`` file:\n\n",
+    "language": "json",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/includes/api/vpc-create-peering-azure-api-prereqs.rst"
+  },
+  {
+    "code": "   :caption: Command Syntax\n\n   atlas kubernetes operator install [options]\n\n.. Code end marker, please don't delete this comment\n\nOptions\n-------\n\n.. list-table::\n   :header-rows: 1\n   :widths: 20 10 10 60\n\n   * - Name\n     - Type\n     - Required\n     - Description\n   * - --atlasGov\n     - \n     - false\n     - Flag that indicates whether to configure Atlas for Government as a target of the operator.\n   * - -h, --help\n     - \n     - false\n     - help for install\n   * - --import\n     - \n     - false\n     - Flag that indicates whether to import existing Atlas resources into the cluster for the operator to manage.\n   * - --kubeContext\n     - string\n     - false\n     - Name of the kubeconfig context to use.\n   * - --kubeconfig\n     - string\n     - false\n     - Path to the kubeconfig file to use for CLI requests.\n   * - --operatorVersion\n     - string\n     - false\n     - Version of the operator to install.\n   * - --orgId\n     - string\n     - false\n     - Organization ID to use. This option overrides the settings in the configuration file or environment variable.\n   * - --projectName\n     - string\n     - false\n     - Name of the project to create or use with the installed operator.\n   * - --targetNamespace\n     - string\n     - false\n     - Namespace where to install the operator.\n   * - --watchNamespace\n     - strings\n     - false\n     - List that contains namespaces that the operator will listen to.\n\nInherited Options\n-----------------\n\n.. list-table::\n   :header-rows: 1\n   :widths: 20 10 10 60\n\n   * - Name\n     - Type\n     - Required\n     - Description\n   * - -P, --profile\n     - string\n     - false\n     - Name of the profile to use from your configuration file. To learn about profiles for the Atlas CLI, see https://dochub.mongodb.org/core/atlas-cli-save-connection-settings.\n\nExamples\n--------\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/includes/command/atlas-kubernetes-operator-install.rst"
+  },
+  {
+    "code": "   :language: json\n   :dedent:\n   :emphasize-lines: 7,12\n\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/includes/create-iam-role.rst"
+  },
+  {
+    "code": "   :language: json\n   :dedent:\n   :emphasize-lines: 7,12\n\n",
+    "language": "json",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/includes/modify-trust-policy.rst"
+  },
+  {
+    "code": "      :copyable: true \n\n      .. input:: \n\n         kubectl get pod -n external-secrets -l app.kubernetes.io/name=external-secrets\n                  \n      .. output::\n\n         NAME                                READY   STATUS    RESTARTS   AGE\n         external-secrets-5779d5d6f6-2lhgd   1/1     Running   0          70s\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/includes/steps-ak8so-external-secrets.rst"
+  },
+  {
+    "code": "      :copyable: true \n\n      .. input:: \n\n         kubectl get pod -n kube-system -l app.kubernetes.io/name=secrets-store-csi-driver\n                  \n      .. output::\n\n         NAME                                               READY   STATUS    RESTARTS   AGE\n         csi-secrets-store-secrets-store-csi-driver-6dcm8   3/3     Running   0          2m2s\n\n#. Ensure the {+vault+} CSI provider runs successfully:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/includes/steps-ak8so-secrets-store-csi.rst"
+  },
+  {
+    "code": "      :copyable: true \n\n      .. input:: \n\n         kubectl get pods -l app.kubernetes.io/name=vault-csi-provider\n                  \n      .. output::\n         \n         NAME                       READY   STATUS    RESTARTS   AGE\n         vault-csi-provider-j7xbr   2/2     Running   0          5m39s\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/includes/steps-ak8so-secrets-store-csi.rst"
+  },
+  {
+    "code": "      :emphasize-lines: 8-14\n\n      cat <<EOF | kubectl apply -f -\n      apiVersion: atlas.mongodb.com/v1\n      kind: AtlasProject\n      metadata:\n        name: my-project\n      spec:\n        name: Test Atlas Operator Project\n        networkPeers:\n        - providerName: \"AWS\"\n          containerID: \"6dc5f17280eef56a459fa3fb\"\n          accepterRegionName: \"us-east-2\"\n          awsAccountId: \"12345678\"\n          routeTableCidrBlock: \"10.0.0.0/24\"\n          vpcId: \"vpc-12345678\"\n      EOF\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/includes/steps-existing-container-peering-ak8so-aws.rst"
+  },
+  {
+    "code": "      :emphasize-lines: 8-14\n\n      cat <<EOF | kubectl apply -f -\n      apiVersion: atlas.mongodb.com/v1\n      kind: AtlasProject\n      metadata:\n        name: my-project\n      spec:\n        name: Test Atlas Operator Project\n        networkPeers:\n        - providerName: \"AZURE\"\n          containerID: \"6dc5f17280eef56a459fa3fb\"\n          atlasCidrBlock: \"10.8.0.0/21\"\n          containerRegion: \"US_WEST\"\n          accepterRegionName: \"US_EAST_2\"\n          azureSubscriptionId: \"12345678\"\n          resourceGroupName: \"my-group\"\n          azureDirectoryId: \"x0xxx10-00x0-0x01-0xxx-x0x0x01xx100\"\n          vnetName: \"my-vnet\"\n      EOF\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/includes/steps-existing-container-peering-ak8so-azure.rst"
+  },
+  {
+    "code": "      :emphasize-lines: 8-14\n\n      cat <<EOF | kubectl apply -f -\n      apiVersion: atlas.mongodb.com/v1\n      kind: AtlasProject\n      metadata:\n          name: my-project\n      spec:\n        name: Test Atlas Operator Project\n        networkPeers:\n        - providerName: \"GCP\"\n          containerId: \"6dc5f17280eef56a459fa3fb\"\n          gcpProjectId: \"12345678\"\n          routeTableCidrBlock: \"10.0.0.0/24\"\n          networkName: \"my-vpc\"\n      EOF\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/includes/steps-existing-container-peering-ak8so-gcp.rst"
+  },
+  {
+    "code": "      :emphasize-lines: 8-14\n\n      cat <<EOF | kubectl apply -f -\n      apiVersion: atlas.mongodb.com/v1\n      kind: AtlasProject\n      metadata:\n        name: my-project\n      spec:\n        name: Test Atlas Operator Project\n        networkPeers:\n        - providerName: \"AWS\"\n          atlasCidrBlock: \"10.8.0.0/21\"\n          containerRegion: \"us-west-1\"\n          accepterRegionName: \"us-east-2\"\n          awsAccountId: \"12345678\"\n          routeTableCidrBlock: \"10.0.0.0/24\"\n          vpcId: \"vpc-12345678\"\n      EOF\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/includes/steps-new-container-peering-ak8so-aws.rst"
+  },
+  {
+    "code": "      :emphasize-lines: 8-14\n\n      cat <<EOF | kubectl apply -f -\n      apiVersion: atlas.mongodb.com/v1\n      kind: AtlasProject\n      metadata:\n        name: my-project\n      spec:\n        name: Test Atlas Operator Project\n        networkPeers:\n        - providerName: \"AZURE\"\n          atlasCidrBlock: \"10.8.0.0/21\"\n          containerRegion: \"US_WEST\"\n          accepterRegionName: \"US_EAST_2\"\n          azureSubscriptionId: \"12345678\"\n          resourceGroupName: \"my-group\"\n          azureDirectoryId: \"x0xxx10-00x0-0x01-0xxx-x0x0x01xx100\"\n          vnetName: \"my-vnet\"\n      EOF\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/includes/steps-new-container-peering-ak8so-azure.rst"
+  },
+  {
+    "code": "      :emphasize-lines: 8-14\n\n      cat <<EOF | kubectl apply -f -\n      apiVersion: atlas.mongodb.com/v1\n      kind: AtlasProject\n      metadata:\n          name: my-project\n      spec:\n        name: Test Atlas Operator Project\n        networkPeers:\n        - providerName: \"GCP\"\n          atlasCidrBlock: \"10.8.0.0/21\"\n          containerRegion: \"us-east1\"\n          gcpProjectId: \"12345678\"\n          routeTableCidrBlock: \"10.0.0.0/24\"\n          networkName: \"my-vpc\"\n      EOF\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/includes/steps-new-container-peering-ak8so-gcp.rst"
+  },
+  {
+    "code": "         :copyable: false\n\n         apiVersion: atlas.mongodb.com/v1\n         kind: AtlasProject\n         metadata:\n           name: my-project\n         spec:\n           name: Test project\n           connectionSecretRef:\n             name: my-atlas-key\n           customRoles:\n             role:\n               name: my-role\n               actions:\n                 - name: getShardMap\n                   resources:\n                     cluster: true\n                 - name: shardingState\n                   resources:\n                     cluster: true\n                 - name: connPoolStats\n                   resources:\n                     cluster: true\n                 - name: getLog\n                   resources:\n                     cluster: true\n                 inheritedRoles:\n                   - name: operator-role-1\n                     role: backup\n            projectIpAccessList:\n              - cidrBlock: \"203.0.113.0/24\"\n                comment: \"CIDR block for Application Server B - D\"\n\n      Ensure that you have added the ``annotations`` block in lines 5 and 6 and remove the \n      ``customRoles`` block shown in the previous example.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/migrate-parameter-to-resource.txt"
+  },
+  {
+    "code": "         :emphasize-lines: 5-6\n\n         apiVersion: atlas.mongodb.com/v1\n         kind: AtlasProject\n         metadata:\n           name: my-project\n         annotations: \n           mongodb.com/atlas-reconciliation-policy: \"skip\"\n         spec:\n           name: Test project\n           connectionSecretRef:\n             name: my-atlas-key\n           projectIpAccessList:\n             - cidrBlock: \"203.0.113.0/24\"\n               comment: \"CIDR block for Application Server B - D\"\n\n      .. warning::\n\n         If you do not apply this annotation, |ak8so| will continue\n         to attempt reconciliation as you modify your other\n         resources. For users with :ref:`<deletion-protection>`\n         disabled, this can result in |ak8so| removing the\n         |service| project when you remove the ``atlasProject``\n         resource, or entering a blocked state attempting to remove\n         a project with active subresources such as database users\n         or deployments.\n\n   .. step:: Delete the parameters from the parent CRD.\n\n      To prevent conflicts with the new CRD you create, you must first\n      delete the parameters corresponding to the resource you want to\n      migrate from the parent resource. For example, remove the\n      ``customRoles`` parameter from the ``atlasProject`` CRD shown\n      previously:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-atlas-operator/source/migrate-parameter-to-resource.txt"
+  }
+]

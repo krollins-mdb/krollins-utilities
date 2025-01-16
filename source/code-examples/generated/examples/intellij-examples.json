@@ -1,0 +1,79 @@
+[
+  {
+    "code": "   :copyable: false \n\n   Field <fieldName> does not exist in collection <collectionName>.\n\nNon-existent Collection Name \n----------------------------\n\nIf you reference a collection name that doesn't exist in the database, the \n{+intellij-short+} raises the following warning: \n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-mongodb-intellij/source/db-reference-validation.txt"
+  },
+  {
+    "code": "   :copyable: false \n\n   Cannot resolve <collectionName> collection in <dbName> database in the \n   connected data source.\n\nNon-existent Database Name\n--------------------------\n\nIf you reference a database that doesn't exist in the data source, the \n{+intellij-short+} raises the following warning: \n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-mongodb-intellij/source/db-reference-validation.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   Cannot resolve <dbName> database reference in the connected data source. \n\nExample\n-------\n\nThe following example references the ``sample_mflix`` database, which contains \ndata on movies and movie theaters, from the :ref:`Atlas sample datasets \n<sample-mflix>`.\n\nThe sample code attempts to call a ``restaurant_name`` collection:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-mongodb-intellij/source/db-reference-validation.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 3\n\n   public List<Document> getHundredYearOldMovies() {\n        return client.getDatabase(\"sample_mflix\")\n            .getCollection(\"restaurant_name\")\n            .find(Filters.eq(\"year\", 1924))\n            .into(new ArrayList<>());\n    }\n\nBecause the collection doesn't exist in the ``sample_mflix`` database, the \n{+intellij-short+} raises a warning that the collection cannot be resolved:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-mongodb-intellij/source/db-reference-validation.txt"
+  },
+  {
+    "code": "   :copyable: false \n   \n   Cannot resolve \"restaurant_name\" collection in \"sample_mflix\" database in the \n   connected data source.``\n\nTo resolve the warning, reference a collection that exists in the \n``sample_mflix`` database: \n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-mongodb-intellij/source/db-reference-validation.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 3\n\n   public List<Document> getHundredYearOldMovies() {\n        return client.getDatabase(\"sample_mflix\")\n            .getCollection(\"movies\")\n            .find(Filters.eq(\"year\", 1924))\n            .into(new ArrayList<>());\n    }\n\nLearn More\n----------\n\n- :ref:`intellij-connect`\n- :ref:`intellij-autocomplete`\n- :ref:`intellij-type-validation`\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-mongodb-intellij/source/db-reference-validation.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 2\n\n   client.getDatabase( \"sample_mflix\" ).getCollection( \"movies\" ).find(\n      Filters.ne( \"awards\", \"Comedy\" )\n   )\n\nThe plugin shows this warning:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-mongodb-intellij/source/index-warning.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   This query will run without an index. If you plan on using this\n   query heavily in your application, you should create an index that\n   covers this query.\n   \n   Implement an Index\n\nCreate an Index\n~~~~~~~~~~~~~~~\n\nTo create an index for the query, click the :guilabel:`Implement an\nIndex` link displayed with the warning in the plugin.\n\nThe plugin then displays the :guilabel:`Database Explorer Playgrounds`\nscreen with template code for creating an index. The template code also\nincludes a comment that shows potential fields to index. For example,\nthe first line of the following code indicates the ``awards`` field\ncould be indexed:\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-mongodb-intellij/source/index-warning.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 1\n\n   // Potential fields to consider indexing: awards\n   // Learn about creating an index: https://www.mongodb.com/docs/v7.0/core/data-model-operations/#indexes\n   db.getSiblingDB(\"sample_mflix\").getCollection(\"movies\").\n   createIndex({\"<your_field_1>\": 1})\n\nTo create an index for the ``awards`` field, set ``<your_field_1>``\nto ``awards`` in the example code and then run the\n:method:`~db.collection.createIndex()` method in the :guilabel:`Database\nExplorer Playgrounds` screen. For example:\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-mongodb-intellij/source/index-warning.txt"
+  },
+  {
+    "code": "   :emphasize-lines: 2\n\n   db.getSiblingDB(\"sample_database\").getCollection(\"movies\").\n   createIndex({\"awards\": 1})\n\nDisable Index Warning\n~~~~~~~~~~~~~~~~~~~~~\n\nTo disable the index warning in the plugin:\n\n1. Open the IntelliJ IDEA system menu and click :guilabel:`Settings`.\n#. Expand :guilabel:`Editor`.\n#. Click :guilabel:`Inspections`.\n#. Expand :guilabel:`MongoDB`.\n#. Expand :guilabel:`Probable bugs`.\n#. Disable :guilabel:`Query does not use an index`.\n\nLearn More\n----------\n\n- :ref:`indexes`\n- :ref:`Operational Factors and Data Models <data-model-indexes>`\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-mongodb-intellij/source/index-warning.txt"
+  },
+  {
+    "code": "   :copyable: false\n   :emphasize-lines: 3\n\n   public List<Document> findCompletedTripsByDriver( String driverId ) {\n      return trips.find( Filters.and(\n         Filters.eq( fieldName: \"trip_status\", value: 1324324 )\n         Filters.eq( fieldName: \"driver_id\", driverId )\n      )).into( new ArrayList<> () );\n   }\n\nBecause ``value`` is an ``Integer`` but ``trip_status`` is a ``String``\nin the MongoDB documents, the plugin shows a warning about the invalid\ntype:\n\n``\"Integer\" (type of provided value) can not be assigned to \"String\"\n(type of \"trip_status\")``\n\nTo resolve the invalid type, change the value to a ``String``. For\nexample: ``\"start\"``.\n\nLearn More\n----------\n\n- :ref:`bson-types`\n- :ref:`intellij-db-reference-validation`\n- :ref:`intellij-index-warning`\n\n",
+    "language": "java",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-mongodb-intellij/source/type-validation.txt"
+  }
+]

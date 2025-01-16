@@ -1,0 +1,1108 @@
+[
+  {
+    "code": "   :language: c\n   :start-after: start-connect-stable-api\n   :end-before: end-connect-stable-api\n   :dedent:\n\n.. tip::\n\n   When you connect to Atlas, we recommend using the {+stable-api+} client option to avoid\n   breaking changes when Atlas upgrades to a new version of {+mdb-server+}. To learn more\n   about the {+stable-api+}, see the :ref:`c-stable-api` guide.\n\n.. _c-connect-local:\n\nLocal Deployments\n-----------------\n\nTo connect to a local MongoDB deployment, use ``localhost`` as the hostname. By\ndefault, the ``mongod`` process runs on port 27017, though you can customize this for\nyour deployment.\n\nThe following code shows how to use the {+driver-short+} to connect to a local MongoDB\ndeployment:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/connect/connection-targets.txt"
+  },
+  {
+    "code": "   :language: c\n   :start-after: start-connect-local\n   :end-before: end-connect-local\n   :dedent:\n\n.. _c-connect-replica-sets:\n\nReplica Sets\n------------\n\nTo connect to a replica set, specify the hostnames (or IP addresses) and \nport numbers of the replica-set members.\n\nInstead of providing a full list of hosts in the replica set, you can\nspecify one or more of the hosts in the replica set and instruct the {+driver-short+} to \nperform automatic discovery to find the others. To instruct the driver to perform\nautomatic discovery, perform one of the following actions:\n\n- Specify the name of the replica set as the value of the ``replicaSet`` parameter.\n- Specify ``false`` as the value of the ``directConnection`` parameter.\n- Specify more than one host in the replica set.\n\nThe following example uses a sample connection URI to connect to the MongoDB replica\nset ``myreplset``, which is running on port ``27017`` of three different hosts:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/connect/connection-targets.txt"
+  },
+  {
+    "code": "   :language: c\n   :start-after: start-connect-replica\n   :end-before: end-connect-replica\n   :dedent:\n\n.. note::\n\n   The ``mongoc_client_new()`` function is *non-blocking*.\n   When you connect to a replica set, the constructor returns immediately while the\n   client uses background threads to connect to the replica set.\n   \n   If you construct a ``mongoc_client_t`` object and immediately print the string representation\n   of its ``nodes`` attribute, the list might be empty while the client connects to\n   the replica-set members.\n\nAPI Documentation\n-----------------\n\nFor more information about the objects and functions mentioned in this guide, see\nthe following API documentation: \n\n- `mongoc_client_t <https://mongoc.org/libmongoc/current/mongoc_client_t.html>`__\n- `mongoc_uri_t <https://mongoc.org/libmongoc/current/mongoc_uri_t.html>`__\n- `mongoc_server_api_t <https://mongoc.org/libmongoc/current/mongoc_server_api_t.html>`__    \n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/connect/connection-targets.txt"
+  },
+  {
+    "code": "   :start-after: start-connect-to-atlas-w-uri\n   :end-before: end-connect-to-atlas-w-uri\n   :language: c\n   :copyable:\n   :dedent:\n\nYou can set the Stable API version client option to avoid breaking changes when \nyou upgrade to a new server version. \n\n.. tip::\n\n   To learn more about the {+stable-api+} feature, see the :ref:`c-stable-api`\n   guide. \n\nThe following code shows how you can specify the connection string and the \nStable API client option when connecting to a MongoDB deployment on Atlas \nand verify that the connection is successful:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/connect/mongoclient.txt"
+  },
+  {
+    "code": "   :start-after: start-connect-to-atlas\n   :end-before: end-connect-to-atlas\n   :language: c\n   :copyable:\n   :dedent:\n\nAPI Documentation\n-----------------\n\nFor more information about the ``mongoc_client_t`` structure, see the `API documentation\n<https://mongoc.org/libmongoc/current/mongoc_client_t.html>`__. \n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/connect/mongoclient.txt"
+  },
+  {
+    "code": "   :language: c\n   :start-after: // start-stable-api\n   :end-before: // end-stable-api\n\nOnce you create a client instance with\na specified API version, all commands you run with the client use the specified\nversion. If you need to run commands using more than one version of the \n{+stable-api+}, create a new client.\n\n.. _stable-api-options:\n\nConfigure the {+stable-api+}\n------------------------\n\nThe following table describes the options of the ``ServerApi`` class. You can use these\noptions to customize the behavior of the {+stable-api+}.\n\n.. list-table::\n   :header-rows: 1\n   :stub-columns: 1\n   :widths: 25,75\n\n   * - Option Name\n     - Description\n\n   * - strict\n     - | **Optional**. When ``true``, if you call a command that isn't part of \n         the declared API version, the driver raises an exception.\n       |\n       | Default: **false**\n\n   * -  deprecation_errors\n     - | **Optional**. When ``true``, if you call a command that is deprecated in the \n         declared API version, the driver raises an exception.\n       |\n       | Default: **false**\n\nThe following code example shows how you can set both options to ``true`` when constructing a \n``ServerApi`` object:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/connect/stable-api.txt"
+  },
+  {
+    "code": "   :language: c\n   :start-after: // start-stable-api-options\n   :end-before: // end-stable-api-options\n   :dedent:\n\nAPI Documentation\n-----------------\n\nFor more information about using the {+stable-api+} with the {+driver-short+}, see the \nfollowing API documentation:\n\n- `mongoc_server_api_t <{+api-libmongoc+}/mongoc_server_api_t.html#mongoc-server-api-t>`__\n- `mongoc_server_api_version_t <{+api-libmongoc+}/mongoc_server_api_version_t.html#mongoc-server-api-version-t>`__\n- `mongoc_server_api_new <{+api-libmongoc+}/mongoc_server_api_new.html#mongoc-server-api-new>`__\n- `mongoc_client_t <{+api-libmongoc+}/mongoc_client_t.html>`__\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/connect/stable-api.txt"
+  },
+  {
+    "code": "         :language: c\n         :start-after: start-connect-str\n         :end-before: end-connect-str\n         :dedent:\n\n   .. tab:: MongoC URI Options\n      :tabid: mongocurioptions\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/connect/tls.txt"
+  },
+  {
+    "code": "         :language: c\n         :start-after: start-connect-uri-opt\n         :end-before: end-connect-uri-opt\n         :dedent:\n\n.. tip::\n   \n   If your connection string includes the ``+srv`` modification, which specifies the\n   SRV connection format, TLS is enabled on your connection by default.\n\n   To learn more about the SRV connection format, see\n   :manual:`SRV Connection Format </reference/connection-string/#srv-connection-format>`\n   in the {+mdb-server+} documentation.\n\n.. _c-specify-ca-file:\n\nSpecify a CA File\n------------------\n\nWhen you connect to a MongoDB deployment with TLS enabled, the deployment will by default require the client to provide\na client certificate issued by a certificate authority, or an authority\ntrusted by the native certificate store in use on the server.\n\nYou can provide the client certificate in the following ways:\n\n- Setting the ``tlscertificatekeyfile`` parameter in your connection string to a ``.pem`` file containing the root certificate chain\n- Using the ``mongoc_uri_set_option_as_utf8()`` function to set the ``MONGOC_URI_TLSCERTIFICATEKEYFILE`` option\n  to a ``.pem`` file containing the root certificate chain\n\n.. tabs::\n\n   .. tab:: Connection String\n      :tabid: connectionstring\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/connect/tls.txt"
+  },
+  {
+    "code": "         :language: c\n         :start-after: start-connect-ca-file-str\n         :end-before: end-connect-ca-file-str\n         :dedent:\n\n   .. tab:: MongoC URI Options\n      :tabid: mongocurioptions\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/connect/tls.txt"
+  },
+  {
+    "code": "         :language: c\n         :start-after: start-connect-ca-file-uri\n         :end-before: end-connect-ca-file-uri\n         :dedent:\n\n.. _c-certificate-revocation:\n\nServer Certificate Verification\n-------------------------------\n\nThe MongoDB C Driver will automatically verify the validity of a server certificate issued\nby the configured Certificate Authority. The driver also performs hostname validation and revocation checking.\n\nTo overwrite this behavior, it is possible to disable hostname validation, OCSP endpoint revocation checking,\nall revocation checking, and allow invalid certificates.\n\nThis behavior is controlled using the ``tlsAllowInvalidHostnames``, ``tlsDisableOCSPEndpointCheck``,\n``tlsDisableCertificateRevocationCheck``, and ``tlsAllowInvalidCertificates`` options. By default,\nall are set to ``false``.\n\nIt is not recommended to change these defaults, since you might expose your client to the following security risks:\n\n- `Man In The Middle attacks <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`_, when\n  ``tlsAllowInvalidHostnames`` is set\n- Invalid certificates, when ``tlsAllowInvalidCertificates`` is set\n- Potentially revoked certificates, when ``tlsDisableOCSPEndpointCheck`` or ``tlsDisableCertificateRevocationCheck`` are set\n\nSupported Libraries\n-------------------\n\nBy default, libmongoc will attempt to find a supported TLS library and enable TLS support. This is controlled\nby the cmake flag ``ENABLE_SSL``, which is set to ``AUTO`` by default. This flag accepts the following values:\n\n- ``AUTO``: Links to the system's native TLS library, or attempts to find OpenSSL. This is the default value.\n- ``OPENSSL``: Links to OpenSSL (libssl). An optional install path may be specified with ``OPENSSL_ROOT``.\n- ``LIBRESSL`` (Deprecated): Links to LibreSSL's libtls. You can link to LibreSSL's compatible libssl by setting ``OPENSSL``.\n- ``WINDOWS``: Links to Secure Channel, the native TLS library on Windows.\n- ``DARWIN``: Links to Secure Transport, the native TLS library on macOS.\n- ``OFF``: Disables TLS support.\n\nOpenSSL\n~~~~~~~\n\nThe MongoDB C Driver uses OpenSSL on Linux and Unix platforms (besides macOS). Industry best practices\nand some regulations require the use of TLS 1.1 or newer, which requires at least OpenSSL 1.0.1. Use the following command\nto check your OpenSSL version:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/connect/tls.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable: true\n   :linenos:\n   :emphasize-lines: 14-16\n\nConnection\n----------\n\nThe following sections describe how to connect to different targets,\nsuch as a local instance of MongoDB or a cloud-hosted instance on Atlas.\n\nLocal Deployment\n~~~~~~~~~~~~~~~~\n\nThe following code shows the connection string to connect to a local\ninstance of MongoDB:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/connect.txt"
+  },
+  {
+    "code": "    :language: c\n    :dedent:\n    :start-after: start-execute-command\n    :end-before: end-execute-command\n\nFor a full list of database commands and corresponding parameters, see the\n:ref:`Additional Information <c-addl-info-runcommand>` section.\n\nCommand Options\n---------------\n\nYou can specify optional command behavior for the\n``mongoc_client_command_with_opts()`` function. This function accepts a BSON\ndocument for the ``opts`` parameter.\n\nYou can pass a BSON document that specifies the following options:\n\n- ``readConcern``\n- ``writeConcern``\n- ``sessionId``\n- ``collation``\n- ``serverId``\n\nTo learn more about a command and the options that it accepts, locate the\ncommand and follow the link in the :manual:`Database Commands\n</reference/command/>` section of the Server manual.\n\nThe following code shows how to specify a ``grantRolesToUsers`` command with a\n``majority`` write concern:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections/run-command.txt"
+  },
+  {
+    "code": "    :language: c\n    :dedent:\n    :start-after: start-execute-command-with-options\n    :end-before: end-execute-command-with-options\n\n.. note:: Read Preference\n\n   The ``mongoc_client_command_simple()`` and\n   ``mongoc_client_command_with_opts()`` functions ignore the read preference\n   setting you might have set on your client. By default, these functions use\n   the ``primary`` read preference.\n\n   To specify a read preference other than the primary read preference, you must\n   explicity pass it as an argument. The following code demonstrates how to\n   specify a read preference and use it with the\n   ``mongoc_client_command_simple()`` function:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections/run-command.txt"
+  },
+  {
+    "code": "    :language: c\n    :dedent:\n    :linenos:\n    :emphasize-lines: 17-20, 30, 46, 53-56\n    :start-after: start-run-command-example\n    :end-before: end-run-command-example\n\nOutput\n~~~~~~\n\nThe ``cloneCollectionAsCapped`` command clones a collection as a capped\ncollection. Then, the ``distinct`` command gets the distinct values of a field\nwith a given filter and collation. The example outputs the following result:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections/run-command.txt"
+  },
+  {
+    "code": "   :language: c\n   :start-after: start-create-time-series\n   :end-before: end-create-time-series\n   :dedent:\n   :emphasize-lines: 12-18\n\nTo verify that you successfully created the time series collection, run\nthe ``mongoc_database_find_collections_with_opts()`` function on the\n``fall_weather`` database and print the results:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections/time-series.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/databases-collections/timeseries.c\n      :language: c\n      :start-after: start-list-collections\n      :end-before: end-list-collections\n      :dedent:\n      :emphasize-lines: 2-9\n\n   .. output::\n\n      { \"name\" : \"october2024\", \"type\" : \"timeseries\", \"options\" : { \"timeseries\" : { \"timeField\" : \"timestamp\", \"granularity\" : \"seconds\", \"bucketMaxSpanSeconds\" : { \"$numberInt\" : \"3600\" } } }, \"info\" : { \"readOnly\" : false } }\n      ...\n\n.. _c-time-series-store:\n\nStore Time Series Data\n----------------------\n\nYou can insert data into a time series collection by using the ``mongoc_collection_insert_one()``\nor ``mongoc_collection_insert_many()`` functions and specifying the measurement, timestamp, and metadata\nin each inserted document.\n\nTo learn more about inserting documents into a collection, see the :ref:`c-write-insert`\nguide.\n\nExample\n~~~~~~~\n\nThe following example inserts New York City temperature data into the ``october2024``\ntime series collection created in the :ref:`Create a Time Series Collection example\n<c-time-series-create-example>`. Each document contains the following fields:\n\n- ``temperature``, which stores temperature measurements in degrees Fahrenheit\n- ``location``, which stores location metadata\n- ``timestamp``, which stores the time of the measurement collection\n\n",
+    "language": "c",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections/time-series.txt"
+  },
+  {
+    "code": "   :language: c\n   :start-after: start-insert-document\n   :end-before: end-insert-document\n   :dedent:\n\n.. _c-time-series-query:\n\nQuery Time Series Data\n----------------------\n\nYou can use the same syntax and conventions to query data stored in a time \nseries collection as you use when performing read or aggregation operations on\nother collections. To learn more about these operations, see\nthe :ref:`Additional Information <c-time-series-addtl-info>` section.\n\n.. _c-time-series-addtl-info:\n\nAdditional Information\n----------------------\n\nTo learn more about the concepts mentioned in this guide, see the\nfollowing {+mdb-server+} manual entries:\n\n- :manual:`Time Series </core/timeseries-collections/>`\n- :manual:`Create and Query a Time Series Collection </core/timeseries/timeseries-procedures/>`\n- :manual:`Set Granularity for Time Series Data </core/timeseries/timeseries-granularity/>`\n\nTo learn more about performing read operations, see :ref:`c-read`.\n\nTo learn more about performing aggregation operations, see the :ref:`c-aggregation`\nguide.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about the functions mentioned in this guide, see the following\nAPI documentation:\n\n- `mongoc_database_create_collection() <{+api-libmongoc+}/mongoc_database_create_collection.html#mongoc-database-create-collection>`__\n- `mongoc_database_find_collections_with_opts() <{+api-libmongoc+}/mongoc_database_find_collections_with_opts.html>`__\n- `mongoc_collection_insert_one() <{+api-libmongoc+}/mongoc_collection_insert_one.html#mongoc-collection-insert-one>`__\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections/time-series.txt"
+  },
+  {
+    "code": "   :start-after: start-access-database\n   :end-before: end-access-database\n   :language: c\n   :copyable:\n   :dedent:\n\nAccess a Collection\n-------------------\n\nAccess a collection by using the ``mongoc_client_get_collection()`` or ``mongoc_database_get_collection()``\nfunctions.\n\nThe following example accesses a collection named ``\"test_collection\"`` by using the \n``mongoc_database_get_collection()`` function:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections.txt"
+  },
+  {
+    "code": "   :start-after: start-access-collection\n   :end-before: end-access-collection\n   :language: c\n   :copyable:\n   :dedent:\n\n.. tip::\n\n   If the provided collection name does not already exist in the database,\n   MongoDB implicitly creates the collection when you first insert data\n   into it.\n\nCreate a Collection\n-------------------\n\nUse the ``mongoc_database_create_collection()`` function to explicitly create a collection in a\nMongoDB database.\n\nThe following example creates a collection called ``\"example_collection\"``:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections.txt"
+  },
+  {
+    "code": "   :start-after: start-create-collection\n   :end-before: end-create-collection\n   :language: c\n   :copyable:\n   :dedent:\n\nYou can specify collection options, such as maximum size and document\nvalidation rules, by passing them inside a ``bson_t`` structure as the third parameter\nto the ``mongoc_database_create_collection()`` function. For a full list of\noptional parameters, see the :manual:`create command </reference/command/create>`\ndocumentation in the {+mdb-server+} manual.\n\nGet a List of Collections\n-------------------------\n\nYou can query for a list of collections in a database by calling the\n``mongoc_database_find_collections_with_opts()`` function. The function returns a cursor containing all\ncollections in the database and their associated metadata.\n\nThe following example calls the ``mongoc_database_find_collections_with_opts()`` function and iterates over\nthe cursor to print the results:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/databases-collections/databases-collections.c\n      :language: c\n      :start-after: start-find-collections\n      :end-before: end-find-collections\n      :dedent:\n\n   .. output::\n      :language: console\n      :visible: false\n\n      Collection: { \"name\" : \"test_collection\", \"type\" : \"collection\", ...}\n      Collection: { \"name\" : \"example_collection\", \"type\" : \"collection\", ... }\n\nTo query for only the names of the collections in the database, call the\n``mongoc_database_get_collection_names_with_opts()`` function as follows:\n\n",
+    "language": "c",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/databases-collections/databases-collections.c\n      :language: c\n      :start-after: start-find-collection-names\n      :end-before: end-find-collection-names\n      :dedent:\n\n   .. output::\n      :language: console\n      :visible: false\n\n      test_collection\n      example_collection\n\nFor more information about iterating over a cursor, see :ref:`c-cursors`. \n\nDelete a Collection\n-------------------\n\nYou can delete a collection from the database by using the ``mongoc_collection_drop()``\nfunction.\n\nThe following example deletes the ``\"test_collection\"`` collection:\n\n",
+    "language": "c",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections.txt"
+  },
+  {
+    "code": "   :start-after: start-delete-collection\n   :end-before: end-delete-collection\n   :language: c\n   :copyable:\n   :dedent:\n\n.. warning:: Dropping a Collection Deletes All Data in the Collection\n\n   Dropping a collection from your database permanently deletes all\n   documents and all indexes within that collection.\n\n   Drop a collection only if the data in it is no longer needed.\n\n.. _c-config-read-write:\n\nConfigure Read and Write Operations\n-----------------------------------\n\nYou can control how the driver routes read operations by setting a **read preference**.\nYou can also control options for how the driver waits for acknowledgment of\nread and write operations on a replica set by setting a **read concern** and a\n**write concern**.\n\nBy default, databases inherit these settings from the ``mongoc_client_t`` instance,\nand collections inherit them from the database. However, you can change these\nsettings on your database by using one of the following functions:\n\n- ``mongoc_database_set_read_prefs()``\n- ``mongoc_database_set_read_concern()``\n- ``mongoc_database_set_write_concern()``\n\nThe following example shows how to change the read preference of a database by using the\n``mongoc_database_set_read_prefs()`` function:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections.txt"
+  },
+  {
+    "code": "   :start-after: start-database-read-prefs\n   :end-before: end-database-read-prefs\n   :language: c\n   :copyable:\n   :dedent:\n\nYou can change the read and write settings on your collections by using one of the following functions:\n\n- ``mongoc_collection_set_read_prefs()``\n- ``mongoc_collection_set_read_concern()``\n- ``mongoc_collection_set_write_concern()``\n\nThe following example shows how to change the read preference of a collection by using the\n``mongoc_collection_set_read_prefs()`` function:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections.txt"
+  },
+  {
+    "code": "   :start-after: start-collection-read-prefs\n   :end-before: end-collection-read-prefs\n   :language: c\n   :copyable:\n   :dedent:\n\n.. tip::\n\n   To see the types of available read preferences, see the\n   `API documentation <{+api-libmongoc+}/mongoc_read_prefs_t.html#read-modes>`__. \n\nTo learn more about the read and write settings, see the following guides in the\n{+mdb-server+} manual:\n\n- :manual:`Read Preference </core/read-preference/>`\n- :manual:`Read Concern </reference/read-concern/>`\n- :manual:`Write Concern </reference/write-concern/>`\n\nTag Sets\n~~~~~~~~\n\nIn the {+mdb-server+}, you can apply key-value :manual:`tags\n</core/read-preference-tags/>` to replica-set\nmembers according to any criteria you choose. You can then use\nthose tags to target one or more members for a read operation.\n\nBy default, the {+driver-short+} ignores tags\nwhen choosing a member to read from. To instruct the {+driver-short+}\nto prefer certain tags, use the ``mongoc_read_prefs_set_tags()`` function to set the\ntags in an instance of ``mongoc_read_prefs_t``. \n\nIn the following code example, the tag set passed to the ``mongoc_read_prefs_set_tags()``\nfunction instructs the {+driver-short+} to prefer reads from the\nNew York data center (``'dc': 'ny'``) and to fall back to the San Francisco data\ncenter (``'dc': 'sf'``):\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections.txt"
+  },
+  {
+    "code": "   :start-after: start-tags\n   :end-before: end-tags\n   :language: c\n   :copyable:\n   :dedent:\n\nLocal Threshold\n~~~~~~~~~~~~~~~\n\nIf multiple replica-set members match the read preference and tag sets you specify,\nthe {+driver-short+} reads from the nearest replica-set members, chosen according to\ntheir ping time.\n\nBy default, the driver uses only those members whose ping times are within 15 milliseconds\nof the nearest member for queries. To distribute reads between members with\nhigher latencies, include the ``localThresholdMS`` parameter in your connection string URI.\n\nThe following example connects to a MongoDB deployment running on ``localhost:27017``\nand specifies a local threshold of 35 milliseconds:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections.txt"
+  },
+  {
+    "code": "   :start-after: start-local-threshold\n   :end-before: end-local-threshold\n   :language: c\n   :copyable:\n   :dedent:\n\nIn the preceding example, the {+driver-short+} distributes reads between matching members\nwithin 35 milliseconds of the closest member's ping time.\n\nAPI Documentation\n-----------------\n\nTo learn more about any of the functions discussed in this\nguide, see the following API documentation:\n\n- `mongoc_database_create_collection() <{+api-libmongoc+}/mongoc_database_create_collection.html>`__\n- `mongoc_database_find_collections_with_opts() <{+api-libmongoc+}/mongoc_database_find_collections_with_opts.html>`__\n- `mongoc_database_get_collection_names_with_opts() <{+api-libmongoc+}/mongoc_database_get_collection_names_with_opts.html>`__\n- `mongoc_client_get_database() <{+api-libmongoc+}/mongoc_client_get_database.html>`__\n- `mongoc_client_get_collection() <{+api-libmongoc+}/mongoc_client_get_collection.html>`__\n- `mongoc_database_get_collection() <{+api-libmongoc+}/mongoc_database_get_collection.html>`__\n- `mongoc_collection_drop() <{+api-libmongoc+}/mongoc_collection_drop.html>`__\n- `mongoc_database_set_read_prefs() <{+api-libmongoc+}/mongoc_database_set_read_prefs.html>`__\n- `mongoc_database_set_read_concern() <{+api-libmongoc+}/mongoc_database_set_read_concern.html>`__\n- `mongoc_database_set_write_concern() <{+api-libmongoc+}/mongoc_database_set_write_concern.html>`__\n- `mongoc_collection_set_read_prefs() <{+api-libmongoc+}/mongoc_collection_set_read_prefs.html>`__\n- `mongoc_collection_set_read_concern() <{+api-libmongoc+}/mongoc_collection_set_read_concern.html>`__\n- `mongoc_collection_set_write_concern() <{+api-libmongoc+}/mongoc_collection_set_write_concern.html>`__\n- `mongoc_read_prefs_set_tags() <{+api-libmongoc+}/mongoc_read_prefs_set_tags.html>`__\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/databases-collections.txt"
+  },
+  {
+    "code": "         :language: c\n\n   .. step:: Assign the connection string\n\n      Replace the ``<connection string>`` placeholder with the\n      connection string that you copied from the :ref:`c-get-started-connection-string`\n      step of this guide.\n\n   .. step:: Run your C application\n\n      In your shell, run the following commands to compile and run this application:\n      \n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/get-started/connect-to-mongodb.txt"
+  },
+  {
+    "code": "         :copyable: false\n\n         { \"_id\" : { \"$oid\" : \"...\" },\n         \"plot\" : \"Two imprisoned men bond over a number of years, finding solace\n         and eventual redemption through acts of common decency.\",\n         ...\n         \"title\" : \"The Shawshank Redemption\", \n         ...\n\n      If you encounter an error or see no output, ensure that you specified the\n      proper connection string in the ``quickstart.c`` file and that you loaded the\n      sample data.\n\nAfter you complete these steps, you have a working application that\nuses the driver to connect to your MongoDB deployment, runs a query on\nthe sample data, and prints out the result.\n\n.. include:: /includes/get-started/troubleshoot.rst\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/get-started/connect-to-mongodb.txt"
+  },
+  {
+    "code": "   :language: c\n   :start-after: start-create-search-index\n   :end-before: end-create-search-index\n   :dedent:\n\nThe following code example shows how to create multiple indexes:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes/atlas-search-index.txt"
+  },
+  {
+    "code": "   :language: c\n   :start-after: start-create-search-indexes\n   :end-before: end-create-search-indexes\n   :dedent:\n\nTo learn more about the syntax used to define Atlas Search indexes, see the\n:atlas:`Review Atlas Search Index Syntax </atlas-search/index-definitions>` guide\nin the Atlas documentation.\n\n.. _c-atlas-search-index-list:\n\nList Search Indexes\n-------------------\n\nYou can pass the ``$listSearchIndexes`` aggregation stage to the\n``mongoc_collection_aggregate()`` function to return all Atlas Search indexes in a\ncollection.\n\nThe following code example shows how to print a list of the search indexes in\na collection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes/atlas-search-index.txt"
+  },
+  {
+    "code": "   :language: c\n   :start-after: start-list-search-indexes\n   :end-before: end-list-search-indexes\n   :dedent:\n\n.. _c-atlas-search-index-update:\n\nUpdate a Search Index\n---------------------\n\nYou can pass the ``updateSearchIndex`` command to the  ``mongoc_collection_command_simple()``\nfunction to update an Atlas Search index.\n\nThe following code shows how to update a search index:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes/atlas-search-index.txt"
+  },
+  {
+    "code": "   :language: c\n   :start-after: start-update-search-index\n   :end-before: end-update-search-index\n   :dedent:\n\n.. _c-atlas-search-index-drop:\n\nDelete a Search Index\n---------------------\n\nYou can pass the ``dropSearchIndexes`` command to the  ``mongoc_collection_command_simple()``\nfunction to delete an Atlas Search index.\n\nThe following code shows how to delete a search index from a collection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes/atlas-search-index.txt"
+  },
+  {
+    "code": "   :language: c\n   :start-after: start-drop-search-index\n   :end-before: end-drop-search-index\n   :dedent:\n\nAdditional Information\n----------------------\n\nTo learn more about MongoDB Atlas Search, see the :atlas:`Atlas Search Indexes </atlas-search/atlas-search-overview/>`\ndocumentation.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the functions discussed in this guide, see the following API\ndocumentation:\n\n- `mongoc_collection_command_simple() <{+api-libmongoc+}/mongoc_collection_command_simple.html>`_\n- `mongoc_collection_aggregate() <{+api-libmongoc+}/mongoc_collection_aggregate.html>`_\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes/atlas-search-index.txt"
+  },
+  {
+    "code": "   :start-after: start-index-compound\n   :end-before: end-index-compound\n   :language: c\n   :copyable:\n   :dedent:\n\nThe following example performs a query that uses the index created in the preceding code\nsample:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes/compound-index.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/indexes/indexes.c\n      :start-after: start-index-compound-query\n      :end-before: end-index-compound-query\n      :language: c\n      :dedent:\n   \n   .. output::\n      :visible: false\n\n      { \"_id\" : ..., \"genres\" : [ \"Crime\", \"Drama\" ], \"title\" : \"Traffic in Souls\", \"type\" : \"movie\", ... }\n      { \"_id\" : ..., \"genres\" : [ \"Drama\" ], \"title\" : \"Laugh, Clown, Laugh\", \"type\" : \"movie\", ... }\n      { \"_id\" : ..., \"genres\" : [ \"Drama\", \"Romance\" ], \"title\" : \"A Woman of Paris: A Drama of Fate\", \"type\" : \"movie\", ... }\n      { \"_id\" : ..., \"genres\" : [ \"Drama\", \"Romance\", \"Thriller\" ], \"title\" : \"He Who Gets Slapped\", \"type\" : \"movie\", ... }\n      { \"_id\" : ..., \"genres\" : [ \"Drama\", \"Romance\" ], \"title\" : \"Wild Oranges\", \"type\" : \"movie\", ... }\n      ...\n\nAdditional Information\n----------------------\n\nTo learn more about compound indexes, see :manual:`Compound Indexes </core/index-compound>`\nin the {+mdb-server+} manual.\n\nTo learn about effective indexing strategies using compound indexes, see\n:manual:`The ESR Rule </tutorial/equality-sort-range-rule>` in the {+mdb-server+} manual.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the methods discussed in this guide, see the following API\ndocumentation:\n\n- `mongoc_collection_find_with_opts() <{+api-libmongoc+}/mongoc_collection_find_with_opts.html>`_\n- `mongoc_collection_create_indexes_with_opts() <{+api-libmongoc+}/mongoc_collection_create_indexes_with_opts.html>`_\n",
+    "language": "c",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes/compound-index.txt"
+  },
+  {
+    "code": "   :language: c\n   :start-after: start-index-multikey\n   :end-before: end-index-multikey\n   :copyable:\n   :dedent:\n\nThe following example performs a query that uses the index created in the preceding code\nsample:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes/multikey-index.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/indexes/indexes.c\n      :start-after: start-index-multikey-query\n      :end-before: end-index-multikey-query\n      :language: c\n      :dedent:\n   \n   .. output::\n      :visible: false\n\n      { \"_id\" : ..., \"cast\" : [ \"Kelsey Grammer\", \"Cary Elwes\", \"Viola Davis\", \"John C. McGinley\" ], \"title\" : \"The Pentagon Wars\", ... }\n      { \"_id\" : ..., \"cast\" : [ \"George Clooney\", \"Natascha McElhone\", \"Viola Davis\", \"Jeremy Davies\" ], \"title\" : \"Solaris\", ... }\n      { \"_id\" : ..., \"cast\" : [ \"Meryl Streep\", \"Philip Seymour Hoffman\", \"Amy Adams\", \"Viola Davis\" ], \"title\" : \"Doubt\", ... }\n      { \"_id\" : ..., \"cast\" : [ \"Hugh Jackman\", \"Jake Gyllenhaal\", \"Viola Davis\", \"Maria Bello\" ], \"title\" : \"Prisoners\", ... }\n      { \"_id\" : ..., \"cast\" : [ \"Emma Stone\", \"Viola Davis\", \"Bryce Dallas Howard\", \"Octavia Spencer\" ], \"title\" : \"The Help\", ... }\n      ...\n\nMultikey indexes behave differently from other indexes in terms of query coverage, index bound computation, and\nsort behavior. To learn more about multikey indexes, including a discussion of their behavior and limitations,\nsee the :manual:`Multikey Indexes </core/index-multikey>` guide in the {+mdb-server+} manual.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the functions discussed in this guide, see the following API\ndocumentation:\n\n- `mongoc_collection_find_with_opts() <{+api-libmongoc+}/mongoc_collection_find_with_opts.html>`_\n- `mongoc_collection_create_indexes_with_opts() <{+api-libmongoc+}/mongoc_collection_create_indexes_with_opts.html>`_\n",
+    "language": "c",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes/multikey-index.txt"
+  },
+  {
+    "code": "   :start-after: start-index-single\n   :end-before: end-index-single\n   :language: c\n   :copyable:\n   :dedent:\n\nThe following is an example of a query that is covered by the index created in the preceding code example:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes/single-field-index.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/indexes/indexes.c\n      :start-after: start-index-single-query\n      :end-before: end-index-single-query\n      :language: c\n      :dedent:\n   \n   .. output::\n      :visible: false\n\n      { \"_id\" : ..., \"title\" : \"Batman\", ... }\n\nAdditional Information\n----------------------\n\nTo learn more about single-field indexes, see :manual:`Single Field Indexes </core/index-single>`\nin the {+mdb-server+} manual.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the functions discussed in this guide, see the following API\ndocumentation:\n\n- `mongoc_collection_find_with_opts() <{+api-libmongoc+}/mongoc_collection_find_with_opts.html>`_\n- `mongoc_collection_create_indexes_with_opts() <{+api-libmongoc+}/mongoc_collection_create_indexes_with_opts.html>`_\n",
+    "language": "c",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes/single-field-index.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable:\n   :linenos:\n   :emphasize-lines: 17-19\n\nSingle Field Index\n------------------\n\nThe following example creates an ascending index on the specified field:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-single-field\n   :end-before: end-single-field\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about single field indexes, see the :ref:`c-single-field-index` guide.\n\nCompound Index\n--------------\n\nThe following example creates a compound index of two ascending indexes on the specified\nfields:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-compound\n   :end-before: end-compound\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about compound indexes, see the :ref:`c-compound-index` guide.\n\nMultikey Index\n--------------\n\nThe following example creates an ascending multikey index on the specified array-valued field:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-multikey\n   :end-before: end-multikey\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about multikey indexes, see the :ref:`c-multikey-index` guide.\n\nGeospatial Index\n----------------\n\nThe following example creates a 2dsphere index on the specified field that contains\nGeoJSON objects:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-geo\n   :end-before: end-geo\n   :language: c\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about geospatial indexes, see the :ref:`c-geospatial-index`\n.. guide.\n\nTo learn more about the GeoJSON data type, see :manual:`GeoJSON Objects\n</reference/geojson/>` in the {+mdb-server+} manual.\n\nUnique Index\n------------\n\nThe following example creates an ascending unique index on the specified field:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-unique\n   :end-before: end-unique\n   :language: c\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about unique indexes, see the :ref:`c-unique-index`\n.. guide.\n\nWildcard Index\n--------------\n\nThe following example creates an ascending wildcard index in the specified collection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-wildcard\n   :end-before: end-wildcard\n   :language: c\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about wildcard indexes, see the :ref:`c-wildcard-index`\n.. guide.\n\nClustered Index\n---------------\n\nThe following example creates a new collection with an ascending clustered index on the\n``_id`` field:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-clustered\n   :end-before: end-clustered\n   :language: c\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about clustered indexes, see the :ref:`c-clustered-index`\n.. guide.\n\nText Index\n----------\n\nThe following example creates a text index on the specified string field:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-text\n   :end-before: end-text\n   :language: c\n   :copyable:\n   :dedent:\n\n.. TODO: To learn more about text indexes, see the :ref:`c-text-index`\n.. guide.\n\nDelete an Index\n---------------\n\nThe following example deletes an index with the specified name:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-remove\n   :end-before: end-remove\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about removing indexes, see :ref:`c-indexes-remove`\nin the Work with Indexes guide.\n\nAtlas Search Index Management\n-----------------------------\n\nThe following sections contain code examples that describe how to manage Atlas Search\nindexes.\n\nTo learn more about Atlas Search indexes, see the :ref:`c-atlas-search-index`\nguide.\n\nCreate Search Index\n~~~~~~~~~~~~~~~~~~~\n\nThe following example creates an Atlas Search index on the specified field:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-search-create\n   :end-before: end-search-create\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about creating search indexes, see the :ref:`c-atlas-search-index-create`\nguide.\n\nList Search Indexes\n~~~~~~~~~~~~~~~~~~~\n\nThe following example prints a list of Atlas Search indexes in the specified collection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-search-list\n   :end-before: end-search-list\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about listing search indexes, see the :ref:`c-atlas-search-index-list`\nguide.\n\nUpdate Search Indexes\n~~~~~~~~~~~~~~~~~~~~~\n\nThe following example updates an existing Atlas Search index with the specified\nnew index definition:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-search-update\n   :end-before: end-search-update\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about updating search indexes, see the :ref:`c-atlas-search-index-update`\nguide.\n\nDelete Search Indexes\n~~~~~~~~~~~~~~~~~~~~~\n\nThe following example deletes an Atlas Search index with the specified name:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes.txt"
+  },
+  {
+    "code": "   :start-after: start-search-delete\n   :end-before: end-search-delete\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about deleting search indexes, see the :ref:`c-atlas-search-index-drop`\nguide.\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/indexes.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable:\n   :linenos:\n   :emphasize-lines: 10, 28-30\n\nWhen you perform a database operation, the driver establishes a new connection to\nthe server and your subscriber records the server opening event. The code outputs\nmessages that resemble the following:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/monitoring/cluster-monitoring.txt"
+  },
+  {
+    "code": "   :copyable: false\n\n   Server opening: <host>:<port number>\n\nEvent Descriptions\n------------------\n\nYou can subscribe to SDAM events by defining the corresponding\nAPM callback function. The following table provides the name of\neach SDAM event, links to the type's API documentation, and describes\nwhen the event is published:\n\n.. list-table::\n   :widths: 35 65 \n   :header-rows: 1\n\n   * - Event Type\n     - Description\n\n   * - `mongoc_apm_server_changed_t <{+api-libmongoc+}/mongoc_apm_server_changed_t.html>`__\n     - Created when the server description changes, such as the server's\n       type changing from secondary to primary.\n\n   * - `mongoc_apm_server_opening_t <{+api-libmongoc+}/mongoc_apm_server_opening_t.html>`__\n     - Created when a new server is added to the topology. For an example application that\n       subscribes to this SDAM event, see :ref:`c-subscribe-sdam` on this page.\n\n   * - `mongoc_apm_server_closed_t <{+api-libmongoc+}/mongoc_apm_server_closed_t.html>`__\n     - Created when an existing server is removed from the topology.\n\n   * - `mongoc_apm_topology_changed_t <{+api-libmongoc+}/mongoc_apm_topology_changed_t.html>`__\n     - Created when the topology description changes, such as when there\n       is an election of a new primary.\n\n   * - `mongoc_apm_topology_opening_t <{+api-libmongoc+}/mongoc_apm_topology_opening_t.html>`__\n     - Created when the driver first connects to the cluster.\n\n   * - `mongoc_apm_topology_closed_t <{+api-libmongoc+}/mongoc_apm_topology_closed_t.html>`__\n     - Created when the driver disconnects from the cluster.\n\n   * - `mongoc_apm_server_heartbeat_started_t <{+api-libmongoc+}/mongoc_apm_server_heartbeat_started_t.html>`__\n     - Created when the server monitor sends a ``hello`` command to the server.\n       This action is called a heartbeat.\n\n   * - `mongoc_apm_server_heartbeat_succeeded_t <{+api-libmongoc+}/mongoc_apm_server_heartbeat_succeeded_t.html>`__\n     - Created when the heartbeat succeeds.\n\n   * - `mongoc_apm_server_heartbeat_failed_t <{+api-libmongoc+}/mongoc_apm_server_heartbeat_failed_t.html>`__\n     - Created when the heartbeat fails.\n\nYou can find information about each monitoring subscriber type and event\nmethod in the `Application Performance Monitoring <{+api-libmongoc+}/application-performance-monitoring.html>`__\nsection of the API documentation.\n\nAPI Documentation\n-----------------\n\nTo learn more about the functions discussed in this guide, see the\nfollowing API documentation:\n\n- `mongoc_apm_set_server_opening_cb() <{+api-libmongoc+}/mongoc_apm_set_server_opening_cb.html>`__\n- `mongoc_client_set_apm_callbacks() <{+api-libmongoc+}/mongoc_client_set_apm_callbacks.html>`__\n\n",
+    "language": "none",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/monitoring/cluster-monitoring.txt"
+  },
+  {
+    "code": "   :start-after: start-open-change-stream\n   :end-before: end-open-change-stream\n   :language: c\n   :copyable:\n   :dedent:\n\nTo begin watching for changes, run the application. Then, in a separate\napplication or shell, perform a write operation on the ``restaurants`` collection. The\nfollowing example updates a document in which the value of the ``name`` field is ``\"Blarney Castle\"``:\n\n.. _c-change-stream-update:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/change-streams.txt"
+  },
+  {
+    "code": "   :start-after: start-update-for-change-stream\n   :end-before: end-update-for-change-stream\n   :language: c\n   :copyable:\n   :dedent:\n\nWhen you update the collection, the change stream application prints the change\nas it occurs. The printed change event resembles the\nfollowing:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/change-streams.txt"
+  },
+  {
+    "code": "   :start-after: start-change-stream-pipeline\n   :end-before: end-change-stream-pipeline\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about modifying your change stream output, see the\n:manual:`Modify Change Stream Output\n</changeStreams/#modify-change-stream-output>` section in the {+mdb-server+}\nmanual.\n\nModify Watch Behavior\n---------------------\n\nYou can modify any watch function by passing options to the function call. If you don't\nspecify any options, the driver does not customize the operation.\n\nThe following table describes options you can use to customize the behavior\nof the watch functions:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Option\n     - Description\n\n   * - ``batchSize``\n     - | Sets the number of documents to return per batch.\n\n\n   * - ``comment``\n     - | Specifies a comment to attach to the operation.\n\n   * - ``fullDocument``\n     - | Sets the ``fullDocument`` value. To learn more, see the\n         :ref:`<c-change-stream-pre-post-image>` section of this document.\n\n   * - ``fullDocumentBeforeChange``\n     - | Sets the ``fullDocumentBeforeChange`` value. To learn more, see the\n         :ref:`<c-change-stream-pre-post-image>` section of this document.\n\n   * - ``maxAwaitTimeMS``\n     - | Sets the maximum await execution time on the server for this operation, in\n         milliseconds.\n\nFor a complete list of options you can use to configure the watch operation, see\nthe :manual:`watch method </reference/method/db.collection.watch>` guide in the {+mdb-server+}\nmanual.\n\n.. _c-change-stream-pre-post-image:\n\nInclude Pre-Images and Post-Images\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n.. important::\n\n   You can enable pre-images and post-images on collections only if your\n   deployment uses MongoDB v6.0 or later.\n\nBy default, when you perform an operation on a collection, the\ncorresponding change event includes only the delta of the fields\nmodified by that operation. To see the full document before or after a\nchange, specify the ``fullDocumentBeforeChange`` or the ``fullDocument``\noptions in your watch function call.\n\nThe **pre-image** is the full version of a document *before* a change. To include the\npre-image in the change stream event, pass one of the following values to the\n``fullDocumentBeforeChange`` option:\n\n- ``whenAvailable``: The change event includes a pre-image of the\n  modified document for change events only if the pre-image is available.\n- ``required``: The change event includes a pre-image of the\n  modified document for change events. If the pre-image is not available, the\n  driver raises an error.\n\nThe **post-image** is the full version of a document *after* a change. To include the\npost-image in the change stream event, pass one of the following values to the \n``fullDocument`` option:\n\n- ``updateLookup``: The change event includes a copy of the entire changed\n  document from some time after the change.\n- ``whenAvailable``: The change event includes a post-image of the\n  modified document for change events only if the post-image is available.\n- ``required``: The change event includes a post-image of the\n  modified document for change events. If the post-image is not available, the\n  driver raises an error.\n\nThe following example calls the ``mongoc_collection_watch()`` function on a collection and\nincludes the post-image of updated documents in the results by specifying the\n``fullDocument`` option:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/change-streams.txt"
+  },
+  {
+    "code": "   :start-after: start-change-stream-post-image\n   :end-before: end-change-stream-post-image\n   :language: c\n   :copyable:\n   :dedent:\n\nWith the change stream application running, updating a document in the\n``restaurants`` collection by using the :ref:`preceding update example\n<c-change-stream-update>` prints a change event resembling the following:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/change-streams.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read/count.c\n      :start-after: start-count-all\n      :end-before: end-count-all\n      :language: c\n      :dedent:\n\n   .. output::\n      :language: console\n      :visible: false\n\n      21349\n\nCount Specific Documents\n~~~~~~~~~~~~~~~~~~~~~~~~\n\nTo return a count of documents that match specific search criteria, specify your query\nin the ``mongoc_collection_count_documents()`` function. The following example prints a\ncount of all documents in the ``movies`` collection that have a ``year`` field value equal\nto ``1930``:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/count.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read/count.c\n      :start-after: start-count-query\n      :end-before: end-count-query\n      :language: c\n      :dedent:\n\n   .. output::\n      :language: console\n      :visible: false\n\n      10\n\nCustomize Count Behavior\n~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe ``mongoc_collection_count_documents()`` function accepts optional parameters in the form of a\n``bson_t`` structure, which represents a set of options you can use to configure the count\noperation. If you don't specify any options, the driver does not\ncustomize the count operation.\n\nThe following table describes the options you can set to customize ``countDocuments()``:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Option\n     - Description\n\n   * - ``comment``\n     - | Specifies a comment to attach to the operation.\n   \n   * - ``skip``\n     - | Sets the number of documents to skip before returning results.\n\n   * - ``limit``\n     - | Sets the maximum number of documents to count. Must be a positive integer.\n\n   * - ``collation``\n     - | Specifies the kind of language collation to use when sorting\n         results. For more information, see :manual:`Collation </reference/collation/#std-label-collation>`\n         in the {+mdb-server+} manual.\n\n   * - ``hint``\n     - | Sets the index to scan for documents.\n\nFor a complete list of options, see the `API Documentation <{+api-libmongoc+}/mongoc_collection_count_documents.html#parameters>`__\nfor ``mongoc_collection_count_documents()``.\n\nThe following example uses a ``bson_t`` structure to add a comment to the\n``mongoc_collection_count_documents()`` operation:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/count.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read/count.c\n      :start-after: start-count-options\n      :end-before: end-count-options\n      :language: c\n      :dedent:\n\n   .. output::\n      :language: console\n      :visible: false\n\n      21349\n\n.. _c-estimated-count:\n\nRetrieve an Estimated Count\n---------------------------\n\nUse the ``mongoc_collection_estimated_document_count()`` function to retrieve an estimate of the number of\ndocuments in a collection. The function estimates the amount of documents based on\ncollection metadata, which can be faster than performing an accurate count.\n\nThe following example prints the estimated number of documents in a collection:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/count.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read/count.c\n      :start-after: start-estimated-count\n      :end-before: end-estimated-count\n      :language: c\n      :dedent:\n\n   .. output::\n      :language: console\n      :visible: false\n\n      21349\n\nCustomize Estimated Count Behavior\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe ``mongoc_collection_estimated_document_count()`` function accepts optional parameters in\nthe form of an ``bson_t`` structure, which represents options you can use to configure\nthe count operation. If you don't specify any options, the driver does not customize the\ncount operation.\n\nThe following table describes the options you can set to customize\n``mongoc_collection_estimated_document_count()``:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Option\n     - Description\n\n   * - ``comment``\n     - | Specifies a comment to attach to the operation.\n\n   * - ``collation``\n     - | Specifies the kind of language collation to use when sorting\n         results. For more information, see :manual:`Collation </reference/collation/#std-label-collation>`\n         in the {+mdb-server+} manual.\n\nFor a complete list of options, see the `API Documentation <{+api-libmongoc+}/mongoc_collection_estimated_document_count.html#parameters>`__\nfor ``mongoc_collection_estimated_document_count()``.\n\nThe following example uses a ``bson_t`` structure to add a comment to\nthe ``mongoc_collection_estimated_document_count()`` operation:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/count.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read/count.c\n      :start-after: start-estimated-count-options\n      :end-before: end-estimated-count-options\n      :language: c\n      :dedent:\n\n   .. output::\n      :language: console\n      :visible: false\n\n      21349\n\nAPI Documentation\n-----------------\n\nTo learn more about any of the functions discussed in this\nguide, see the following API documentation:\n\n- `mongoc_collection_count_documents() <{+api-libmongoc+}/mongoc_collection_count_documents.html>`__\n- `mongoc_collection_estimated_document_count() <{+api-libmongoc+}/mongoc_collection_estimated_document_count.html>`__\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/count.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read/cursors.c\n      :start-after: start-cursor-iterate\n      :end-before: end-cursor-iterate\n      :language: c\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      { \"_id\" : { \"$oid\" : \"...\" }, ... , \"name\" : \"Golden Pavillion\", \"restaurant_id\" : \"40363920\" }\n      { \"_id\" : { \"$oid\" : \"...\" }, ... , \"name\" : \"Morris Park Bake Shop\", \"restaurant_id\" : \"30075445\" }\n      { \"_id\" : { \"$oid\" : \"...\" }, ... , \"name\" : \"Criminal Court Bldg Cafeteria\", \"restaurant_id\" : \"40364443\" }\n      { \"_id\" : { \"$oid\" : \"...\" }, ... , \"name\" : \"7B Bar\", \"restaurant_id\" : \"40364518\" }\n      { \"_id\" : { \"$oid\" : \"...\" }, ... , \"name\" : \"Nyac Main Dining Room\", \"restaurant_id\" : \"40364467\" }\n      ...\n\nRetrieve Documents Individually\n-------------------------------\n\nRetrieve documents from a cursor individually by calling the ``mongoc_cursor_next()`` function.\nThis function iterates over the cursor and sets the ``bson`` parameter to the next document in the cursor.\n\nThe following example finds all documents in a collection with a ``name`` value\nof ``\"Dunkin' Donuts\"``. It then prints the first document in the cursor by calling the\n``mongoc_cursor_next()`` function.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/cursors.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read/cursors.c\n      :start-after: start-cursor-next\n      :end-before: end-cursor-next\n      :language: c\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      { \"_id\" : { \"$oid\" : \"...\" }, ... , \"name\" : \"Dunkin' Donuts\", \"restaurant_id\" : \"40392410\" }\n\nClose a Cursor\n--------------\n\nTo close a cursor and release all associated resources, call the\n``mongoc_cursor_destroy()`` function as shown in the following example:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/cursors.txt"
+  },
+  {
+    "code": "   :start-after: start-cursor-close\n   :end-before: end-cursor-close\n   :language: c\n   :dedent:\n\nTailable Cursors\n----------------\n\nWhen querying on a :manual:`capped collection </core/capped-collections/>`, you\ncan use a **tailable cursor** that remains open after the client exhausts the\nresults in a cursor. To create a tailable cursor on a capped collection,\nspecify the ``tailable`` and ``awaitData`` options when performing a find operation.\n\nThe following example creates a tailable cursor on a capped collection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/cursors.txt"
+  },
+  {
+    "code": "   :start-after: start-tailable-cursor\n   :end-before: end-tailable-cursor\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about tailable cursors and their usage, see the :manual:`Tailable Cursors guide\n</core/tailable-cursors/>` in the {+mdb-server+} manual.\n\nTroubleshooting\n---------------\n\n\"*CursorNotFound* cursor id not valid at server\"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nCursors in MongoDB can timeout on the server if they've been open for\na long time without any operations being performed on them. This can\nlead to a ``CursorNotFound`` exception when you try to iterate through the cursor. To\nresolve this issue, open a new cursor.\n\nAPI Documentation\n-----------------\n\nTo learn more about any of the functions discussed in this guide, see the following API\ndocumentation:\n\n- `mongoc_collection_find_with_opts() <{+api-libmongoc+}/mongoc_collection_find_with_opts.html>`__\n- `mongoc_cursor_next() <{+api-libmongoc+}/mongoc_cursor_next.html>`__\n- `mongoc_cursor_destroy() <{+api-libmongoc+}/mongoc_cursor_destroy.html>`__\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/cursors.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read/distinct.c\n      :start-after: start-distinct\n      :end-before: end-distinct\n      :language: c\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      { \"values\" : [ \"Bronx\", \"Brooklyn\", \"Manhattan\", \"Missing\", \"Queens\", \"Staten Island\" ], ... }\n\nThe results show every distinct value that appears in the ``borough`` field\nacross all documents in the collection. Although several documents have the same\nvalue in the ``borough`` field, each value appears in the results only once.\n\nRetrieve Distinct Values Across Specified Documents\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nYou can provide a **query filter** to the ``distinct`` command to find the distinct\nfield values across a subset of documents in a collection. A query filter is an expression that specifies search\ncriteria used to match documents in an operation.\n\nTo learn more about creating query filters, see :ref:`c-specify-query`.\n\nThe following example retrieves the distinct values of the ``borough`` field for\nall documents that have a ``cuisine`` field value of ``\"Italian\"``:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/distinct.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read/distinct.c\n      :start-after: start-distinct-query\n      :end-before: end-distinct-query\n      :language: c\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      { \"values\" : [ \"Bronx\", \"Brooklyn\", \"Manhattan\", \"Queens\", \"Staten Island\" ], ... }\n\nModify Distinct Behavior\n~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe ``distinct`` command can be modified by passing options to the ``mongoc_collection_read_command_with_opts()``\nfunction. If you don't specify any options, the driver does not customize the operation.\n\nThe following table describes some options you can use to customize the\n``distinct`` operation:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Option\n     - Description\n\n   * - ``collation``\n     - | Specifies the kind of language collation to use when sorting\n         results. For more information, see :manual:`Collation </reference/collation/#std-label-collation>`\n         in the {+mdb-server+} manual.\n\n   * - ``comment``\n     - | Specifies a comment to attach to the operation.\n\nFor a complete list of options you can use to modify the ``distinct`` operation, see\nthe :manual:`Distinct </reference/command/distinct>` documentation in the\n{+mdb-server+} manual.\n\nThe following example retrieves the distinct values of the ``name`` field for\nall documents that have a ``borough`` field value of ``\"Bronx\"`` and a\n``cuisine`` field value of ``\"Pizza\"``. It also uses\nthe ``comment`` option to add a comment to the operation.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/distinct.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read/distinct.c\n      :start-after: start-distinct-comment\n      :end-before: end-distinct-comment\n      :language: c\n      :dedent:\n\n   .. output:: \n      :visible: false\n\n      { \"values\" : [ \"$1.25 Pizza\", \"18 East Gunhill Pizza\", \"2 Bros\", \"Aenos Pizza\", \"Alitalia Pizza Restaurant\", ... ], ... }\n\nAdditional Information\n----------------------\n\nTo learn more about the distinct command, see the :manual:`Distinct\n</reference/command/distinct/>` page in the MongoDB Server Manual.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about the ``mongoc_collection_read_command_with_opts()`` function, see the\n`API documentation <{+api-libmongoc+}/mongoc_collection_read_command_with_opts.html>`__.\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/distinct.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/read/project.c\n      :start-after: start-project\n      :end-before: end-project\n      :language: c\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      { \"_id\" : { \"$oid\" : \"...\" }, \"borough\" : \"Manhattan\", \"cuisine\" : \"American\", \"name\" : \"Emerald Pub\" }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"borough\" : \"Queens\", \"cuisine\" : \"American\", \"name\" : \"Emerald Pub\" }\n\n.. _c-project-exclude-id:\n\nExclude the ``_id`` Field\n~~~~~~~~~~~~~~~~~~~~~~~~~\n\nWhen specifying fields to include, you can also exclude the ``_id`` field from\nthe returned document.\n\nThe following example runs the same query as the preceding example, but\nexcludes the ``_id`` field from the projection:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/project.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/read/project.c\n      :start-after: start-project-exclude\n      :end-before: end-project-exclude\n      :language: c\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      { \"borough\" : \"Manhattan\", \"cuisine\" : \"American\", \"name\" : \"Emerald Pub\" }\n      { \"borough\" : \"Queens\", \"cuisine\" : \"American\", \"name\" : \"Emerald Pub\" }\n\nAdditional Information\n----------------------\n\nTo learn more about projections, see the :manual:`Project Fields guide\n</tutorial/project-fields-from-query-results/>` in the MongoDB Server Manual.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the functions or types discussed in this\nguide, see the following API Documentation:\n\n- `mongoc_collection_find_with_opts() <{+api-libmongoc+}/mongoc_collection_find_with_opts.html>`__\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/project.txt"
+  },
+  {
+    "code": "   :start-after: start-find\n   :end-before: end-find\n   :language: c\n   :dedent:\n\nThe ``mongoc_collection_find_with_opts()`` operation in the preceding example returns a\n``mongoc_cursor_t *``, which you can iterate through by using the ``mongoc_cursor_next()``\nfunction and a while loop. The following example iterates through and prints the results returned\nin the previous query:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/retrieve.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/read/retrieve.c\n      :start-after: start-find-iterate\n      :end-before: end-find-iterate\n      :language: c\n      :dedent:\n\n   .. output::\n      :language: console\n      :visible: false\n\n      { \"_id\" : { \"$oid\" : \"...\" }, \"name\" : \"Charle'S Corner Restaurant & Deli\", \"cuisine\" : \"Spanish\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"name\" : \"Real Madrid Restaurant\", \"cuisine\" : \"Spanish\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"name\" : \"Malaga Restaurant\", \"cuisine\" : \"Spanish\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"name\" : \"Cafe Espanol\", \"cuisine\" : \"Spanish\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"name\" : \"Cafe Riazor\", \"cuisine\" : \"Spanish\", ... }\n      ...\n\n.. note:: Find All Documents\n \n   To find all documents in a collection, pass an empty filter to the\n   ``mongoc_collection_find_with_opts()`` function:\n\n",
+    "language": "c",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/retrieve.txt"
+  },
+  {
+    "code": "      :start-after: start-find-all\n      :end-before: end-find-all\n      :language: c\n      :dedent:\n\nModify Find Behavior\n~~~~~~~~~~~~~~~~~~~~\n\nYou can modify the behavior of the ``mongoc_collection_find_with_opts()`` function by by passing\nin a ``bson_t`` structure that contains the options you want to configure. The following\ntable describes options commonly used for modifying queries:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Option\n     - Description\n\n   * - ``collation`` \n     - | Sets the collation options for the query. \n\n   * - ``comment`` \n     - | Specifies a string to attach to the query. This can help you trace and interpret the\n         operation in the server logs and in profile data. To learn more about query comments, \n         see :manual:`$comment </reference/operator/query/comment/>` in the {+mdb-server+}\n         manual.\n   \n   * - ``hint`` \n     - | Specifies the index to use for the query.\n\n   * - ``limit``\n     - | Limits the number of documents to be returned from the query.\n\n   * - ``maxTimeMS``\n     - | Sets the maximum execution time on the server for this operation.\n\n   * - ``skip``\n     - | Sets the number of documents to skip.\n\n   * - ``sort``\n     - | Defines the sort criteria to apply to the query.\n\nThe following example uses the ``limit`` and ``maxTimeMS`` options to limit the\nnumber of documents returned by the query to ``10`` and set a maximum execution time of\n``10000`` milliseconds on the operation:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/retrieve.txt"
+  },
+  {
+    "code": "   :start-after: start-modified-find\n   :end-before: end-modified-find\n   :language: c\n   :dedent:\n\nFor a full list of options that modify the behavior of ``mongoc_collection_find_with_opts()``,\nsee the :manual:`find method </reference/method/db.collection.find/>` documentation in the\n{+mdb-server+} manual.\n\nAdditional Information\n----------------------\n\nTo learn more about query filters, see :ref:`c-specify-query`.\n\nTo view runnable code examples that retrieve documents by using the {+driver-short+}, see\n:ref:`c-read`.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the functions discussed in this guide, see the following\nAPI documentation:\n\n- `mongoc_collection_find_with_opts() <{+api-libmongoc+}/mongoc_collection_find_with_opts.html>`__\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/retrieve.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/read/specify-a-query.c\n      :start-after: start-find-exact\n      :end-before: end-find-exact\n      :language: c\n      :dedent:\n   \n   .. output::\n      :visible: false\n\n      { \"_id\" : { \"$oid\" : \"...\" }, \"title\" : \"Wild and Woolly\", \"type\" : \"movie\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"title\" : \"The Devil to Pay!\", \"type\" : \"movie\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"title\" : \"Traffic in Souls\", \"type\" : \"movie\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"title\" : \"Now or Never\", \"type\" : \"movie\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"title\" : \"High and Dizzy\", \"type\" : \"movie\", ... }\n      ...\n\nComparison Operators\n--------------------\n\nComparison operators evaluate a document field value against a specified value\nin your query filter. The following is a list of common comparison operators:\n\n- ``$gt``: Greater than\n- ``$lte``: Less than or equal\n- ``$ne``: Not equal\n\nTo view a full list of comparison operators, see the :manual:`Comparison Query Operators\n</reference/operator/query-comparison/>` guide in the MongoDB Server manual.\n\nThe following example specifies a comparison operator in a query filter as a\nparameter to the ``mongoc_collection_find_with_opts()`` function. The code returns all documents\nin which the value of the  ``year`` field is greater than ``2015``.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/specify-a-query.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/read/specify-a-query.c\n      :start-after: start-find-comparison\n      :end-before: end-find-comparison\n      :language: c\n      :dedent:\n   \n   .. output::\n      :visible: false\n\n      { \"_id\" : ..., \"title\" : \"The Masked Saint\", \"year\" : { \"$numberInt\" : \"2016\" }, ... }\n\nLogical Operators\n-----------------\n\nLogical operators match documents by using logic applied to the results of two or\nmore sets of expressions. The following is a list of logical operators: \n\n- ``$and``, which returns all documents that match the conditions of *all* clauses\n- ``$or``, which returns all documents that match the conditions of *one* clause\n- ``$nor``, which returns all documents that *do not* match the conditions of any clause\n- ``$not``, which returns all documents that *do not* match the expression\n\nTo learn more about logical operators, see the :manual:`Logical Query Operators\n</reference/operator/query-logical/>` guide in the MongoDB Server manual.\n\nThe following example specifies a logical operator in a query filter as a\nparameter to the ``mongoc_collection_find_with_opts()`` function. The code returns all\ndocuments in which the value of the ``year`` field is ``1983`` **or** ``1985``.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/specify-a-query.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/read/specify-a-query.c\n      :start-after: start-find-logical\n      :end-before: end-find-logical\n      :language: c\n      :dedent:\n   \n   .. output::\n      :visible: false\n\n      { \"_id\" : ..., \"title\" : \"Amityville 3-D\", \"year\" : { \"$numberInt\" : \"1983\" }, ... }\n      { \"_id\" : ..., \"title\" : \"Barefoot Gen\", \"year\" : { \"$numberInt\" : \"1983\" }, ... }\n      { \"_id\" : ..., \"title\" : \"Betrayal\", \"year\" : { \"$numberInt\" : \"1983\" }, ... }\n      { \"_id\" : ..., \"title\" : \"You're a Good Man, Charlie Brown\", \"year\" : { \"$numberInt\" : \"1985\" }, ... }\n      { \"_id\" : ..., \"title\" : \"Yes: 9012 Live\", \"year\" : { \"$numberInt\" : \"1985\" }, ... }\n      ...\n\nArray Operators\n---------------\n\nArray operators match documents based on the value or quantity of elements in an\narray field. The following is a list of available array operators:\n\n- ``$all``, which returns documents with arrays that contain all elements in the query\n- ``$elemMatch``, which returns documents if an element in their array field matches all conditions in the query\n- ``$size``, which returns all documents with arrays of a specified size\n\nTo learn more about array operators, see the :manual:`Array Query Operators\n</reference/operator/query-array/>` guide in the MongoDB Server manual.\n\nThe following example specifies an array operator in a query filter as a\nparameter to the ``mongoc_collection_find_with_opts()`` function. The code returns all\ndocuments in which the value of the ``genres`` array field contains exactly ``2`` elements.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/specify-a-query.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/read/specify-a-query.c\n      :start-after: start-find-array\n      :end-before: end-find-array\n      :language: c\n      :dedent:\n   \n   .. output::\n      :visible: false\n\n      { \"_id\" : ..., \"genres\" : [ \"Comedy\", \"Romance\" ], \"title\" : \"The Devil to Pay!\", ... }\n      { \"_id\" : ..., \"genres\" : [ \"Crime\", \"Drama\" ], \"title\" : \"Traffic in Souls\", ... }\n      { \"_id\" : ..., \"genres\" : [ \"Comedy\", \"Short\" ], \"title\" : \"High and Dizzy\", ... }\n      { \"_id\" : ..., \"genres\" : [ \"Comedy\", \"Short\" ], \"title\" : \"Now or Never\", ... }\n      { \"_id\" : ..., \"genres\" : [ \"Drama\", \"Romance\" ], \"title\" : \"A Woman of Paris: A Drama of Fate\", ... }\n      ...\n\nElement Operators\n-----------------\n\nElement operators query data based on the presence or type of a field.\n\nTo learn more about element operators, see the :manual:`Element Query Operators\n</reference/operator/query-element/>` guide in the MongoDB Server manual.\n\nThe following example specifies the ``$exists`` operator in a query filter as a\nparameter to the ``mongoc_collection_find_with_opts()`` function. The code returns all\ndocuments that have a ``num_mflix_comments`` field.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/specify-a-query.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/read/specify-a-query.c\n      :start-after: start-find-element\n      :end-before: end-find-element\n      :language: kotlin\n      :dedent:\n   \n   .. output::\n      :visible: false\n\n      { \"_id\" : ..., \"num_mflix_comments\" : { \"$numberInt\" : \"0\" }, \"title\" : \"The Park Is Mine\", ...}\n      { \"_id\" : ..., \"num_mflix_comments\" : { \"$numberInt\" : \"1\" }, \"title\" : \"The Good Father\", ... }\n      { \"_id\" : ..., \"num_mflix_comments\" : { \"$numberInt\" : \"0\" }, \"title\" : \"Alpine Fire\", ... }\n      { \"_id\" : ..., \"num_mflix_comments\" : { \"$numberInt\" : \"1\" }, \"title\" : \"Huang jia shi jie\", ... }\n      { \"_id\" : ..., \"num_mflix_comments\" : { \"$numberInt\" : \"0\" }, \"title\" : \"Twenty Years Later\", ... }\n      ...\n\nEvaluation Operators\n--------------------\n\nEvaluation operators return data based on evaluations of either individual\nfields or the entire collection's documents.\n\nThe following is a list of common evaluation operators:\n\n- ``$text``, which performs a text search on the documents\n- ``$regex``, which returns documents that match a specified regular expression\n- ``$mod``, which performs a :wikipedia:`modulo <w/index.php?title=Modulo&oldid=1226348145>`\n  operation on the value of a field and returns documents where the remainder is a specified\n  value\n\nTo view a full list of evaluation operators, see the :manual:`Evaluation Query Operators\n</reference/operator/query-evaluation/>` guide in the MongoDB Server manual.\n\nThe following example specifies an evaluation operator in a query filter as a\nparameter to the ``mongoc_collection_find_with_opts()`` function. The code uses a regular\nexpression to return all documents in which the value of the ``title`` field has at least two\nconsecutive ``\"p\"`` characters.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/specify-a-query.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/read/specify-a-query.c\n      :start-after: start-find-evaluation\n      :end-before: end-find-evaluation\n      :language: c\n      :dedent:\n   \n   .. output::\n      :visible: false\n\n      { \"_id\" : ..., \"title\" : \"He Who Gets Slapped\", ... }\n      { \"_id\" : ..., \"title\" : \"David Copperfield\", ... }\n      { \"_id\" : ..., \"title\" : \"Applause\", ... }\n      { \"_id\" : ..., \"title\" : \"Skippy\", ... }\n      { \"_id\" : ..., \"title\" : \"This Happy Breed\", ... }\n      ...\n\nAdditional Information\n----------------------\n\nTo learn more about querying documents, see the :manual:`Query Documents\n</tutorial/query-documents/>` guide in the MongoDB Server manual.\n\nTo learn more about using the {+driver-short+} to retrieve documents, see\n:ref:`c-retrieve`.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about the ``mongoc_collection_find_with_opts()`` function, see the\n`API documentation <{+api-libmongoc+}/mongoc_collection_find_with_opts.html>`__.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/specify-a-query.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/read/specify-documents-to-return.c\n      :start-after: start-limit\n      :end-before: end-limit\n      :language: c\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"V & T Restaurant\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"Mimis Restaurant & Bar\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"Venice Restaurant\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"Areo Restaurant\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"Tre Giovani Pizza & Pasta\", ... }\n\n.. tip::\n\n   The preceding example returns the first five documents returned by the query in\n   :manual:`natural order </reference/glossary/#std-term-natural-order>`. The following\n   section describes how to return the documents in a specified sort order.\n\n.. _c-sort:\n\nSort\n----\n\nTo return documents in a specified order, use the ``sort`` option. The ``sort``\noption takes a sort direction as a parameter. To specify the sort direction,\npass a ``1`` for an ascending sort or a ``-1`` for a descending sort.\nAscending sorts order values from lowest to highest, and descending sorts order values from\nhighest to lowest.\n\nThe following example returns all documents with a ``cuisine`` field value of\n``\"Italian\"``, sorted by the value of the ``name`` field in ascending order:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/specify-documents-to-return.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/read/specify-documents-to-return.c\n      :start-after: start-sort\n      :end-before: end-sort\n      :language: c\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"(Lewis Drug Store) Locanda Vini E Olii\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"101 Restaurant And Bar\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"44 Sw Ristorante & Bar\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"900 Park\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"A Voce\", ... }\n      ...\n\n.. _c-skip:\n\nSkip\n----\n\nTo skip a specified number of documents before returning your query results,\nuse the ``skip`` option and pass in the number of documents to skip. The\n``skip`` option ignores the specified number of documents in your query\nresults, then returns the rest.\n\nThe following example returns all documents that have a ``cuisine`` field value\nof ``\"Italian\"`` and skips the first 10 documents:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/specify-documents-to-return.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/read/specify-documents-to-return.c\n      :start-after: start-skip\n      :end-before: end-skip\n      :language: c\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"Trattoria Alba\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"Da Umberto Restaurant\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"La Strada Restaurant\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"Pasta Lovers Trattoria\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"Nanni Restaurant\", ... }\n      ...\n\nCombine Limit, Sort, and Skip\n-----------------------------\n\nYou can combine the ``limit``, ``sort``, and ``skip`` options in a single\noperation. This allows you to set a maximum number of sorted documents to\nreturn, skipping a specified number of documents before returning.\n\nThe following example returns documents with the ``cuisine`` field value of\n``\"Italian\"``. The results are sorted in alphabetical order, skipping the first\n10 documents and limiting the results to 5 documents:\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/specify-documents-to-return.txt"
+  },
+  {
+    "code": "   :copyable: true\n\n   .. input:: /includes/read/specify-documents-to-return.c\n      :start-after: start-limit-sort-skip\n      :end-before: end-limit-sort-skip\n      :language: c\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"Acqua\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"Acqua Restaurant\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"Acqua Santa\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"Acquista Trattoria\", ... }\n      { \"_id\" : { \"$oid\" : \"...\" }, \"cuisine\" : \"Italian\", \"name\" : \"Acquolina Catering\", ... }\n\n.. note::\n\n   The order in which you call these methods doesn't change the documents\n   that are returned. The driver automatically reorders the calls to perform the\n   sort and skip operations first, and the limit operation afterward.\n\nAdditional Information\n----------------------\n\nFor more information about specifying a query, see :ref:`c-specify-query`.\n\nFor more information about retrieving documents, see :ref:`c-retrieve`.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about the ``mongoc_collection_find_with_opts()`` function, see the\n`API documentation <{+api-libmongoc+}/mongoc_collection_find_with_opts.html>`__.\n\n",
+    "language": "",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read/specify-documents-to-return.txt"
+  },
+  {
+    "code": "   :start-after: // start-client-write-concern\n   :end-before: // end-client-write-concern\n   :language: c\n   :dedent:\n\nThe following example sets the write concern to ``MONGOC_WRITE_CONCERN_W_MAJORITY`` for a collection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read-write-configuration.txt"
+  },
+  {
+    "code": "   :start-after: // start-collection-write-concern\n   :end-before: // end-collection-write-concern\n   :language: c\n   :dedent:\n\n.. note:: Collections and Databases are Immutable\n\n   ``mongoc_database_t`` and ``mongoc_collection_t`` instances are immutable. When you\n   set the write concern on a database or collection, the method returns a new\n   instance and does not affect the original instance.\n\nFor more information about write concern, see :manual:`Write Concern\n</reference/write-concern/>` in the {+mdb-server+} manual.\n\nRead Concern\n------------\n\nRead concern specifies the following behaviors:\n\n- Level of :manual:`causal consistency\n  </core/causal-consistency-read-write-concerns>` across replica sets\n- :manual:`Isolation guarantees </core/read-isolation-consistency-recency/>` maintained\n  during a query\n\nYou can specify the read concern by calling the following\nfunctions:\n\n- ``mongoc_client_set_read_concern()`` sets the read concern on a client.\n- ``mongoc_transaction_opts_set_read_concern()`` sets the read concern on a\n  transaction.\n- ``mongoc_database_set_read_concern()`` sets the read concern on a database.\n- ``mongoc_collection_set_read_concern()`` sets the read concern on a\n  collection.\n\nTo specify the level of your read concern, call the\n``mongoc_read_concern_set_level()`` function, and pass in your read concern and one of the following values:\n\n- ``MONGOC_READ_CONCERN_LEVEL_LOCAL``: The query returns the instance's most recent data. Provides no guarantee\n  that the data has been written to a majority of the replica set members.\n- ``MONGOC_READ_CONCERN_LEVEL_AVAILABLE``: The query returns the instance's most recent data.\n  Provides no guarantee that the data has been written to a majority of the\n  replica set members. ``ReadConcern.AVAILABLE`` is not available for use with\n  causally consistent sessions and transactions.\n- ``MONGOC_READ_CONCERN_LEVEL_MAJORITY``: The query returns data that has been acknowledged by\n  a majority of the replica set members.\n- ``MONGOC_READ_CONCERN_LEVEL_LINEARIZABLE``: The query returns data that reflects all\n  successful writes that completed prior to the start of the read operation.\n  ``MONGOC_READ_CONCERN_LEVEL_LINEARIZABLE`` is not available for use with causally consistent\n  sessions and transactions.\n- ``MONGOC_READ_CONCERN_LEVEL_SNAPSHOT``: The query returns majority-committed data as it appears across shards, from a\n  specific single point in the recent past.\n\nFor more information about the read concern levels, see :manual:`Read Concern\nLevels </reference/read-concern/#read-concern-levels>` in the {+mdb-server+}\nmanual.\n\nThe following example sets the read concern to ``MONGOC_READ_CONCERN_LEVEL_MAJORITY`` for an instance of\n``mongoc_client_t``:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read-write-configuration.txt"
+  },
+  {
+    "code": "   :start-after: // start-client-read-concern\n   :end-before: // end-client-read-concern\n   :language: c\n   :dedent:\n\nThe following example sets the read concern to ``MONGOC_READ_CONCERN_LEVEL_MAJORITY`` for a\ncollection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read-write-configuration.txt"
+  },
+  {
+    "code": "   :start-after: // start-collection-read-concern\n   :end-before: // end-collection-read-concern\n   :language: c\n   :dedent:\n\nTo learn more about read concern, see :manual:`Read Concern\n<reference/read-concern>` in the {+mdb-server+} manual.\n\nRead Preference\n---------------\n\nRead preference determines which member of a replica set MongoDB reads when\nrunning a query. You can set the read preference by calling the following\nfunctions: \n\n- ``mongoc_client_set_read_prefs()`` sets the read preference on a client.\n- ``mongoc_transaction_opts_set_read_prefs()`` sets the read preference on a\n  transaction.\n- ``mongoc_database_set_read_prefs()`` sets the read preference on a database.\n- ``mongoc_collection_set_read_prefs()`` sets the read preference on a collection.\n\nTo specify the level of your read preference, call the\n``mongoc_read_prefs_new()`` function, and pass in one of the following values:\n\n- ``MONGOC_READ_PRIMARY``: The query returns data from the primary node.\n- ``MONGOC_READ_PRIMARY_PREFERRED``: The query returns data from the primary node if\n  available. Otherwise, the query returns data from a secondary node.\n- ``MONGOC_READ_SECONDARY``: The query returns data from a secondary node.\n- ``MONGOC_READ_SECONDARY_PREFERRED``: The query returns data from a secondary node if\n  available, Otherwise, the query returns data from the primary node.\n- ``MONGOC_READ_NEAREST``: The query returns data from the node with the lowest\n  network latency.\n\nThe following example sets the read preference to ``MONGOC_READ_SECONDARY``\nfor an instance of ``mongoc_client_t``:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read-write-configuration.txt"
+  },
+  {
+    "code": "   :start-after: // start-client-read-preference\n   :end-before: // end-client-read-preference\n   :language: c\n   :dedent:\n\nThe following example sets the read preference to ``MONGOC_READ_SECONDARY``\nfor a collection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read-write-configuration.txt"
+  },
+  {
+    "code": "   :start-after: // start-collection-read-preference\n   :end-before: // end-collection-read-preference\n   :language: c\n   :dedent:\n\nFor more information about read preference, see :manual:`Read Preference\n</core/read-preference/>` in the {+mdb-server+} manual.\n\nAPI Documentation\n-----------------\n\nTo learn more about any of the functions or types discussed in this\nguide, see the following API documentation:\n\n- `mongoc_write_concern_t <{+api-libmongoc+}/mongoc_write_concern_t.html#mongoc-write-concern-t>`__\n- `mongoc_write_concern_set_w <{+api-libmongoc+}/mongoc_write_concern_set_w.html#mongoc-write-concern-set-w>`__\n- `mongoc_write_concern_new <{+api-libmongoc+}/mongoc_write_concern_new.html#mongoc-write-concern-new>`__\n- `mongoc_read_concern_t <{+api-libmongoc+}/mongoc_read_concern_t.html#mongoc-read-concern-t>`__\n- `mongoc_read_concern_new <{+api-libmongoc+}/mongoc_read_concern_new.html#mongoc-read-concern-new>`__\n- `mongoc_read_concern_set_level <{+api-libmongoc+}/mongoc_read_concern_set_level.html#mongoc-read-concern-set-level>`__\n- `mongoc_read_prefs_t <{+api-libmongoc+}/mongoc_read_prefs_t.html#mongoc-read-prefs-t>`__\n- `mongoc_read_prefs_new <{+api-libmongoc+}/mongoc_read_prefs_new.html#mongoc-read-prefs-new>`__\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read-write-configuration.txt"
+  },
+  {
+    "code": "    :language: c\n    :copyable:\n    :linenos:\n    :emphasize-lines: 18-20\n\n\n.. tip::\n\n   For instructions about how to install the {+driver-short+}, see :ref:`<c-get-started-download-and-install>`\n   in the Get Started guide.\n\nFind Documents\n--------------\n\nThe following example retrieves a list of documents that match the criteria specified by the\ngiven filter:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read.txt"
+  },
+  {
+    "code": "   :start-after: start-find\n   :end-before: end-find\n   :language: c\n   :copyable:\n   :dedent:\n\n\nTo learn more about the ``mongoc_collection_find_with_opts()`` function, see the :ref:`c-retrieve-find` guide.\n\nCount Documents in a Collection\n-------------------------------\n\nThe following example returns the number of documents in the specified collection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read.txt"
+  },
+  {
+    "code": "   :start-after: start-count-all\n   :end-before: end-count-all\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about the ``mongoc_collection_count_documents()`` function, see the\n:ref:`c-accurate-count` section of the Count Documents guide.\n\nCount Documents Returned from a Query\n-------------------------------------\n\nThe following example returns the number of documents that match the criteria specified by\nthe given filter:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read.txt"
+  },
+  {
+    "code": "   :start-after: start-count-query\n   :end-before: end-count-query\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about the ``mongoc_collection_count_documents()`` function, see the\n:ref:`c-accurate-count` section of the Count Documents guide.\n\nEstimated Document Count\n------------------------\n\nThe following example returns an approximate number of documents in the specified\ncollection based on collection metadata:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read.txt"
+  },
+  {
+    "code": "   :start-after: start-estimated-count\n   :end-before: end-estimated-count\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about the ``mongoc_collection_estimated_document_count()`` function, see the\n:ref:`c-estimated-count` section of the Count Documents guide.\n\nRetrieve Distinct Values\n------------------------\n\nThe following example returns all distinct values of the specified field name in a given\ncollection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read.txt"
+  },
+  {
+    "code": "   :start-after: start-distinct\n   :end-before: end-distinct\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about the ``distinct`` command, see the :ref:`c-distinct` guide.\n\nMonitor Data Changes\n--------------------\n\nThe following example creates a change stream for a given collection and prints out\nsubsequent change events in that collection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read.txt"
+  },
+  {
+    "code": "   :start-after: start-watch\n   :end-before: end-watch\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about the ``mongoc_collection_watch()`` function, see the\n:ref:`c-change-streams` guide.\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/read.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable: true\n   :start-after: // start-scram-sha-256\n   :end-before: // end-scram-sha-256\n\n.. _c-scram-sha-1:\n\nSCRAM-SHA-1\n-----------\n\nSCRAM-SHA-1, as defined by `RFC 5802 <https://www.rfc-editor.org/rfc/rfc5802>`__,\nis the default authentication mechanism on MongoDB deployments\nrunning MongoDB v3.6.\n\nTo authenticate with this mechanism, set the following connection options:\n\n- ``username``: The username to authenticate. Percent-encode this value before including\n  it in the connection URI.\n- ``password``: The password to authenticate. Percent-encode this value before including\n  it in the connection URI.\n- ``authSource``: The MongoDB database to authenticate against. By default,\n  the {+driver-short+} authenticates against the ``admin`` database.\n- ``authMechanism``: Set to ``\"SCRAM-SHA-1\"``.\n\nYou can set these options by using parameters in your connection string, as shown\nin the following code example:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security/authentication.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable: true\n   :start-after: // start-scram-sha-1\n   :end-before: // end-scram-sha-1\n\n.. _c-mongodb-x509:\n\nMONGODB-X509\n------------\n\nIf you compile the {+driver-short+} with TLS support, the {+driver-short+} can present\nan X.509 client certificate to MongoDB to prove its identity during the TLS handshake. The\nMONGODB-X509 authentication mechanism uses this certificate to authenticate the client.\n\nTo authenticate with this mechanism, perform the following steps:\n\n1. Create a ``mongoc_ssl_opt_t`` structure. On this structure, set the ``pem_file`` field\n   to the file path of the ``.pem`` file that contains your client certificate and private key.\n\n#. In your connection URI, set the ``authMechanism`` connection option to ``\"MONGODB-X509\"``.\n\nThe following code example shows how to create a MongoDB client that authenticates by\nusing the MONGODB-X509 mechanism:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security/authentication.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable: true\n   :start-after: // start-x509\n   :end-before: // end-x509\n\n.. _c-mongodb-aws:\n\nMONGODB-AWS\n-----------\n\n.. important::\n\n   The MONGODB-AWS authentication mechanism requires MongoDB v4.4 or later.\n\nThe ``MONGODB-AWS`` authentication mechanism uses AWS IAM (Amazon Web Services Identity and\nAccess Management) or AWS Lambda credentials to authenticate your application.\nTo use this mechanism to authenticate your application, first create a user with an\nassociated Amazon Resource Name (ARN) on the ``$external`` database. Then, specify the\n``MONGODB-AWS`` authMechanism in the connection URI.\n\nWhen you use the ``MONGODB-AWS`` mechanism, the {+driver-short+} attempts to\nretrieve your AWS credentials from the following sources, in the order listed:\n\n1. Named parameters passed to the connection URI\n#. Environment variables\n#. AWS EKS AssumeRoleWithWebIdentity request\n#. ECS container metadata\n#. EC2 instance metadata\n\nThe following sections describe how to use the {+driver-short+} to retrieve credentials from\nthese sources and use them to authenticate your application.\n\n.. _c-mongo-aws-connection-uri:\n\nConnection URI\n~~~~~~~~~~~~~~\n\nFirst, the {+driver-short+} checks whether you passed AWS credentials to the\n``mongoc_client_t`` constructor as part of the connection\nURI. To pass your credentials in the connection URI, set the following connection\noptions:\n\n- ``username``: The AWS IAM access key ID to authenticate.\n- ``password``: The AWS IAM secret access key.\n- ``authMechanism``: Set to ``\"MONGODB-AWS\"``.\n\nYou can set these options in the connection URI, as shown in the following example:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security/authentication.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable: true\n   :start-after: // start-aws-connection-uri\n   :end-before: // end-aws-connection-uri\n\nYou can also include an AWS session token by passing it into the\n``authMechanismProperties`` parameter:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security/authentication.txt"
+  },
+  {
+    "code": "   :language: cpp\n   :copyable: true\n   :start-after: // start-aws-connection-uri-session\n   :end-before: // end-aws-connection-uri-session\n\n.. _c-mongo-aws-environment:\n\nEnvironment Variables\n~~~~~~~~~~~~~~~~~~~~~\n\nIf you don't include a username and password in your connection URI,\nthe {+driver-short+} tries to retrieve AWS credentials from the following\nenvironment variables:\n\n- ``AWS_ACCESS_KEY_ID``\n- ``AWS_SECRET_ACCESS_KEY``\n- ``AWS_SESSION_TOKEN`` (optional)\n\nTo use these environment variables to authenticate your application, first set them to the\nAWS IAM values needed for authentication, as shown in the following code\nexample:\n\n",
+    "language": "cpp",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security/authentication.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable: true\n   :start-after: // start-aws-environment\n   :end-before: // end-aws-environment\n\n.. _c-mongo-aws-ecs:\n\nECS Metadata\n~~~~~~~~~~~~\n\nIf your application runs in an Elastic Container Service (ECS) container,\nthe {+driver-short+} can automatically retrieve temporary AWS credentials from an\nECS endpoint. To do so, specify the URI of the ECS endpoint in an environment variable called\n``AWS_CONTAINER_CREDENTIALS_RELATIVE_URI``, as shown in the following example:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security/authentication.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable: true\n   :start-after: // start-aws-environment\n   :end-before: // end-aws-environment\n\n.. _c-mongo-aws-ec2:\n\nEC2 Instance Metadata\n~~~~~~~~~~~~~~~~~~~~~\n\nThe {+driver-short+} can automatically retrieve temporary AWS credentials from an\nAmazon Elastic Cloud Compute (EC2) instance. To use temporary credentials from\nwithin an EC2 instance, set the ``authMechanism`` parameter in your connection\nURI to ``\"MONGODB-AWS\"``, as shown in the following example:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security/authentication.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable: true\n   :start-after: // start-aws-environment\n   :end-before: // end-aws-environment\n\n.. note::\n\n   If you set any of the environment variables from the preceding AWS authentication\n   methods, the {+driver-short+} attempts to retrieve credentials by using those\n   methods before attempting to retrieve them from an EC2 instance. To attempt\n   to retrieve credentials only from an EC2 instance, ensure that the\n   environment variables are not set.\n\nAPI Documentation\n-----------------\n\nTo learn more about authenticating your application in the {+driver-short+},\nsee the following API documentation:\n\n- `mongoc_client_t <{+api-libmongoc+}/mongoc_client_t.html>`__\n- `mongoc_uri_t <{+api-libmongoc+}/mongoc_uri_t.html>`__\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security/authentication.txt"
+  },
+  {
+    "code": "         :copyable: false\n      \n         $ kinit mongodbuser@EXAMPLE.COM\n         mongodbuser@EXAMPLE.COM's Password:\n         $ klist\n         Credentials cache: FILE:/tmp/krb5cc_1000\n                 Principal: mongodbuser@EXAMPLE.COM\n      \n         Issued                Expires               Principal\n         Feb  9 13:48:51 2013  Feb  9 23:48:51 2013  krbtgt/mongodbuser@EXAMPLE.COM\n\n   .. step:: Set the Connection Options\n\n      Next, set the following connection options:\n\n      - ``username``: The Kerbos principal to authenticate.\n      - ``authMechanism``: Set to ``\"GSSAPI\"``.\n      - ``authMechanismProperties``: Optional. By default, MongoDB uses ``mongodb`` as\n        the authentication service name. To specify a different service name, set\n        this option to ``\"SERVICE_NAME:<authentication service name>\"``.\n\n      You can set these options through parameters in your connection URI, as shown in\n      the following example:\n\n",
+    "language": "sh",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "          :language: c\n          :copyable: true\n          :start-after: // start-kerberos\n          :end-before: // end-kerberos\n\n      .. note::\n\n         You must replace the ``@`` symbol in the principal with ``%40``, as shown\n         in the preceding example.\n\n.. _c-plain:\n\nPLAIN SASL\n----------\n\nThe PLAIN Simple Authentication and Security Layer (SASL), as defined\nby `RFC 4616 <https://www.rfc-editor.org/rfc/rfc4616>`__, is a username-password\nauthentication mechanism often used with TLS or another encryption layer. You must\ncompile the {+driver-short+} with SASL support to use PLAIN SASL authentication.\n\n.. important::\n\n   PLAIN SASL is a clear-text authentication mechanism. We strongly recommend that you\n   use TLS/SSL with certificate validation when using PLAIN SASL to authenticate to MongoDB.\n\nTo authenticate with SASL, set the ``authMechanism`` connection option to ``PLAIN``.\nYou can set this option through a parameter in your connection string, as shown\nin the following example:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "    :language: c\n    :copyable: true\n    :start-after: // start-plain\n    :end-before: // end-plain\n\nAPI Documentation\n-----------------\n\nTo learn more about authenticating your application in the {+driver-short+},\nsee the following API documentation:\n\n- `mongoc_client_t <{+api-libmongoc+}/mongoc_client_t.html>`__\n- `mongoc_uri_t <{+api-libmongoc+}/mongoc_uri_t.html>`__\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security/enterprise-authentication.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable: true\n   :linenos:\n   :emphasize-lines: 14-16\n\nSCRAM-SHA-256\n-------------\n\nThe following code shows how to authenticate by using the ``SCRAM-SHA-256``\nauthentication mechanism:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable: true\n   :start-after: // start-scram-sha-256\n   :end-before: // end-scram-sha-256\n\nTo learn more about SCRAM-SHA-256 authentication, see :ref:`c-scram-sha-256` in\nthe Authentication guide.\n\nSCRAM-SHA-1\n-----------\n\nThe following code shows how to authenticate by using the ``SCRAM-SHA-1``\nauthentication mechanism:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable: true\n   :start-after: // start-scram-sha-1\n   :end-before: // end-scram-sha-1\n\nTo learn more about SCRAM-SHA-1 authentication, see :ref:`c-scram-sha-1` in\nthe Authentication guide.\n\nMONGODB X.509\n-------------\n\nThe following code shows how to create a connection URI to authenticate by using\nthe ``X.509`` authentication mechanism:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable: true\n   :start-after: // start-x509\n   :end-before: // end-x509\n\nTo learn more about X.509 authentication, see :ref:`c-mongodb-x509` in\nthe Authentication guide.\n\nMONGODB-AWS\n-----------\n\nThe following sections show how to connect to MongoDB by using the ``MONGODB-AWS``\nauthentication mechanism. When you use the ``MONGODB-AWS`` mechanism, the {+driver-short+}\nattempts to retrieve your AWS credentials from the following sources, in the order listed:\n\n1. Named parameters passed to the connection URI\n#. Environment variables\n#. AWS EKS AssumeRoleWithWebIdentity request\n#. ECS container metadata\n#. EC2 instance metadata\n \nEach section shows how to authenticate with ``MONGODB-AWS`` when retrieving your\nAWS credentials from a connection URI or the alternative external sources.\n\nTo learn more about authenticating with AWS, see :ref:`c-mongodb-aws` in the\nAuthentication guide.\n\nConnection URI\n~~~~~~~~~~~~~~\n\nThe following code shows how to pass AWS credentials in a connection URI\nto authenticate with ``MONGODB-AWS``:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable: true\n   :start-after: // start-aws-connection-uri\n   :end-before: // end-aws-connection-uri\n\nTo learn more about authenticating with AWS by retrieving connection URI\ncredentials, see :ref:`c-mongo-aws-connection-uri` in the Authentication\nguide.\n\nExternal Credentials\n~~~~~~~~~~~~~~~~~~~~\n\nThe following code shows how to authenticate with ``MONGODB-AWS`` when\nobtaining credentials from environment variables, ECS metadata, or EC2\ninstance metadata:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security.txt"
+  },
+  {
+    "code": "   :language: c\n   :copyable: true\n   :start-after: // start-aws-environment\n   :end-before: // end-aws-environment\n\nTo learn more about authenticating with AWS by obtaining external\ncredentials, see the following sections in the Authentication guide:\n\n- :ref:`c-mongo-aws-environment`\n- :ref:`c-mongo-aws-ecs`\n- :ref:`c-mongo-aws-ecs`\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/security.txt"
+  },
+  {
+    "code": "   :language: c\n   :start-after: start-remove-index\n   :end-before: end-remove-index\n   :dedent:\n\n.. note::\n\n   You cannot remove a single field from a compound text index. You must\n   drop the entire index and create a new one to update the indexed\n   fields.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the functions discussed in this guide, see the following API\ndocumentation:\n\n- `mongoc_collection_create_indexes_with_opts() <{+api-libmongoc+}/mongoc_collection_create_indexes_with_opts.html>`_\n- `mongoc_collection_drop_index() <{+api-libmongoc+}/mongoc_collection_drop_index.html>`_\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/work-with-indexes.txt"
+  },
+  {
+    "code": "    :start-after: start-create-bulk-write\n    :end-before: end-create-bulk-write\n    :language: c\n    :dedent:\n\nYou can then add write instructions to the bulk operation. For more information, see the\nfollowing :ref:`c-bulk-define-operations` section.\n\n.. _c-bulk-define-operations:\n\nDefine the Write Operations\n---------------------------\n\nYou can define a write operation and add it to the bulk write by calling the\nfollowing methods:\n\n- ``mongoc_bulk_operation_insert_with_opts()``\n- ``mongoc_bulk_operation_update_one_with_opts()``\n- ``mongoc_bulk_operation_update_many_with_opts()``\n- ``mongoc_bulk_operation_replace_one_with_opts()``\n- ``mongoc_bulk_operation_remove_one_with_opts()``\n- ``mongoc_bulk_operation_remove_many_with_opts()``\n\nThe following sections show how to use these methods to specify their corresponding\nwrite operations.\n\n.. _c-bulk-add-insert:\n\nInsert Operations\n~~~~~~~~~~~~~~~~~\n\nTo perform an insert operation, add the insert instructions to the ``mongoc_bulk_operation_t``,\nwhich queues the operation as part of the bulk write.\n\nThe following example calls the ``mongoc_bulk_operation_insert_with_opts()`` function,\npassing the document to insert and the ``mongoc_bulk_operation_t`` value as parameters:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/bulk-write.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-insert-one\n   :end-before: end-bulk-insert-one\n   :language: c\n   :dedent:\n\nTo insert multiple documents, call ``mongoc_bulk_operation_insert_with_opts()``\nfor each document.\n\n.. _c-bulk-add-update:\n\nUpdate Operations\n~~~~~~~~~~~~~~~~~\n\nTo perform an update operation, add the update instructions to the ``mongoc_bulk_operation_t``,\nwhich queues the operation as part of the bulk write.\n\nThe following example calls the ``mongoc_bulk_operation_update_one_with_opts()`` function,\npassing a query filter, document updates, and the ``mongoc_bulk_operation_t`` value as\nparameters:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/bulk-write.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-update-one\n   :end-before: end-bulk-update-one\n   :language: c\n   :dedent:\n\nTo update multiple documents, call ``mongoc_bulk_operation_update_many_with_opts()``\nand pass in the same parameters. This instructs the driver to update *all* documents\nthat match your query filter.\n\nThe following example queues an update many operation to the bulk write:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/bulk-write.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-update-many\n   :end-before: end-bulk-update-many\n   :language: c\n   :dedent:\n\n.. _c-bulk-add-replace:\n\nReplace Operations\n~~~~~~~~~~~~~~~~~~\n\nA replace operation removes all fields and values of a specified document and\nreplaces them with new ones. To perform a replace operation, add the replacement\ninstructions to the ``mongoc_bulk_operation_t``, which queues the operation as part\nof the bulk write.\n\nThe following example calls the ``mongoc_bulk_operation_replace_one_with_opts()`` function,\npassing a query filter, replacement document, and the ``mongoc_bulk_operation_t`` value as\nparameters:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/bulk-write.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-replace-one\n   :end-before: end-bulk-replace-one\n   :language: c\n   :dedent:\n\nTo replace multiple documents, call ``mongoc_bulk_operation_replace_one_with_opts()``\nfor each document.\n\n.. _c-bulk-add-delete:\n\nDelete Operations\n~~~~~~~~~~~~~~~~~\n\nTo perform a delete operation, add the delete instructions to the ``mongoc_bulk_operation_t``,\nwhich queues the operation as part of the bulk write.\n\nThe following example calls the ``mongoc_bulk_operation_remove_one_with_opts()`` function,\npassing a query filter and the ``mongoc_bulk_operation_t`` value as parameters:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/bulk-write.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-delete-one\n   :end-before: end-bulk-delete-one\n   :language: c\n   :dedent:\n\nTo delete multiple documents, call the ``mongoc_bulk_operation_remove_many_with_opts()``\nfunction and pass in the same parameters. This instructs the driver to delete *all* documents\nthat match your query filter.\n\nThe following example queues a delete many operation to the bulk write:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/bulk-write.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-delete-many\n   :end-before: end-bulk-delete-many\n   :language: c\n   :dedent:\n\nRun the Bulk Operation\n----------------------\n\nTo run each write operation queued in the bulk write, call the ``mongoc_bulk_operation_execute()``\nfunction. This function accepts the following parameters:\n\n- **mongoc_bulk_operation_t value**: Contains the instructions for each write operation\n\n- **Results location**: Specifies a pointer to overwritable storage that will contain\n  operation results, or ``NULL``\n\n- **Error location**: Specifies a location for an error value, or ``NULL``\n\nThe following example performs the :ref:`insert <c-bulk-add-insert>`,\n:ref:`update <c-bulk-add-update>`, :ref:`replace <c-bulk-add-replace>`,\nand :ref:`delete <c-bulk-add-delete>` operations specified in the preceding\nsections of this guide by calling the ``mongoc_bulk_operation_execute()``\nfunction:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/bulk-write.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-run\n   :end-before: end-bulk-run\n   :language: c\n   :dedent:\n\nIf any of the write operations fail, the {+driver-short+} sets the output error\nand does not perform any further operations.\n\nCustomize Bulk Write Operations\n-------------------------------\n\nYou can modify the behavior of the ``mongoc_collection_create_bulk_operation_with_opts()``\nfunction by passing a BSON document that specifies option values. The following table\ndescribes the options you can set in the document:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Option\n     - Description\n\n   * - ``ordered``\n     - | If ``true``, the driver performs the write operations in the order\n         provided. If an error occurs, the remaining operations are not\n         attempted. \n       |\n       | If ``false``, the driver performs the operations in an\n         arbitrary order and attempts to perform all operations.\n       | Defaults to ``true``.\n\n   * - ``writeConcern``\n     - | Specifies the write concern for the bulk operation. For more information, see\n         :manual:`Write Concern </reference/write-concern/>` in the {+mdb-server+} manual.\n\n   * - ``sessionId``\n     - | Runs the bulk operations within the specified session. For more information, see\n         :manual:`Server Sessions </reference/server-sessions/>` in the {+mdb-server+} manual.\n         \n   * - ``comment``\n     - | Attaches a comment to the operation. For more information, see the :manual:`delete command\n         fields </reference/command/delete/#command-fields>` guide in the\n         {+mdb-server+} manual.\n\n   * - ``let``\n     - | Specifies a document with a list of values to improve operation readability. Values\n         must be constant or closed expressions that don't reference document fields. For more\n         information, see the :manual:`let statement\n         </reference/command/delete/#std-label-delete-let-syntax>` in the {+mdb-server+} manual.\n\nThe following example calls the ``mongoc_collection_create_bulk_operation_with_opts()`` function\nand sets the ``ordered`` option to ``false``:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/bulk-write.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-write-unordered\n   :end-before: end-bulk-write-unordered\n   :language: c\n   :dedent:\n\nIf any of the write operations in an unordered bulk write fail, the {+driver-short+}\nreports the errors only after attempting all operations.\n\n.. note::\n\n   Unordered bulk operations do not guarantee order of execution. The order can\n   differ from the way you list them to optimize the runtime.\n\nAdditional Information\n----------------------\n\nTo learn how to perform individual write operations, see the following guides:\n\n- :ref:`c-write-insert`\n- :ref:`c-write-update`\n- :ref:`c-write-delete`\n- :ref:`c-write-replace`\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the functions or types discussed in this\nguide, see the following API documentation:\n\n- `mongoc_bulkwrite_t <{+api-libmongoc+}/mongoc_bulkwrite_t.html>`__\n- `mongoc_collection_create_bulk_operation_with_opts() <{+api-libmongoc+}/mongoc_collection_create_bulk_operation_with_opts.html>`__\n- `mongoc_bulk_operation_insert_with_opts() <{+api-libmongoc+}/mongoc_bulk_operation_insert_with_opts.html>`__\n- `mongoc_bulk_operation_update_one_with_opts() <{+api-libmongoc+}/mongoc_bulk_operation_update_one_with_opts.html>`__\n- `mongoc_bulk_operation_update_many_with_opts() <{+api-libmongoc+}/mongoc_bulk_operation_update_many_with_opts.html>`__\n- `mongoc_bulk_operation_replace_one_with_opts() <{+api-libmongoc+}/mongoc_bulk_operation_replace_one_with_opts.html>`__\n- `mongoc_bulk_operation_remove_one_with_opts() <{+api-libmongoc+}/mongoc_bulk_operation_remove_one_with_opts.html>`__\n- `mongoc_bulk_operation_remove_many_with_opts() <{+api-libmongoc+}/mongoc_bulk_operation_remove_many_with_opts.html>`__\n- `mongoc_bulk_operation_execute() <{+api-libmongoc+}/mongoc_bulk_operation_execute.html>`__\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/bulk-write.txt"
+  },
+  {
+    "code": "   :start-after: start-delete-one\n   :end-before: end-delete-one\n   :language: c\n   :dedent:\n\nDelete Multiple Documents\n~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following example uses the ``mongoc_collection_delete_many()`` function to remove all documents\nin the ``restaurants`` collection that have a ``borough`` value of ``\"Brooklyn\"``:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/delete.txt"
+  },
+  {
+    "code": "   :start-after: start-delete-many\n   :end-before: end-delete-many\n   :language: c\n   :dedent:\n\nCustomize the Delete Operation\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nYou can modify the behavior of the ``mongoc_collection_delete_one()`` and\n``mongoc_collection_delete_many()`` functions by passing a BSON document that\nspecifies option values. The following table describes some options you can\nset in the document:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Field\n     - Description\n\n   * - ``collation``\n     - | Specifies the kind of language collation to use when comparing\n         text. For more information, see :manual:`Collation </reference/collation/#std-label-collation>`\n         in the {+mdb-server+} manual.\n       | **Type**: ``bson_t``\n\n   * - ``writeConcern``\n     - | Sets the write concern for the operation.\n       | Defaults to the write concern of the namespace.\n       | **Type**: ``mongoc_write_concern_t``\n\n   * - ``let``\n     - | Specifies a document with a list of values to improve operation readability.\n         Values must be constant or closed expressions that don't reference document\n         fields. For more information, see the :manual:`let statement\n         </reference/command/delete/#std-label-delete-let-syntax>` in the\n         {+mdb-server+} manual.\n       | **Type**: ``bson_t``\n\n   * - ``comment``\n     - | A comment to attach to the operation. For more information, see the :manual:`insert command\n         fields </reference/command/insert/#command-fields>` guide in the\n         {+mdb-server+} manual.\n       | **Type**: ``bson_value_t``\n\nThe following example calls the ``mongoc_collection_delete_many()`` function to delete\nall documents in the ``restaurants`` collection that have a ``name`` value containing\nthe string ``\"Mongo\"``. It also sets the ``comment`` option to add a comment to the\noperation:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/delete.txt"
+  },
+  {
+    "code": "   :start-after: start-delete-options\n   :end-before: end-delete-options\n   :language: c\n   :dedent:\n\n.. tip::\n\n   If you use the ``mongoc_collection_delete_one()`` function instead of\n   ``mongoc_collection_delete_many()`` in the preceding example, the driver\n   deletes only the first document that has a ``name`` value containing ``\"Mongo\"``.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the functions discussed in this\nguide, see the following API documentation:\n\n- `mongoc_collection_delete_one() <{+api-libmongoc+}/mongoc_collection_delete_one.html>`__\n- `mongoc_collection_delete_many() <{+api-libmongoc+}/mongoc_collection_delete_many.html>`__\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/delete.txt"
+  },
+  {
+    "code": "   :language: c\n   :dedent:\n   :start-after: start-create-bucket\n   :end-before: end-create-bucket\n\n.. _gridfs-create-custom-bucket:\n\nCustomize the Bucket\n~~~~~~~~~~~~~~~~~~~~\n\nYou can customize the GridFS bucket configuration by passing a BSON document that specifies\noption values to the ``mongoc_gridfs_bucket_new()`` function. The following table describes\nthe options you can set in the document:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Option\n     - Description\n\n   * - ``bucketName`` \n     - | Specifies the bucket name to use as a prefix for the files and chunks collections.\n         The default value is ``\"fs\"``.\n       | **Type**: ``string``\n\n   * - ``chunkSizeBytes`` \n     - | Specifies the chunk size that GridFS splits files into. The default value is 255 kB.\n       | **Type**: ``int32``\n\n   * - ``readConcern`` \n     - | Specifies the read concern to use for bucket operations. The default value is the \n         database's read concern.\n       | **Type**: ``mongoc_read_concern_t``\n\n   * - ``writeConcern`` \n     - | Specifies the write concern to use for bucket operations. The default value is the \n         database's write concern.\n       | **Type**: ``mongoc_write_concern_t``\n\nThe following example creates a bucket named ``\"myCustomBucket\"`` by passing an\noptions document to ``mongoc_gridfs_bucket_new()`` that sets the ``bucketName`` option:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/gridfs.txt"
+  },
+  {
+    "code": "   :language: c\n   :dedent:\n   :start-after: start-create-custom-bucket\n   :end-before: end-create-custom-bucket\n\n.. _gridfs-upload-files:\n\nUpload Files\n------------\n\nYou can upload files to a GridFS bucket by using the following functions:\n\n- ``mongoc_gridfs_bucket_open_upload_stream()``: Opens a new upload stream\n  to which you can write file contents\n- ``mongoc_gridfs_bucket_upload_from_stream()``: Uploads the contents of\n  an existing stream to a GridFS file\n\n.. _gridfs-open-upload-stream:\n\nWrite to an Upload Stream\n~~~~~~~~~~~~~~~~~~~~~~~~~\n\nUse the ``mongoc_gridfs_bucket_open_upload_stream()`` function to create an\nupload stream for a given file name. The ``mongoc_gridfs_bucket_open_upload_stream()``\nfunction allows you to specify configuration information in an options document,\nwhich you can pass as a parameter.\n\nThis example uses an upload stream to perform the following\nactions:\n\n- Opens a writable stream for a new GridFS file named ``\"my_file\"``\n- Calls the ``mongoc_stream_write()`` function to write data to ``\"my_file\"``, which the stream points to\n- Calls the ``mongoc_stream_close()`` and ``mongoc_stream_destroy()`` functions to\n  close and destroy the stream pointing to ``\"my_file\"`` \n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/gridfs.txt"
+  },
+  {
+    "code": "   :language: c\n   :dedent:\n   :start-after: start-open-upload-stream\n   :end-before: end-open-upload-stream\n\nUpload an Existing Stream\n~~~~~~~~~~~~~~~~~~~~~~~~~\n\nUse the ``mongoc_gridfs_bucket_upload_from_stream()`` function to upload the contents\nof a stream to a new GridFS file. The ``mongoc_gridfs_bucket_upload_from_stream()``\nfunction allows you to specify configuration information in an options document, which\nyou can pass as a parameter.\n\nThis example performs the following actions:\n\n- Calls the ``mongoc_stream_file_new_for_path()`` function to open a file located\n  at ``/path/to/input_file`` as a stream in read only (``O_RDONLY``) mode\n- Calls the ``mongoc_gridfs_bucket_upload_from_stream()`` function to upload the\n  contents of the stream to a GridFS file named ``\"new_file\"`` \n- Calls the ``mongoc_stream_close()`` and ``mongoc_stream_destroy()`` functions to\n  close and destroy the stream\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/gridfs.txt"
+  },
+  {
+    "code": "   :language: c\n   :dedent:\n   :start-after: start-upload-from-stream\n   :end-before: end-upload-from-stream\n\n.. _gridfs-retrieve-file-info:\n\nRetrieve File Information\n-------------------------\n\nIn this section, you can learn how to retrieve file metadata stored in the\n``files`` collection of the GridFS bucket. A file's metadata contains information\nabout the file it refers to, including:\n\n- The ``_id`` of the file\n- The name of the file\n- The length/size of the file\n- The upload date and time\n- A ``metadata`` document in which you can store any other information\n\nTo retrieve files from a GridFS bucket, call the ``mongoc_gridfs_bucket_find()``\nfunction and pass your bucket as a parameter. The function returns a cursor\nfrom which you can access the results. \n\n.. tip::\n\n   To learn more about cursors in the {+driver-short+}, see the\n   :ref:`<c-cursors>` guide.\n\nExample \n~~~~~~~\n\nThe following code example shows you how to retrieve and print file metadata\nfrom files in a GridFS bucket. It uses a ``while`` loop to iterate through\nthe returned cursor and display the contents of the files uploaded in the\n:ref:`gridfs-upload-files` examples:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/gridfs.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/write/gridfs.c\n      :start-after: start-retrieve-file-info\n      :end-before: end-retrieve-file-info\n      :language: c\n      :dedent:\n\n   .. output::\n      :visible: false\n\n      { \"_id\" : { \"$oid\" : \"...\" }, \"length\" : 13, \"chunkSize\" : 261120, \"uploadDate\" : \n      { \"$date\" : ... }, \"filename\" : \"my_file\", \"metadata\" : {  } }\n\n      { \"_id\" : { \"$oid\" : \"...\" }, \"length\" : 13, \"chunkSize\" : 261120, \"uploadDate\" :\n      { \"$date\" : ... }, \"filename\" : \"new_file\", \"metadata\" : {  } }\n\nThe ``mongoc_gridfs_bucket_find()`` function accepts various query specifications. You can use its\noptions parameter to specify the sort order, maximum number of documents to return,\nand the number of documents to skip before returning. To view a list of available\noptions, see the `mongoc_collection_find_with_opts() <{+api-libmongoc+}/mongoc_collection_find_with_opts.html>`__\nAPI documentation.\n\n.. _gridfs-download-files:\n\nDownload Files\n--------------\n\nYou can download files from a GridFS bucket by using the following functions:\n\n- ``mongoc_gridfs_bucket_open_download_stream()``: Opens a new download stream\n  from which you can read the file contents\n- ``mongoc_gridfs_bucket_download_to_stream()``: Writes the entire file to\n  an existing download stream\n\nRead From a Download Stream\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nYou can download files from your MongoDB database by using the\n``mongoc_gridfs_bucket_open_download_stream()`` function to\ncreate a download stream.\n\nThis example uses a download stream to perform the following actions:\n\n- Calls the ``mongoc_gridfs_bucket_open_download_stream()`` function to select\n  a GridFS file with the specified ``_id`` value and opens it as a readable stream \n- Calls the ``mongoc_stream_read()`` function to read the contents of the file\n- Calls the ``mongoc_stream_close()`` and ``mongoc_stream_destroy()`` functions to\n  close and destroy the download stream pointing to the file\n\n",
+    "language": "c",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/gridfs.txt"
+  },
+  {
+    "code": "   :language: c\n   :dedent:\n   :start-after: start-open-download-stream\n   :end-before: end-open-download-stream\n\n.. note::\n\n   If there are multiple documents with the same file name,\n   GridFS will stream the most recent file with the given name (as\n   determined by the ``uploadDate`` field).\n\nDownload to an Existing Stream\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nYou can download the contents of a GridFS file to an existing stream\nby calling the ``mongoc_gridfs_bucket_download_to_stream()`` function.\n\nThis example performs the following actions:\n\n- Calls the ``mongoc_stream_file_new_for_path()`` function to open a file\n  located at ``/path/to/output_file`` as a stream in read and write (``O_RDWR``) mode\n- Downloads a GridFS file that has the specified ``_id`` value\n  to the stream\n- Calls the ``mongoc_stream_close()`` and ``mongoc_stream_destroy()`` functions to\n  close and destroy the file stream \n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/gridfs.txt"
+  },
+  {
+    "code": "   :language: c\n   :dedent:\n   :start-after: start-download-to-stream\n   :end-before: end-download-to-stream\n\n.. _gridfs-delete-files:\n\nDelete Files\n------------\n\nUse the ``mongoc_gridfs_bucket_delete_by_id()`` function to remove a file's collection\ndocument and associated chunks from your bucket. This effectively deletes the file.\n\nThe following example shows you how to delete a file by referencing its ``_id`` field:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/gridfs.txt"
+  },
+  {
+    "code": "   :language: c\n   :dedent:\n   :start-after: start-delete-files\n   :end-before: end-delete-files\n\n.. note:: File Revisions\n\n   The ``mongoc_gridfs_bucket_delete_by_id()`` function supports deleting only one\n   file at a time. If you want to delete each file revision, or files with different upload\n   times that share the same file name, collect the ``_id`` values of each revision.\n   Then, pass each ``_id`` value in separate calls to the ``mongoc_gridfs_bucket_delete_by_id()``\n   function.\n\nAPI Documentation\n-----------------\n\nTo learn more about using the {+driver-short+} to store and retrieve large files,\nsee the following API documentation:\n\n- `mongoc_gridfs_bucket_new() <{+api-libmongoc+}/mongoc_gridfs_bucket_new.html>`__\n- `mongoc_gridfs_bucket_open_upload_stream() <{+api-libmongoc+}/mongoc_gridfs_bucket_open_upload_stream.html>`__\n- `mongoc_gridfs_bucket_upload_from_stream() <{+api-libmongoc+}/mongoc_gridfs_bucket_upload_from_stream.html>`__\n- `mongoc_gridfs_bucket_find() <{+api-libmongoc+}/mongoc_gridfs_bucket_find.html>`__\n- `mongoc_gridfs_bucket_open_download_stream() <{+api-libmongoc+}/mongoc_gridfs_bucket_open_download_stream.html>`__\n- `mongoc_gridfs_bucket_download_to_stream() <{+api-libmongoc+}/mongoc_gridfs_bucket_download_to_stream.html>`__\n- `mongoc_gridfs_file_set_metadata() <{+api-libmongoc+}/mongoc_gridfs_file_set_metadata.html>`__\n- `mongoc_gridfs_bucket_delete_by_id() <{+api-libmongoc+}/mongoc_gridfs_bucket_delete_by_id.html>`__\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/gridfs.txt"
+  },
+  {
+    "code": "    :language: c\n    :dedent:\n    :start-after: start-insert-one\n    :end-before: end-insert-one\n\nInsert Multiple Documents\n-------------------------\n\nTo add multiple documents to a MongoDB collection, call the ``mongoc_collection_insert_many()``\nfunction and pass the following parameters:\n\n- Collection into which you're inserting documents\n- Array of pointers to the documents you want to insert \n- Number of documents to insert\n- Options to customize the operation, or ``NULL``\n- Pointer to overwritable storage that will contain operation results, or ``NULL``\n- Location for an error value, or ``NULL``\n\nThe following example inserts two documents into the ``restaurants`` collection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/insert.txt"
+  },
+  {
+    "code": "    :language: c\n    :dedent:\n    :start-after: start-insert-many\n    :end-before: end-insert-many\n\nModify Insert Behavior\n----------------------\n\nYou can modify the behavior of the ``mongoc_collection_insert_one()`` and\n``mongoc_collection_insert_many()`` functions by passing a BSON document that\nspecifies option values. The following table describes some options\nyou can set in the document:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Option\n     - Description\n\n   * - ``bypassDocumentValidation``\n     - | If set to ``true``, allows the write operation to opt out of\n         :manual:`document-level validation </core/schema-validation>`. \n       | Defaults to ``false``.\n       | **Type**: ``bool``\n\n   * - ``writeConcern``\n     - | Sets the write concern for the operation.\n       | Defaults to the write concern of the namespace.\n       | **Type**: ``mongoc_write_concern_t``\n\n   * - ``ordered``\n     - | If set to ``true``, the operation stops inserting documents when one insert\n         fails. If ``false``, the operation continues to insert the remaining documents\n         when one insert fails. You cannot pass this option to the ``mongoc_collection_insert_one()``\n         function.\n       | Defaults to ``true``.\n       | **Type**: ``bool``\n\n   * - ``comment``\n     - | A comment to attach to the operation. For more information, see the :manual:`insert command\n         fields </reference/command/insert/#command-fields>` guide in the\n         {+mdb-server+} manual.\n       | **Type**: ``bson_value_t``\n       \nExample\n~~~~~~~\n\nThe following code uses the ``mongoc_collection_insert_many()`` function to insert\nthree new documents into a collection. Because the ``bypassDocumentValidation`` field\nis set to ``true``, this insert operation bypasses document-level validation:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/insert.txt"
+  },
+  {
+    "code": "    :language: c\n    :dedent:\n    :start-after: start-modify\n    :end-before: end-modify\n\nAdditional Information\n----------------------\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the functions discussed in this\nguide, see the following API documentation:\n\n- `mongoc_collection_insert_one() <{+api-libmongoc+}/mongoc_collection_insert_one.html>`__\n- `mongoc_collection_insert_many() <{+api-libmongoc+}/mongoc_collection_insert_many.html>`__\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/insert.txt"
+  },
+  {
+    "code": "    :language: c\n    :dedent:\n    :start-after: start-replace-one\n    :end-before: end-replace-one\n\n.. important::\n\n   The values of ``_id`` fields are immutable. If your replacement document specifies \n   a value for the ``_id`` field, it must be identical to the ``_id`` value of the\n   existing document.\n\nModify the Replace Operation\n----------------------------\n\nYou can modify the behavior of the ``mongoc_collection_replace_one()`` function\nby passing a BSON document that specifies option values. The following table\ndescribes some options you can set in the document:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Option\n     - Description\n\n   * - ``upsert``\n     - | Specifies whether the replace operation performs an upsert operation if no \n         documents match the query filter. For more information, see the :manual:`upsert\n         statement </reference/command/update/#std-label-update-command-upsert>`\n         in the {+mdb-server+} manual.\n       | Defaults to ``false``.\n\n   * - ``bypassDocumentValidation``\n     - | Specifies whether the replace operation bypasses document validation. This lets you \n         replace documents that don't meet the schema validation requirements, if any \n         exist. For more information about schema validation, see :manual:`Schema\n         Validation </core/schema-validation/#schema-validation>` in the MongoDB\n         Server manual.\n       | Defaults to ``false``.\n\n   * - ``collation``\n     - | Specifies the kind of language collation to use when comparing text.\n         For more information, see :manual:`Collation </reference/collation/#std-label-collation>`\n         in the {+mdb-server+} manual.\n\n   * - ``hint``\n     - | Gets or sets the index to scan for documents. \n         For more information, see the :manual:`hint statement </reference/command/update/#std-label-update-command-hint>`\n         in the {+mdb-server+} manual.\n\n   * - ``comment``\n     - | Attaches a comment to the operation. For more information, see the :manual:`insert command\n         fields </reference/command/insert/#command-fields>` guide in the\n         {+mdb-server+} manual.\n\nReplace Options Example\n~~~~~~~~~~~~~~~~~~~~~~~\n\nThe following code uses the ``mongoc_collection_replace_one()`` function to find the first document\nin which the ``name`` field has the value ``\"Food Town\"``, then replaces this document \nwith a new document in which the ``name`` value is ``\"Food World\"``. Because the\n``upsert`` option is set to ``true``, the driver inserts a new document if the query\nfilter doesn't match any existing documents:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/replace.txt"
+  },
+  {
+    "code": "   :start-after: start-replace-options\n   :end-before: end-replace-options\n   :language: c\n   :dedent:\n\nAdditional Information \n----------------------\n\nTo learn more about update operations, see the :ref:`c-write-update` guide.\n\nTo learn more about creating query filters, see the :ref:`c-specify-query` guide.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about the ``mongoc_collection_replace_one()`` function, see the\n`API documentation <{+api-libmongoc+}/mongoc_collection_replace_one.html>`__.\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/replace.txt"
+  },
+  {
+    "code": "   :start-after: start-callback\n   :end-before: end-callback\n   :language: c\n   :copyable:\n   :dedent:\n\nThen, run the following code to perform the transaction. This code\ncompletes the following actions:\n\n1. Creates a session from the client by using the ``mongoc_client_start_session()``\n   function.\n#. Calls the ``mongoc_client_session_with_transaction()`` function to manage the transaction,\n   passing the session and the callback as parameters.\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/transactions.txt"
+  },
+  {
+    "code": "   :copyable:\n\n   .. input:: /includes/write/transactions.c\n      :start-after: start-transaction\n      :end-before: end-transaction\n      :language: c\n      :dedent:\n   \n   .. output::\n      :language: console\n      :visible: false\n\n      Transaction successful!\n\n.. sharedinclude:: dbx/transactions-parallelism.rst\n\n   .. replacement:: driver-specific-content\n\n      If you're using {+mdb-server+} v8.0 or later, you can perform\n      write operations on multiple namespaces within a single transaction by using\n      bulk write operations. For more information, see the :ref:`<c-bulk-write>`\n      guide.\n\nAdditional Information\n----------------------\n\nTo learn more about the concepts mentioned in this guide, see the following pages in \nthe {+mdb-server+} manual:\n\n- :manual:`Transactions </core/transactions/>`\n- :manual:`Server Sessions </reference/server-sessions>`\n- :manual:`Read Isolation, Consistency, and Recency </core/read-isolation-consistency-recency/#causal-consistency>`\n\nTo learn more about ACID compliance, see the :website:`What are ACID\nProperties in Database Management Systems? </basics/acid-transactions>`\narticle on the MongoDB website.\n\n.. _c-api-docs-transactions:\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the types or functions discussed in this\nguide, see the following API documentation:\n\n- `mongoc_client_session_t <{+api-libmongoc+}/mongoc_client_session_t.html>`_\n- `mongoc_client_start_session() <{+api-libmongoc+}/mongoc_client_start_session.html>`_\n- `mongoc_client_session_start_transaction() <{+api-libmongoc+}/mongoc_client_session_start_transaction.html>`_\n- `mongoc_client_session_abort_transaction() <{+api-libmongoc+}/mongoc_client_session_abort_transaction.html>`_\n- `mongoc_client_session_commit_transaction() <{+api-libmongoc+}/mongoc_client_session_commit_transaction.html>`_\n- `mongoc_client_session_with_transaction() <{+api-libmongoc+}/mongoc_client_session_with_transaction.html>`_\n- `mongoc_client_session_destroy() <{+api-libmongoc+}/mongoc_client_session_destroy.html>`_\n\n",
+    "language": "c",
+    "type": "code-block",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/transactions.txt"
+  },
+  {
+    "code": "   :start-after: start-update-one\n   :end-before: end-update-one\n   :language: c\n   :dedent:\n\nUpdate Many Documents\n~~~~~~~~~~~~~~~~~~~~~\n\nThe following example uses the ``mongoc_collection_update_many()`` function to update\nall documents that have a ``cuisine`` value of ``\"Pizza\"``. After the update, the\ndocuments have a ``cuisine`` value of ``\"Pasta\"``.\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/update.txt"
+  },
+  {
+    "code": "   :start-after: start-update-many\n   :end-before: end-update-many\n   :language: c\n   :dedent:\n\nCustomize the Update Operation\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nYou can modify the behavior of the ``mongoc_collection_update_one()`` and\n``mongoc_collection_update_many()`` functions by passing a BSON document that\nspecifies option values. The following table describes some options\nyou can set in the document:\n\n.. list-table::\n   :widths: 30 70\n   :header-rows: 1\n\n   * - Option\n     - Description\n\n   * - ``bypassDocumentValidation``\n     - | If set to ``true``, allows the write operation to opt out of\n         :manual:`document-level validation </core/schema-validation>`. \n       | Defaults to ``false``.\n       | **Type**: ``bool``\n\n   * - ``writeConcern``\n     - | Sets the write concern for the operation.\n       | Defaults to the write concern of the namespace.\n       | **Type**: ``mongoc_write_concern_t``\n\n   * - ``collation``\n     - | Specifies the kind of language collation to use when comparing\n         text. For more information, see :manual:`Collation </reference/collation/#std-label-collation>`\n         in the {+mdb-server+} manual.\n       | **Type**: ``bson_t``\n\n   * - ``comment``\n     - | A comment to attach to the operation. For more information, see the :manual:`insert command\n         fields </reference/command/insert/#command-fields>` guide in the\n         {+mdb-server+} manual.\n       | **Type**: ``bson_value_t``\n\n   * - ``upsert``\n     - | A comment to attach to the operation. For more information, see the :manual:`insert command\n         fields </reference/command/insert/#command-fields>` guide in the\n         {+mdb-server+} manual.\n       | **Type**: ``bson_value_t``\n\nThe following example uses the ``mongoc_collection_update_many()`` function to find all\ndocuments that have ``borough`` value of ``\"Manhattan\"``. It then updates the ``borough``\nvalue in these documents to ``\"Manhattan (north)\"``. Because the ``upsert`` option is\nset to ``true``, the {+driver-short+} inserts a new document if the query filter doesn't \nmatch any existing documents.\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/update.txt"
+  },
+  {
+    "code": "   :start-after: start-update-options\n   :end-before: end-update-options\n   :language: c\n   :dedent:\n\nAdditional Information \n----------------------\n\nTo learn more about creating query filters, see the :ref:`c-specify-query` guide.\n\nAPI Documentation\n~~~~~~~~~~~~~~~~~\n\nTo learn more about any of the functions discussed in this\nguide, see the following API documentation:\n\n- `mongoc_collection_update_one() <{+api-libmongoc+}/mongoc_collection_update_one.html>`__\n- `mongoc_collection_update_many() <{+api-libmongoc+}/mongoc_collection_update_many.html>`__\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write/update.txt"
+  },
+  {
+    "code": "    :language: c\n    :copyable:\n    :linenos:\n    :emphasize-lines: 20-22\n\nInsert One \n----------\n\nThe following code shows how to insert a single document into a collection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write.txt"
+  },
+  {
+    "code": "   :start-after: start-insert-one\n   :end-before: end-insert-one\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about the ``mongoc_collection_insert_one()`` function, see the\n:ref:`Insert Documents <c-write-insert>` guide.\n\nInsert Multiple\n---------------\n\nThe following code shows how to insert multiple documents into a collection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write.txt"
+  },
+  {
+    "code": "   :start-after: start-insert-many\n   :end-before: end-insert-many\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about the ``mongoc_collection_insert_many()`` function, see the\n:ref:`Insert Documents <c-write-insert>` guide.\n\nUpdate One\n----------\n\nThe following code shows how to update a single document in a collection by\ncreating or editing a field:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write.txt"
+  },
+  {
+    "code": "   :start-after: start-update-one\n   :end-before: end-update-one\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about the ``mongoc_collection_update_one()`` function, see the\n:ref:`Update Documents <c-write-update>` guide.\n\nUpdate Multiple\n---------------\n\nThe following code shows how to update multiple documents in a collection by\ncreating or editing a field:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write.txt"
+  },
+  {
+    "code": "   :start-after: start-update-many\n   :end-before: end-update-many\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about the ``mongoc_collection_update_many()`` function, see the\n:ref:`Update Documents <c-write-update>` guide.\n\nDelete One\n----------\n\nThe following code shows how to delete a single document in a collection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write.txt"
+  },
+  {
+    "code": "   :start-after: start-delete-one\n   :end-before: end-delete-one\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about the ``mongoc_collection_delete_one()`` function, see the\n:ref:`Delete Documents <c-write-delete>` guide.\n\nDelete Multiple\n---------------\n\nThe following code shows how to delete multiple documents in a collection:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write.txt"
+  },
+  {
+    "code": "   :start-after: start-delete-many\n   :end-before: end-delete-many\n   :language: c\n   :copyable:\n   :dedent:\n\nTo learn more about the ``mongoc_collection_delete_many()`` function, see the\n:ref:`Delete Documents <c-write-delete>` guide.\n\nBulk Write \n----------\n\nThe following code shows how to perform multiple write operations in a single\nbulk operation:\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write.txt"
+  },
+  {
+    "code": "   :start-after: start-bulk-write\n   :end-before: end-bulk-write\n   :language: c\n   :copyable:\n   :dedent:\n   :emphasize-lines: 23\n\nTo learn more about the ``mongoc_collection_bulk_operation_execute()``\nfunction, see the :ref:`Bulk Write Operations <c-bulk-write>` guide.\n\n",
+    "language": "c",
+    "type": "literalinclude",
+    "id": "",
+    "path": "/Users/kyle.rollins/Documents/GitHub/docs-c/source/write.txt"
+  }
+]
