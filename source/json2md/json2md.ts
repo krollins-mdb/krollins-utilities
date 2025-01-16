@@ -1,4 +1,4 @@
-import data from "../data/docs-devcenter-content-snapshot.json";
+import data from "./data/docs-devcenter-content-snapshot.json";
 import { promises as fs, constants } from "fs";
 import path from "path";
 

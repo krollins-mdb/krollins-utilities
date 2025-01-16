@@ -20,6 +20,9 @@ const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const outputPath = "./source/code-examples/generated";
 const docsRepoPaths: string[] = [];
 
+// TODO: consider using the GitHub API to get repo contents instead of requiring
+// the repo to be cloned locally. Alternatively, automatically clone all the repos.
+
 // for every object in repos, get the pathName and push it to docsRepoPaths
 for (const repo of repos) {
   const absolutePath = path.join(__dirname, "../../../", repo.pathName);

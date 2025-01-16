@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run delete-dist-files && npx tsc && node dist/source/json2md.js",
-    "delete-dist-files": "rm -rf ./dist/content/*",
+    "build": "npm run delete-dist-files && npx tsc && node json2md/source/json2md.js",
+    "delete-dist-files": "rm -rf .json2md/dist/content/*",
     "update-script": "npx ts-node source/addNoRobots.ts",
     "remove-noindex-script": "npx ts-node source/removeNoIndex.ts",
     "create-aws-redirects": "npx ts-node source/createAwsRedirects.ts",
