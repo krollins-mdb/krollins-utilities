@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-const getCodeExampleTestsPath = async (
+const getTestedExamplesPath = async (
   startDir: string = process.cwd()
 ): Promise<string | null> => {
   const searchRecursively = async (dir: string): Promise<string | null> => {
@@ -44,7 +44,7 @@ const getCodeExampleTestsPath = async (
   return searchRecursively(startDir);
 };
 
-const BASE_PATH = await getCodeExampleTestsPath(
+const BASE_PATH = await getTestedExamplesPath(
   process.argv[2] || process.env.HOME + "/Documents/GitHub"
 );
 
@@ -93,9 +93,31 @@ const generateReport = async (basePath: string) => {
     for (const entry of entries) {
       if (entry.isDirectory()) {
         const dirPath = path.join(basePath, entry.name);
-        const count = await countAllFiles(dirPath);
-        counts[entry.name] = count;
-        total += count;
+
+        // Check if this directory has subdirectories
+        const subEntries = await fs.promises.readdir(dirPath, {
+          withFileTypes: true,
+        });
+
+        const hasSubdirectories = subEntries.some((e) => e.isDirectory());
+
+        if (hasSubdirectories) {
+          // Break out each product subdirectory
+          for (const subEntry of subEntries) {
+            if (subEntry.isDirectory()) {
+              const subDirPath = path.join(dirPath, subEntry.name);
+              const count = await countAllFiles(subDirPath);
+              const key = `${entry.name}/${subEntry.name}`;
+              counts[key] = count;
+              total += count;
+            }
+          }
+        } else {
+          // No subdirectories, count all files in this directory
+          const count = await countAllFiles(dirPath);
+          counts[entry.name] = count;
+          total += count;
+        }
       }
     }
   } catch (error) {
@@ -112,11 +134,11 @@ const generateReport = async (basePath: string) => {
   );
 
   for (const [dir, count] of sortedEntries) {
-    console.log(`${dir.padEnd(20)} ${count.toString().padStart(5)} files`);
+    console.log(`${dir.padEnd(30)} ${count.toString().padStart(5)} files`);
   }
 
-  console.log("-".repeat(35));
-  console.log(`${"Total".padEnd(20)} ${total.toString().padStart(5)} files`);
+  console.log("-".repeat(40));
+  console.log(`${"Total".padEnd(30)} ${total.toString().padStart(5)} files`);
   console.log();
 };
 
