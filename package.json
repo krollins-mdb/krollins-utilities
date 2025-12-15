@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "npm run delete-dist-files && npx tsc && node dist/source/json2md.js",
     "delete-dist-files": "rm -rf ./dist/content/*",
@@ -15,7 +16,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.5.0",
+    "@types/node": "^22.19.3",
     "typescript": "^5.5.4"
   },
   "dependencies": {
