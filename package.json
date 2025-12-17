@@ -9,17 +9,20 @@
     "delete-dist-files": "rm -rf ./dist/content/*",
     "rupdate-script": "npx ts-node source/addNoRobots.ts",
     "remove-noindex-script": "npx ts-node source/removeNoIndex.ts",
-    "create-aws-redirects": "npx ts-node source/createAwsRedirects.ts"
+    "create-aws-redirects": "npx ts-node source/createAwsRedirects.ts",
+    "github-metrics": "npx ts-node source/github-metrics/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.19.3",
+    "@types/node": "^25.0.3",
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "fs-extra": "^11.2.0"
+    "dotenv": "^17.2.3",
+    "fs-extra": "^11.2.0",
+    "mongodb": "^7.0.0"
   }
 }
