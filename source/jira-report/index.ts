@@ -76,17 +76,22 @@ async function main() {
 
     console.log(`\n✓ Final dataset: ${issues.length} issues\n`);
 
-    // Phase 3: Analyze (TODO - Phase 2 implementation)
-    console.log("📈 Analysis phase not yet implemented");
-    console.log("   This will be completed in Phase 2\n");
+    // Phase 3: Analyze
+    const { analyzeIssues, printAnalysisSummary } = await import(
+      "./analyze.js"
+    );
+    const analysisResult = analyzeIssues(issues);
+
+    // Print summary to console
+    printAnalysisSummary(analysisResult);
 
     // Phase 4: Generate HTML (TODO - Phase 3 implementation)
     console.log("🎨 HTML generation not yet implemented");
     console.log("   This will be completed in Phase 3\n");
 
-    console.log("✅ Phase 1 Complete!");
+    console.log("✅ Phase 2 Complete!");
     console.log(
-      "   CSV parsing and data transformation are working correctly."
+      "   Analysis is working correctly. HTML generation coming next!"
     );
   } catch (error) {
     console.error(
