@@ -46,9 +46,16 @@ export async function generateHTMLReport(
 ): Promise<void> {
   console.log("🎨 Generating HTML report...\n");
 
-  // Sanitize output path to prevent path traversal attacks
-  const sanitizedName = basename(outputPath).replace(/[^a-zA-Z0-9-_\.]/g, "-");
-  const reportDir = sanitizedName.replace(/\.html$/, "");
+  // Extract directory and filename from output path
+  const outputDir = dirname(outputPath);
+  const fileName = basename(outputPath);
+
+  // Sanitize filename to prevent injection attacks
+  const sanitizedName = fileName.replace(/[^a-zA-Z0-9-_\.]/g, "-");
+  const reportDirName = sanitizedName.replace(/\.html$/, "");
+
+  // Build the full report directory path, preserving the directory structure
+  const reportDir = join(outputDir, reportDirName);
 
   // Ensure output is within the current working directory
   const safePath = resolve(process.cwd(), reportDir);

@@ -17,15 +17,13 @@ const MAX_ROWS = 100000;
 
 /**
  * Raw CSV row structure from Jira export
+ * Uses index signature to support dynamic label columns
  */
 interface RawJiraRow {
+  [key: string]: string;
   "Issue Type": string;
   Priority: string;
   Summary: string;
-  Labels: string;
-  "Labels ": string; // Note the space - Jira adds multiple label columns
-  "Labels  ": string;
-  "Labels   ": string;
   Assignee: string;
   "Custom field (Story Points Estimate)": string;
   "Custom field (Story Points)": string;
@@ -71,9 +69,20 @@ export async function parseJiraCSV(filePath: string): Promise<ParsedIssue[]> {
     // Read the CSV file
     const fileContent = await readFile(filePath, "utf-8");
 
-    // Parse CSV with headers
+    // Parse CSV with custom column handling for duplicate "Labels" columns
     const records = parse(fileContent, {
-      columns: true,
+      columns: (header) => {
+        // Handle duplicate "Labels" columns by adding indices
+        const counts = new Map<string, number>();
+        return header.map((col) => {
+          if (col === "Labels") {
+            const count = counts.get("Labels") || 0;
+            counts.set("Labels", count + 1);
+            return count === 0 ? "Labels" : `Labels_${count}`;
+          }
+          return col;
+        });
+      },
       skip_empty_lines: true,
       trim: true,
     }) as RawJiraRow[];
@@ -117,19 +126,23 @@ function parseRow(row: RawJiraRow): ParsedIssue {
 
 /**
  * Parse and flatten all label columns
- * Jira exports labels in multiple columns: Labels, Labels , Labels  , Labels
+ * Jira exports labels in multiple columns all named "Labels"
+ * This function dynamically finds all columns named "Labels" or "Labels_N"
  */
 function parseLabels(row: RawJiraRow): string[] {
-  const labelColumns = [
-    row["Labels"],
-    row["Labels "],
-    row["Labels  "],
-    row["Labels   "],
-  ];
+  const labels: string[] = [];
 
-  return labelColumns
-    .filter((label) => label && label.trim().length > 0)
-    .map((label) => label.trim());
+  // Find all columns that are "Labels" or "Labels_N"
+  for (const key of Object.keys(row)) {
+    if (key === "Labels" || key.startsWith("Labels_")) {
+      const value = row[key];
+      if (value && value.trim().length > 0) {
+        labels.push(value.trim());
+      }
+    }
+  }
+
+  return labels;
 }
 
 /**

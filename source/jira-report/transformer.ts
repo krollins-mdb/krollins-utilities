@@ -7,14 +7,28 @@ import type { JiraIssue } from "./types.js";
 import type { ParsedIssue } from "./parser.js";
 
 /**
- * Project-related label keywords
+ * Project-related label patterns
+ * Labels matching these patterns are considered project labels
  */
-const PROJECT_LABELS = [
-  "app-services-eol",
-  "dd-code",
-  "dd-education",
-  "dd-grove",
-  "dd-copier-app",
+const PROJECT_LABEL_PATTERNS = [
+  /^dd-/, // Labels starting with "dd-" (dd-code, dd-maintenance, etc.)
+  /^app-/, // Labels starting with "app-" (app-services-eol, etc.)
+  /^sdk-/, // Labels starting with "sdk-"
+  /^api-?/i, // Labels starting with "api" or "api-"
+];
+
+/**
+ * Label keywords that indicate something is NOT a project label
+ * These are typically status, type, or workflow labels
+ */
+const EXCLUDE_LABEL_PATTERNS = [
+  /^bug$/i,
+  /^feature$/i,
+  /^request$/i,
+  /^proactive$/i,
+  /^backlog$/i,
+  /^actionable$/i,
+  /^\d{4}-cleanup$/, // Year-based cleanup labels like "2024-cleanup"
 ];
 
 /**
@@ -130,9 +144,26 @@ function determineComplexity(storyPoints?: number): "high" | "medium" | "low" {
 
 /**
  * Extract project-related labels from all labels
+ * Uses pattern matching to identify project labels
  */
 function extractProjectLabels(labels: string[]): string[] {
-  return labels.filter((label) => PROJECT_LABELS.includes(label));
+  return labels.filter((label) => {
+    // Exclude labels that match exclude patterns
+    for (const excludePattern of EXCLUDE_LABEL_PATTERNS) {
+      if (excludePattern.test(label)) {
+        return false;
+      }
+    }
+
+    // Include labels that match project patterns
+    for (const projectPattern of PROJECT_LABEL_PATTERNS) {
+      if (projectPattern.test(label)) {
+        return true;
+      }
+    }
+
+    return false;
+  });
 }
 
 /**
