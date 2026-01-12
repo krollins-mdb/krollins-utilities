@@ -85,13 +85,13 @@ async function main() {
     // Print summary to console
     printAnalysisSummary(analysisResult);
 
-    // Phase 4: Generate HTML (TODO - Phase 3 implementation)
-    console.log("🎨 HTML generation not yet implemented");
-    console.log("   This will be completed in Phase 3\n");
+    // Phase 4: Generate HTML
+    const { generateHTMLReport } = await import("./htmlGenerator.js");
+    await generateHTMLReport(analysisResult, options.output, options.title);
 
-    console.log("✅ Phase 2 Complete!");
+    console.log("✅ Report Complete!");
     console.log(
-      "   Analysis is working correctly. HTML generation coming next!"
+      `   Open ${options.output} in your browser to view the report.`
     );
   } catch (error) {
     console.error(
