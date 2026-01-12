@@ -10,7 +10,8 @@
     "rupdate-script": "npx ts-node source/addNoRobots.ts",
     "remove-noindex-script": "npx ts-node source/removeNoIndex.ts",
     "create-aws-redirects": "npx ts-node source/createAwsRedirects.ts",
-    "github-metrics": "npx ts-node source/github-metrics/index.ts"
+    "github-metrics": "npx ts-node source/github-metrics/index.ts",
+    "jira-report": "tsc && node dist/source/jira-report/index.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +22,9 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
+    "commander": "^14.0.2",
+    "csv-parse": "^6.1.0",
+    "date-fns": "^4.1.0",
     "dotenv": "^17.2.3",
     "fs-extra": "^11.2.0",
     "mongodb": "^7.0.0"

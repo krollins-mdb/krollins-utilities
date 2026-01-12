@@ -1,17 +1,21 @@
 Issue Type,Priority,Summary,Assignee,Custom field (Story Points Estimate),Custom field (Story Points),Resolved,Created,Labels
+Task,Major - P3,Restore examples or create new ones from the removal: auth and authz,caleb.thompson@mongodb.com,,13.0,Aug 20 2025 02:32:51 PM CDT,Jun 12 2025 10:16:12 AM CDT,bug
+Task,Major - P3,[Atlas Arch] Deployment Paradigms add new 3/2 combo,caleb.thompson@mongodb.com,,13.0,Aug 20 2025 02:31:57 PM CDT,Jun 09 2025 03:57:53 PM CDT,"feature, request"
+Task,Minor - P4,[Arch Center] Add FCV pinning as a recommendation during upgrades,caleb.thompson@mongodb.com,,3.0,Jun 05 2025 09:23:37 AM CDT,Jun 02 2025 09:09:49 AM CDT,request
+Task,Major - P3,[Atlas Arch] Deployment Paradigms section updates.,caleb.thompson@mongodb.com,,8.0,Jun 05 2025 09:23:29 AM CDT,May 20 2025 03:29:23 PM CDT,
+Task,Major - P3,[Atlas Arch] Incorporate AuthZ and AuthN section feedback.,caleb.thompson@mongodb.com,,8.0,Jul 08 2025 10:55:27 AM CDT,Jun 26 2025 12:45:49 PM CDT,bug
+Task,Minor - P4,[Atlas Arch] High Availability updates.,caleb.thompson@mongodb.com,,5.0,Jun 05 2025 09:23:48 AM CDT,May 21 2025 10:48:33 AM CDT,request
 Task,Minor - P4,Review and edit Data API migration guide,cory.bullinger@mongodb.com,,2.0,Feb 27 2025 07:21:15 AM CST,Feb 05 2025 01:13:51 PM CST,request
 Task,Minor - P4,Convert and publish Data API migration guide,cory.bullinger@mongodb.com,,5.0,Mar 14 2025 12:35:04 PM CDT,Feb 05 2025 01:17:16 PM CST,request
+EDU Document,Major - P3,AI-focused content,dachary.carey@mongodb.com,,,Dec 11 2025 12:04:56 PM CST,Oct 31 2025 02:01:11 PM CDT,"Bucharest, budapest"
 Task,Minor - P4,General best practices AI instructions,dachary.carey@mongodb.com,,3.0,Sep 30 2025 08:46:46 AM CDT,Sep 15 2025 03:21:26 PM CDT,"dd-code, proactive"
 Task,Minor - P4,Build a Python & FastAPI App,dachary.carey@mongodb.com,,3.0,Sep 29 2025 10:48:09 AM CDT,Sep 15 2025 03:19:42 PM CDT,"dd-code, proactive"
 Task,Minor - P4,Build a Node & Express app,dachary.carey@mongodb.com,,3.0,Sep 24 2025 10:15:41 AM CDT,Sep 15 2025 03:18:13 PM CDT,dd-code
 Task,Minor - P4,Mark CLI commands deprecated per TD,cory.bullinger@mongodb.com,3.0,3.0,Oct 15 2025 12:21:18 PM CDT,Sep 23 2025 11:26:18 AM CDT,app-services-eol
 Task,Minor - P4,Mark endpoints deprecated per TD ,cory.bullinger@mongodb.com,,5.0,Sep 23 2025 11:25:03 AM CDT,Sep 22 2025 11:02:16 AM CDT,app-services-eol
 Task,Minor - P4,Build out testing suite for Atlas CLI examples,dachary.carey@mongodb.com,,5.0,Aug 01 2025 01:27:55 PM CDT,Feb 24 2025 08:32:02 AM CST,proactive
-Task,Minor - P4,[Atlas Architecture] JavaScript Example: Disaster Recovery page,,,0.0,Feb 10 2025 01:56:23 PM CST,Jan 15 2025 09:03:25 AM CST,feature
 Task,Minor - P4,[Atlas Architecture] Review Admin API endpoints and draft pseudocode,cory.bullinger@mongodb.com,,1.0,Jan 10 2025 01:32:16 PM CST,Jan 03 2025 07:49:44 AM CST,feature
-Task,Minor - P4,[Atlas Architecture] JavaScript Example: Scalability page (delete data),,,0.0,Feb 10 2025 01:57:22 PM CST,Jan 15 2025 09:03:26 AM CST,feature
-Task,Minor - P4,[Atlas Architecture] JavaScript Example: Scalability page (programmatic auto-scale),,,0.0,Feb 10 2025 01:57:13 PM CST,Jan 15 2025 09:03:26 AM CST,feature
-Task,Minor - P4,[Atlas Architecture] JavaScript Example: Monitoring and Alerts page (pull logs & metrics),,,0.0,Feb 10 2025 01:57:37 PM CST,Jan 15 2025 09:03:24 AM CST,feature
+Task,Minor - P4,Codce Copy App: put private key in evironment variable,caleb.thompson@mongodb.com,,3.0,Mar 24 2025 01:20:08 PM CDT,Mar 21 2025 03:52:51 PM CDT,
 Task,Minor - P4,Research GitHub App ,caleb.thompson@mongodb.com,,13.0,Mar 21 2025 11:57:04 AM CDT,Feb 24 2025 08:23:51 AM CST,proactive
 Task,Minor - P4,Create new artifact repos,dachary.carey@mongodb.com,,1.0,Mar 20 2025 09:44:53 AM CDT,Mar 03 2025 01:53:10 PM CST,proactive
 Task,Critical - P2,[Atlas Architecture] Go SDK Example: Billing Data page (query and pull linked orgs),cory.bullinger@mongodb.com,,2.0,Jun 23 2025 01:55:12 PM CDT,Jan 15 2025 08:52:41 AM CST,feature
@@ -27,17 +31,28 @@ Task,Critical - P2,[Atlas Architecture] Go SDK Example: Billing Data page (histo
 Task,Critical - P2,[Atlas Architecture] Go SDK Example: Billing Data page (pull and parse billing data),cory.bullinger@mongodb.com,,5.0,Jul 09 2025 06:34:59 PM CDT,Jan 02 2025 12:53:58 PM CST,feature
 Task,Trivial - P5,[Atlas Architecture] Go SDK Example: Scalability page (delete data),cory.bullinger@mongodb.com,,3.0,Aug 22 2025 01:00:41 PM CDT,Jan 02 2025 10:12:23 AM CST,feature
 Task,Minor - P4,Port test suite to monorepo,cory.bullinger@mongodb.com,,3.0,Sep 29 2025 07:33:04 AM CDT,Aug 01 2025 12:46:36 PM CDT,"dd-code, proactive"
+Task,Minor - P4,Update Global Deployment Paradigm,caleb.thompson@mongodb.com,,3.0,Apr 17 2025 10:20:33 AM CDT,Apr 04 2025 12:24:36 PM CDT,feature
+Task,Minor - P4,Update Multi-Cloud Deployment Paradigm,caleb.thompson@mongodb.com,,2.0,Apr 17 2025 10:20:06 AM CDT,Apr 08 2025 12:44:09 PM CDT,feature
+Task,Critical - P2,[Atlas Architecture] Create new page: Latency Reduction in Multi-Region Deployments first draft changes,caleb.thompson@mongodb.com,,8.0,Apr 30 2025 01:17:42 PM CDT,Apr 14 2025 08:37:20 AM CDT,feature
+Task,Minor - P4,Update Single-Region Deployment Paradigm,caleb.thompson@mongodb.com,,3.0,Apr 17 2025 10:19:46 AM CDT,Apr 10 2025 10:57:53 AM CDT,feature
+Task,Minor - P4,Update Multi-Region Deployment Paradigm,caleb.thompson@mongodb.com,,3.0,Apr 17 2025 10:20:19 AM CDT,Apr 04 2025 12:29:30 PM CDT,feature
+Task,Minor - P4,Update Hybrid Deployment Paradigm page,caleb.thompson@mongodb.com,,2.0,Apr 09 2025 05:06:15 PM CDT,Apr 08 2025 03:57:38 PM CDT,feature
+Task,Critical - P2,[Atlas Architecture] Update page added in this iteration: Multi-region Deployments first draft changes,caleb.thompson@mongodb.com,,13.0,Apr 30 2025 01:17:24 PM CDT,Apr 14 2025 08:37:23 AM CDT,feature
+Task,Major - P3,[Atlas Architecture] High Availability first draft changes,caleb.thompson@mongodb.com,,5.0,Apr 28 2025 03:35:58 PM CDT,Apr 14 2025 08:37:22 AM CDT,feature
+Task,Critical - P2,[Atlas Architecture] Update page added in this iteration: Multi-cloud Deployments first draft changes,caleb.thompson@mongodb.com,,5.0,Apr 28 2025 03:36:52 PM CDT,Apr 14 2025 08:37:25 AM CDT,feature
+Task,Minor - P4,"[Architecture Center] Add ""takeaway"" table to summarize options on the Auth page",caleb.thompson@mongodb.com,,13.0,May 01 2025 05:04:49 PM CDT,Jan 30 2025 09:24:52 AM CST,request
+Task,Critical - P2,[Atlas Architecture] Add comparative analysis to top level Deployment Paradigms page,caleb.thompson@mongodb.com,,5.0,Apr 17 2025 10:19:58 AM CDT,Mar 12 2025 07:27:41 AM CDT,feature
 Task,Minor - P4,C#: Local RAG,dachary.carey@mongodb.com,,5.0,Jan 13 2025 04:58:41 PM CST,Aug 22 2024 09:10:36 AM CDT,"dd-code, request"
 Task,Minor - P4,C#: New Create Embeddings content,dachary.carey@mongodb.com,,5.0,Jan 24 2025 03:04:48 PM CST,Aug 22 2024 09:10:37 AM CDT,"dd-code, request"
 Task,Minor - P4,C#: Retrieval-Augmented Generation (RAG),dachary.carey@mongodb.com,,5.0,Feb 05 2025 10:41:02 AM CST,Aug 22 2024 09:10:32 AM CDT,"dd-code, request"
 Task,Minor - P4,C#: Semantic Search for Text,dachary.carey@mongodb.com,,3.0,Jan 10 2025 04:38:15 PM CST,Aug 22 2024 09:10:33 AM CDT,"dd-code, request"
 Task,Minor - P4,Add audit results to Atlas,caleb.thompson@mongodb.com,,5.0,Feb 21 2025 10:40:50 AM CST,Feb 10 2025 02:07:13 PM CST,proactive
+Writing,Minor - P4,Code Example Audit Plan,dachary.carey@mongodb.com,,5.0,Feb 07 2025 01:03:50 PM CST,Jan 13 2025 04:44:34 PM CST,proactive
 Task,Major - P3,Build code example audit tooling,dachary.carey@mongodb.com,,10.0,Feb 21 2025 02:51:43 PM CST,Jan 13 2025 04:47:38 PM CST,"dd-code, proactive"
 Task,Minor - P4,Spot-Check Auto-Generated Category Reports,caleb.thompson@mongodb.com,,3.0,Feb 21 2025 10:39:48 AM CST,Feb 04 2025 01:07:29 PM CST,
 Task,Minor - P4,Iterate on audit tooling,dachary.carey@mongodb.com,,15.0,Mar 21 2025 07:26:28 PM CDT,Feb 21 2025 02:46:16 PM CST,dd-code
 Task,Minor - P4,Report code example audit results,dachary.carey@mongodb.com,,5.0,Apr 14 2025 01:48:03 PM CDT,Jan 13 2025 04:48:41 PM CST,proactive
 Task,Major - P3,Analyze audit results,dachary.carey@mongodb.com,,5.0,Mar 13 2025 02:13:17 PM CDT,Jan 13 2025 04:48:18 PM CST,"dd-code, proactive"
-Writing,Minor - P4,Code Example Audit Plan,dachary.carey@mongodb.com,,5.0,Feb 07 2025 01:03:50 PM CST,Jan 13 2025 04:44:34 PM CST,proactive
 Task,Minor - P4,Provide feedback on initial study proposal ,cory.bullinger@mongodb.com,,1.0,Apr 15 2025 12:47:11 PM CDT,Apr 15 2025 12:37:07 PM CDT,proactive
 Task,Minor - P4,Setup infrastructure for study ,cory.bullinger@mongodb.com,,8.0,May 14 2025 12:20:56 PM CDT,Apr 15 2025 12:44:54 PM CDT,proactive
 Task,Minor - P4,Refine UX tasks ,cory.bullinger@mongodb.com,,2.0,May 01 2025 01:01:04 PM CDT,Apr 22 2025 12:54:40 PM CDT,"dd-code, proactive"
@@ -67,35 +82,18 @@ Task,Minor - P4,Grove Python: Add docstring to test files,dachary.carey@mongodb.
 Task,Minor - P4,Grove C# docs,caleb.thompson@mongodb.com,3.0,8.0,Oct 27 2025 01:42:52 PM CDT,Sep 03 2025 03:57:05 PM CDT,"dd-education, proactive"
 Task,Minor - P4,Grove JavaScript docs,dachary.carey@mongodb.com,,3.0,Sep 23 2025 03:58:37 PM CDT,Sep 03 2025 03:57:08 PM CDT,"dd-education, proactive"
 Task,Minor - P4,Grove C# docs - add [Description] Attributes to test suite,caleb.thompson@mongodb.com,2.0,2.0,Nov 13 2025 12:45:20 PM CST,Sep 29 2025 11:42:35 AM CDT,"dd-education, proactive"
-Task,Minor - P4,Create README,jordan.smith@mongodb.com,2.0,1.0,Nov 07 2025 12:53:07 PM CST,Oct 03 2025 11:09:32 AM CDT,proactive
-Task,Minor - P4,Initialize the repo,jordan.smith@mongodb.com,,2.0,Oct 14 2025 10:19:59 AM CDT,Oct 03 2025 09:51:58 AM CDT,proactive
-Task,Minor - P4,Set up Express.js backend,jordan.smith@mongodb.com,,2.0,Oct 14 2025 10:20:17 AM CDT,Oct 03 2025 10:38:05 AM CDT,proactive
-Task,Minor - P4,Front-end scaffolding,jordan.smith@mongodb.com,3.0,3.0,Oct 27 2025 10:25:56 AM CDT,Oct 03 2025 10:42:37 AM CDT,proactive
-Task,Minor - P4,Implement UI for CRUD endpoints,jordan.smith@mongodb.com,3.0,3.0,Nov 03 2025 11:03:10 AM CST,Oct 03 2025 10:45:22 AM CDT,proactive
-Task,Minor - P4,Create basic CRUD endpoints,jordan.smith@mongodb.com,,3.0,Oct 22 2025 01:07:59 PM CDT,Oct 03 2025 10:39:41 AM CDT,proactive
-Task,Minor - P4,Distribute apps,,,1.0,Nov 14 2025 11:12:52 AM CST,Oct 03 2025 11:11:25 AM CDT,proactive
-Task,Minor - P4,Advanced FE - Aggregation,jordan.smith@mongodb.com,3.0,2.0,Nov 06 2025 08:06:44 PM CST,Oct 03 2025 10:57:47 AM CDT,proactive
-Task,Minor - P4,"Implement ""Verify Requirements"" functionality",jordan.smith@mongodb.com,,1.0,Nov 06 2025 08:12:29 PM CST,Oct 03 2025 11:08:22 AM CDT,proactive
-Task,Minor - P4,Advanced FE - Full text search,jordan.smith@mongodb.com,3.0,2.0,Nov 06 2025 08:07:02 PM CST,Oct 03 2025 10:58:36 AM CDT,proactive
+Task,Minor - P4,Spike: Research Kanopy ,cory.bullinger@mongodb.com,3.0,3.0,Nov 19 2025 12:37:41 PM CST,Nov 17 2025 01:28:06 PM CST,"dd-grove, proactive"
 Task,Minor - P4,Integration Testing,dachary.carey@mongodb.com,3.0,3.0,Nov 06 2025 09:58:25 PM CST,Oct 03 2025 10:51:15 AM CDT,proactive
-Task,Minor - P4,Advanced API endpoints - Aggregation,jordan.smith@mongodb.com,2.0,2.0,Nov 07 2025 07:54:50 AM CST,Oct 03 2025 10:54:03 AM CDT,proactive
-Task,Minor - P4,Advanced API endpoints - Full text search,jordan.smith@mongodb.com,2.0,2.0,Nov 07 2025 07:54:58 AM CST,Oct 03 2025 10:54:47 AM CDT,proactive
-Task,Minor - P4,Advanced FE - Vector Search,jordan.smith@mongodb.com,3.0,2.0,Nov 06 2025 08:07:36 PM CST,Oct 03 2025 10:59:13 AM CDT,proactive
-Task,Minor - P4,Advanced API endpoints - Vector Search,jordan.smith@mongodb.com,2.0,2.0,Nov 07 2025 07:54:41 AM CST,Oct 03 2025 10:55:42 AM CDT,proactive
 Task,Minor - P4,Configure copier app for sample app repos,cory.bullinger@mongodb.com,3.0,5.0,Nov 13 2025 07:03:27 AM CST,Oct 30 2025 12:32:38 PM CDT,"dd-code, dd-copier-app, proactive"
 Task,Minor - P4,Translate back end to Java (Spring),cory.bullinger@mongodb.com,12.0,8.0,Nov 13 2025 07:03:15 AM CST,Oct 03 2025 11:14:40 AM CDT,proactive
 Task,Minor - P4,[Sample apps] Improve Error handling,cory.bullinger@mongodb.com,3.0,3.0,Dec 16 2025 02:26:12 PM CST,Nov 14 2025 10:44:30 AM CST,proactive
 Task,Major - P3,[Sample apps] Fix Java index creation error,cory.bullinger@mongodb.com,,1.0,Nov 14 2025 11:26:37 AM CST,Nov 14 2025 10:52:43 AM CST,bug
 Task,Minor - P4,Java Fast Follows: fix voyage api key logic,cory.bullinger@mongodb.com,1.0,1.0,Nov 13 2025 10:43:42 AM CST,Nov 13 2025 07:12:49 AM CST,"dd-code, proactive"
 Task,Minor - P4,[Sample apps] Copier utility improvements,cory.bullinger@mongodb.com,3.0,3.0,Dec 01 2025 07:09:01 AM CST,Nov 14 2025 10:53:42 AM CST,proactive
-Task,Minor - P4,Create README,angela.shu@mongodb.com,,2.0,Nov 12 2025 02:35:38 PM CST,Nov 12 2025 02:24:17 PM CST,proactive
-Task,Minor - P4,Distribute apps,angela.shu@mongodb.com,,2.0,Nov 12 2025 03:34:53 PM CST,Nov 12 2025 02:24:17 PM CST,proactive
-Task,Minor - P4,Advanced API endpoints - Vector Search,angela.shu@mongodb.com,,3.0,Nov 12 2025 03:35:11 PM CST,Nov 12 2025 02:24:23 PM CST,proactive
-Task,Minor - P4,Advanced API endpoints - Aggregation,angela.shu@mongodb.com,,3.0,Nov 12 2025 03:35:23 PM CST,Nov 12 2025 02:24:24 PM CST,proactive
-Task,Minor - P4,Create basic CRUD endpoints,angela.shu@mongodb.com,,3.0,Nov 12 2025 03:35:59 PM CST,Nov 12 2025 02:24:27 PM CST,proactive
-Checklist,Minor - P4,Java: Quick Start page ,cory.bullinger@mongodb.com,3.0,5.0,Oct 27 2025 11:15:37 AM CDT,Oct 16 2025 09:43:36 AM CDT,"bug-bash, dd-code, dd-grove, proactive"
 Task,Minor - P4,Go: Quick Start page,cory.bullinger@mongodb.com,5.0,5.0,Oct 23 2025 11:52:44 AM CDT,Oct 16 2025 09:48:48 AM CDT,"bug-bash, dd-code, dd-grove, proactive"
 Task,Minor - P4,Python: Quick Start page,dachary.carey@mongodb.com,3.0,3.0,Oct 20 2025 12:13:08 PM CDT,Oct 16 2025 09:58:57 AM CDT,"bug-bash, dd-code, dd-grove, proactive"
+Checklist,Minor - P4,Java: Quick Start page ,cory.bullinger@mongodb.com,3.0,5.0,Oct 27 2025 11:15:37 AM CDT,Oct 16 2025 09:43:36 AM CDT,"bug-bash, dd-code, dd-grove, proactive"
+Writing,Minor - P4,Write PD for SDK Docs Migration,cory.bullinger@mongodb.com,,,Feb 18 2025 11:17:18 AM CST,Jan 06 2025 03:26:11 PM CST,request
 Task,Minor - P4,Remove or revise content in converted SDK docs,cory.bullinger@mongodb.com,,3.0,Sep 03 2025 07:14:09 AM CDT,Feb 10 2025 01:41:05 PM CST,app-services-eol
 Task,Minor - P4,POC for rst > md conversion ,cory.bullinger@mongodb.com,,5.0,Aug 27 2025 02:30:11 PM CDT,Aug 18 2025 01:42:34 PM CDT,"dd-maintenance, proactive"
 Task,Minor - P4,Add C++ SDK docs to source code repo,cory.bullinger@mongodb.com,,3.0,Sep 25 2025 02:10:26 PM CDT,Sep 02 2025 09:52:16 AM CDT,
@@ -105,7 +103,7 @@ Task,Minor - P4,Add .NET SDK docs to source code repo,cory.bullinger@mongodb.com
 Task,Minor - P4,Add Kotlin SDK docs to source code repo,cory.bullinger@mongodb.com,,3.0,Sep 23 2025 02:19:43 PM CDT,Sep 02 2025 09:54:08 AM CDT,
 Task,Minor - P4,Add Node.js & React Native (JS) SDK docs to source code repo,cory.bullinger@mongodb.com,,3.0,Sep 18 2025 12:02:24 PM CDT,Sep 02 2025 09:54:27 AM CDT,
 Task,Minor - P4,Add Java SDK docs to source code repo,cory.bullinger@mongodb.com,,5.0,Sep 15 2025 01:17:56 PM CDT,Sep 02 2025 09:53:42 AM CDT,
-Writing,Minor - P4,Write PD for SDK Docs Migration,cory.bullinger@mongodb.com,,,Feb 18 2025 11:17:18 AM CST,Jan 06 2025 03:26:11 PM CST,request
+Task,Minor - P4,[C2C] Describe mongosync 1.10’s support for server v8,caleb.thompson@mongodb.com,,3.0,Jan 07 2025 11:25:27 AM CST,Dec 17 2024 09:20:29 AM CST,"c2c-project, feature, tar-features"
 Task,Minor - P4,Add info to Grove docs,dachary.carey@mongodb.com,3.0,3.0,Nov 17 2025 10:38:39 AM CST,Sep 03 2025 04:21:48 PM CDT,"dd-education, proactive"
 Task,Minor - P4,Rename and prep lib for packaging,dachary.carey@mongodb.com,5.0,5.0,Oct 29 2025 10:06:38 AM CDT,Sep 03 2025 04:21:44 PM CDT,"dd-code, proactive"
 Task,Minor - P4,Release the testing lib,dachary.carey@mongodb.com,3.0,3.0,Oct 29 2025 10:07:04 AM CDT,Sep 03 2025 04:21:45 PM CDT,"dd-code, proactive"
@@ -114,7 +112,6 @@ Task,Minor - P4,Java: Group and Total,dachary.carey@mongodb.com,,3.0,Aug 01 2025
 Task,Minor - P4,Java: Unwind Arrays,dachary.carey@mongodb.com,,3.0,Aug 01 2025 03:25:33 PM CDT,Jun 30 2025 08:28:15 AM CDT,"dd-code, proactive"
 Task,Minor - P4,Java: Multi-Field Join,dachary.carey@mongodb.com,,3.0,Aug 05 2025 03:45:43 PM CDT,Jun 30 2025 08:28:18 AM CDT,"dd-code, proactive"
 Task,Minor - P4,Prepare framework for code example testing workshops,dachary.carey@mongodb.com,,3.0,Jul 21 2025 03:56:08 PM CDT,Apr 22 2025 10:13:31 AM CDT,"dd-education, proactive"
-Task,Minor - P4,PyMongo: Filtered Subset,hunter.hong@mongodb.com,,5.0,Jul 21 2025 12:19:05 PM CDT,Jun 30 2025 08:28:30 AM CDT,"dd-code, proactive"
 Task,Minor - P4,Node.js: One-to-One Join,dachary.carey@mongodb.com,,3.0,Jul 23 2025 10:53:22 AM CDT,Jun 30 2025 08:28:22 AM CDT,"dd-code, proactive"
 Task,Minor - P4,Node.js: Multi-Field Join,dachary.carey@mongodb.com,,3.0,Jul 23 2025 12:50:01 PM CDT,Jun 30 2025 08:28:24 AM CDT,"dd-code, proactive"
 Task,Minor - P4,mongosh: One-to-One Join,dachary.carey@mongodb.com,,3.0,Sep 02 2025 04:00:58 PM CDT,Jun 30 2025 08:28:28 AM CDT,"dd-code, proactive"
@@ -125,14 +122,11 @@ Task,Minor - P4,C#: Unwind Arrays,dachary.carey@mongodb.com,,3.0,Jul 28 2025 01:
 Task,Minor - P4,C#: Filtered Subset,dachary.carey@mongodb.com,,5.0,Jul 24 2025 04:35:33 PM CDT,Jun 30 2025 08:28:02 AM CDT,"dd-code, proactive"
 Task,Minor - P4,Java: One-to-One Join,dachary.carey@mongodb.com,,3.0,Aug 04 2025 12:01:53 PM CDT,Jun 30 2025 08:28:16 AM CDT,"dd-code, proactive"
 Task,Minor - P4,mongosh: Unwind Arrays,dachary.carey@mongodb.com,,3.0,Aug 27 2025 07:30:02 AM CDT,Jun 30 2025 08:28:27 AM CDT,"dd-code, proactive"
-Task,Minor - P4,PyMongo: One-to-One Join,hunter.hong@mongodb.com,,3.0,Jul 23 2025 10:57:18 AM CDT,Jun 30 2025 08:28:34 AM CDT,"dd-code, proactive"
-Task,Minor - P4,PyMongo: Group and Total,hunter.hong@mongodb.com,,3.0,Jul 22 2025 09:06:47 AM CDT,Jun 30 2025 08:28:32 AM CDT,"dd-code, proactive"
-Task,Minor - P4,PyMongo: Unwind Arrays,hunter.hong@mongodb.com,,3.0,Jul 22 2025 03:17:33 PM CDT,Jun 30 2025 08:28:33 AM CDT,"dd-code, proactive"
-Task,Minor - P4,PyMongo: Multi-Field Join,hunter.hong@mongodb.com,,3.0,Jul 23 2025 01:07:54 PM CDT,Jun 30 2025 08:28:35 AM CDT,"dd-code, proactive"
 Task,Minor - P4,Node.js: Filtered Subset,dachary.carey@mongodb.com,,5.0,Jul 21 2025 12:34:24 PM CDT,Jun 30 2025 08:28:19 AM CDT,"dd-code, proactive"
 Task,Minor - P4,Node.js: Group and Total,dachary.carey@mongodb.com,,3.0,Jul 22 2025 02:56:37 PM CDT,Jun 30 2025 08:28:20 AM CDT,"dd-code, proactive"
 Task,Minor - P4,Node.js: Unwind Arrays,dachary.carey@mongodb.com,,3.0,Jul 23 2025 10:36:06 AM CDT,Jun 30 2025 08:28:21 AM CDT,"dd-code, proactive"
 Task,Minor - P4,Doc: Update a tested code example,dachary.carey@mongodb.com,,3.0,Jul 02 2025 04:42:23 PM CDT,Jul 02 2025 08:24:09 AM CDT,dd-education
+Writing,Minor - P4,Proposal: Port Agg Examples to Test Suites,dachary.carey@mongodb.com,,3.0,Jul 08 2025 10:16:14 AM CDT,Jun 20 2025 02:09:05 PM CDT,proactive
 Task,Minor - P4,Doc: Create a Tested/Untested Code Example,dachary.carey@mongodb.com,,3.0,Jul 02 2025 04:41:40 PM CDT,Jul 02 2025 08:23:10 AM CDT,dd-education
 Task,Minor - P4,Doc: Code example-related PR checks,dachary.carey@mongodb.com,,3.0,Jul 03 2025 11:22:14 AM CDT,Jul 02 2025 08:25:10 AM CDT,dd-education
 Task,Minor - P4,mongosh: Multi-Field Join,dachary.carey@mongodb.com,,3.0,Sep 04 2025 08:55:29 AM CDT,Jun 30 2025 08:28:29 AM CDT,"dd-code, proactive"
@@ -144,19 +138,17 @@ Task,Minor - P4,Go: Group and Total,dachary.carey@mongodb.com,,3.0,Sep 18 2025 1
 Task,Minor - P4,Go: Unwind Arrays,dachary.carey@mongodb.com,,3.0,Sep 22 2025 07:47:08 AM CDT,Jun 30 2025 08:28:09 AM CDT,"dd-code, proactive"
 Task,Minor - P4,Go: One-to-One Join,dachary.carey@mongodb.com,,3.0,Sep 26 2025 07:41:57 AM CDT,Jun 30 2025 08:28:11 AM CDT,"dd-code, proactive"
 Task,Minor - P4,mongosh: Filtered Subset,dachary.carey@mongodb.com,,5.0,Aug 13 2025 08:19:09 AM CDT,Jun 30 2025 08:28:25 AM CDT,"dd-code, proactive"
-Writing,Minor - P4,Proposal: Port Agg Examples to Test Suites,dachary.carey@mongodb.com,,3.0,Jul 08 2025 10:16:14 AM CDT,Jun 20 2025 02:09:05 PM CDT,proactive
 Task,Minor - P4,Tooling: migrate code block and code directives,dachary.carey@mongodb.com,,5.0,May 08 2025 10:01:43 AM CDT,Apr 22 2025 10:13:33 AM CDT,"dd-code, proactive"
 Task,Minor - P4,GitHub workflow for code-related directives,dachary.carey@mongodb.com,,5.0,Apr 23 2025 11:32:45 AM CDT,Apr 22 2025 10:13:25 AM CDT,"dd-code, proactive"
+Writing,Minor - P4,Monorepo Code Example Workflow Changes,dachary.carey@mongodb.com,,3.0,May 09 2025 02:03:20 PM CDT,May 01 2025 02:01:39 PM CDT,proactive
 Task,Minor - P4,GitHub workflow for tested-examples directory,dachary.carey@mongodb.com,,5.0,Apr 23 2025 03:09:45 PM CDT,Apr 22 2025 10:13:27 AM CDT,"dd-code, proactive"
 Task,Minor - P4,Docdoctor: Handle code examples in list elements,dachary.carey@mongodb.com,,3.0,Jun 16 2025 04:51:41 PM CDT,Jun 13 2025 04:06:10 PM CDT,proactive
+Writing,Minor - P4,Proposal: Monorepo Code Example Testing,dachary.carey@mongodb.com,,5.0,Jun 24 2025 09:37:44 AM CDT,Apr 21 2025 10:04:11 AM CDT,
 Task,Minor - P4,Prepare framework for team-specific workshop,dachary.carey@mongodb.com,,3.0,Jul 16 2025 03:28:52 PM CDT,Apr 22 2025 10:13:29 AM CDT,"dd-education, proactive"
 Task,Minor - P4,C2C: Migrate code block directives,dachary.carey@mongodb.com,,5.0,Jul 22 2025 03:21:17 PM CDT,May 12 2025 09:42:03 AM CDT,dd-code
-Writing,Minor - P4,Monorepo Code Example Workflow Changes,dachary.carey@mongodb.com,,3.0,May 09 2025 02:03:20 PM CDT,May 01 2025 02:01:39 PM CDT,proactive
-Writing,Minor - P4,Proposal: Monorepo Code Example Testing,dachary.carey@mongodb.com,,5.0,Jun 24 2025 09:37:44 AM CDT,Apr 21 2025 10:04:11 AM CDT,
-Checklist,Minor - P4,Update READMEs for each SDK ,cory.bullinger@mongodb.com,,1.0,Sep 23 2025 02:19:50 PM CDT,Sep 08 2025 09:24:50 AM CDT,app-services-eol
 Task,Minor - P4,Update index and READMEs in S3 bucket with deprecation info,cory.bullinger@mongodb.com,,1.0,Sep 09 2025 10:05:54 AM CDT,Sep 08 2025 09:25:24 AM CDT,app-services-eol
 Task,Minor - P4,Add redirect to S3 bucket,cory.bullinger@mongodb.com,,1.0,Sep 12 2025 02:39:33 PM CDT,Sep 08 2025 09:22:04 AM CDT,app-services-eol
-Writing,Minor - P4,Write scope,jordan.smith@mongodb.com,,,Oct 03 2025 10:34:15 AM CDT,Feb 11 2025 10:54:44 AM CST,feature
+Checklist,Minor - P4,Update READMEs for each SDK ,cory.bullinger@mongodb.com,,1.0,Sep 23 2025 02:19:50 PM CDT,Sep 08 2025 09:24:50 AM CDT,app-services-eol
 Writing,Minor - P4,Write PD,kyle.rollins@mongodb.com,,8.0,Oct 20 2025 02:09:05 PM CDT,Feb 11 2025 10:51:31 AM CST,feature
 Task,Minor - P4,Review LangGraph integration code/notebook,dachary.carey@mongodb.com,,1.0,Feb 19 2025 11:52:57 AM CST,Feb 18 2025 09:34:54 AM CST,dd-review
 Task,Minor - P4,C# Test Infra Updates,dachary.carey@mongodb.com,,5.0,Sep 03 2025 12:27:10 PM CDT,Aug 22 2025 10:22:07 AM CDT,dd-code
@@ -165,7 +157,7 @@ Task,Minor - P4,PyMongo Test Infra Updates,dachary.carey@mongodb.com,,5.0,Sep 23
 Task,Minor - P4,Java Test Infra Updates,dachary.carey@mongodb.com,,13.0,Sep 18 2025 12:48:50 PM CDT,Aug 22 2025 10:22:08 AM CDT,dd-code
 Task,Minor - P4,Node.js: Quick Start,dachary.carey@mongodb.com,,3.0,Aug 08 2025 12:59:53 PM CDT,Jul 21 2025 01:24:06 PM CDT,"dd-code, proactive"
 Task,Minor - P4,Workshop: Create tested time series code examples,dachary.carey@mongodb.com,,5.0,Jul 31 2025 11:36:17 AM CDT,Jul 23 2025 11:39:08 AM CDT,"dd-education, proactive"
-Task,Minor - P4,Python: Quick Start,hunter.hong@mongodb.com,,3.0,Jul 31 2025 09:24:44 AM CDT,Jul 22 2025 06:48:58 AM CDT,"dd-code, proactive,"
+Writing,Minor - P4,PD: Time Series Examples Standardization,kyle.rollins@mongodb.com,,3.0,Jul 21 2025 01:19:35 PM CDT,Jul 21 2025 01:17:05 PM CDT,"dd-code, proactive"
 Task,Minor - P4,Java: Migrate Data into a Time Series Collection with Database Tools,cory.bullinger@mongodb.com,3.0,1.0,Dec 10 2025 12:52:53 PM CST,Jul 22 2025 06:49:15 AM CDT,"dd-code, proactive"
 Task,Minor - P4,C#: Set Granularity for Time Series Data,caleb.thompson@mongodb.com,3.0,8.0,Dec 10 2025 12:39:07 PM CST,Jul 22 2025 06:49:29 AM CDT,"dd-code, proactive"
 Task,Minor - P4,C#: Granularity Fast Follow,caleb.thompson@mongodb.com,3.0,3.0,Dec 15 2025 01:47:59 PM CST,Dec 11 2025 01:51:29 PM CST,"dd-code, proactive"
@@ -177,17 +169,15 @@ Task,Minor - P4,Node.js: Migrate Data into a Time Series Collection with an Aggr
 Task,Minor - P4,Java: Migrate Data into a Time Series Collection with an Aggregation Pipeline,cory.bullinger@mongodb.com,3.0,1.0,Dec 08 2025 01:57:34 PM CST,Jul 22 2025 06:49:14 AM CDT,"dd-code, proactive"
 Task,Minor - P4,Mongosh: Migrate Data into a Time Series Collection,dachary.carey@mongodb.com,3.0,2.0,Dec 04 2025 01:54:21 PM CST,Dec 04 2025 08:23:36 AM CST,"dd-code, proactive"
 Task,Minor - P4,C#: Migrate Data into a Time Series Collection with an Aggregation Pipeline,caleb.thompson@mongodb.com,5.0,5.0,Dec 18 2025 12:12:58 PM CST,Jul 22 2025 06:49:30 AM CDT,"dd-code, proactive"
-Task,Minor - P4,Node.js: Migrate Data into a Time Series Collection with Database Tools,dachary.carey@mongodb.com,3.0,3.0,Dec 10 2025 07:49:25 AM CST,Jul 22 2025 06:48:50 AM CDT,"dd-code, proactive"
-Task,Minor - P4,Python: Migrate Data into a Time Series Collection with Database Tools,dachary.carey@mongodb.com,2.0,2.0,Dec 10 2025 01:56:09 PM CST,Jul 22 2025 06:49:02 AM CDT,"dd-code, proactive"
-Task,Minor - P4,Python: Migrate Data into a Time Series Collection with an Aggregation Pipeline,dachary.carey@mongodb.com,3.0,2.0,Dec 04 2025 01:54:10 PM CST,Jul 22 2025 06:49:01 AM CDT,"dd-code, proactive"
 Task,Minor - P4,C#: Quick Start,dachary.carey@mongodb.com,,3.0,Aug 18 2025 11:17:30 AM CDT,Jul 22 2025 06:49:27 AM CDT,"dd-code, proactive,"
 Task,Minor - P4,Java: Quick Start,dachary.carey@mongodb.com,,3.0,Aug 13 2025 08:09:08 AM CDT,Jul 22 2025 06:49:10 AM CDT,"dd-code, proactive,"
 Task,Minor - P4,Python: Create and Query a Time Series Collection,dachary.carey@mongodb.com,3.0,3.0,Nov 04 2025 09:08:01 AM CST,Jul 22 2025 06:48:59 AM CDT,"dd-code, proactive"
-Task,Minor - P4,Node.js: Create and Query a Time Series Collection,omar.sharaf@mongodb.com,,5.0,Oct 06 2025 08:45:19 AM CDT,Jul 22 2025 06:48:45 AM CDT,"dd-code, proactive,, time-series"
 Task,Minor - P4,C#: Create and Query a Time Series Collection,caleb.thompson@mongodb.com,3.0,13.0,Nov 11 2025 11:24:25 AM CST,Jul 22 2025 06:49:28 AM CDT,"dd-code, proactive"
-Writing,Minor - P4,PD: Time Series Examples Standardization,kyle.rollins@mongodb.com,,3.0,Jul 21 2025 01:19:35 PM CDT,Jul 21 2025 01:17:05 PM CDT,"dd-code, proactive"
+Task,Minor - P4,Python: Migrate Data into a Time Series Collection with an Aggregation Pipeline,dachary.carey@mongodb.com,3.0,2.0,Dec 04 2025 01:54:10 PM CST,Jul 22 2025 06:49:01 AM CDT,"dd-code, proactive"
+Task,Minor - P4,Node.js: Migrate Data into a Time Series Collection with Database Tools,dachary.carey@mongodb.com,3.0,3.0,Dec 10 2025 07:49:25 AM CST,Jul 22 2025 06:48:50 AM CDT,"dd-code, proactive"
+Task,Minor - P4,Python: Migrate Data into a Time Series Collection with Database Tools,dachary.carey@mongodb.com,2.0,2.0,Dec 10 2025 01:56:09 PM CST,Jul 22 2025 06:49:02 AM CDT,"dd-code, proactive"
+Writing,Minor - P4,Create PD that outlines work to be done,kyle.rollins@mongodb.com,,,Mar 04 2025 02:37:08 PM CST,Feb 11 2025 10:42:40 AM CST,feature
 Task,Minor - P4,Audit Triggers content in both App Services and Atlas docs,caleb.thompson@mongodb.com,,5.0,Jun 05 2025 02:20:13 PM CDT,Mar 04 2025 01:26:13 PM CST,feature
-Task,Minor - P4,Migrate Forward Logs page,hunter.hong@mongodb.com,,3.0,Jun 16 2025 02:53:13 PM CDT,Jun 09 2025 03:30:38 PM CDT,feature
 Task,Minor - P4,Migrate Configure Network Security Page,caleb.thompson@mongodb.com,,8.0,Aug 18 2025 12:15:39 PM CDT,Jun 11 2025 09:52:02 AM CDT,feature
 Task,Minor - P4,Check for links to archived repos,caleb.thompson@mongodb.com,,3.0,Sep 03 2025 11:17:57 AM CDT,Aug 28 2025 10:23:48 AM CDT,
 Task,Minor - P4,Investigate Triggers examples repos,caleb.thompson@mongodb.com,,5.0,Sep 05 2025 11:38:34 AM CDT,Aug 18 2025 01:48:59 PM CDT,"app-services-eol, feature"
@@ -195,7 +185,6 @@ Task,Minor - P4,Expand README for Triggers examples repo,caleb.thompson@mongodb.
 Task,Minor - P4,Remove Triggers-related content from the App Services docs,caleb.thompson@mongodb.com,,13.0,Sep 05 2025 04:18:13 PM CDT,Mar 04 2025 01:30:42 PM CST,feature
 Task,Minor - P4,Repurpose the App Services Triggers landing page,caleb.thompson@mongodb.com,,3.0,Sep 05 2025 04:18:27 PM CDT,Mar 04 2025 01:29:03 PM CST,feature
 Task,Minor - P4,Migrate Deploy Automatically with GitHub page,caleb.thompson@mongodb.com,,3.0,Jul 09 2025 12:07:11 PM CDT,Jun 11 2025 09:58:09 AM CDT,feature
-Writing,Minor - P4,Create PD that outlines work to be done,kyle.rollins@mongodb.com,,,Mar 04 2025 02:37:08 PM CST,Feb 11 2025 10:42:40 AM CST,feature
 Task,Minor - P4,Update comparison API for Python test suite,dachary.carey@mongodb.com,3.0,3.0,Oct 22 2025 12:57:29 PM CDT,Sep 30 2025 04:18:42 PM CDT,"dd-code, proactive"
 Task,Minor - P4,Update comparison API for C# test suite,caleb.thompson@mongodb.com,3.0,8.0,Oct 22 2025 01:09:23 PM CDT,Sep 30 2025 04:16:05 PM CDT,"dd-code, proactive"
 Task,Minor - P4,Update comparison API for Java test suite,dachary.carey@mongodb.com,3.0,5.0,Oct 22 2025 01:14:34 PM CDT,Sep 30 2025 04:19:46 PM CDT,"dd-code, proactive"
@@ -211,68 +200,38 @@ Task,Minor - P4,Consider new vs. moved code examples,dachary.carey@mongodb.com,,
 Task,Minor - P4,Refactor update logic,dachary.carey@mongodb.com,,5.0,Jun 25 2025 07:51:16 AM CDT,May 09 2025 08:13:42 AM CDT,dd-code
 Task,Minor - P4,Add DB backup to GDCD,dachary.carey@mongodb.com,,3.0,Jun 25 2025 09:20:32 AM CDT,May 12 2025 09:36:21 AM CDT,dd-code
 Task,Minor - P4,Mercury: Update Data API page to clearly indicate that it is EOL and no longer available,caleb.thompson@mongodb.com,2.0,2.0,Oct 28 2025 01:35:58 PM CDT,Oct 08 2025 01:18:16 PM CDT,LLM
-Task,Minor - P4,Refresh notebook content,david.hou@mongodb.com,,3.0,Jan 15 2025 11:57:09 AM CST,Dec 17 2024 11:03:47 AM CST,"dd-code, proactive"
+Task,Minor - P4,Update README to include governance-related items,dachary.carey@mongodb.com,,2.0,Jan 22 2025 01:37:43 PM CST,Jan 22 2025 09:11:02 AM CST,proactive
 Task,Minor - P4,Organize repo files,dachary.carey@mongodb.com,,1.0,Jan 10 2025 04:41:17 PM CST,Dec 17 2024 08:52:26 AM CST,dd-code
-Task,Minor - P4,Add Colab links in repo,david.hou@mongodb.com,,3.0,Jan 15 2025 11:57:26 AM CST,Dec 17 2024 08:52:30 AM CST,dd-code
 Task,Minor - P4,Set up metrics for tracking,dachary.carey@mongodb.com,,5.0,Jan 15 2025 02:21:22 PM CST,Jan 09 2025 12:56:36 PM CST,proactive
-Task,Minor - P4,Create a wiki page,david.hou@mongodb.com,,2.0,Jan 22 2025 12:07:52 PM CST,Dec 17 2024 08:52:34 AM CST,"dd-code, proactive"
-Task,Minor - P4,Add details to the README,david.hou@mongodb.com,,3.0,Jan 17 2025 02:20:35 PM CST,Dec 17 2024 08:52:36 AM CST,dd-code
-Task,Minor - P4,Update PR checklist template,david.hou@mongodb.com,,1.0,Jan 22 2025 01:48:19 PM CST,Dec 17 2024 08:52:33 AM CST,"dd-code, proactive"
 Task,Minor - P4,Add comments to docs pages with Python examples,dachary.carey@mongodb.com,,3.0,Jan 14 2025 04:17:49 PM CST,Dec 17 2024 08:52:32 AM CST,dd-code
 Task,Minor - P4,Add links to docs pages,dachary.carey@mongodb.com,,3.0,Jan 16 2025 10:59:29 AM CST,Dec 17 2024 08:52:31 AM CST,dd-code
-Bug,Blocker - P1,Next.js is vulnerable to RCE in React flight protocol,dachary.carey@mongodb.com,1.0,1.0,Dec 03 2025 03:50:27 PM CST,Dec 03 2025 02:51:54 PM CST,"dd-maintenance, request"
-Checklist,Minor - P4,Get Applied Usage Example Counts on Thur AM,cory.bullinger@mongodb.com,,1.0,May 08 2025 09:44:04 AM CDT,May 05 2025 03:00:58 AM CDT,proactive
-Checklist,Minor - P4,Ingest code examples at EOD on Wed,cory.bullinger@mongodb.com,,1.0,May 07 2025 10:10:56 PM CDT,May 05 2025 03:00:58 AM CDT,proactive
-Checklist,Minor - P4,Get Applied Usage Example Counts every Thurs AM,cory.bullinger@mongodb.com,,1.0,May 15 2025 08:50:17 AM CDT,May 12 2025 03:00:07 AM CDT,proactive
-Checklist,Minor - P4,Rename c2c product to mongosync in audit tooling,dachary.carey@mongodb.com,,3.0,Jul 23 2025 03:55:46 PM CDT,Jul 17 2025 11:44:53 AM CDT,"dd-code, proactive"
-Checklist,Minor - P4,Write EOL response for chatbot,caleb.thompson@mongodb.com,,2.0,Aug 26 2025 04:04:04 PM CDT,Aug 20 2025 10:01:32 AM CDT,"app-services-eol, feature"
-Checklist,Minor - P4,Triggers content migration cleanup,cory.bullinger@mongodb.com,3.0,2.0,Oct 22 2025 12:38:23 PM CDT,Oct 21 2025 10:44:00 AM CDT,"dd-quality, proactive"
-Checklist,Minor - P4,Add Terraform subproduct mapping to code example audit tooling,cory.bullinger@mongodb.com,,1.0,Sep 24 2025 10:15:09 AM CDT,Jul 23 2025 07:28:48 AM CDT,"dd-gdcd, taxonomy"
-Checklist,Minor - P4,Update `entity-framework` product name in docs-code-tooling,cory.bullinger@mongodb.com,,1.0,Sep 24 2025 10:14:40 AM CDT,Jun 25 2025 12:00:51 PM CDT,"dd-gdcd, proactive"
 Epic,Minor - P4,C# Vector Search Code Examples,dachary.carey@mongodb.com,,,Feb 05 2025 10:41:05 AM CST,Aug 21 2024 03:35:27 PM CDT,"dd-code, request"
+Task,Critical - P2,swap setup recommendations are misleading ,caleb.thompson@mongodb.com,,3.0,Jan 14 2025 12:10:22 PM CST,Aug 01 2024 04:31:03 AM CDT,"october-requests, request, top250"
 Epic,Minor - P4,Technical interview exercise update,caleb.thompson@mongodb.com,,0.0,Mar 12 2025 12:09:59 PM CDT,Jun 19 2024 10:48:55 AM CDT,
 Epic,Major - P3,Vector Search Jupyter Notebooks,dachary.carey@mongodb.com,,0.0,Feb 18 2025 11:05:13 AM CST,Dec 11 2024 12:37:03 PM CST,dd-code
+Task,Critical - P2,"doc conflates ""primary"" and ""sync source""",caleb.thompson@mongodb.com,,3.0,Jan 07 2025 11:38:44 AM CST,Nov 21 2024 02:23:03 PM CST,
+Task,Minor - P4,[C2C] Verifier sharded cluster support,caleb.thompson@mongodb.com,,3.0,Jan 06 2025 11:45:57 AM CST,Nov 13 2024 12:19:14 PM CST,request
+Task,Minor - P4,Code-example-related docs feedback report,dachary.carey@mongodb.com,,3.0,Apr 28 2025 10:11:44 AM CDT,Mar 26 2025 12:45:45 PM CDT,proactive
 Epic,Critical - P2,Code Example Audit,dachary.carey@mongodb.com,,,Apr 14 2025 01:48:07 PM CDT,Jan 13 2025 04:42:06 PM CST,"dd-code, proactive"
+Task,Major - P3,restoreDbUserAndRoles should not work if dumped from entire cluster,caleb.thompson@mongodb.com,,3.0,Jan 15 2025 04:25:50 PM CST,Jan 03 2025 11:49:41 AM CST,feature
 Epic,Major - P3,Index Creation - Quick Start & Integrations,dachary.carey@mongodb.com,,0.0,Jan 08 2025 02:53:39 PM CST,Oct 25 2024 02:41:44 PM CDT,"dd-code, feature"
 Epic,Minor - P4,Define code examples standards,kyle.rollins@mongodb.com,,0.0,Jan 13 2025 02:02:01 PM CST,Oct 28 2024 08:53:57 AM CDT,feature
-Epic,Minor - P4,Update Go code examples for 2.0 release,yarianna.tineo@mongodb.com,,,Mar 24 2025 12:11:12 PM CDT,Jan 23 2025 11:28:35 AM CST,"feature, FY26Q1-candidate"
+Task,Minor - P4,Product names should always be Capitalized,caleb.thompson@mongodb.com,,3.0,Jan 24 2025 12:51:50 PM CST,Oct 23 2024 11:40:27 AM CDT,
+Task,Major - P3,Write Concern for Delayed Members in MongoDB Manual,caleb.thompson@mongodb.com,,3.0,Jan 08 2025 04:47:07 PM CST,Jan 02 2025 04:14:03 AM CST,bug
+Task,Minor - P4,Update Log Messages page to use table,caleb.thompson@mongodb.com,,1.0,Jan 09 2025 05:54:25 PM CST,Jan 09 2025 05:46:02 PM CST,
+Checklist,Minor - P4,Get Applied Usage Example Counts on Thur AM,cory.bullinger@mongodb.com,,1.0,May 08 2025 09:44:04 AM CDT,May 05 2025 03:00:58 AM CDT,proactive
 Epic,Minor - P4,[Part 2] General EOL-related tasks for device sync and app service,cory.bullinger@mongodb.com,,,Mar 14 2025 12:35:06 PM CDT,Feb 05 2025 01:08:58 PM CST,app-services-eol
-Epic,Minor - P4,Code example source manipulation tooling,,,,Apr 21 2025 01:50:39 PM CDT,Feb 18 2025 09:14:10 AM CST,
-Epic,Minor - P4,Code Examples Contextual Inquiry: User Research (Collab with Design),cory.bullinger@mongodb.com,,0.0,Jun 16 2025 01:43:46 PM CDT,Apr 07 2025 02:20:54 PM CDT,proactive
-Epic,Minor - P4,[Consulting] Single task requests Q1,kyle.rollins@mongodb.com,,,May 20 2025 12:50:43 PM CDT,Feb 18 2025 09:27:20 AM CST,
-Epic,Minor - P4,Triggers content migration cleanup,caleb.thompson@mongodb.com,,,Sep 05 2025 04:18:32 PM CDT,Feb 11 2025 10:40:32 AM CST,app-services-eol
-Epic,Minor - P4,Update GDCD tooling,dachary.carey@mongodb.com,,0.0,Dec 08 2025 01:50:05 PM CST,Apr 24 2025 09:24:54 AM CDT,"dd-code, proactive"
-Epic,Minor - P4,OpenAPI Test Infrastructure,dachary.carey@mongodb.com,,,Nov 17 2025 10:38:42 AM CST,Sep 03 2025 04:00:45 PM CDT,"dd-code, proactive"
-Epic,Minor - P4,Mflix Sample App - Python Backend,angela.shu@mongodb.com,,0.0,Dec 09 2025 03:57:50 PM CST,Nov 12 2025 02:04:39 PM CST,proactive
-Epic,Minor - P4,Migrate Realm SDK Documentation,cory.bullinger@mongodb.com,,,Sep 25 2025 02:10:42 PM CDT,Oct 29 2024 10:01:43 AM CDT,app-services-eol
-Epic,Minor - P4,Port Agg Code Examples to Test Suites,dachary.carey@mongodb.com,,,Sep 26 2025 03:58:56 PM CDT,Jun 20 2025 02:06:00 PM CDT,"dd-code, proactive"
-Epic,Minor - P4,Unify Comparison APIs in Grove,cory.bullinger@mongodb.com,,,Oct 23 2025 08:37:04 AM CDT,Sep 30 2025 04:12:48 PM CDT,"dd-code, dd-grove, proactive"
-Epic,Minor - P4,Sample Apps: Research and spec,kyle.rollins@mongodb.com,,0.0,Oct 20 2025 02:10:23 PM CDT,Feb 11 2025 10:47:25 AM CST,
-Epic,Minor - P4,Support 1000 Code Examples,dachary.carey@mongodb.com,,0.0,Oct 27 2025 01:43:20 PM CDT,Jul 31 2025 09:39:43 AM CDT,
-Epic,Minor - P4,App Services Admin API Maintenance,cory.bullinger@mongodb.com,,0.0,Oct 27 2025 01:45:52 PM CDT,Sep 02 2025 09:54:44 AM CDT,app-services-eol
-Epic,Minor - P4,General EOL-related tasks for device sync and app service,caleb.thompson@mongodb.com,,,Oct 01 2025 11:55:55 AM CDT,Oct 29 2024 10:06:08 AM CDT,app-services-eol
-Epic,Major - P3,Remove Realm SDK API Reference Docs from MongoDB Docs Domain,cory.bullinger@mongodb.com,,,Sep 23 2025 02:19:53 PM CDT,Oct 29 2024 10:00:19 AM CDT,app-services-eol
-Epic,Minor - P4,Mflix Sample Apps,jordan.smith@mongodb.com,,,Nov 14 2025 11:12:56 AM CST,Apr 10 2025 12:48:44 PM CDT,proactive
-Epic,Minor - P4,AI Instruction Files,dachary.carey@mongodb.com,,0.0,Oct 28 2025 09:13:09 AM CDT,Sep 15 2025 03:15:08 PM CDT,"dd-code, proactive"
-Epic,Minor - P4,Grove docs,dachary.carey@mongodb.com,,,Nov 13 2025 03:50:46 PM CST,Sep 03 2025 02:53:27 PM CDT,"dd-education, proactive"
-Parent Epic,Minor - P4,Q1 Consulting Workstream,,,0.0,Sep 08 2025 03:23:32 PM CDT,Feb 18 2025 09:24:30 AM CST,
-Sub-task,Minor - P4,Push copied files to artifact repo,cory.bullinger@mongodb.com,,3.0,Apr 24 2025 02:40:21 PM CDT,Apr 15 2025 01:11:32 PM CDT,proactive
-Sub-task,Minor - P4,PR to Arch Center docs,cory.bullinger@mongodb.com,,2.0,Apr 22 2025 12:45:38 PM CDT,Apr 15 2025 01:12:23 PM CDT,proactive
-Sub-task,Minor - P4,Send request to APIx team,cory.bullinger@mongodb.com,,1.0,Apr 17 2025 12:52:59 PM CDT,Apr 14 2025 06:49:58 AM CDT,proactive
-Sub-task,Minor - P4,Create advanced endpoints: aggregation ,cory.bullinger@mongodb.com,8.0,5.0,Nov 13 2025 07:02:47 AM CST,Oct 24 2025 09:59:18 AM CDT,proactive
-Sub-task,Minor - P4,Initial scaffolding,cory.bullinger@mongodb.com,,5.0,Oct 30 2025 02:56:27 PM CDT,Oct 24 2025 09:58:38 AM CDT,"dd-code, feature"
-Task,Minor - P4,Code-example-related docs feedback report,dachary.carey@mongodb.com,,3.0,Apr 28 2025 10:11:44 AM CDT,Mar 26 2025 12:45:45 PM CDT,proactive
-Task,Minor - P4,Create report for repo metrics,david.hou@mongodb.com,,3.0,Feb 27 2025 01:40:21 PM CST,Jan 21 2025 10:56:24 AM CST,proactive
-Task,Major - P3,Review Verbiage on Create Embeddings page,david.hou@mongodb.com,,1.0,Mar 17 2025 03:02:13 PM CDT,Nov 21 2024 07:50:30 AM CST,"dd-code, request"
 Task,Minor - P4,Get Applied Usage Example Counts,dachary.carey@mongodb.com,,3.0,Apr 24 2025 10:35:54 AM CDT,Apr 21 2025 03:00:58 AM CDT,proactive
 Task,Minor - P4,Get GitHub metrics for project repos,dachary.carey@mongodb.com,,1.0,May 05 2025 10:59:26 AM CDT,May 04 2025 05:50:46 PM CDT,proactive
 Task,Minor - P4,Document team workflows on Wiki,dachary.carey@mongodb.com,,3.0,May 05 2025 09:07:59 AM CDT,May 01 2025 09:55:02 AM CDT,proactive
+Checklist,Minor - P4,Ingest code examples at EOD on Wed,cory.bullinger@mongodb.com,,1.0,May 07 2025 10:10:56 PM CDT,May 05 2025 03:00:58 AM CDT,proactive
 Task,Minor - P4,Get Applied Usage Example Counts,dachary.carey@mongodb.com,,1.0,May 01 2025 09:29:36 AM CDT,Apr 28 2025 03:00:58 AM CDT,proactive
 Task,Minor - P4,Ingest code examples,dachary.carey@mongodb.com,,1.0,May 01 2025 09:19:22 AM CDT,Apr 28 2025 03:00:58 AM CDT,proactive
 Task,Minor - P4,Get GitHub metrics for project repos,cory.bullinger@mongodb.com,,0.0,Apr 22 2025 01:13:51 PM CDT,Apr 22 2025 08:33:16 AM CDT,proactive
 Task,Minor - P4,Ingest code examples,dachary.carey@mongodb.com,,3.0,Apr 24 2025 09:36:50 AM CDT,Apr 21 2025 03:00:58 AM CDT,proactive
 Task,Minor - P4,Prep intern materials,dachary.carey@mongodb.com,,3.0,May 08 2025 09:59:50 AM CDT,May 05 2025 09:18:56 AM CDT,proactive
 Task,Minor - P4,Update new applied usage example count report in DODEC,dachary.carey@mongodb.com,,3.0,May 07 2025 03:15:14 PM CDT,May 05 2025 09:11:51 AM CDT,"dd-code, request"
+EDU Document,Major - P3,Code Examples Definitions,kyle.rollins@mongodb.com,,,Feb 13 2025 12:07:20 PM CST,Dec 05 2024 10:32:52 AM CST,"budapest, orient-express"
 Task,Minor - P4,Get Applied Usage Example Counts every Thurs AM,cory.bullinger@mongodb.com,,1.0,May 29 2025 08:04:41 AM CDT,May 26 2025 03:00:42 AM CDT,proactive
 Task,Minor - P4,Ingest code examples every Wed EOD,cory.bullinger@mongodb.com,,1.0,May 29 2025 08:03:26 AM CDT,May 26 2025 03:00:42 AM CDT,proactive
 Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com,,1.0,May 19 2025 08:37:45 AM CDT,May 08 2025 09:48:58 AM CDT,proactive
@@ -280,52 +239,63 @@ Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com
 Task,Critical - P2,Update Realm links ,kyle.rollins@mongodb.com,,3.0,Jun 03 2025 01:01:34 PM CDT,May 01 2025 05:19:48 PM CDT,"app-services-eol, seo, top250"
 Task,Minor - P4,Ingest code examples every Wed EOD,cory.bullinger@mongodb.com,,1.0,Jun 05 2025 07:07:33 AM CDT,Jun 02 2025 03:00:03 AM CDT,proactive
 Task,Minor - P4,Get Applied Usage Example Counts every Thurs AM,cory.bullinger@mongodb.com,,1.0,Jun 05 2025 08:43:39 AM CDT,Jun 02 2025 03:00:03 AM CDT,proactive
+Task,Major - P3,Update and remove Realm Links,caleb.thompson@mongodb.com,,5.0,Jun 11 2025 11:36:56 AM CDT,Jun 03 2025 12:59:08 PM CDT,"request, seo"
+Bug,Major - P3,Remove App Services from Charts Auth Providers,caleb.thompson@mongodb.com,,0.5,Jun 11 2025 11:36:44 AM CDT,Apr 11 2025 11:50:24 AM CDT,"bug, new-hire-ticket"
+Task,Major - P3,Update code example on get-started-embedding-sdk,caleb.thompson@mongodb.com,,3.0,Jun 11 2025 11:37:03 AM CDT,Jun 05 2025 10:18:28 AM CDT,bug
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,,1.0,Jun 12 2025 08:29:24 AM CDT,Jun 09 2025 03:00:23 AM CDT,proactive
 Task,Minor - P4,Get Applied Usage Example Counts every Thurs AM,dachary.carey@mongodb.com,,1.0,Jun 12 2025 08:29:31 AM CDT,Jun 09 2025 03:00:23 AM CDT,proactive
 Task,Minor - P4,GDCD: Add Atlas Architecture Center as a focus area,dachary.carey@mongodb.com,,3.0,Jun 11 2025 02:49:01 PM CDT,Jun 05 2025 08:21:48 AM CDT,"dd-code, proactive"
-Task,Minor - P4,GDCD: Add Django Integration as a product,hunter.hong@mongodb.com,,3.0,Jun 16 2025 02:26:28 PM CDT,Jun 05 2025 04:02:28 PM CDT,"dd-code, proactive"
+Epic,Minor - P4,Code Examples Contextual Inquiry: User Research (Collab with Design),cory.bullinger@mongodb.com,,0.0,Jun 16 2025 01:43:46 PM CDT,Apr 07 2025 02:20:54 PM CDT,proactive
 Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com,,1.0,Jun 16 2025 07:56:51 AM CDT,Jun 15 2025 08:27:17 PM CDT,proactive
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,,1.0,Jun 18 2025 06:36:38 PM CDT,Jun 16 2025 03:00:23 AM CDT,proactive
 Task,Minor - P4,Get Applied Usage Example Counts every Thurs AM,dachary.carey@mongodb.com,,1.0,Jun 18 2025 06:39:31 PM CDT,Jun 16 2025 03:00:23 AM CDT,proactive
+Task,Critical - P2,"[Server] Database commands can contain multiple writes, resulting in multiple log entries",caleb.thompson@mongodb.com,,3.0,Jan 09 2025 11:04:05 AM CST,Mar 22 2023 04:38:38 PM CDT,"backlog, proactive, query"
 Task,Minor - P4,Ingest code examples every Wed EOD,cory.bullinger@mongodb.com,,1.0,May 15 2025 07:06:01 AM CDT,May 12 2025 03:00:06 AM CDT,proactive
+Checklist,Minor - P4,Get Applied Usage Example Counts every Thurs AM,cory.bullinger@mongodb.com,,1.0,May 15 2025 08:50:17 AM CDT,May 12 2025 03:00:07 AM CDT,proactive
+Sub-task,Minor - P4,Push copied files to artifact repo,cory.bullinger@mongodb.com,,3.0,Apr 24 2025 02:40:21 PM CDT,Apr 15 2025 01:11:32 PM CDT,proactive
+Sub-task,Minor - P4,PR to Arch Center docs,cory.bullinger@mongodb.com,,2.0,Apr 22 2025 12:45:38 PM CDT,Apr 15 2025 01:12:23 PM CDT,proactive
+Epic,Minor - P4,[Consulting] Single task requests Q1,kyle.rollins@mongodb.com,,,May 20 2025 12:50:43 PM CDT,Feb 18 2025 09:27:20 AM CST,
 Task,Minor - P4,Ingest code examples every Wed EOD,cory.bullinger@mongodb.com,,1.0,May 22 2025 11:38:11 AM CDT,May 19 2025 03:00:42 AM CDT,proactive
 Task,Minor - P4,Get Applied Usage Example Counts every Thurs AM,cory.bullinger@mongodb.com,,1.0,May 22 2025 11:38:41 AM CDT,May 19 2025 03:00:42 AM CDT,proactive
+EDU Document,Major - P3,Jupyter Notebooks for Vector Search,dachary.carey@mongodb.com,,,Jan 09 2025 12:35:46 PM CST,Dec 03 2024 12:12:19 PM CST,
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,,1.0,Aug 14 2025 08:15:08 AM CDT,Aug 11 2025 03:01:00 AM CDT,proactive
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,,3.0,Aug 06 2025 06:41:07 PM CDT,Aug 04 2025 03:01:00 AM CDT,proactive
 Task,Minor - P4,Update JS unordered array match func to handle unordered elements,dachary.carey@mongodb.com,,3.0,Aug 06 2025 02:47:54 PM CDT,Aug 04 2025 11:05:57 AM CDT,"dd-code, proactive"
-Task,Minor - P4,Update Style Guide with Code Example Category option,hunter.hong@mongodb.com,,3.0,Jul 14 2025 03:03:56 PM CDT,Apr 22 2025 10:09:38 AM CDT,"dd-education, proactive"
 Task,Minor - P4,Test suite format tools & Bluehawk,dachary.carey@mongodb.com,,3.0,Aug 07 2025 01:48:10 PM CDT,Aug 04 2025 11:00:37 AM CDT,"dd-code, proactive"
-Task,Minor - P4,Fix forward logs link on Trigger Logs page,hunter.hong@mongodb.com,,1.0,Jun 17 2025 12:37:40 PM CDT,Jun 17 2025 10:17:13 AM CDT,
-Task,Minor - P4,Fix forward logs page build errors,hunter.hong@mongodb.com,,1.0,Jun 17 2025 01:28:07 PM CDT,Jun 17 2025 12:38:30 PM CDT,
 Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com,,1.0,Aug 11 2025 06:50:56 AM CDT,Aug 08 2025 09:07:00 AM CDT,proactive
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,,1.0,Jul 31 2025 07:34:08 AM CDT,Jul 28 2025 03:01:00 AM CDT,proactive
+Task,Critical - P2,Atlas Status Page: Enable Programmatic Access for Customers,dachary.carey@mongodb.com,,2.0,Aug 18 2025 02:25:23 PM CDT,Aug 11 2025 10:26:57 AM CDT,request
+Sub-task,Minor - P4,Send request to APIx team,cory.bullinger@mongodb.com,,1.0,Apr 17 2025 12:52:59 PM CDT,Apr 14 2025 06:49:58 AM CDT,proactive
 Task,Minor - P4,Add Delbridge to Data API deprecation page,caleb.thompson@mongodb.com,,1.0,Jul 24 2025 01:15:04 PM CDT,Jul 18 2025 12:50:48 PM CDT,
 Task,Minor - P4,Examples copier required dependency update,caleb.thompson@mongodb.com,,3.0,Jul 24 2025 01:15:18 PM CDT,May 12 2025 09:24:33 AM CDT,"dd-code, dd-maintenance"
 Task,Major - P3,troubleshoot GDCD backupdb() failure,cory.bullinger@mongodb.com,,1.0,Jul 24 2025 01:59:41 PM CDT,Jul 17 2025 07:55:01 AM CDT,"bug, dd-gdcd, proactive"
 Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com,,1.0,Jul 28 2025 07:50:09 AM CDT,Jul 25 2025 09:06:00 AM CDT,proactive
 Task,Minor - P4,Add category option to audit ingest tooling,dachary.carey@mongodb.com,,3.0,Jul 15 2025 02:30:02 PM CDT,Apr 22 2025 10:50:51 AM CDT,"dd-code, proactive"
 Task,Minor - P4,Scope Time Series Code Examples,kyle.rollins@mongodb.com,,1.0,Jul 21 2025 01:18:38 PM CDT,May 27 2025 10:54:14 AM CDT,proactive
+Checklist,Minor - P4,Rename c2c product to mongosync in audit tooling,dachary.carey@mongodb.com,,3.0,Jul 23 2025 03:55:46 PM CDT,Jul 17 2025 11:44:53 AM CDT,"dd-code, proactive"
 Task,Minor - P4,Ingest code examples every Wed EOD,cory.bullinger@mongodb.com,,1.0,Jul 24 2025 06:50:48 AM CDT,Jul 21 2025 03:01:00 AM CDT,proactive
 Task,Minor - P4,Get Applied Usage Example Counts every Thurs AM,cory.bullinger@mongodb.com,,1.0,Jul 24 2025 07:04:52 AM CDT,Jul 21 2025 03:01:00 AM CDT,proactive
 Task,Minor - P4,Refactor product name mappings to common package,dachary.carey@mongodb.com,,3.0,Jul 23 2025 10:57:12 AM CDT,Jun 27 2025 06:00:15 AM CDT,"dd-gdcd, proactive"
 Task,Minor - P4,Ingest code examples every Wed EOD,cory.bullinger@mongodb.com,,1.0,Jul 17 2025 07:48:35 AM CDT,Jul 14 2025 03:00:13 AM CDT,proactive
 Task,Minor - P4,Get Applied Usage Example Counts every Thurs AM,cory.bullinger@mongodb.com,,1.0,Jul 17 2025 09:44:22 AM CDT,Jul 14 2025 03:00:13 AM CDT,proactive
 Task,Minor - P4,Update test suite for C# Driver to latest release version v3.4.2,dachary.carey@mongodb.com,,1.0,Jul 29 2025 08:46:38 AM CDT,Jul 28 2025 01:30:30 PM CDT,"dd-maintenance, feature"
-Task,Minor - P4,Get Applied Usage Example Counts every Thurs AM,,,0.0,Jul 28 2025 01:52:02 PM CDT,Jul 28 2025 03:01:00 AM CDT,proactive
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,,3.0,Aug 21 2025 10:36:24 AM CDT,Aug 18 2025 03:01:00 AM CDT,proactive
+Task,Minor - P4,Add verified answers to our AI bot for deprecated products,caleb.thompson@mongodb.com,,2.0,Aug 21 2025 05:58:01 PM CDT,Aug 21 2025 05:54:58 PM CDT,
 Task,Minor - P4,GDCD: Improve Snooty Data API handling,dachary.carey@mongodb.com,,3.0,Aug 14 2025 08:15:26 AM CDT,Aug 06 2025 06:28:20 PM CDT,"dd-code, proactive"
 Task,Minor - P4,Update test suite for Node.js Driver to latest release version v6.18.0,dachary.carey@mongodb.com,,1.0,Jul 29 2025 08:46:48 AM CDT,Jul 28 2025 01:30:35 PM CDT,"dd-maintenance, feature"
 Task,Major - P3,GDCD: Handle changes to Snooty Data API endpoint behavior,dachary.carey@mongodb.com,,3.0,Sep 02 2025 04:21:14 PM CDT,Sep 02 2025 11:25:42 AM CDT,"dd-code, proactive"
 Task,Major - P3,GitHub Copier App should support recursive copy and preserve file structure in destination,cory.bullinger@mongodb.com,,3.0,Aug 22 2025 01:00:28 PM CDT,Jul 23 2025 12:37:09 PM CDT,"dd-code, proactive"
-Task,Minor - P4,Make explicit the PyMongo version used in the test suite,hunter.hong@mongodb.com,,1.0,Jul 29 2025 10:39:15 AM CDT,Jul 29 2025 09:49:08 AM CDT,"dd-maintenance, feature"
-Task,Minor - P4,Triggers: Add permissions info,hunter.hong@mongodb.com,,1.0,Jul 24 2025 01:23:09 PM CDT,Jul 21 2025 01:29:16 PM CDT,"request, top250"
 Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com,,1.0,Sep 08 2025 07:32:31 AM CDT,Sep 05 2025 09:09:00 AM CDT,proactive
+Epic,Minor - P4,Triggers content migration cleanup,caleb.thompson@mongodb.com,,,Sep 05 2025 04:18:32 PM CDT,Feb 11 2025 10:40:32 AM CST,app-services-eol
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,,3.0,Sep 04 2025 09:14:51 AM CDT,Sep 01 2025 03:01:00 AM CDT,proactive
 Task,Minor - P4,Update file type logic in monorepo snip scripts,dachary.carey@mongodb.com,,3.0,Aug 07 2025 01:48:02 PM CDT,Aug 01 2025 03:16:02 PM CDT,"dd-code, proactive"
 Task,Minor - P4,Add Modelence to Data API deprecation page,caleb.thompson@mongodb.com,,1.0,Aug 26 2025 04:02:45 PM CDT,Aug 22 2025 10:08:55 AM CDT,"app-services-eol, request"
+Checklist,Minor - P4,Write EOL response for chatbot,caleb.thompson@mongodb.com,,2.0,Aug 26 2025 04:04:04 PM CDT,Aug 20 2025 10:01:32 AM CDT,"app-services-eol, feature"
 Task,Critical - P2,[Realm] Update DDP Messaging,dachary.carey@mongodb.com,,1.0,Mar 18 2025 12:06:55 PM CDT,Mar 18 2025 09:12:36 AM CDT,request
 Task,Minor - P4,Realm docs links resulting in 404,kyle.rollins@mongodb.com,,5.0,Feb 11 2025 01:19:36 PM CST,Oct 31 2024 10:00:49 AM CDT,request
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,,3.0,Aug 28 2025 09:34:03 AM CDT,Aug 25 2025 03:01:00 AM CDT,proactive
+Sub-task,Major - P3,Remove Permission Requested: Requirements for Sample Repositories for MongoDB Atlas,kyle.rollins@mongodb.com,,,Aug 27 2025 10:05:38 AM CDT,Aug 27 2025 10:05:29 AM CDT,
+Alerts,Major - P3,[Alert] Public GDrive Files,kyle.rollins@mongodb.com,,,Aug 27 2025 10:10:05 AM CDT,Aug 27 2025 10:05:22 AM CDT,GDrive_Public
 Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com,,1.0,Aug 25 2025 06:52:48 AM CDT,Aug 22 2025 09:08:00 AM CDT,proactive
 Task,Minor - P4,Add link to sdk repo to main landing page,cory.bullinger@mongodb.com,,1.0,Sep 09 2025 09:05:58 AM CDT,Sep 09 2025 07:49:17 AM CDT,"dd-quality, proactive"
 Task,Minor - P4,Snip script improvement: fail fast without Bluehawk,dachary.carey@mongodb.com,,3.0,Aug 08 2025 03:51:42 PM CDT,Aug 08 2025 10:38:40 AM CDT,"dd-code, proactive"
@@ -340,35 +310,41 @@ Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,,1.0,Jul 10 2025 08:24:40 AM CDT,Jul 07 2025 03:00:22 AM CDT,proactive
 Task,Minor - P4,Get Applied Usage Example Counts every Thurs AM,dachary.carey@mongodb.com,,1.0,Jul 10 2025 08:25:24 AM CDT,Jul 07 2025 03:00:22 AM CDT,proactive
 Task,Minor - P4,Restore deleted section on AAS Alerts,caleb.thompson@mongodb.com,,1.0,Jul 14 2025 11:01:09 AM CDT,Jun 18 2025 01:22:37 PM CDT,
-Task,Minor - P4,[DevDocs] New Version Released: NODE v7.0.0,jordan.smith@mongodb.com,1.0,1.0,Nov 07 2025 02:09:31 PM CST,Nov 06 2025 09:58:43 AM CST,proactive
+Epic,Minor - P4,Update GDCD tooling,dachary.carey@mongodb.com,,0.0,Dec 08 2025 01:50:05 PM CST,Apr 24 2025 09:24:54 AM CDT,"dd-code, proactive"
+Checklist,Minor - P4,Triggers content migration cleanup,cory.bullinger@mongodb.com,3.0,2.0,Oct 22 2025 12:38:23 PM CDT,Oct 21 2025 10:44:00 AM CDT,"dd-quality, proactive"
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,1.0,1.0,Nov 20 2025 07:38:06 AM CST,Nov 17 2025 02:00:51 AM CST,proactive
 Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com,,1.0,Nov 17 2025 07:55:49 AM CST,Nov 14 2025 08:11:27 AM CST,proactive
-Task,Minor - P4,MFlix Python Security Alerts,angela.shu@mongodb.com,2.0,2.0,Dec 09 2025 12:17:38 PM CST,Dec 08 2025 03:18:23 PM CST,"dd-maintenance, proactive"
+Epic,Minor - P4,OpenAPI Test Infrastructure,dachary.carey@mongodb.com,,,Nov 17 2025 10:38:42 AM CST,Sep 03 2025 04:00:45 PM CDT,"dd-code, proactive"
+Vulnerability,Blocker - P1,Dependabot: Next.js is vulnerable to RCE in React flight protocol,dachary.carey@mongodb.com,,,Dec 04 2025 01:29:57 PM CST,Dec 04 2025 12:22:22 PM CST,"CVE-2025-66478, Dependabot"
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,1.0,1.0,Dec 11 2025 12:00:17 PM CST,Dec 08 2025 02:00:48 AM CST,proactive
 Task,Minor - P4,Move docs-code-tooling repo to grove org,dachary.carey@mongodb.com,3.0,2.0,Dec 10 2025 08:29:32 AM CST,Oct 15 2025 03:25:08 PM CDT,"dd-grove, proactive"
 Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com,1.0,1.0,Dec 15 2025 06:51:06 AM CST,Dec 12 2025 08:12:06 AM CST,proactive
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,1.0,1.0,Dec 18 2025 10:10:46 AM CST,Dec 15 2025 02:00:06 AM CST,proactive
-Task,Minor - P4,Handle sample data in `mongosh`,dachary.carey@mongodb.com,3.0,3.0,Dec 23 2025 03:53:56 PM CST,Dec 12 2025 02:59:36 PM CST,"dd-code, request"
-Task,Minor - P4,Get GitHub metrics every other Mon AM,,1.0,1.0,Dec 29 2025 07:03:13 AM CST,Dec 26 2025 08:12:48 AM CST,proactive
-Task,Minor - P4,Add Audit CLI to Grove docs,dachary.carey@mongodb.com,2.0,4.0,Dec 12 2025 04:51:45 PM CST,Dec 04 2025 03:31:11 PM CST,proactive
 Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com,,1.0,Oct 06 2025 07:21:28 AM CDT,Oct 03 2025 09:10:14 AM CDT,proactive
 Task,Minor - P4,Ingest code examples every Wed EOD,cory.bullinger@mongodb.com,,1.0,Oct 09 2025 07:31:39 AM CDT,Oct 06 2025 03:00:14 AM CDT,proactive
 Task,Minor - P4,Add copier app to monorepo and test,cory.bullinger@mongodb.com,,8.0,Oct 09 2025 11:47:38 AM CDT,Oct 02 2025 09:11:28 AM CDT,"dd-grove, proactive"
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,,1.0,Sep 25 2025 09:06:44 AM CDT,Sep 22 2025 03:00:47 AM CDT,proactive
+Epic,Minor - P4,Migrate Realm SDK Documentation,cory.bullinger@mongodb.com,,,Sep 25 2025 02:10:42 PM CDT,Oct 29 2024 10:01:43 AM CDT,app-services-eol
+Epic,Minor - P4,Port Agg Code Examples to Test Suites,dachary.carey@mongodb.com,,,Sep 26 2025 03:58:56 PM CDT,Jun 20 2025 02:06:00 PM CDT,"dd-code, proactive"
 Task,Minor - P4,Adding a partner solution to the data api deprecation page,cory.bullinger@mongodb.com,,1.0,May 06 2025 09:03:25 AM CDT,Apr 30 2025 12:52:18 PM CDT,"app-services-eol, request"
-Task,Minor - P4,[all docs] tj-actions github action security playbook,mike.woofter@mongodb.com,,1.0,Mar 20 2025 03:54:12 PM CDT,Mar 20 2025 08:06:17 AM CDT,"actionable, proactive"
 Task,Minor - P4,App Services Admin API Docs: missing required field for Update Trigger - Database Endpoint,dachary.carey@mongodb.com,,3.0,Jun 10 2025 12:21:44 PM CDT,Dec 11 2024 11:09:26 AM CST,"quick-win, request"
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,1.0,1.0,Oct 16 2025 08:23:52 AM CDT,Oct 13 2025 03:00:14 AM CDT,proactive
+Epic,Minor - P4,Unify Comparison APIs in Grove,cory.bullinger@mongodb.com,,,Oct 23 2025 08:37:04 AM CDT,Sep 30 2025 04:12:48 PM CDT,"dd-code, dd-grove, proactive"
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,1.0,1.0,Oct 23 2025 07:50:56 AM CDT,Oct 20 2025 03:00:14 AM CDT,proactive
 Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com,,1.0,Oct 20 2025 07:17:28 AM CDT,Oct 17 2025 09:11:14 AM CDT,proactive
+Epic,Minor - P4,Sample Apps: Research and spec,kyle.rollins@mongodb.com,,0.0,Oct 20 2025 02:10:23 PM CDT,Feb 11 2025 10:47:25 AM CST,
+Epic,Minor - P4,Support 1000 Code Examples,dachary.carey@mongodb.com,,0.0,Oct 27 2025 01:43:20 PM CDT,Jul 31 2025 09:39:43 AM CDT,
+Epic,Minor - P4,App Services Admin API Maintenance,cory.bullinger@mongodb.com,,0.0,Oct 27 2025 01:45:52 PM CDT,Sep 02 2025 09:54:44 AM CDT,app-services-eol
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,,3.0,Sep 11 2025 09:44:03 AM CDT,Sep 08 2025 03:01:00 AM CDT,proactive
 Task,Minor - P4,Additional updates to the Device Sync Deprecation Page — specifically for PowerSync.,caleb.thompson@mongodb.com,,3.0,Sep 12 2025 11:52:23 AM CDT,Feb 07 2025 11:32:24 AM CST,
-Task,Minor - P4,Style Guide: Fix typo,hunter.hong@mongodb.com,,1.0,Jun 10 2025 09:00:55 AM CDT,Jun 05 2025 03:53:43 PM CDT,proactive
 Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com,,1.0,Sep 22 2025 07:07:17 AM CDT,Sep 19 2025 09:09:57 AM CDT,proactive
 Task,Minor - P4,Ingest code examples every Wed EOD,cory.bullinger@mongodb.com,,1.0,Oct 02 2025 07:43:43 AM CDT,Sep 29 2025 03:00:14 AM CDT,proactive
-Task,Minor - P4,App Services Admin API Docs - Clarification regarding Database Trigger update endpoint on Shared Tiers ,hunter.hong@mongodb.com,,1.0,Jun 09 2025 02:09:47 PM CDT,Dec 12 2024 10:12:07 AM CST,"quick-win, request, top250"
+Epic,Minor - P4,General EOL-related tasks for device sync and app service,caleb.thompson@mongodb.com,,,Oct 01 2025 11:55:55 AM CDT,Oct 29 2024 10:06:08 AM CDT,app-services-eol
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,,1.0,Sep 18 2025 08:17:48 AM CDT,Sep 15 2025 03:00:57 AM CDT,proactive
 Task,Minor - P4,PyMongo Test Suite: Add a formatting tool,dachary.carey@mongodb.com,,3.0,Sep 23 2025 10:25:33 AM CDT,Aug 06 2025 02:50:29 PM CDT,"dd-code, proactive"
+Checklist,Minor - P4,Add Terraform subproduct mapping to code example audit tooling,cory.bullinger@mongodb.com,,1.0,Sep 24 2025 10:15:09 AM CDT,Jul 23 2025 07:28:48 AM CDT,"dd-gdcd, taxonomy"
+Checklist,Minor - P4,Update `entity-framework` product name in docs-code-tooling,cory.bullinger@mongodb.com,,1.0,Sep 24 2025 10:14:40 AM CDT,Jun 25 2025 12:00:51 PM CDT,"dd-gdcd, proactive"
+Epic,Major - P3,Remove Realm SDK API Reference Docs from MongoDB Docs Domain,cory.bullinger@mongodb.com,,,Sep 23 2025 02:19:53 PM CDT,Oct 29 2024 10:00:19 AM CDT,app-services-eol
 Task,Major - P3,Remove recommendation to raise case for logical sync,caleb.thompson@mongodb.com,,3.0,Sep 22 2025 02:04:39 PM CDT,Jul 24 2024 09:03:19 PM CDT,"dd-maintenance, quick-win, request"
 Task,Major - P3,"Documentation on templatised, easy to deploy Azure function as a true replacement for deprecated Atlas Data APIs",caleb.thompson@mongodb.com,,2.0,Sep 22 2025 02:06:13 PM CDT,Sep 10 2025 10:27:58 AM CDT,"APIs, app-services-eol, Azure, deprecated"
 Task,Major - P3,"Evangelise Microsoft and MongoDB joint customers using Power Apps, Power Automate, Logic Apps or Copilot Studio (~100 plus) that new version of the connector is now available which doesnt rely on Atlas Data APIs. ",caleb.thompson@mongodb.com,,2.0,Sep 22 2025 02:06:00 PM CDT,Sep 10 2025 09:36:20 AM CDT,"API, app-services-eol, Azure, deprecated"
@@ -376,12 +352,18 @@ Task,Minor - P4,Spike: Explore test infra to validate OpenAPI spec,dachary.carey
 Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com,,1.0,Nov 03 2025 06:49:15 AM CST,Oct 31 2025 09:11:27 AM CDT,proactive
 Task,Minor - P4,Add more AI prompts ahead of bug bash,dachary.carey@mongodb.com,3.0,3.0,Oct 15 2025 01:00:38 PM CDT,Oct 13 2025 11:21:53 AM CDT,proactive
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,1.0,1.0,Oct 30 2025 12:12:33 PM CDT,Oct 27 2025 03:00:27 AM CDT,proactive
+Epic,Minor - P4,AI Instruction Files,dachary.carey@mongodb.com,,0.0,Oct 28 2025 09:13:09 AM CDT,Sep 15 2025 03:15:08 PM CDT,"dd-code, proactive"
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,1.0,1.0,Nov 13 2025 01:03:49 PM CST,Nov 10 2025 02:00:27 AM CST,proactive
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,1.0,1.0,Nov 06 2025 07:51:19 AM CST,Nov 03 2025 02:00:27 AM CST,proactive
+Sub-task,Minor - P4,Create advanced endpoints: aggregation ,cory.bullinger@mongodb.com,8.0,5.0,Nov 13 2025 07:02:47 AM CST,Oct 24 2025 09:59:18 AM CDT,proactive
+Sub-task,Minor - P4,Initial scaffolding,cory.bullinger@mongodb.com,,5.0,Oct 30 2025 02:56:27 PM CDT,Oct 24 2025 09:58:38 AM CDT,"dd-code, feature"
 Task,Minor - P4,GitHub Realm Cleanup,caleb.thompson@mongodb.com,5.0,3.0,Dec 02 2025 03:32:32 PM CST,Oct 08 2025 09:58:26 AM CDT,"app-services-eol, feature"
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,1.0,1.0,Dec 03 2025 07:33:21 PM CST,Dec 01 2025 02:00:51 AM CST,proactive
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,1.0,1.0,Nov 26 2025 08:01:15 PM CST,Nov 24 2025 02:00:51 AM CST,proactive
 Task,Minor - P4,Get GitHub metrics every other Mon AM,cory.bullinger@mongodb.com,,1.0,Dec 01 2025 07:08:08 AM CST,Nov 28 2025 08:11:51 AM CST,proactive
+Epic,Minor - P4,Grove docs,dachary.carey@mongodb.com,,,Nov 13 2025 03:50:46 PM CST,Sep 03 2025 02:53:27 PM CDT,"dd-education, proactive"
 Task,Major - P3,Will modifying match query invalidate or remove the resume token for that triggers' change stream,dachary.carey@mongodb.com,2.0,2.0,Oct 27 2025 09:52:21 AM CDT,Oct 21 2025 12:54:43 PM CDT,"cet-priority-change, proactive"
 Task,Minor - P4,Ingest code examples every Wed EOD,dachary.carey@mongodb.com,1.0,1.0,Dec 24 2025 10:00:59 PM CST,Dec 22 2025 02:00:48 AM CST,proactive
-Writing,Minor - P4,Create a tech spec for the monorepo test suites,hunter.hong@mongodb.com,,5.0,Aug 04 2025 04:03:44 PM CDT,Jul 09 2025 08:33:43 AM CDT,proactive
+Bug,Blocker - P1,Next.js is vulnerable to RCE in React flight protocol,dachary.carey@mongodb.com,1.0,1.0,Dec 03 2025 03:50:27 PM CST,Dec 03 2025 02:51:54 PM CST,"dd-maintenance, request"
+Task,Minor - P4,Handle sample data in `mongosh`,dachary.carey@mongodb.com,3.0,3.0,Dec 23 2025 03:53:56 PM CST,Dec 12 2025 02:59:36 PM CST,"dd-code, request"
+Task,Minor - P4,Add Audit CLI to Grove docs,dachary.carey@mongodb.com,2.0,4.0,Dec 12 2025 04:51:45 PM CST,Dec 04 2025 03:31:11 PM CST,proactive
