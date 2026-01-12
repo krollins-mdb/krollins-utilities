@@ -10,6 +10,24 @@ import * as formatters from "./chartFormatters.js";
 
 /**
  * Generate and save HTML report
+ *
+ * Creates a self-contained HTML file with:
+ * - Embedded analysis data as JSON
+ * - Chart.js visualizations (loaded from CDN)
+ * - Interactive charts with hover tooltips
+ * - Responsive design for mobile/desktop
+ * - Print-friendly styles
+ *
+ * @param analysisResult - Complete analysis results from analyzeIssues()
+ * @param outputPath - Path where HTML file should be written
+ * @param title - Report title displayed in HTML (default: "Team Retrospective")
+ * @throws Error if file write fails
+ *
+ * @example
+ * ```typescript
+ * const result = analyzeIssues(issues);
+ * await generateHTMLReport(result, "./report.html", "2024 Retrospective");
+ * ```
  */
 export async function generateHTMLReport(
   analysisResult: AnalysisResult,
@@ -24,6 +42,9 @@ export async function generateHTMLReport(
   // Generate chart initialization code
   const chartInitCode = generateChartInitCode(analysisResult);
 
+  // Generate helper content code
+  const helperContentCode = generateHelperContent(analysisResult);
+
   // Generate HTML
   const html = generateReportHTML({
     title,
@@ -34,6 +55,7 @@ export async function generateHTMLReport(
     }),
     analysisDataJson,
     chartInitCode,
+    helperContentCode,
   });
 
   // Write to file
@@ -53,7 +75,7 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "projectImpactChart",
       "bar",
-      "formatters.formatProjectImpactChart(analysisData)",
+      "formatters.formatProjectImpactChart(data)",
       "getBarChartConfig()"
     )
   );
@@ -63,7 +85,7 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "complexityDistributionChart",
       "doughnut",
-      "formatters.formatComplexityDistributionChart(analysisData)",
+      "formatters.formatComplexityDistributionChart(data)",
       "getDoughnutChartConfig()"
     )
   );
@@ -73,7 +95,7 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "topWinsChart",
       "bar",
-      "formatters.formatTopWinsChart(analysisData)",
+      "formatters.formatTopWinsChart(data)",
       "getBarChartConfig(true)"
     )
   );
@@ -83,7 +105,7 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "proactiveRatioChart",
       "doughnut",
-      "formatters.formatProactiveRatioChart(analysisData)",
+      "formatters.formatProactiveRatioChart(data)",
       "getDoughnutChartConfig()"
     )
   );
@@ -93,7 +115,7 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "proactiveTrendChart",
       "line",
-      "formatters.formatProactiveTrendChart(analysisData)",
+      "formatters.formatProactiveTrendChart(data)",
       "getLineChartConfig()"
     )
   );
@@ -103,7 +125,7 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "cycleTimeByPriorityChart",
       "bar",
-      "formatters.formatCycleTimeByPriorityChart(analysisData)",
+      "formatters.formatCycleTimeByPriorityChart(data)",
       "getBarChartConfig()"
     )
   );
@@ -113,7 +135,7 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "cycleTimeTrendChart",
       "line",
-      "formatters.formatCycleTimeTrendChart(analysisData)",
+      "formatters.formatCycleTimeTrendChart(data)",
       "getLineChartConfig()"
     )
   );
@@ -123,7 +145,7 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "unplannedWorkChart",
       "doughnut",
-      "formatters.formatUnplannedWorkChart(analysisData)",
+      "formatters.formatUnplannedWorkChart(data)",
       "getDoughnutChartConfig()"
     )
   );
@@ -133,7 +155,7 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "unplannedTrendChart",
       "line",
-      "formatters.formatUnplannedTrendChart(analysisData)",
+      "formatters.formatUnplannedTrendChart(data)",
       "getLineChartConfig()"
     )
   );
@@ -143,7 +165,7 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "priorityDistributionChart",
       "doughnut",
-      "formatters.formatPriorityDistributionChart(analysisData)",
+      "formatters.formatPriorityDistributionChart(data)",
       "getDoughnutChartConfig()"
     )
   );
@@ -153,7 +175,7 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "priorityCycleTimeChart",
       "bar",
-      "formatters.formatPriorityCycleTimeChart(analysisData)",
+      "formatters.formatPriorityCycleTimeChart(data)",
       "getBarChartConfig()"
     )
   );
@@ -163,7 +185,7 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "teamBalanceChart",
       "bar",
-      "formatters.formatTeamBalanceChart(analysisData)",
+      "formatters.formatTeamBalanceChart(data)",
       "getBarChartConfig()"
     )
   );
@@ -173,7 +195,7 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "estimationAccuracyChart",
       "doughnut",
-      "formatters.formatEstimationAccuracyChart(analysisData)",
+      "formatters.formatEstimationAccuracyChart(data)",
       "getDoughnutChartConfig()"
     )
   );
@@ -183,7 +205,7 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "estimationByPersonChart",
       "bar",
-      "formatters.formatEstimationByPersonChart(analysisData)",
+      "formatters.formatEstimationByPersonChart(data)",
       "getBarChartConfig()"
     )
   );
@@ -193,13 +215,10 @@ function generateChartInitCode(result: AnalysisResult): string {
     generateChartCode(
       "wipPatternsChart",
       "line",
-      "formatters.formatWIPPatternsChart(analysisData)",
+      "formatters.formatWIPPatternsChart(data)",
       "getLineChartConfig()"
     )
   );
-
-  // Add helper content generation
-  charts.push(generateHelperContent(result));
 
   return `
     // Helper functions
@@ -229,7 +248,7 @@ function generateChartCode(
   configFn: string
 ): string {
   return `
-    new Chart(document.getElementById('${canvasId}'), {
+    chartInstances['${canvasId}'] = new Chart(document.getElementById('${canvasId}'), {
       type: '${type}',
       data: ${dataFn},
       options: ${configFn}
@@ -242,11 +261,95 @@ function generateChartCode(
  */
 function generateHelperContent(result: AnalysisResult): string {
   return `
+    // Year-over-Year Comparison
+    if (data.yearComparison) {
+      const yoySection = document.getElementById('yearComparisonSection');
+      if (yoySection) {
+        yoySection.style.display = 'block';
+        
+        document.getElementById('currentYear').textContent = data.yearComparison.currentYear;
+        document.getElementById('previousYear').textContent = data.yearComparison.previousYear;
+        
+        // Issues
+        document.getElementById('comp-issues-current').textContent = data.yearComparison.comparison.issues.current;
+        document.getElementById('comp-issues-previous').textContent = data.yearComparison.comparison.issues.previous;
+        const issuesChange = document.getElementById('comp-issues-change');
+        issuesChange.textContent = (data.yearComparison.comparison.issues.percentChange > 0 ? '+' : '') + 
+          data.yearComparison.comparison.issues.percentChange.toFixed(0) + '%';
+        issuesChange.className = 'change-indicator ' + 
+          (data.yearComparison.comparison.issues.percentChange > 5 ? 'positive' : 
+           data.yearComparison.comparison.issues.percentChange < -5 ? 'negative' : 'neutral');
+        
+        // Story Points
+        document.getElementById('comp-points-current').textContent = data.yearComparison.comparison.storyPoints.current.toFixed(0);
+        document.getElementById('comp-points-previous').textContent = data.yearComparison.comparison.storyPoints.previous.toFixed(0);
+        const pointsChange = document.getElementById('comp-points-change');
+        pointsChange.textContent = (data.yearComparison.comparison.storyPoints.percentChange > 0 ? '+' : '') + 
+          data.yearComparison.comparison.storyPoints.percentChange.toFixed(0) + '%';
+        pointsChange.className = 'change-indicator ' + 
+          (data.yearComparison.comparison.storyPoints.percentChange > 5 ? 'positive' : 
+           data.yearComparison.comparison.storyPoints.percentChange < -5 ? 'negative' : 'neutral');
+        
+        // Cycle Time (inverse - lower is better)
+        document.getElementById('comp-cycle-current').textContent = data.yearComparison.comparison.avgCycleTime.current.toFixed(0) + ' days';
+        document.getElementById('comp-cycle-previous').textContent = data.yearComparison.comparison.avgCycleTime.previous.toFixed(0) + ' days';
+        const cycleChange = document.getElementById('comp-cycle-change');
+        cycleChange.textContent = (data.yearComparison.comparison.avgCycleTime.percentChange > 0 ? '+' : '') + 
+          data.yearComparison.comparison.avgCycleTime.percentChange.toFixed(0) + '%';
+        cycleChange.className = 'change-indicator ' + 
+          (data.yearComparison.comparison.avgCycleTime.percentChange < -5 ? 'positive' : 
+           data.yearComparison.comparison.avgCycleTime.percentChange > 5 ? 'negative' : 'neutral');
+        
+        // High Complexity
+        document.getElementById('comp-complexity-current').textContent = data.yearComparison.comparison.highComplexityItems.current;
+        document.getElementById('comp-complexity-previous').textContent = data.yearComparison.comparison.highComplexityItems.previous;
+        const complexityChange = document.getElementById('comp-complexity-change');
+        complexityChange.textContent = (data.yearComparison.comparison.highComplexityItems.percentChange > 0 ? '+' : '') + 
+          data.yearComparison.comparison.highComplexityItems.percentChange.toFixed(0) + '%';
+        complexityChange.className = 'change-indicator ' + 
+          (data.yearComparison.comparison.highComplexityItems.percentChange > 5 ? 'positive' : 
+           data.yearComparison.comparison.highComplexityItems.percentChange < -5 ? 'negative' : 'neutral');
+        
+        // Proactive
+        document.getElementById('comp-proactive-current').textContent = data.yearComparison.comparison.proactivePercentage.current.toFixed(0) + '%';
+        document.getElementById('comp-proactive-previous').textContent = data.yearComparison.comparison.proactivePercentage.previous.toFixed(0) + '%';
+        const proactiveChange = document.getElementById('comp-proactive-change');
+        proactiveChange.textContent = (data.yearComparison.comparison.proactivePercentage.percentChange > 0 ? '+' : '') + 
+          data.yearComparison.comparison.proactivePercentage.percentChange.toFixed(0) + '%';
+        proactiveChange.className = 'change-indicator ' + 
+          (data.yearComparison.comparison.proactivePercentage.percentChange > 5 ? 'positive' : 
+           data.yearComparison.comparison.proactivePercentage.percentChange < -5 ? 'negative' : 'neutral');
+        
+        // Estimation
+        document.getElementById('comp-estimation-current').textContent = data.yearComparison.comparison.estimationAccuracy.current.toFixed(0) + '%';
+        document.getElementById('comp-estimation-previous').textContent = data.yearComparison.comparison.estimationAccuracy.previous.toFixed(0) + '%';
+        const estimationChange = document.getElementById('comp-estimation-change');
+        estimationChange.textContent = (data.yearComparison.comparison.estimationAccuracy.percentChange > 0 ? '+' : '') + 
+          data.yearComparison.comparison.estimationAccuracy.percentChange.toFixed(0) + '%';
+        estimationChange.className = 'change-indicator ' + 
+          (data.yearComparison.comparison.estimationAccuracy.percentChange > 5 ? 'positive' : 
+           data.yearComparison.comparison.estimationAccuracy.percentChange < -5 ? 'negative' : 'neutral');
+        
+        // Insights
+        if (data.yearComparison.insights.improvements.length > 0) {
+          document.getElementById('improvementsCard').style.display = 'block';
+          document.getElementById('improvementsList').innerHTML = 
+            data.yearComparison.insights.improvements.map(i => '<li>' + i + '</li>').join('');
+        }
+        
+        if (data.yearComparison.insights.regressions.length > 0) {
+          document.getElementById('regressionsCard').style.display = 'block';
+          document.getElementById('regressionsList').innerHTML = 
+            data.yearComparison.insights.regressions.map(r => '<li>' + r + '</li>').join('');
+        }
+      }
+    }
+    
     // Project Impact Table
     const projectTable = document.getElementById('projectImpactTable');
-    if (projectTable && analysisData.celebratingWork.projectImpact.length > 0) {
+    if (projectTable && data.celebratingWork.projectImpact.length > 0) {
       let tableHTML = '<table><thead><tr><th>Project</th><th>Story Points</th><th>Issues</th><th>Avg Points/Issue</th><th>Duration</th></tr></thead><tbody>';
-      analysisData.celebratingWork.projectImpact.forEach(p => {
+      data.celebratingWork.projectImpact.forEach(p => {
         tableHTML += \`<tr>
           <td>\${p.projectName}</td>
           <td>\${p.totalStoryPoints}</td>
@@ -262,7 +365,7 @@ function generateHelperContent(result: AnalysisResult): string {
     // Versatility Info
     const versatilityInfo = document.getElementById('versatilityInfo');
     if (versatilityInfo) {
-      const crossFunctional = analysisData.celebratingWork.teamVersatility.crossFunctionalContributors;
+      const crossFunctional = data.celebratingWork.teamVersatility.crossFunctionalContributors;
       if (crossFunctional.length > 0) {
         versatilityInfo.innerHTML = \`
           <h4>🌟 Cross-Functional Contributors</h4>
@@ -276,8 +379,8 @@ function generateHelperContent(result: AnalysisResult): string {
     
     // Cycle Time Outliers
     const outliersDiv = document.getElementById('cycleTimeOutliers');
-    if (outliersDiv && analysisData.areasForImprovement.cycleTime.outliers.length > 0) {
-      const outliers = analysisData.areasForImprovement.cycleTime.outliers.slice(0, 5);
+    if (outliersDiv && data.areasForImprovement.cycleTime.outliers.length > 0) {
+      const outliers = data.areasForImprovement.cycleTime.outliers.slice(0, 5);
       outliersDiv.innerHTML = \`
         <h4>⚠️ Top Cycle Time Outliers</h4>
         <ul>\${outliers.map(o => 
@@ -288,17 +391,17 @@ function generateHelperContent(result: AnalysisResult): string {
     
     // Priority Recommendations
     const recommendationsDiv = document.getElementById('priorityRecommendations');
-    if (recommendationsDiv && analysisData.areasForImprovement.priorityAlignment.recommendations.length > 0) {
+    if (recommendationsDiv && data.areasForImprovement.priorityAlignment.recommendations.length > 0) {
       recommendationsDiv.innerHTML = \`
         <h4>💡 Recommendations</h4>
-        <ul>\${analysisData.areasForImprovement.priorityAlignment.recommendations.map(r => '<li>' + r + '</li>').join('')}</ul>
+        <ul>\${data.areasForImprovement.priorityAlignment.recommendations.map(r => '<li>' + r + '</li>').join('')}</ul>
       \`;
     }
     
     // Load Balance Info
     const loadBalanceInfo = document.getElementById('loadBalanceInfo');
-    if (loadBalanceInfo && analysisData.areasForImprovement.teamBalance.loadImbalances.length > 0) {
-      const imbalances = analysisData.areasForImprovement.teamBalance.loadImbalances;
+    if (loadBalanceInfo && data.areasForImprovement.teamBalance.loadImbalances.length > 0) {
+      const imbalances = data.areasForImprovement.teamBalance.loadImbalances;
       loadBalanceInfo.innerHTML = \`
         <h4>⚖️ Load Imbalances Detected</h4>
         <p>The following team members have workload variance &gt;20% from average:</p>
@@ -310,19 +413,19 @@ function generateHelperContent(result: AnalysisResult): string {
     
     // Seasonal Insights
     const seasonalDiv = document.getElementById('seasonalInsights');
-    if (seasonalDiv && analysisData.areasForImprovement.workInProgress.seasonalInsights.length > 0) {
+    if (seasonalDiv && data.areasForImprovement.workInProgress.seasonalInsights.length > 0) {
       seasonalDiv.innerHTML = \`
         <h4>📅 Seasonal Insights</h4>
-        <ul>\${analysisData.areasForImprovement.workInProgress.seasonalInsights.map(s => '<li>' + s + '</li>').join('')}</ul>
+        <ul>\${data.areasForImprovement.workInProgress.seasonalInsights.map(s => '<li>' + s + '</li>').join('')}</ul>
       \`;
     }
     
     // Learning Curves
     const learningSection = document.getElementById('learningCurveSection');
     const learningContent = document.getElementById('learningCurveContent');
-    if (learningContent && analysisData.areasForImprovement.learningCurve.length > 0) {
+    if (learningContent && data.areasForImprovement.learningCurve.length > 0) {
       let html = '';
-      analysisData.areasForImprovement.learningCurve.slice(0, 3).forEach(lc => {
+      data.areasForImprovement.learningCurve.slice(0, 3).forEach(lc => {
         const improvement = lc.improvementPercentage > 0 ? '📈 Improved' : '📉 Slower';
         const color = lc.improvementPercentage > 0 ? '#27ae60' : '#e74c3c';
         html += \`

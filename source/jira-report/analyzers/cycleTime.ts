@@ -13,6 +13,22 @@ import { getQuarter } from "../utils/dateUtils.js";
 
 /**
  * Analyze cycle time patterns
+ *
+ * Calculates statistical summaries of how long issues take to resolve,
+ * broken down by priority, quarter, and identifies outliers.
+ *
+ * Outliers are issues that take >2 standard deviations longer than average,
+ * which may indicate blockers or unusual complexity.
+ *
+ * @param issues - Array of Jira issues with cycle time data
+ * @returns Cycle time metrics including overall stats, breakdowns, and outliers
+ *
+ * @example
+ * ```typescript
+ * const metrics = analyzeCycleTime(issues);
+ * console.log(`Average: ${metrics.overall.mean} days`);
+ * console.log(`Outliers: ${metrics.outliers.length}`);
+ * ```
  */
 export function analyzeCycleTime(issues: JiraIssue[]): CycleTimeMetrics {
   const cycleTimes = issues.map((issue) => issue.cycleTimeDays);

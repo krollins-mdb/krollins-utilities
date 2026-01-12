@@ -6,6 +6,7 @@ Generate beautiful, interactive HTML reports from Jira CSV exports for team retr
 
 - 📊 **11 Comprehensive Metrics**: Project impact, complexity, cycle time, team balance, estimation accuracy, and more
 - 📈 **Interactive Charts**: 15 Chart.js visualizations with hover tooltips
+- 📅 **Year-over-Year Comparison**: Automatic comparison when data spans multiple years
 - 🎨 **Professional Design**: Clean, responsive HTML with print-friendly CSS
 - 🔍 **Flexible Filtering**: Filter by year, assignee, or project
 - ⚙️ **Configurable**: Custom complexity thresholds and report titles
@@ -98,7 +99,84 @@ The tool automatically handles multiple label columns and timezone conversions.
 - **Work in Progress**: Monthly patterns and seasonal insights
 - **Learning Curves**: Improvement on repeated work patterns
 
+### Year-over-Year Comparison 📅
+
+**Automatic Multi-Year Analysis** - When your CSV contains data from multiple years, the tool automatically detects this and generates a comprehensive comparison between the two most recent years.
+
+**How It Works:**
+
+1. Scans all issues for resolved dates
+2. Identifies unique years in the dataset
+3. If 2+ years found, runs separate analysis for each year
+4. Compares metrics and calculates percentage changes
+5. Generates insights about improvements and regressions
+
+**Compared Metrics:**
+
+- **Issues Delivered** - Total count with change percentage
+- **Story Points** - Total completed with trend indicator
+- **Average Cycle Time** - Days to resolve (lower is better)
+- **High Complexity Items** - Count of items ≥8 points
+- **Proactive Work** - Percentage of planned work
+- **Estimation Accuracy** - Percentage within ±20%
+
+**Visual Indicators:**
+
+- 🟢 **Green (+X%)** - Positive improvement (>5% change)
+- 🔴 **Red (-X%)** - Regression or decline (<-5% change)
+- ⚪ **Gray (±X%)** - Minimal change (-5% to +5%)
+
+**Output Includes:**
+
+- Dedicated comparison section in HTML with purple gradient design
+- Side-by-side comparison cards for all 6 metrics
+- Console summary showing key improvements and regressions
+- Automatic insights generation (e.g., "Delivered 37% more issues")
+
+**Note:** For cycle time, the direction is inverted since lower values are better. A decrease in cycle time shows as a positive improvement (green).
+
 ## Examples
+
+### Year-over-Year Comparison
+
+**Automatic Detection** - If your CSV contains data from 2024 and 2025, the tool automatically generates a comparison without any special flags:
+
+```bash
+node dist/source/jira-report/index.js \
+  --input multi-year-export.csv \
+  --output comparison-report.html \
+  --title "2024 vs 2025 Comparison"
+```
+
+**Console Output Example:**
+
+```
+📅 Year-over-Year Comparison:
+   Comparing 2025 vs 2024
+
+   📈 Improvements:
+      • Delivered 37% more issues (82 vs 60)
+      • Completed 425% more story points (294 vs 56)
+
+   📉 Regressions:
+      • Cycle time increased by 61% (60 vs 37 days)
+```
+
+The report will include a dedicated "Year-over-Year Comparison" section with:
+
+- Visual comparison cards showing current vs previous values
+- Color-coded trend indicators (green/red/gray)
+- Automatic insights highlighting key changes
+- Responsive design that works on mobile and desktop
+
+**Tip:** To analyze only a single year instead of comparing, use the `--year` filter:
+
+```bash
+node dist/source/jira-report/index.js \
+  --input multi-year-export.csv \
+  --year 2025 \
+  --output 2025-only.html
+```
 
 ### Filter by Year
 
@@ -165,7 +243,8 @@ source/jira-report/
 │   ├── workInProgress.ts
 │   ├── estimation.ts
 │   ├── priority.ts
-│   └── teamBalance.ts
+│   ├── teamBalance.ts
+│   └── yearComparison.ts      # Year-over-year comparison
 ├── templates/
 │   └── reportTemplate.ts      # HTML template
 └── utils/

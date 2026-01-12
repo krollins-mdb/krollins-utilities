@@ -15,6 +15,7 @@ import { analyzeWorkInProgress } from "./analyzers/workInProgress.js";
 import { analyzeEstimation } from "./analyzers/estimation.js";
 import { analyzePriority } from "./analyzers/priority.js";
 import { analyzeTeamBalance } from "./analyzers/teamBalance.js";
+import { detectYears, compareYears } from "./analyzers/yearComparison.js";
 
 /**
  * Run all analyses on the provided issues
@@ -72,7 +73,49 @@ export function analyzeIssues(issues: JiraIssue[]): AnalysisResult {
   console.log("  ✓ Priority alignment analysis complete");
 
   const teamBalance = analyzeTeamBalance(issues);
-  console.log("  ✓ Team balance analysis complete\n");
+  console.log("  ✓ Team balance analysis complete");
+
+  // Check for year-over-year comparison
+  const availableYears = detectYears(issues);
+  let yearComparison = undefined;
+  let yearData = undefined;
+
+  if (availableYears.length >= 2) {
+    console.log(
+      "  ℹ️  Multiple years detected - running year-over-year comparison"
+    );
+
+    const currentYear = availableYears[0];
+    const previousYear = availableYears[1];
+
+    const currentYearIssues = issues.filter(
+      (issue) => issue.resolved.getFullYear() === currentYear
+    );
+    const previousYearIssues = issues.filter(
+      (issue) => issue.resolved.getFullYear() === previousYear
+    );
+
+    const currentYearResult = runAnalysisForIssues(currentYearIssues);
+    const previousYearResult = runAnalysisForIssues(previousYearIssues);
+
+    yearComparison = compareYears(
+      issues,
+      currentYearResult,
+      previousYearResult
+    );
+
+    yearData = {
+      years: availableYears,
+      currentYear,
+      previousYear,
+      currentYearData: currentYearResult,
+      previousYearData: previousYearResult,
+    };
+
+    console.log("  ✓ Year-over-year comparison complete\n");
+  } else {
+    console.log();
+  }
 
   return {
     summary: {
@@ -98,6 +141,48 @@ export function analyzeIssues(issues: JiraIssue[]): AnalysisResult {
       estimationAccuracy,
       priorityAlignment,
       teamBalance,
+    },
+    yearComparison,
+    yearData,
+  };
+}
+
+/**
+ * Run analysis for a subset of issues (used for year comparison)
+ */
+function runAnalysisForIssues(issues: JiraIssue[]): AnalysisResult {
+  const totalIssues = issues.length;
+  const totalStoryPoints = issues.reduce(
+    (sum, issue) => sum + (issue.storyPoints || 0),
+    0
+  );
+
+  const dates = issues.map((issue) => issue.resolved);
+  const startDate = new Date(Math.min(...dates.map((d) => d.getTime())));
+  const endDate = new Date(Math.max(...dates.map((d) => d.getTime())));
+  const uniqueAssignees = [...new Set(issues.map((issue) => issue.assignee))];
+
+  return {
+    summary: {
+      totalIssues,
+      totalStoryPoints,
+      dateRange: { start: startDate, end: endDate },
+      uniqueAssignees,
+    },
+    celebratingWork: {
+      projectImpact: analyzeProjectImpact(issues),
+      complexityConquered: analyzeComplexity(issues),
+      proactiveScore: analyzeProactive(issues),
+      teamVersatility: analyzeVersatility(issues),
+    },
+    areasForImprovement: {
+      cycleTime: analyzeCycleTime(issues),
+      learningCurve: analyzeLearningCurve(issues),
+      unplannedWork: analyzeUnplannedWork(issues),
+      workInProgress: analyzeWorkInProgress(issues),
+      estimationAccuracy: analyzeEstimation(issues),
+      priorityAlignment: analyzePriority(issues),
+      teamBalance: analyzeTeamBalance(issues),
     },
   };
 }
@@ -158,6 +243,30 @@ export function printAnalysisSummary(result: AnalysisResult): void {
       }
     );
     console.log();
+  }
+
+  // Year-over-year comparison
+  if (result.yearComparison) {
+    console.log("📅 Year-over-Year Comparison:");
+    console.log(
+      `   Comparing ${result.yearComparison.currentYear} vs ${result.yearComparison.previousYear}\n`
+    );
+
+    if (result.yearComparison.insights.improvements.length > 0) {
+      console.log("   📈 Improvements:");
+      result.yearComparison.insights.improvements.forEach((improvement) => {
+        console.log(`      • ${improvement}`);
+      });
+      console.log();
+    }
+
+    if (result.yearComparison.insights.regressions.length > 0) {
+      console.log("   📉 Regressions:");
+      result.yearComparison.insights.regressions.forEach((regression) => {
+        console.log(`      • ${regression}`);
+      });
+      console.log();
+    }
   }
 
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");

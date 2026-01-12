@@ -255,6 +255,56 @@ export interface BalanceMetrics {
 }
 
 /**
+ * Year-over-year comparison metrics
+ */
+export interface YearComparisonMetrics {
+  currentYear: number;
+  previousYear: number;
+  comparison: {
+    issues: {
+      current: number;
+      previous: number;
+      change: number;
+      percentChange: number;
+    };
+    storyPoints: {
+      current: number;
+      previous: number;
+      change: number;
+      percentChange: number;
+    };
+    avgCycleTime: {
+      current: number;
+      previous: number;
+      change: number;
+      percentChange: number;
+    };
+    highComplexityItems: {
+      current: number;
+      previous: number;
+      change: number;
+      percentChange: number;
+    };
+    proactivePercentage: {
+      current: number;
+      previous: number;
+      change: number;
+      percentChange: number;
+    };
+    estimationAccuracy: {
+      current: number;
+      previous: number;
+      change: number;
+      percentChange: number;
+    };
+  };
+  insights: {
+    improvements: string[];
+    regressions: string[];
+  };
+}
+
+/**
  * Complete analysis result structure
  */
 export interface AnalysisResult {
@@ -281,6 +331,14 @@ export interface AnalysisResult {
     estimationAccuracy: EstimationMetrics;
     priorityAlignment: PriorityMetrics;
     teamBalance: BalanceMetrics;
+  };
+  yearComparison?: YearComparisonMetrics;
+  yearData?: {
+    years: number[];
+    currentYear: number;
+    previousYear: number;
+    currentYearData: AnalysisResult;
+    previousYearData: AnalysisResult;
   };
 }
 

@@ -1,0 +1,4913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Year Selector Test v2</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <style>
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+
+    header {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header-title {
+      flex: 1;
+    }
+
+    header h1 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .generated-date {
+      color: #7f8c8d;
+      font-size: 0.9em;
+    }
+
+    .year-selector-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f8f9fa;
+      padding: 12px 20px;
+      border-radius: 6px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .year-selector-container label {
+      font-weight: 600;
+      color: #2c3e50;
+      font-size: 0.9em;
+      white-space: nowrap;
+    }
+
+    .year-selector {
+      padding: 8px 12px;
+      border: 1px solid #cbd5e0;
+      border-radius: 4px;
+      background: white;
+      color: #2c3e50;
+      font-size: 0.95em;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 100px;
+    }
+
+    .year-selector:hover {
+      border-color: #3498db;
+    }
+
+    .year-selector:focus {
+      outline: none;
+      border-color: #3498db;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    section {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #3498db;
+    }
+
+    h3 {
+      color: #34495e;
+      margin-bottom: 15px;
+    }
+
+    .subsection {
+      margin-bottom: 40px;
+    }
+
+    .subsection:last-child {
+      margin-bottom: 0;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .metric-card {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .metric-card h3 {
+      font-size: 0.9em;
+      color: #6c757d;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .metric-value {
+      font-size: 2em;
+      font-weight: bold;
+      color: #3498db;
+    }
+
+    /* Year Comparison Styles */
+    .year-comparison {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      margin: 30px 0;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .year-comparison h2 {
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .comparison-header {
+      text-align: center;
+      font-size: 1.1em;
+      margin-bottom: 30px;
+      opacity: 0.95;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .comparison-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .comparison-card h4 {
+      color: white;
+      font-size: 0.9em;
+      margin-bottom: 15px;
+      opacity: 0.9;
+      font-weight: 600;
+    }
+
+    .comparison-values {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .current-value {
+      font-size: 2em;
+      font-weight: bold;
+      color: white;
+    }
+
+    .change-indicator {
+      font-size: 1em;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .change-indicator.positive {
+      background: #27ae60;
+      color: white;
+    }
+
+    .change-indicator.negative {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .change-indicator.neutral {
+      background: rgba(255, 255, 255, 0.3);
+      color: white;
+    }
+
+    .previous-value {
+      font-size: 0.85em;
+      opacity: 0.8;
+    }
+
+    .insights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .insights-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 25px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .insights-card h4 {
+      color: white;
+      margin-bottom: 15px;
+      font-size: 1.1em;
+    }
+
+    .insights-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .insights-card li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      line-height: 1.5;
+    }
+
+    .insights-card li:last-child {
+      border-bottom: none;
+    }
+
+    .insights-card.improvements {
+      border-left: 4px solid #27ae60;
+    }
+
+    .insights-card.regressions {
+      border-left: 4px solid #f39c12;
+    }
+
+    .chart-container {
+      position: relative;
+      height: 400px;
+      margin: 20px 0;
+    }
+
+    .chart-container.half {
+      height: 350px;
+    }
+
+    .chart-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .data-table {
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    .data-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .data-table th {
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #495057;
+    }
+
+    .data-table tr:hover {
+      background: #f8f9fa;
+    }
+
+    .info-box {
+      background: #e7f3ff;
+      border-left: 4px solid #3498db;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    .info-box h4 {
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+
+    .info-box ul {
+      margin-left: 20px;
+    }
+
+    .info-box li {
+      margin: 5px 0;
+    }
+
+    .recommendations {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    .recommendations h4 {
+      margin-bottom: 10px;
+      color: #856404;
+    }
+
+    .recommendations ul {
+      margin-left: 20px;
+    }
+
+    .recommendations li {
+      margin: 8px 0;
+      color: #856404;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #7f8c8d;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .year-selector-container {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .insights-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .comparison-card {
+        padding: 15px;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      section {
+        box-shadow: none;
+        page-break-inside: avoid;
+      }
+
+      .chart-container {
+        height: 300px;
+      }
+
+      .chart-container.half {
+        height: 250px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .chart-row {
+        grid-template-columns: 1fr;
+      }
+
+      .metric-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="header-title">
+        <h1>Year Selector Test v2</h1>
+        <p class="generated-date">Generated on January 12, 2026</p>
+      </div>
+      <div class="year-selector-container" id="yearSelectorContainer" style="display: none;">
+        <label for="yearSelector">View Year:</label>
+        <select id="yearSelector" class="year-selector">
+          <!-- Options populated by JavaScript -->
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="summary">
+      <h2>📊 Overview</h2>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <h3>Total Issues</h3>
+          <p class="metric-value" id="totalIssues">-</p>
+        </div>
+        <div class="metric-card">
+          <h3>Total Story Points</h3>
+          <p class="metric-value" id="totalPoints">-</p>
+        </div>
+        <div class="metric-card">
+          <h3>Team Size</h3>
+          <p class="metric-value" id="teamSize">-</p>
+        </div>
+        <div class="metric-card">
+          <h3>Avg Cycle Time</h3>
+          <p class="metric-value" id="avgCycleTime">-</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Year-over-Year Comparison (only shown if data available) -->
+    <section class="year-comparison" id="yearComparisonSection" style="display: none;">
+      <h2>📅 Year-over-Year Comparison</h2>
+      
+      <div class="comparison-header" id="comparisonHeader">
+        <p>Comparing <strong id="currentYear">-</strong> vs <strong id="previousYear">-</strong></p>
+      </div>
+
+      <div class="subsection">
+        <h3>Key Metrics Comparison</h3>
+        <div class="comparison-grid">
+          <div class="comparison-card">
+            <h4>Issues Delivered</h4>
+            <div class="comparison-values">
+              <span class="current-value" id="comp-issues-current">-</span>
+              <span class="change-indicator" id="comp-issues-change">-</span>
+            </div>
+            <span class="previous-value">Previous: <span id="comp-issues-previous">-</span></span>
+          </div>
+          
+          <div class="comparison-card">
+            <h4>Story Points</h4>
+            <div class="comparison-values">
+              <span class="current-value" id="comp-points-current">-</span>
+              <span class="change-indicator" id="comp-points-change">-</span>
+            </div>
+            <span class="previous-value">Previous: <span id="comp-points-previous">-</span></span>
+          </div>
+          
+          <div class="comparison-card">
+            <h4>Avg Cycle Time</h4>
+            <div class="comparison-values">
+              <span class="current-value" id="comp-cycle-current">-</span>
+              <span class="change-indicator" id="comp-cycle-change">-</span>
+            </div>
+            <span class="previous-value">Previous: <span id="comp-cycle-previous">-</span></span>
+          </div>
+          
+          <div class="comparison-card">
+            <h4>High Complexity Items</h4>
+            <div class="comparison-values">
+              <span class="current-value" id="comp-complexity-current">-</span>
+              <span class="change-indicator" id="comp-complexity-change">-</span>
+            </div>
+            <span class="previous-value">Previous: <span id="comp-complexity-previous">-</span></span>
+          </div>
+          
+          <div class="comparison-card">
+            <h4>Proactive Work</h4>
+            <div class="comparison-values">
+              <span class="current-value" id="comp-proactive-current">-</span>
+              <span class="change-indicator" id="comp-proactive-change">-</span>
+            </div>
+            <span class="previous-value">Previous: <span id="comp-proactive-previous">-</span></span>
+          </div>
+          
+          <div class="comparison-card">
+            <h4>Estimation Accuracy</h4>
+            <div class="comparison-values">
+              <span class="current-value" id="comp-estimation-current">-</span>
+              <span class="change-indicator" id="comp-estimation-change">-</span>
+            </div>
+            <span class="previous-value">Previous: <span id="comp-estimation-previous">-</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="insights-grid">
+          <div class="insights-card improvements" id="improvementsCard" style="display: none;">
+            <h4>📈 Improvements</h4>
+            <ul id="improvementsList"></ul>
+          </div>
+          
+          <div class="insights-card regressions" id="regressionsCard" style="display: none;">
+            <h4>📉 Areas to Watch</h4>
+            <ul id="regressionsList"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="celebrating-work">
+      <h2>🎉 Celebrating Work</h2>
+      
+      <div class="subsection">
+        <h3>Project Impact</h3>
+        <div class="chart-container">
+          <canvas id="projectImpactChart"></canvas>
+        </div>
+        <div id="projectImpactTable" class="data-table"></div>
+      </div>
+
+      <div class="subsection">
+        <h3>Complexity Conquered</h3>
+        <div class="chart-row">
+          <div class="chart-container half">
+            <canvas id="complexityDistributionChart"></canvas>
+          </div>
+          <div class="chart-container half">
+            <canvas id="topWinsChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Proactive Innovation</h3>
+        <div class="chart-row">
+          <div class="chart-container half">
+            <canvas id="proactiveRatioChart"></canvas>
+          </div>
+          <div class="chart-container half">
+            <canvas id="proactiveTrendChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Team Versatility</h3>
+        <div id="versatilityInfo" class="info-box"></div>
+      </div>
+    </section>
+
+    <section class="areas-for-improvement">
+      <h2>📈 Areas for Improvement</h2>
+
+      <div class="subsection">
+        <h3>Cycle Time Analysis</h3>
+        <div class="chart-row">
+          <div class="chart-container half">
+            <canvas id="cycleTimeByPriorityChart"></canvas>
+          </div>
+          <div class="chart-container half">
+            <canvas id="cycleTimeTrendChart"></canvas>
+          </div>
+        </div>
+        <div id="cycleTimeOutliers" class="info-box"></div>
+      </div>
+
+      <div class="subsection">
+        <h3>Unplanned Work Ratio</h3>
+        <div class="chart-row">
+          <div class="chart-container half">
+            <canvas id="unplannedWorkChart"></canvas>
+          </div>
+          <div class="chart-container half">
+            <canvas id="unplannedTrendChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Priority Alignment</h3>
+        <div class="chart-row">
+          <div class="chart-container half">
+            <canvas id="priorityDistributionChart"></canvas>
+          </div>
+          <div class="chart-container half">
+            <canvas id="priorityCycleTimeChart"></canvas>
+          </div>
+        </div>
+        <div id="priorityRecommendations" class="recommendations"></div>
+      </div>
+
+      <div class="subsection">
+        <h3>Team Load Balance</h3>
+        <div class="chart-container">
+          <canvas id="teamBalanceChart"></canvas>
+        </div>
+        <div id="loadBalanceInfo" class="info-box"></div>
+      </div>
+
+      <div class="subsection">
+        <h3>Estimation Accuracy</h3>
+        <div class="chart-row">
+          <div class="chart-container half">
+            <canvas id="estimationAccuracyChart"></canvas>
+          </div>
+          <div class="chart-container half">
+            <canvas id="estimationByPersonChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Work Patterns & Bottlenecks</h3>
+        <div class="chart-container">
+          <canvas id="wipPatternsChart"></canvas>
+        </div>
+        <div id="seasonalInsights" class="info-box"></div>
+      </div>
+
+      <div class="subsection" id="learningCurveSection">
+        <h3>Learning Curves</h3>
+        <div id="learningCurveContent"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Generated by Jira Retrospective Report Generator</p>
+  </footer>
+
+  <script>
+    // Embedded analysis data
+    const analysisData = {
+  "summary": {
+    "totalIssues": 142,
+    "totalStoryPoints": 350,
+    "dateRange": {
+      "start": "2024-01-09T20:01:33.000Z",
+      "end": "2025-12-25T04:00:59.000Z"
+    },
+    "uniqueAssignees": [
+      "caleb.thompson@mongodb.com",
+      "dachary.carey@mongodb.com",
+      "kyle.rollins@mongodb.com",
+      "cory.bullinger@mongodb.com"
+    ]
+  },
+  "celebratingWork": {
+    "projectImpact": [
+      {
+        "projectName": "other",
+        "totalStoryPoints": 350,
+        "issueCount": 142,
+        "startDate": "2024-01-09T20:01:33.000Z",
+        "endDate": "2025-12-25T04:00:59.000Z",
+        "durationDays": 716,
+        "avgPointsPerIssue": 2.5
+      }
+    ],
+    "complexityConquered": {
+      "highComplexityItems": [
+        {
+          "issueType": "",
+          "priority": "Major - P3",
+          "summary": "Restore examples or create new ones from the removal: auth and authz",
+          "labels": [],
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 13,
+          "resolved": "2025-08-20T19:32:51.000Z",
+          "created": "2025-06-12T15:16:12.000Z",
+          "cycleTimeDays": 69,
+          "priorityLevel": 3,
+          "complexity": "high",
+          "projectLabels": [],
+          "isProactive": false,
+          "isReactive": false
+        },
+        {
+          "issueType": "",
+          "priority": "Major - P3",
+          "summary": "[Atlas Arch] Deployment Paradigms add new 3/2 combo",
+          "labels": [],
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 13,
+          "resolved": "2025-08-20T19:31:57.000Z",
+          "created": "2025-06-09T20:57:53.000Z",
+          "cycleTimeDays": 71,
+          "priorityLevel": 3,
+          "complexity": "high",
+          "projectLabels": [],
+          "isProactive": false,
+          "isReactive": false
+        },
+        {
+          "issueType": "",
+          "priority": "Major - P3",
+          "summary": "[Atlas Arch] Deployment Paradigms section updates.",
+          "labels": [],
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 8,
+          "resolved": "2025-06-05T14:23:29.000Z",
+          "created": "2025-05-20T20:29:23.000Z",
+          "cycleTimeDays": 15,
+          "priorityLevel": 3,
+          "complexity": "high",
+          "projectLabels": [],
+          "isProactive": false,
+          "isReactive": false
+        },
+        {
+          "issueType": "",
+          "priority": "Major - P3",
+          "summary": "[Atlas Arch] Incorporate AuthZ and AuthN section feedback.",
+          "labels": [],
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 8,
+          "resolved": "2025-07-08T15:55:27.000Z",
+          "created": "2025-06-26T17:45:49.000Z",
+          "cycleTimeDays": 11,
+          "priorityLevel": 3,
+          "complexity": "high",
+          "projectLabels": [],
+          "isProactive": false,
+          "isReactive": false
+        },
+        {
+          "issueType": "",
+          "priority": "Minor - P4",
+          "summary": "Research GitHub App",
+          "labels": [],
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 13,
+          "resolved": "2025-03-21T16:57:04.000Z",
+          "created": "2025-02-24T14:23:51.000Z",
+          "cycleTimeDays": 25,
+          "priorityLevel": 4,
+          "complexity": "high",
+          "projectLabels": [],
+          "isProactive": false,
+          "isReactive": false
+        },
+        {
+          "issueType": "",
+          "priority": "Major - P3",
+          "summary": "[Atlas Architecture] Go SDK Example: Audit and Logging page",
+          "labels": [],
+          "assignee": "cory.bullinger@mongodb.com",
+          "storyPoints": 13,
+          "resolved": "2025-05-20T17:52:03.000Z",
+          "created": "2025-01-02T16:06:14.000Z",
+          "cycleTimeDays": 138,
+          "priorityLevel": 3,
+          "complexity": "high",
+          "projectLabels": [],
+          "isProactive": false,
+          "isReactive": false
+        },
+        {
+          "issueType": "",
+          "priority": "Critical - P2",
+          "summary": "[Atlas Architecture] Add to Artifact Repo: Go SDK Billing Data page (query and pull linked orgs)",
+          "labels": [],
+          "assignee": "cory.bullinger@mongodb.com",
+          "storyPoints": 8,
+          "resolved": "2025-08-01T17:45:11.000Z",
+          "created": "2025-06-23T18:34:25.000Z",
+          "cycleTimeDays": 38,
+          "priorityLevel": 2,
+          "complexity": "high",
+          "projectLabels": [],
+          "isProactive": false,
+          "isReactive": false
+        },
+        {
+          "issueType": "",
+          "priority": "Critical - P2",
+          "summary": "[Atlas Architecture] Create new page: Latency Reduction in Multi-Region Deployments first draft changes",
+          "labels": [],
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 8,
+          "resolved": "2025-04-30T18:17:42.000Z",
+          "created": "2025-04-14T13:37:20.000Z",
+          "cycleTimeDays": 16,
+          "priorityLevel": 2,
+          "complexity": "high",
+          "projectLabels": [],
+          "isProactive": false,
+          "isReactive": false
+        },
+        {
+          "issueType": "",
+          "priority": "Critical - P2",
+          "summary": "[Atlas Architecture] Update page added in this iteration: Multi-region Deployments first draft changes",
+          "labels": [],
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 13,
+          "resolved": "2025-04-30T18:17:24.000Z",
+          "created": "2025-04-14T13:37:23.000Z",
+          "cycleTimeDays": 16,
+          "priorityLevel": 2,
+          "complexity": "high",
+          "projectLabels": [],
+          "isProactive": false,
+          "isReactive": false
+        },
+        {
+          "issueType": "",
+          "priority": "Minor - P4",
+          "summary": "[Architecture Center] Add \"takeaway\" table to summarize options on the Auth page",
+          "labels": [],
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 13,
+          "resolved": "2025-05-01T22:04:49.000Z",
+          "created": "2025-01-30T15:24:52.000Z",
+          "cycleTimeDays": 91,
+          "priorityLevel": 4,
+          "complexity": "high",
+          "projectLabels": [],
+          "isProactive": false,
+          "isReactive": false
+        }
+      ],
+      "distribution": {
+        "high": 10,
+        "medium": 48,
+        "low": 84
+      },
+      "percentages": {
+        "high": 7,
+        "medium": 34,
+        "low": 59
+      },
+      "topTenBiggestWins": [
+        {
+          "summary": "Restore examples or create new ones from the removal: auth and authz",
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 13,
+          "cycleTimeDays": 69
+        },
+        {
+          "summary": "[Atlas Arch] Deployment Paradigms add new 3/2 combo",
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 13,
+          "cycleTimeDays": 71
+        },
+        {
+          "summary": "Research GitHub App",
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 13,
+          "cycleTimeDays": 25
+        },
+        {
+          "summary": "[Atlas Architecture] Go SDK Example: Audit and Logging page",
+          "assignee": "cory.bullinger@mongodb.com",
+          "storyPoints": 13,
+          "cycleTimeDays": 138
+        },
+        {
+          "summary": "[Atlas Architecture] Update page added in this iteration: Multi-region Deployments first draft changes",
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 13,
+          "cycleTimeDays": 16
+        },
+        {
+          "summary": "[Architecture Center] Add \"takeaway\" table to summarize options on the Auth page",
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 13,
+          "cycleTimeDays": 91
+        },
+        {
+          "summary": "[Atlas Arch] Deployment Paradigms section updates.",
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 8,
+          "cycleTimeDays": 15
+        },
+        {
+          "summary": "[Atlas Arch] Incorporate AuthZ and AuthN section feedback.",
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 8,
+          "cycleTimeDays": 11
+        },
+        {
+          "summary": "[Atlas Architecture] Add to Artifact Repo: Go SDK Billing Data page (query and pull linked orgs)",
+          "assignee": "cory.bullinger@mongodb.com",
+          "storyPoints": 8,
+          "cycleTimeDays": 38
+        },
+        {
+          "summary": "[Atlas Architecture] Create new page: Latency Reduction in Multi-Region Deployments first draft changes",
+          "assignee": "caleb.thompson@mongodb.com",
+          "storyPoints": 8,
+          "cycleTimeDays": 16
+        }
+      ]
+    },
+    "proactiveScore": {
+      "proactiveCount": 0,
+      "reactiveCount": 0,
+      "proactivePoints": 0,
+      "reactivePoints": 0,
+      "proactivePercentage": 0,
+      "byPerson": {
+        "caleb.thompson@mongodb.com": {
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        "dachary.carey@mongodb.com": {
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        "kyle.rollins@mongodb.com": {
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        "cory.bullinger@mongodb.com": {
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        }
+      },
+      "monthlyTrend": [
+        {
+          "month": "Jan 2024",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Feb 2024",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Mar 2024",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Apr 2024",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "May 2024",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Jun 2024",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Jul 2024",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Aug 2024",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Sep 2024",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Oct 2024",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Dec 2024",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Jan 2025",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Feb 2025",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Mar 2025",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Apr 2025",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "May 2025",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Jun 2025",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Jul 2025",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Aug 2025",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Sep 2025",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Oct 2025",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Nov 2025",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        },
+        {
+          "month": "Dec 2025",
+          "proactivePoints": 0,
+          "reactivePoints": 0
+        }
+      ]
+    },
+    "teamVersatility": {
+      "byPerson": {
+        "caleb.thompson@mongodb.com": {
+          "uniqueLabels": [],
+          "projectCount": 0,
+          "issueTypes": [
+            ""
+          ]
+        },
+        "dachary.carey@mongodb.com": {
+          "uniqueLabels": [],
+          "projectCount": 0,
+          "issueTypes": [
+            ""
+          ]
+        },
+        "kyle.rollins@mongodb.com": {
+          "uniqueLabels": [],
+          "projectCount": 0,
+          "issueTypes": [
+            ""
+          ]
+        },
+        "cory.bullinger@mongodb.com": {
+          "uniqueLabels": [],
+          "projectCount": 0,
+          "issueTypes": [
+            ""
+          ]
+        }
+      },
+      "crossFunctionalContributors": []
+    }
+  },
+  "areasForImprovement": {
+    "cycleTime": {
+      "overall": {
+        "mean": 50.61971830985915,
+        "median": 14,
+        "p50": 14,
+        "p75": 70.75,
+        "p95": 195.5999999999999,
+        "min": 0,
+        "max": 424,
+        "stdDev": 75.23846899573422
+      },
+      "byPriority": {
+        "Minor - P4": {
+          "mean": 41.009433962264154,
+          "median": 12.5,
+          "p50": 12.5,
+          "p75": 60.25,
+          "p95": 157.25,
+          "min": 0,
+          "max": 337,
+          "stdDev": 59.219848674562606
+        },
+        "Major - P3": {
+          "mean": 80.22727272727273,
+          "median": 23.5,
+          "p50": 23.5,
+          "p75": 110,
+          "p95": 326.5,
+          "min": 0,
+          "max": 424,
+          "stdDev": 114.63893191557484
+        },
+        "Critical - P2": {
+          "mean": 70.33333333333333,
+          "median": 26,
+          "p50": 26,
+          "p75": 163,
+          "p95": 191.6,
+          "min": 0,
+          "max": 196,
+          "stdDev": 78.4063489492755
+        },
+        "Trivial - P5": {
+          "mean": 232,
+          "median": 232,
+          "p50": 232,
+          "p75": 232,
+          "p95": 232,
+          "min": 232,
+          "max": 232,
+          "stdDev": 0
+        },
+        "Blocker - P1": {
+          "mean": 0,
+          "median": 0,
+          "p50": 0,
+          "p75": 0,
+          "p95": 0,
+          "min": 0,
+          "max": 0,
+          "stdDev": 0
+        }
+      },
+      "outliers": [
+        {
+          "issue": {
+            "issueType": "",
+            "priority": "Major - P3",
+            "summary": "Remove recommendation to raise case for logical sync",
+            "labels": [],
+            "assignee": "caleb.thompson@mongodb.com",
+            "storyPoints": 3,
+            "resolved": "2025-09-22T19:04:39.000Z",
+            "created": "2024-07-25T02:03:19.000Z",
+            "cycleTimeDays": 424,
+            "priorityLevel": 3,
+            "complexity": "medium",
+            "projectLabels": [],
+            "isProactive": false,
+            "isReactive": false
+          },
+          "standardDeviations": 4.962624660947185
+        },
+        {
+          "issue": {
+            "issueType": "",
+            "priority": "Minor - P4",
+            "summary": "General EOL-related tasks for device sync and app service",
+            "labels": [],
+            "assignee": "caleb.thompson@mongodb.com",
+            "resolved": "2025-10-01T16:55:55.000Z",
+            "created": "2024-10-29T15:06:08.000Z",
+            "cycleTimeDays": 337,
+            "priorityLevel": 4,
+            "complexity": "low",
+            "projectLabels": [],
+            "isProactive": false,
+            "isReactive": false
+          },
+          "standardDeviations": 3.806301291250061
+        },
+        {
+          "issue": {
+            "issueType": "",
+            "priority": "Major - P3",
+            "summary": "Remove Realm SDK API Reference Docs from MongoDB Docs Domain",
+            "labels": [],
+            "assignee": "cory.bullinger@mongodb.com",
+            "resolved": "2025-09-23T19:19:53.000Z",
+            "created": "2024-10-29T15:00:19.000Z",
+            "cycleTimeDays": 329,
+            "priorityLevel": 3,
+            "complexity": "low",
+            "projectLabels": [],
+            "isProactive": false,
+            "isReactive": false
+          },
+          "standardDeviations": 3.699972705530785
+        },
+        {
+          "issue": {
+            "issueType": "",
+            "priority": "Major - P3",
+            "summary": "Create & Manage User API Keys page",
+            "labels": [],
+            "assignee": "kyle.rollins@mongodb.com",
+            "resolved": "2024-07-12T14:34:38.000Z",
+            "created": "2023-10-06T16:18:36.000Z",
+            "cycleTimeDays": 279,
+            "priorityLevel": 3,
+            "complexity": "low",
+            "projectLabels": [],
+            "isProactive": false,
+            "isReactive": false
+          },
+          "standardDeviations": 3.0354190447853115
+        },
+        {
+          "issue": {
+            "issueType": "",
+            "priority": "Minor - P4",
+            "summary": "Sample Apps: Research and spec",
+            "labels": [],
+            "assignee": "kyle.rollins@mongodb.com",
+            "storyPoints": 0,
+            "resolved": "2025-10-20T19:10:23.000Z",
+            "created": "2025-02-11T16:47:25.000Z",
+            "cycleTimeDays": 251,
+            "priorityLevel": 4,
+            "complexity": "low",
+            "projectLabels": [],
+            "isProactive": false,
+            "isReactive": false
+          },
+          "standardDeviations": 2.6632689947678463
+        },
+        {
+          "issue": {
+            "issueType": "",
+            "priority": "Trivial - P5",
+            "summary": "[Atlas Architecture] Go SDK Example: Scalability page (delete data)",
+            "labels": [],
+            "assignee": "cory.bullinger@mongodb.com",
+            "storyPoints": 3,
+            "resolved": "2025-08-22T18:00:41.000Z",
+            "created": "2025-01-02T16:12:23.000Z",
+            "cycleTimeDays": 232,
+            "priorityLevel": 5,
+            "complexity": "medium",
+            "projectLabels": [],
+            "isProactive": false,
+            "isReactive": false
+          },
+          "standardDeviations": 2.4107386036845666
+        },
+        {
+          "issue": {
+            "issueType": "",
+            "priority": "Minor - P4",
+            "summary": "Additional updates to the Device Sync Deprecation Page — specifically for PowerSync.",
+            "labels": [],
+            "assignee": "caleb.thompson@mongodb.com",
+            "storyPoints": 3,
+            "resolved": "2025-09-12T16:52:23.000Z",
+            "created": "2025-02-07T17:32:24.000Z",
+            "cycleTimeDays": 217,
+            "priorityLevel": 4,
+            "complexity": "medium",
+            "projectLabels": [],
+            "isProactive": false,
+            "isReactive": false
+          },
+          "standardDeviations": 2.211372505460924
+        }
+      ],
+      "quarterlyTrend": [
+        {
+          "quarter": "Q1 2024",
+          "avgCycleTime": 39
+        },
+        {
+          "quarter": "Q2 2024",
+          "avgCycleTime": 20
+        },
+        {
+          "quarter": "Q3 2024",
+          "avgCycleTime": 76
+        },
+        {
+          "quarter": "Q4 2024",
+          "avgCycleTime": 61
+        },
+        {
+          "quarter": "Q1 2025",
+          "avgCycleTime": 65
+        },
+        {
+          "quarter": "Q2 2025",
+          "avgCycleTime": 39
+        },
+        {
+          "quarter": "Q3 2025",
+          "avgCycleTime": 94
+        },
+        {
+          "quarter": "Q4 2025",
+          "avgCycleTime": 43
+        }
+      ]
+    },
+    "learningCurve": [
+      {
+        "pattern": "Atlas Architecture",
+        "occurrences": [
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Minor - P4",
+              "summary": "[Atlas Architecture] Review Admin API endpoints and draft pseudocode",
+              "labels": [],
+              "assignee": "cory.bullinger@mongodb.com",
+              "storyPoints": 1,
+              "resolved": "2025-01-10T19:32:16.000Z",
+              "created": "2025-01-03T13:49:44.000Z",
+              "cycleTimeDays": 7,
+              "priorityLevel": 4,
+              "complexity": "low",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 7,
+            "order": 1
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Critical - P2",
+              "summary": "[Atlas Architecture] Add comparative analysis to top level Deployment Paradigms page",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 5,
+              "resolved": "2025-04-17T15:19:58.000Z",
+              "created": "2025-03-12T12:27:41.000Z",
+              "cycleTimeDays": 36,
+              "priorityLevel": 2,
+              "complexity": "medium",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 36,
+            "order": 2
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Major - P3",
+              "summary": "[Atlas Architecture] High Availability first draft changes",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 5,
+              "resolved": "2025-04-28T20:35:58.000Z",
+              "created": "2025-04-14T13:37:22.000Z",
+              "cycleTimeDays": 14,
+              "priorityLevel": 3,
+              "complexity": "medium",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 14,
+            "order": 3
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Critical - P2",
+              "summary": "[Atlas Architecture] Update page added in this iteration: Multi-cloud Deployments first draft changes",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 5,
+              "resolved": "2025-04-28T20:36:52.000Z",
+              "created": "2025-04-14T13:37:25.000Z",
+              "cycleTimeDays": 14,
+              "priorityLevel": 2,
+              "complexity": "medium",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 14,
+            "order": 4
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Critical - P2",
+              "summary": "[Atlas Architecture] Update page added in this iteration: Multi-region Deployments first draft changes",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 13,
+              "resolved": "2025-04-30T18:17:24.000Z",
+              "created": "2025-04-14T13:37:23.000Z",
+              "cycleTimeDays": 16,
+              "priorityLevel": 2,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 16,
+            "order": 5
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Critical - P2",
+              "summary": "[Atlas Architecture] Create new page: Latency Reduction in Multi-Region Deployments first draft changes",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 8,
+              "resolved": "2025-04-30T18:17:42.000Z",
+              "created": "2025-04-14T13:37:20.000Z",
+              "cycleTimeDays": 16,
+              "priorityLevel": 2,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 16,
+            "order": 6
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Major - P3",
+              "summary": "[Atlas Architecture] Go SDK Example: Audit and Logging page",
+              "labels": [],
+              "assignee": "cory.bullinger@mongodb.com",
+              "storyPoints": 13,
+              "resolved": "2025-05-20T17:52:03.000Z",
+              "created": "2025-01-02T16:06:14.000Z",
+              "cycleTimeDays": 138,
+              "priorityLevel": 3,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 138,
+            "order": 7
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Minor - P4",
+              "summary": "[Atlas Architecture] Create README for atlas-architecture-go-sdk repo",
+              "labels": [],
+              "assignee": "cory.bullinger@mongodb.com",
+              "storyPoints": 5,
+              "resolved": "2025-05-29T21:26:19.000Z",
+              "created": "2025-03-20T15:18:36.000Z",
+              "cycleTimeDays": 70,
+              "priorityLevel": 4,
+              "complexity": "medium",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 70,
+            "order": 8
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Major - P3",
+              "summary": "[Atlas Arch] Deployment Paradigms section updates.",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 8,
+              "resolved": "2025-06-05T14:23:29.000Z",
+              "created": "2025-05-20T20:29:23.000Z",
+              "cycleTimeDays": 15,
+              "priorityLevel": 3,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 15,
+            "order": 9
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Minor - P4",
+              "summary": "[Atlas Arch] High Availability updates.",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 5,
+              "resolved": "2025-06-05T14:23:48.000Z",
+              "created": "2025-05-21T15:48:33.000Z",
+              "cycleTimeDays": 14,
+              "priorityLevel": 4,
+              "complexity": "medium",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 14,
+            "order": 10
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Critical - P2",
+              "summary": "[Atlas Architecture] Go SDK Example: Billing Data page (query and pull linked orgs)",
+              "labels": [],
+              "assignee": "cory.bullinger@mongodb.com",
+              "storyPoints": 2,
+              "resolved": "2025-06-23T18:55:12.000Z",
+              "created": "2025-01-15T14:52:41.000Z",
+              "cycleTimeDays": 159,
+              "priorityLevel": 2,
+              "complexity": "low",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 159,
+            "order": 11
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Major - P3",
+              "summary": "[Atlas Arch] Incorporate AuthZ and AuthN section feedback.",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 8,
+              "resolved": "2025-07-08T15:55:27.000Z",
+              "created": "2025-06-26T17:45:49.000Z",
+              "cycleTimeDays": 11,
+              "priorityLevel": 3,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 11,
+            "order": 12
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Critical - P2",
+              "summary": "[Atlas Architecture] Go SDK Example: Billing Data page (pull and parse billing data)",
+              "labels": [],
+              "assignee": "cory.bullinger@mongodb.com",
+              "storyPoints": 5,
+              "resolved": "2025-07-09T23:34:59.000Z",
+              "created": "2025-01-02T18:53:58.000Z",
+              "cycleTimeDays": 188,
+              "priorityLevel": 2,
+              "complexity": "medium",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 188,
+            "order": 13
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Critical - P2",
+              "summary": "[Atlas Architecture] Go SDK Example: Billing Data page (historical invoices)",
+              "labels": [],
+              "assignee": "cory.bullinger@mongodb.com",
+              "storyPoints": 5,
+              "resolved": "2025-07-09T23:35:34.000Z",
+              "created": "2025-01-15T14:53:08.000Z",
+              "cycleTimeDays": 175,
+              "priorityLevel": 2,
+              "complexity": "medium",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 175,
+            "order": 14
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Minor - P4",
+              "summary": "[Atlas Architecture] Set up automated testing for Go SDK examples",
+              "labels": [],
+              "assignee": "dachary.carey@mongodb.com",
+              "storyPoints": 3,
+              "resolved": "2025-07-23T13:24:07.000Z",
+              "created": "2025-04-14T11:40:39.000Z",
+              "cycleTimeDays": 100,
+              "priorityLevel": 4,
+              "complexity": "medium",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 100,
+            "order": 15
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Critical - P2",
+              "summary": "[Atlas Architecture] Add to Artifact Repo: Go SDK Billing Data page (query and pull linked orgs)",
+              "labels": [],
+              "assignee": "cory.bullinger@mongodb.com",
+              "storyPoints": 8,
+              "resolved": "2025-08-01T17:45:11.000Z",
+              "created": "2025-06-23T18:34:25.000Z",
+              "cycleTimeDays": 38,
+              "priorityLevel": 2,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 38,
+            "order": 16
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Major - P3",
+              "summary": "[Atlas Arch] Deployment Paradigms add new 3/2 combo",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 13,
+              "resolved": "2025-08-20T19:31:57.000Z",
+              "created": "2025-06-09T20:57:53.000Z",
+              "cycleTimeDays": 71,
+              "priorityLevel": 3,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 71,
+            "order": 17
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Trivial - P5",
+              "summary": "[Atlas Architecture] Go SDK Example: Scalability page (delete data)",
+              "labels": [],
+              "assignee": "cory.bullinger@mongodb.com",
+              "storyPoints": 3,
+              "resolved": "2025-08-22T18:00:41.000Z",
+              "created": "2025-01-02T16:12:23.000Z",
+              "cycleTimeDays": 232,
+              "priorityLevel": 5,
+              "complexity": "medium",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 232,
+            "order": 18
+          }
+        ],
+        "averageCycleTime": 73,
+        "firstCycleTime": 7,
+        "lastCycleTime": 232,
+        "improvementPercentage": -3214
+      },
+      {
+        "pattern": "Migration Guides",
+        "occurrences": [
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Minor - P4",
+              "summary": "Review and edit Data API migration guide",
+              "labels": [],
+              "assignee": "cory.bullinger@mongodb.com",
+              "storyPoints": 2,
+              "resolved": "2025-02-27T13:21:15.000Z",
+              "created": "2025-02-05T19:13:51.000Z",
+              "cycleTimeDays": 21,
+              "priorityLevel": 4,
+              "complexity": "low",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 21,
+            "order": 1
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Minor - P4",
+              "summary": "Convert and publish Data API migration guide",
+              "labels": [],
+              "assignee": "cory.bullinger@mongodb.com",
+              "storyPoints": 5,
+              "resolved": "2025-03-14T17:35:04.000Z",
+              "created": "2025-02-05T19:17:16.000Z",
+              "cycleTimeDays": 36,
+              "priorityLevel": 4,
+              "complexity": "medium",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 36,
+            "order": 2
+          }
+        ],
+        "averageCycleTime": 29,
+        "firstCycleTime": 21,
+        "lastCycleTime": 36,
+        "improvementPercentage": -71
+      },
+      {
+        "pattern": "BAAS",
+        "occurrences": [
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Minor - P4",
+              "summary": "[BAAS] Increase JWT md byte limit to 4096",
+              "labels": [],
+              "assignee": "dachary.carey@mongodb.com",
+              "resolved": "2024-04-15T22:29:27.000Z",
+              "created": "2024-03-15T19:45:46.000Z",
+              "cycleTimeDays": 31,
+              "priorityLevel": 4,
+              "complexity": "low",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 31,
+            "order": 1
+          },
+          {
+            "issue": {
+              "issueType": "",
+              "priority": "Major - P3",
+              "summary": "[BAAS] Client requests through private link should bypass app's IP Access List",
+              "labels": [],
+              "assignee": "kyle.rollins@mongodb.com",
+              "resolved": "2024-05-23T18:09:44.000Z",
+              "created": "2024-05-02T17:32:40.000Z",
+              "cycleTimeDays": 21,
+              "priorityLevel": 3,
+              "complexity": "low",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            "cycleTime": 21,
+            "order": 2
+          }
+        ],
+        "averageCycleTime": 26,
+        "firstCycleTime": 31,
+        "lastCycleTime": 21,
+        "improvementPercentage": 32
+      }
+    ],
+    "unplannedWork": {
+      "reactiveCount": 0,
+      "plannedCount": 142,
+      "reactivePoints": 0,
+      "plannedPoints": 350,
+      "reactivePercentage": 0,
+      "monthlyTrend": [
+        {
+          "month": "Jan 2024",
+          "reactivePoints": 0,
+          "plannedPoints": 0
+        },
+        {
+          "month": "Feb 2024",
+          "reactivePoints": 0,
+          "plannedPoints": 0
+        },
+        {
+          "month": "Mar 2024",
+          "reactivePoints": 0,
+          "plannedPoints": 5
+        },
+        {
+          "month": "Apr 2024",
+          "reactivePoints": 0,
+          "plannedPoints": 22
+        },
+        {
+          "month": "May 2024",
+          "reactivePoints": 0,
+          "plannedPoints": 11
+        },
+        {
+          "month": "Jun 2024",
+          "reactivePoints": 0,
+          "plannedPoints": 1
+        },
+        {
+          "month": "Jul 2024",
+          "reactivePoints": 0,
+          "plannedPoints": 5
+        },
+        {
+          "month": "Aug 2024",
+          "reactivePoints": 0,
+          "plannedPoints": 2
+        },
+        {
+          "month": "Sep 2024",
+          "reactivePoints": 0,
+          "plannedPoints": 1
+        },
+        {
+          "month": "Oct 2024",
+          "reactivePoints": 0,
+          "plannedPoints": 4
+        },
+        {
+          "month": "Dec 2024",
+          "reactivePoints": 0,
+          "plannedPoints": 5
+        },
+        {
+          "month": "Jan 2025",
+          "reactivePoints": 0,
+          "plannedPoints": 14
+        },
+        {
+          "month": "Feb 2025",
+          "reactivePoints": 0,
+          "plannedPoints": 7
+        },
+        {
+          "month": "Mar 2025",
+          "reactivePoints": 0,
+          "plannedPoints": 25
+        },
+        {
+          "month": "Apr 2025",
+          "reactivePoints": 0,
+          "plannedPoints": 55
+        },
+        {
+          "month": "May 2025",
+          "reactivePoints": 0,
+          "plannedPoints": 31
+        },
+        {
+          "month": "Jun 2025",
+          "reactivePoints": 0,
+          "plannedPoints": 19
+        },
+        {
+          "month": "Jul 2025",
+          "reactivePoints": 0,
+          "plannedPoints": 21
+        },
+        {
+          "month": "Aug 2025",
+          "reactivePoints": 0,
+          "plannedPoints": 42
+        },
+        {
+          "month": "Sep 2025",
+          "reactivePoints": 0,
+          "plannedPoints": 37
+        },
+        {
+          "month": "Oct 2025",
+          "reactivePoints": 0,
+          "plannedPoints": 20
+        },
+        {
+          "month": "Nov 2025",
+          "reactivePoints": 0,
+          "plannedPoints": 9
+        },
+        {
+          "month": "Dec 2025",
+          "reactivePoints": 0,
+          "plannedPoints": 14
+        }
+      ],
+      "byPerson": {
+        "caleb.thompson@mongodb.com": {
+          "reactivePoints": 0,
+          "plannedPoints": 152
+        },
+        "dachary.carey@mongodb.com": {
+          "reactivePoints": 0,
+          "plannedPoints": 110
+        },
+        "kyle.rollins@mongodb.com": {
+          "reactivePoints": 0,
+          "plannedPoints": 10
+        },
+        "cory.bullinger@mongodb.com": {
+          "reactivePoints": 0,
+          "plannedPoints": 78
+        }
+      }
+    },
+    "workInProgress": {
+      "byMonth": [
+        {
+          "month": "Jan 2024",
+          "avgCycleTime": 47,
+          "longRunningCount": 1,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Feb 2024",
+          "avgCycleTime": 126,
+          "longRunningCount": 1,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Mar 2024",
+          "avgCycleTime": 22,
+          "longRunningCount": 1,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Apr 2024",
+          "avgCycleTime": 13,
+          "longRunningCount": 0,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "May 2024",
+          "avgCycleTime": 23,
+          "longRunningCount": 3,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Jun 2024",
+          "avgCycleTime": 46,
+          "longRunningCount": 1,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Jul 2024",
+          "avgCycleTime": 99,
+          "longRunningCount": 5,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Aug 2024",
+          "avgCycleTime": 6,
+          "longRunningCount": 0,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Sep 2024",
+          "avgCycleTime": 8,
+          "longRunningCount": 0,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Oct 2024",
+          "avgCycleTime": 3,
+          "longRunningCount": 0,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Dec 2024",
+          "avgCycleTime": 120,
+          "longRunningCount": 2,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Jan 2025",
+          "avgCycleTime": 112,
+          "longRunningCount": 3,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Feb 2025",
+          "avgCycleTime": 94,
+          "longRunningCount": 1,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Mar 2025",
+          "avgCycleTime": 16,
+          "longRunningCount": 0,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Apr 2025",
+          "avgCycleTime": 16,
+          "longRunningCount": 0,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "May 2025",
+          "avgCycleTime": 100,
+          "longRunningCount": 3,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Jun 2025",
+          "avgCycleTime": 57,
+          "longRunningCount": 2,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Jul 2025",
+          "avgCycleTime": 119,
+          "longRunningCount": 3,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Aug 2025",
+          "avgCycleTime": 114,
+          "longRunningCount": 4,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Sep 2025",
+          "avgCycleTime": 81,
+          "longRunningCount": 5,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Oct 2025",
+          "avgCycleTime": 74,
+          "longRunningCount": 4,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Nov 2025",
+          "avgCycleTime": 17,
+          "longRunningCount": 1,
+          "concurrentProjects": 0
+        },
+        {
+          "month": "Dec 2025",
+          "avgCycleTime": 15,
+          "longRunningCount": 0,
+          "concurrentProjects": 0
+        }
+      ],
+      "bottleneckMonths": [
+        "Feb 2024",
+        "Jul 2024",
+        "Dec 2024",
+        "Jan 2025",
+        "Feb 2025",
+        "May 2025",
+        "Jul 2025",
+        "Aug 2025",
+        "Sep 2025",
+        "Oct 2025"
+      ],
+      "seasonalInsights": [
+        "40 items took longer than 60 days to resolve. Consider breaking down large tasks."
+      ]
+    },
+    "estimationAccuracy": {
+      "accuracyPercentage": 80,
+      "overEstimationRatio": 13,
+      "underEstimationRatio": 7,
+      "byPerson": {
+        "cory.bullinger@mongodb.com": {
+          "accuracyPercentage": 50,
+          "avgError": -0.19
+        },
+        "dachary.carey@mongodb.com": {
+          "accuracyPercentage": 92,
+          "avgError": 0.08
+        },
+        "caleb.thompson@mongodb.com": {
+          "accuracyPercentage": 0,
+          "avgError": -0.4
+        }
+      },
+      "byWorkType": {
+        "": {
+          "avgError": 0.01,
+          "variance": 0.09
+        }
+      }
+    },
+    "priorityAlignment": {
+      "distribution": {
+        "Minor - P4": {
+          "count": 106,
+          "storyPoints": 215,
+          "percentage": 61
+        },
+        "Major - P3": {
+          "count": 22,
+          "storyPoints": 77,
+          "percentage": 22
+        },
+        "Critical - P2": {
+          "count": 12,
+          "storyPoints": 54,
+          "percentage": 15
+        },
+        "Trivial - P5": {
+          "count": 1,
+          "storyPoints": 3,
+          "percentage": 1
+        },
+        "Blocker - P1": {
+          "count": 1,
+          "storyPoints": 1,
+          "percentage": 0
+        }
+      },
+      "avgCycleTimeByPriority": {
+        "Minor - P4": 41,
+        "Major - P3": 80,
+        "Critical - P2": 70,
+        "Trivial - P5": 232,
+        "Blocker - P1": 0
+      },
+      "recommendations": [
+        "Critical (P2) items take longer to resolve than Minor (P4) items. Consider prioritizing P2s more aggressively.",
+        "61% of effort is on Minor (P4) work. Consider declining or elevating priority for some items."
+      ]
+    },
+    "teamBalance": {
+      "byPerson": {
+        "caleb.thompson@mongodb.com": {
+          "totalPoints": 152,
+          "issueCount": 34,
+          "avgPointsPerIssue": 4.5
+        },
+        "dachary.carey@mongodb.com": {
+          "totalPoints": 110,
+          "issueCount": 62,
+          "avgPointsPerIssue": 1.8
+        },
+        "kyle.rollins@mongodb.com": {
+          "totalPoints": 10,
+          "issueCount": 14,
+          "avgPointsPerIssue": 0.7
+        },
+        "cory.bullinger@mongodb.com": {
+          "totalPoints": 78,
+          "issueCount": 32,
+          "avgPointsPerIssue": 2.4
+        }
+      },
+      "avgPointsPerPerson": 88,
+      "loadImbalances": [
+        {
+          "person": "kyle.rollins@mongodb.com",
+          "variance": -88.57142857142857
+        },
+        {
+          "person": "caleb.thompson@mongodb.com",
+          "variance": 73.71428571428571
+        },
+        {
+          "person": "dachary.carey@mongodb.com",
+          "variance": 25.71428571428571
+        }
+      ]
+    }
+  },
+  "yearComparison": {
+    "currentYear": 2025,
+    "previousYear": 2024,
+    "comparison": {
+      "issues": {
+        "current": 82,
+        "previous": 60,
+        "change": 22,
+        "percentChange": 36.666666666666664
+      },
+      "storyPoints": {
+        "current": 294,
+        "previous": 56,
+        "change": 238,
+        "percentChange": 425
+      },
+      "avgCycleTime": {
+        "current": 60.23170731707317,
+        "previous": 37.483333333333334,
+        "change": 22.74837398373984,
+        "percentChange": 60.689303647149416
+      },
+      "highComplexityItems": {
+        "current": 10,
+        "previous": 0,
+        "change": 10,
+        "percentChange": 0
+      },
+      "proactivePercentage": {
+        "current": 0,
+        "previous": 0,
+        "change": 0,
+        "percentChange": 0
+      },
+      "estimationAccuracy": {
+        "current": 80,
+        "previous": 0,
+        "change": 80,
+        "percentChange": 0
+      }
+    },
+    "insights": {
+      "improvements": [
+        "Delivered 37% more issues (82 vs 60)",
+        "Completed 425% more story points (294 vs 56)"
+      ],
+      "regressions": [
+        "Cycle time increased by 61% (60 vs 37 days)"
+      ]
+    }
+  },
+  "yearData": {
+    "years": [
+      2025,
+      2024
+    ],
+    "currentYear": 2025,
+    "previousYear": 2024,
+    "currentYearData": {
+      "summary": {
+        "totalIssues": 82,
+        "totalStoryPoints": 294,
+        "dateRange": {
+          "start": "2025-01-10T19:32:16.000Z",
+          "end": "2025-12-25T04:00:59.000Z"
+        },
+        "uniqueAssignees": [
+          "caleb.thompson@mongodb.com",
+          "cory.bullinger@mongodb.com",
+          "dachary.carey@mongodb.com",
+          "kyle.rollins@mongodb.com"
+        ]
+      },
+      "celebratingWork": {
+        "projectImpact": [
+          {
+            "projectName": "other",
+            "totalStoryPoints": 294,
+            "issueCount": 82,
+            "startDate": "2025-01-10T19:32:16.000Z",
+            "endDate": "2025-12-25T04:00:59.000Z",
+            "durationDays": 349,
+            "avgPointsPerIssue": 3.6
+          }
+        ],
+        "complexityConquered": {
+          "highComplexityItems": [
+            {
+              "issueType": "",
+              "priority": "Major - P3",
+              "summary": "Restore examples or create new ones from the removal: auth and authz",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 13,
+              "resolved": "2025-08-20T19:32:51.000Z",
+              "created": "2025-06-12T15:16:12.000Z",
+              "cycleTimeDays": 69,
+              "priorityLevel": 3,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            {
+              "issueType": "",
+              "priority": "Major - P3",
+              "summary": "[Atlas Arch] Deployment Paradigms add new 3/2 combo",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 13,
+              "resolved": "2025-08-20T19:31:57.000Z",
+              "created": "2025-06-09T20:57:53.000Z",
+              "cycleTimeDays": 71,
+              "priorityLevel": 3,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            {
+              "issueType": "",
+              "priority": "Major - P3",
+              "summary": "[Atlas Arch] Deployment Paradigms section updates.",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 8,
+              "resolved": "2025-06-05T14:23:29.000Z",
+              "created": "2025-05-20T20:29:23.000Z",
+              "cycleTimeDays": 15,
+              "priorityLevel": 3,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            {
+              "issueType": "",
+              "priority": "Major - P3",
+              "summary": "[Atlas Arch] Incorporate AuthZ and AuthN section feedback.",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 8,
+              "resolved": "2025-07-08T15:55:27.000Z",
+              "created": "2025-06-26T17:45:49.000Z",
+              "cycleTimeDays": 11,
+              "priorityLevel": 3,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            {
+              "issueType": "",
+              "priority": "Minor - P4",
+              "summary": "Research GitHub App",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 13,
+              "resolved": "2025-03-21T16:57:04.000Z",
+              "created": "2025-02-24T14:23:51.000Z",
+              "cycleTimeDays": 25,
+              "priorityLevel": 4,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            {
+              "issueType": "",
+              "priority": "Major - P3",
+              "summary": "[Atlas Architecture] Go SDK Example: Audit and Logging page",
+              "labels": [],
+              "assignee": "cory.bullinger@mongodb.com",
+              "storyPoints": 13,
+              "resolved": "2025-05-20T17:52:03.000Z",
+              "created": "2025-01-02T16:06:14.000Z",
+              "cycleTimeDays": 138,
+              "priorityLevel": 3,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            {
+              "issueType": "",
+              "priority": "Critical - P2",
+              "summary": "[Atlas Architecture] Add to Artifact Repo: Go SDK Billing Data page (query and pull linked orgs)",
+              "labels": [],
+              "assignee": "cory.bullinger@mongodb.com",
+              "storyPoints": 8,
+              "resolved": "2025-08-01T17:45:11.000Z",
+              "created": "2025-06-23T18:34:25.000Z",
+              "cycleTimeDays": 38,
+              "priorityLevel": 2,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            {
+              "issueType": "",
+              "priority": "Critical - P2",
+              "summary": "[Atlas Architecture] Create new page: Latency Reduction in Multi-Region Deployments first draft changes",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 8,
+              "resolved": "2025-04-30T18:17:42.000Z",
+              "created": "2025-04-14T13:37:20.000Z",
+              "cycleTimeDays": 16,
+              "priorityLevel": 2,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            {
+              "issueType": "",
+              "priority": "Critical - P2",
+              "summary": "[Atlas Architecture] Update page added in this iteration: Multi-region Deployments first draft changes",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 13,
+              "resolved": "2025-04-30T18:17:24.000Z",
+              "created": "2025-04-14T13:37:23.000Z",
+              "cycleTimeDays": 16,
+              "priorityLevel": 2,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            },
+            {
+              "issueType": "",
+              "priority": "Minor - P4",
+              "summary": "[Architecture Center] Add \"takeaway\" table to summarize options on the Auth page",
+              "labels": [],
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 13,
+              "resolved": "2025-05-01T22:04:49.000Z",
+              "created": "2025-01-30T15:24:52.000Z",
+              "cycleTimeDays": 91,
+              "priorityLevel": 4,
+              "complexity": "high",
+              "projectLabels": [],
+              "isProactive": false,
+              "isReactive": false
+            }
+          ],
+          "distribution": {
+            "high": 10,
+            "medium": 40,
+            "low": 32
+          },
+          "percentages": {
+            "high": 12,
+            "medium": 49,
+            "low": 39
+          },
+          "topTenBiggestWins": [
+            {
+              "summary": "Restore examples or create new ones from the removal: auth and authz",
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 13,
+              "cycleTimeDays": 69
+            },
+            {
+              "summary": "[Atlas Arch] Deployment Paradigms add new 3/2 combo",
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 13,
+              "cycleTimeDays": 71
+            },
+            {
+              "summary": "Research GitHub App",
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 13,
+              "cycleTimeDays": 25
+            },
+            {
+              "summary": "[Atlas Architecture] Go SDK Example: Audit and Logging page",
+              "assignee": "cory.bullinger@mongodb.com",
+              "storyPoints": 13,
+              "cycleTimeDays": 138
+            },
+            {
+              "summary": "[Atlas Architecture] Update page added in this iteration: Multi-region Deployments first draft changes",
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 13,
+              "cycleTimeDays": 16
+            },
+            {
+              "summary": "[Architecture Center] Add \"takeaway\" table to summarize options on the Auth page",
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 13,
+              "cycleTimeDays": 91
+            },
+            {
+              "summary": "[Atlas Arch] Deployment Paradigms section updates.",
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 8,
+              "cycleTimeDays": 15
+            },
+            {
+              "summary": "[Atlas Arch] Incorporate AuthZ and AuthN section feedback.",
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 8,
+              "cycleTimeDays": 11
+            },
+            {
+              "summary": "[Atlas Architecture] Add to Artifact Repo: Go SDK Billing Data page (query and pull linked orgs)",
+              "assignee": "cory.bullinger@mongodb.com",
+              "storyPoints": 8,
+              "cycleTimeDays": 38
+            },
+            {
+              "summary": "[Atlas Architecture] Create new page: Latency Reduction in Multi-Region Deployments first draft changes",
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 8,
+              "cycleTimeDays": 16
+            }
+          ]
+        },
+        "proactiveScore": {
+          "proactiveCount": 0,
+          "reactiveCount": 0,
+          "proactivePoints": 0,
+          "reactivePoints": 0,
+          "proactivePercentage": 0,
+          "byPerson": {
+            "caleb.thompson@mongodb.com": {
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            "cory.bullinger@mongodb.com": {
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            "dachary.carey@mongodb.com": {
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            "kyle.rollins@mongodb.com": {
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            }
+          },
+          "monthlyTrend": [
+            {
+              "month": "Jan 2025",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Feb 2025",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Mar 2025",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Apr 2025",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "May 2025",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Jun 2025",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Jul 2025",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Aug 2025",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Sep 2025",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Oct 2025",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Nov 2025",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Dec 2025",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            }
+          ]
+        },
+        "teamVersatility": {
+          "byPerson": {
+            "caleb.thompson@mongodb.com": {
+              "uniqueLabels": [],
+              "projectCount": 0,
+              "issueTypes": [
+                ""
+              ]
+            },
+            "cory.bullinger@mongodb.com": {
+              "uniqueLabels": [],
+              "projectCount": 0,
+              "issueTypes": [
+                ""
+              ]
+            },
+            "dachary.carey@mongodb.com": {
+              "uniqueLabels": [],
+              "projectCount": 0,
+              "issueTypes": [
+                ""
+              ]
+            },
+            "kyle.rollins@mongodb.com": {
+              "uniqueLabels": [],
+              "projectCount": 0,
+              "issueTypes": [
+                ""
+              ]
+            }
+          },
+          "crossFunctionalContributors": []
+        }
+      },
+      "areasForImprovement": {
+        "cycleTime": {
+          "overall": {
+            "mean": 60.23170731707317,
+            "median": 17.5,
+            "p50": 17.5,
+            "p75": 71.75,
+            "p95": 231.25000000000006,
+            "min": 0,
+            "max": 424,
+            "stdDev": 85.10542941902861
+          },
+          "byPriority": {
+            "Major - P3": {
+              "mean": 95,
+              "median": 27.5,
+              "p50": 27.5,
+              "p75": 87.75,
+              "p95": 371.74999999999994,
+              "min": 5,
+              "max": 424,
+              "stdDev": 132.6078177685363
+            },
+            "Minor - P4": {
+              "mean": 48.75,
+              "median": 15,
+              "p50": 15,
+              "p75": 70.25,
+              "p95": 169.4999999999999,
+              "min": 1,
+              "max": 337,
+              "stdDev": 68.43138290774685
+            },
+            "Critical - P2": {
+              "mean": 80.25,
+              "median": 37,
+              "p50": 37,
+              "p75": 163,
+              "p95": 183.45,
+              "min": 14,
+              "max": 188,
+              "stdDev": 73.46555315248092
+            },
+            "Trivial - P5": {
+              "mean": 232,
+              "median": 232,
+              "p50": 232,
+              "p75": 232,
+              "p95": 232,
+              "min": 232,
+              "max": 232,
+              "stdDev": 0
+            },
+            "Blocker - P1": {
+              "mean": 0,
+              "median": 0,
+              "p50": 0,
+              "p75": 0,
+              "p95": 0,
+              "min": 0,
+              "max": 0,
+              "stdDev": 0
+            }
+          },
+          "outliers": [
+            {
+              "issue": {
+                "issueType": "",
+                "priority": "Major - P3",
+                "summary": "Remove recommendation to raise case for logical sync",
+                "labels": [],
+                "assignee": "caleb.thompson@mongodb.com",
+                "storyPoints": 3,
+                "resolved": "2025-09-22T19:04:39.000Z",
+                "created": "2024-07-25T02:03:19.000Z",
+                "cycleTimeDays": 424,
+                "priorityLevel": 3,
+                "complexity": "medium",
+                "projectLabels": [],
+                "isProactive": false,
+                "isReactive": false
+              },
+              "standardDeviations": 4.274325329960586
+            },
+            {
+              "issue": {
+                "issueType": "",
+                "priority": "Minor - P4",
+                "summary": "General EOL-related tasks for device sync and app service",
+                "labels": [],
+                "assignee": "caleb.thompson@mongodb.com",
+                "resolved": "2025-10-01T16:55:55.000Z",
+                "created": "2024-10-29T15:06:08.000Z",
+                "cycleTimeDays": 337,
+                "priorityLevel": 4,
+                "complexity": "low",
+                "projectLabels": [],
+                "isProactive": false,
+                "isReactive": false
+              },
+              "standardDeviations": 3.252063876209578
+            },
+            {
+              "issue": {
+                "issueType": "",
+                "priority": "Major - P3",
+                "summary": "Remove Realm SDK API Reference Docs from MongoDB Docs Domain",
+                "labels": [],
+                "assignee": "cory.bullinger@mongodb.com",
+                "resolved": "2025-09-23T19:19:53.000Z",
+                "created": "2024-10-29T15:00:19.000Z",
+                "cycleTimeDays": 329,
+                "priorityLevel": 3,
+                "complexity": "low",
+                "projectLabels": [],
+                "isProactive": false,
+                "isReactive": false
+              },
+              "standardDeviations": 3.158062822991094
+            },
+            {
+              "issue": {
+                "issueType": "",
+                "priority": "Minor - P4",
+                "summary": "Sample Apps: Research and spec",
+                "labels": [],
+                "assignee": "kyle.rollins@mongodb.com",
+                "storyPoints": 0,
+                "resolved": "2025-10-20T19:10:23.000Z",
+                "created": "2025-02-11T16:47:25.000Z",
+                "cycleTimeDays": 251,
+                "priorityLevel": 4,
+                "complexity": "low",
+                "projectLabels": [],
+                "isProactive": false,
+                "isReactive": false
+              },
+              "standardDeviations": 2.2415525541108803
+            },
+            {
+              "issue": {
+                "issueType": "",
+                "priority": "Trivial - P5",
+                "summary": "[Atlas Architecture] Go SDK Example: Scalability page (delete data)",
+                "labels": [],
+                "assignee": "cory.bullinger@mongodb.com",
+                "storyPoints": 3,
+                "resolved": "2025-08-22T18:00:41.000Z",
+                "created": "2025-01-02T16:12:23.000Z",
+                "cycleTimeDays": 232,
+                "priorityLevel": 5,
+                "complexity": "medium",
+                "projectLabels": [],
+                "isProactive": false,
+                "isReactive": false
+              },
+              "standardDeviations": 2.018300052716982
+            }
+          ],
+          "quarterlyTrend": [
+            {
+              "quarter": "Q1 2025",
+              "avgCycleTime": 65
+            },
+            {
+              "quarter": "Q2 2025",
+              "avgCycleTime": 39
+            },
+            {
+              "quarter": "Q3 2025",
+              "avgCycleTime": 94
+            },
+            {
+              "quarter": "Q4 2025",
+              "avgCycleTime": 43
+            }
+          ]
+        },
+        "learningCurve": [
+          {
+            "pattern": "Atlas Architecture",
+            "occurrences": [
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Minor - P4",
+                  "summary": "[Atlas Architecture] Review Admin API endpoints and draft pseudocode",
+                  "labels": [],
+                  "assignee": "cory.bullinger@mongodb.com",
+                  "storyPoints": 1,
+                  "resolved": "2025-01-10T19:32:16.000Z",
+                  "created": "2025-01-03T13:49:44.000Z",
+                  "cycleTimeDays": 7,
+                  "priorityLevel": 4,
+                  "complexity": "low",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 7,
+                "order": 1
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Critical - P2",
+                  "summary": "[Atlas Architecture] Add comparative analysis to top level Deployment Paradigms page",
+                  "labels": [],
+                  "assignee": "caleb.thompson@mongodb.com",
+                  "storyPoints": 5,
+                  "resolved": "2025-04-17T15:19:58.000Z",
+                  "created": "2025-03-12T12:27:41.000Z",
+                  "cycleTimeDays": 36,
+                  "priorityLevel": 2,
+                  "complexity": "medium",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 36,
+                "order": 2
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Major - P3",
+                  "summary": "[Atlas Architecture] High Availability first draft changes",
+                  "labels": [],
+                  "assignee": "caleb.thompson@mongodb.com",
+                  "storyPoints": 5,
+                  "resolved": "2025-04-28T20:35:58.000Z",
+                  "created": "2025-04-14T13:37:22.000Z",
+                  "cycleTimeDays": 14,
+                  "priorityLevel": 3,
+                  "complexity": "medium",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 14,
+                "order": 3
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Critical - P2",
+                  "summary": "[Atlas Architecture] Update page added in this iteration: Multi-cloud Deployments first draft changes",
+                  "labels": [],
+                  "assignee": "caleb.thompson@mongodb.com",
+                  "storyPoints": 5,
+                  "resolved": "2025-04-28T20:36:52.000Z",
+                  "created": "2025-04-14T13:37:25.000Z",
+                  "cycleTimeDays": 14,
+                  "priorityLevel": 2,
+                  "complexity": "medium",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 14,
+                "order": 4
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Critical - P2",
+                  "summary": "[Atlas Architecture] Update page added in this iteration: Multi-region Deployments first draft changes",
+                  "labels": [],
+                  "assignee": "caleb.thompson@mongodb.com",
+                  "storyPoints": 13,
+                  "resolved": "2025-04-30T18:17:24.000Z",
+                  "created": "2025-04-14T13:37:23.000Z",
+                  "cycleTimeDays": 16,
+                  "priorityLevel": 2,
+                  "complexity": "high",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 16,
+                "order": 5
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Critical - P2",
+                  "summary": "[Atlas Architecture] Create new page: Latency Reduction in Multi-Region Deployments first draft changes",
+                  "labels": [],
+                  "assignee": "caleb.thompson@mongodb.com",
+                  "storyPoints": 8,
+                  "resolved": "2025-04-30T18:17:42.000Z",
+                  "created": "2025-04-14T13:37:20.000Z",
+                  "cycleTimeDays": 16,
+                  "priorityLevel": 2,
+                  "complexity": "high",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 16,
+                "order": 6
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Major - P3",
+                  "summary": "[Atlas Architecture] Go SDK Example: Audit and Logging page",
+                  "labels": [],
+                  "assignee": "cory.bullinger@mongodb.com",
+                  "storyPoints": 13,
+                  "resolved": "2025-05-20T17:52:03.000Z",
+                  "created": "2025-01-02T16:06:14.000Z",
+                  "cycleTimeDays": 138,
+                  "priorityLevel": 3,
+                  "complexity": "high",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 138,
+                "order": 7
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Minor - P4",
+                  "summary": "[Atlas Architecture] Create README for atlas-architecture-go-sdk repo",
+                  "labels": [],
+                  "assignee": "cory.bullinger@mongodb.com",
+                  "storyPoints": 5,
+                  "resolved": "2025-05-29T21:26:19.000Z",
+                  "created": "2025-03-20T15:18:36.000Z",
+                  "cycleTimeDays": 70,
+                  "priorityLevel": 4,
+                  "complexity": "medium",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 70,
+                "order": 8
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Major - P3",
+                  "summary": "[Atlas Arch] Deployment Paradigms section updates.",
+                  "labels": [],
+                  "assignee": "caleb.thompson@mongodb.com",
+                  "storyPoints": 8,
+                  "resolved": "2025-06-05T14:23:29.000Z",
+                  "created": "2025-05-20T20:29:23.000Z",
+                  "cycleTimeDays": 15,
+                  "priorityLevel": 3,
+                  "complexity": "high",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 15,
+                "order": 9
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Minor - P4",
+                  "summary": "[Atlas Arch] High Availability updates.",
+                  "labels": [],
+                  "assignee": "caleb.thompson@mongodb.com",
+                  "storyPoints": 5,
+                  "resolved": "2025-06-05T14:23:48.000Z",
+                  "created": "2025-05-21T15:48:33.000Z",
+                  "cycleTimeDays": 14,
+                  "priorityLevel": 4,
+                  "complexity": "medium",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 14,
+                "order": 10
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Critical - P2",
+                  "summary": "[Atlas Architecture] Go SDK Example: Billing Data page (query and pull linked orgs)",
+                  "labels": [],
+                  "assignee": "cory.bullinger@mongodb.com",
+                  "storyPoints": 2,
+                  "resolved": "2025-06-23T18:55:12.000Z",
+                  "created": "2025-01-15T14:52:41.000Z",
+                  "cycleTimeDays": 159,
+                  "priorityLevel": 2,
+                  "complexity": "low",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 159,
+                "order": 11
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Major - P3",
+                  "summary": "[Atlas Arch] Incorporate AuthZ and AuthN section feedback.",
+                  "labels": [],
+                  "assignee": "caleb.thompson@mongodb.com",
+                  "storyPoints": 8,
+                  "resolved": "2025-07-08T15:55:27.000Z",
+                  "created": "2025-06-26T17:45:49.000Z",
+                  "cycleTimeDays": 11,
+                  "priorityLevel": 3,
+                  "complexity": "high",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 11,
+                "order": 12
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Critical - P2",
+                  "summary": "[Atlas Architecture] Go SDK Example: Billing Data page (pull and parse billing data)",
+                  "labels": [],
+                  "assignee": "cory.bullinger@mongodb.com",
+                  "storyPoints": 5,
+                  "resolved": "2025-07-09T23:34:59.000Z",
+                  "created": "2025-01-02T18:53:58.000Z",
+                  "cycleTimeDays": 188,
+                  "priorityLevel": 2,
+                  "complexity": "medium",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 188,
+                "order": 13
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Critical - P2",
+                  "summary": "[Atlas Architecture] Go SDK Example: Billing Data page (historical invoices)",
+                  "labels": [],
+                  "assignee": "cory.bullinger@mongodb.com",
+                  "storyPoints": 5,
+                  "resolved": "2025-07-09T23:35:34.000Z",
+                  "created": "2025-01-15T14:53:08.000Z",
+                  "cycleTimeDays": 175,
+                  "priorityLevel": 2,
+                  "complexity": "medium",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 175,
+                "order": 14
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Minor - P4",
+                  "summary": "[Atlas Architecture] Set up automated testing for Go SDK examples",
+                  "labels": [],
+                  "assignee": "dachary.carey@mongodb.com",
+                  "storyPoints": 3,
+                  "resolved": "2025-07-23T13:24:07.000Z",
+                  "created": "2025-04-14T11:40:39.000Z",
+                  "cycleTimeDays": 100,
+                  "priorityLevel": 4,
+                  "complexity": "medium",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 100,
+                "order": 15
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Critical - P2",
+                  "summary": "[Atlas Architecture] Add to Artifact Repo: Go SDK Billing Data page (query and pull linked orgs)",
+                  "labels": [],
+                  "assignee": "cory.bullinger@mongodb.com",
+                  "storyPoints": 8,
+                  "resolved": "2025-08-01T17:45:11.000Z",
+                  "created": "2025-06-23T18:34:25.000Z",
+                  "cycleTimeDays": 38,
+                  "priorityLevel": 2,
+                  "complexity": "high",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 38,
+                "order": 16
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Major - P3",
+                  "summary": "[Atlas Arch] Deployment Paradigms add new 3/2 combo",
+                  "labels": [],
+                  "assignee": "caleb.thompson@mongodb.com",
+                  "storyPoints": 13,
+                  "resolved": "2025-08-20T19:31:57.000Z",
+                  "created": "2025-06-09T20:57:53.000Z",
+                  "cycleTimeDays": 71,
+                  "priorityLevel": 3,
+                  "complexity": "high",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 71,
+                "order": 17
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Trivial - P5",
+                  "summary": "[Atlas Architecture] Go SDK Example: Scalability page (delete data)",
+                  "labels": [],
+                  "assignee": "cory.bullinger@mongodb.com",
+                  "storyPoints": 3,
+                  "resolved": "2025-08-22T18:00:41.000Z",
+                  "created": "2025-01-02T16:12:23.000Z",
+                  "cycleTimeDays": 232,
+                  "priorityLevel": 5,
+                  "complexity": "medium",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 232,
+                "order": 18
+              }
+            ],
+            "averageCycleTime": 73,
+            "firstCycleTime": 7,
+            "lastCycleTime": 232,
+            "improvementPercentage": -3214
+          },
+          {
+            "pattern": "Migration Guides",
+            "occurrences": [
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Minor - P4",
+                  "summary": "Review and edit Data API migration guide",
+                  "labels": [],
+                  "assignee": "cory.bullinger@mongodb.com",
+                  "storyPoints": 2,
+                  "resolved": "2025-02-27T13:21:15.000Z",
+                  "created": "2025-02-05T19:13:51.000Z",
+                  "cycleTimeDays": 21,
+                  "priorityLevel": 4,
+                  "complexity": "low",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 21,
+                "order": 1
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Minor - P4",
+                  "summary": "Convert and publish Data API migration guide",
+                  "labels": [],
+                  "assignee": "cory.bullinger@mongodb.com",
+                  "storyPoints": 5,
+                  "resolved": "2025-03-14T17:35:04.000Z",
+                  "created": "2025-02-05T19:17:16.000Z",
+                  "cycleTimeDays": 36,
+                  "priorityLevel": 4,
+                  "complexity": "medium",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 36,
+                "order": 2
+              }
+            ],
+            "averageCycleTime": 29,
+            "firstCycleTime": 21,
+            "lastCycleTime": 36,
+            "improvementPercentage": -71
+          }
+        ],
+        "unplannedWork": {
+          "reactiveCount": 0,
+          "plannedCount": 82,
+          "reactivePoints": 0,
+          "plannedPoints": 294,
+          "reactivePercentage": 0,
+          "monthlyTrend": [
+            {
+              "month": "Jan 2025",
+              "reactivePoints": 0,
+              "plannedPoints": 14
+            },
+            {
+              "month": "Feb 2025",
+              "reactivePoints": 0,
+              "plannedPoints": 7
+            },
+            {
+              "month": "Mar 2025",
+              "reactivePoints": 0,
+              "plannedPoints": 25
+            },
+            {
+              "month": "Apr 2025",
+              "reactivePoints": 0,
+              "plannedPoints": 55
+            },
+            {
+              "month": "May 2025",
+              "reactivePoints": 0,
+              "plannedPoints": 31
+            },
+            {
+              "month": "Jun 2025",
+              "reactivePoints": 0,
+              "plannedPoints": 19
+            },
+            {
+              "month": "Jul 2025",
+              "reactivePoints": 0,
+              "plannedPoints": 21
+            },
+            {
+              "month": "Aug 2025",
+              "reactivePoints": 0,
+              "plannedPoints": 42
+            },
+            {
+              "month": "Sep 2025",
+              "reactivePoints": 0,
+              "plannedPoints": 37
+            },
+            {
+              "month": "Oct 2025",
+              "reactivePoints": 0,
+              "plannedPoints": 20
+            },
+            {
+              "month": "Nov 2025",
+              "reactivePoints": 0,
+              "plannedPoints": 9
+            },
+            {
+              "month": "Dec 2025",
+              "reactivePoints": 0,
+              "plannedPoints": 14
+            }
+          ],
+          "byPerson": {
+            "caleb.thompson@mongodb.com": {
+              "reactivePoints": 0,
+              "plannedPoints": 141
+            },
+            "cory.bullinger@mongodb.com": {
+              "reactivePoints": 0,
+              "plannedPoints": 77
+            },
+            "dachary.carey@mongodb.com": {
+              "reactivePoints": 0,
+              "plannedPoints": 76
+            },
+            "kyle.rollins@mongodb.com": {
+              "reactivePoints": 0,
+              "plannedPoints": 0
+            }
+          }
+        },
+        "workInProgress": {
+          "byMonth": [
+            {
+              "month": "Jan 2025",
+              "avgCycleTime": 112,
+              "longRunningCount": 3,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Feb 2025",
+              "avgCycleTime": 94,
+              "longRunningCount": 1,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Mar 2025",
+              "avgCycleTime": 16,
+              "longRunningCount": 0,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Apr 2025",
+              "avgCycleTime": 16,
+              "longRunningCount": 0,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "May 2025",
+              "avgCycleTime": 100,
+              "longRunningCount": 3,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Jun 2025",
+              "avgCycleTime": 57,
+              "longRunningCount": 2,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Jul 2025",
+              "avgCycleTime": 119,
+              "longRunningCount": 3,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Aug 2025",
+              "avgCycleTime": 114,
+              "longRunningCount": 4,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Sep 2025",
+              "avgCycleTime": 81,
+              "longRunningCount": 5,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Oct 2025",
+              "avgCycleTime": 74,
+              "longRunningCount": 4,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Nov 2025",
+              "avgCycleTime": 17,
+              "longRunningCount": 1,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Dec 2025",
+              "avgCycleTime": 15,
+              "longRunningCount": 0,
+              "concurrentProjects": 0
+            }
+          ],
+          "bottleneckMonths": [
+            "Jan 2025",
+            "Feb 2025",
+            "May 2025",
+            "Jul 2025",
+            "Aug 2025"
+          ],
+          "seasonalInsights": [
+            "26 items took longer than 60 days to resolve. Consider breaking down large tasks."
+          ]
+        },
+        "estimationAccuracy": {
+          "accuracyPercentage": 80,
+          "overEstimationRatio": 13,
+          "underEstimationRatio": 7,
+          "byPerson": {
+            "cory.bullinger@mongodb.com": {
+              "accuracyPercentage": 50,
+              "avgError": -0.19
+            },
+            "dachary.carey@mongodb.com": {
+              "accuracyPercentage": 92,
+              "avgError": 0.08
+            },
+            "caleb.thompson@mongodb.com": {
+              "accuracyPercentage": 0,
+              "avgError": -0.4
+            }
+          },
+          "byWorkType": {
+            "": {
+              "avgError": 0.01,
+              "variance": 0.09
+            }
+          }
+        },
+        "priorityAlignment": {
+          "distribution": {
+            "Major - P3": {
+              "count": 12,
+              "storyPoints": 69,
+              "percentage": 23
+            },
+            "Minor - P4": {
+              "count": 60,
+              "storyPoints": 170,
+              "percentage": 58
+            },
+            "Critical - P2": {
+              "count": 8,
+              "storyPoints": 51,
+              "percentage": 17
+            },
+            "Trivial - P5": {
+              "count": 1,
+              "storyPoints": 3,
+              "percentage": 1
+            },
+            "Blocker - P1": {
+              "count": 1,
+              "storyPoints": 1,
+              "percentage": 0
+            }
+          },
+          "avgCycleTimeByPriority": {
+            "Major - P3": 95,
+            "Minor - P4": 49,
+            "Critical - P2": 80,
+            "Trivial - P5": 232,
+            "Blocker - P1": 0
+          },
+          "recommendations": [
+            "Critical (P2) items take longer to resolve than Minor (P4) items. Consider prioritizing P2s more aggressively.",
+            "58% of effort is on Minor (P4) work. Consider declining or elevating priority for some items."
+          ]
+        },
+        "teamBalance": {
+          "byPerson": {
+            "caleb.thompson@mongodb.com": {
+              "totalPoints": 141,
+              "issueCount": 25,
+              "avgPointsPerIssue": 5.6
+            },
+            "cory.bullinger@mongodb.com": {
+              "totalPoints": 77,
+              "issueCount": 24,
+              "avgPointsPerIssue": 3.2
+            },
+            "dachary.carey@mongodb.com": {
+              "totalPoints": 76,
+              "issueCount": 32,
+              "avgPointsPerIssue": 2.4
+            },
+            "kyle.rollins@mongodb.com": {
+              "totalPoints": 0,
+              "issueCount": 1,
+              "avgPointsPerIssue": 0
+            }
+          },
+          "avgPointsPerPerson": 74,
+          "loadImbalances": [
+            {
+              "person": "kyle.rollins@mongodb.com",
+              "variance": -100
+            },
+            {
+              "person": "caleb.thompson@mongodb.com",
+              "variance": 91.83673469387756
+            }
+          ]
+        }
+      }
+    },
+    "previousYearData": {
+      "summary": {
+        "totalIssues": 60,
+        "totalStoryPoints": 56,
+        "dateRange": {
+          "start": "2024-01-09T20:01:33.000Z",
+          "end": "2024-12-23T17:53:12.000Z"
+        },
+        "uniqueAssignees": [
+          "caleb.thompson@mongodb.com",
+          "dachary.carey@mongodb.com",
+          "kyle.rollins@mongodb.com",
+          "cory.bullinger@mongodb.com"
+        ]
+      },
+      "celebratingWork": {
+        "projectImpact": [
+          {
+            "projectName": "other",
+            "totalStoryPoints": 56,
+            "issueCount": 60,
+            "startDate": "2024-01-09T20:01:33.000Z",
+            "endDate": "2024-12-23T17:53:12.000Z",
+            "durationDays": 349,
+            "avgPointsPerIssue": 0.9
+          }
+        ],
+        "complexityConquered": {
+          "highComplexityItems": [],
+          "distribution": {
+            "high": 0,
+            "medium": 8,
+            "low": 52
+          },
+          "percentages": {
+            "high": 0,
+            "medium": 13,
+            "low": 87
+          },
+          "topTenBiggestWins": [
+            {
+              "summary": "App Services Admin API",
+              "assignee": "dachary.carey@mongodb.com",
+              "storyPoints": 5,
+              "cycleTimeDays": 14
+            },
+            {
+              "summary": ".NET: Manage Sync Sessions page",
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 3,
+              "cycleTimeDays": 47
+            },
+            {
+              "summary": "Manage Edge Servers",
+              "assignee": "dachary.carey@mongodb.com",
+              "storyPoints": 3,
+              "cycleTimeDays": 8
+            },
+            {
+              "summary": "Connect to an Edge Server",
+              "assignee": "dachary.carey@mongodb.com",
+              "storyPoints": 3,
+              "cycleTimeDays": 12
+            },
+            {
+              "summary": "Monitor Edge Server",
+              "assignee": "dachary.carey@mongodb.com",
+              "storyPoints": 3,
+              "cycleTimeDays": 17
+            },
+            {
+              "summary": "Add MongoDB Crud Snippet examples",
+              "assignee": "caleb.thompson@mongodb.com",
+              "storyPoints": 3,
+              "cycleTimeDays": 71
+            },
+            {
+              "summary": "C#: Create a Vector Search index programmatically",
+              "assignee": "dachary.carey@mongodb.com",
+              "storyPoints": 3,
+              "cycleTimeDays": 123
+            },
+            {
+              "summary": "Re-index App Services content",
+              "assignee": "kyle.rollins@mongodb.com",
+              "storyPoints": 3,
+              "cycleTimeDays": 2
+            },
+            {
+              "summary": "Configure an Edge Server",
+              "assignee": "dachary.carey@mongodb.com",
+              "storyPoints": 2,
+              "cycleTimeDays": 12
+            },
+            {
+              "summary": "Semantic Kernel C#: Create a Vector Search index procedures",
+              "assignee": "dachary.carey@mongodb.com",
+              "storyPoints": 2,
+              "cycleTimeDays": 117
+            }
+          ]
+        },
+        "proactiveScore": {
+          "proactiveCount": 0,
+          "reactiveCount": 0,
+          "proactivePoints": 0,
+          "reactivePoints": 0,
+          "proactivePercentage": 0,
+          "byPerson": {
+            "caleb.thompson@mongodb.com": {
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            "dachary.carey@mongodb.com": {
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            "kyle.rollins@mongodb.com": {
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            "cory.bullinger@mongodb.com": {
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            }
+          },
+          "monthlyTrend": [
+            {
+              "month": "Jan 2024",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Feb 2024",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Mar 2024",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Apr 2024",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "May 2024",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Jun 2024",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Jul 2024",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Aug 2024",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Sep 2024",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Oct 2024",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            },
+            {
+              "month": "Dec 2024",
+              "proactivePoints": 0,
+              "reactivePoints": 0
+            }
+          ]
+        },
+        "teamVersatility": {
+          "byPerson": {
+            "caleb.thompson@mongodb.com": {
+              "uniqueLabels": [],
+              "projectCount": 0,
+              "issueTypes": [
+                ""
+              ]
+            },
+            "dachary.carey@mongodb.com": {
+              "uniqueLabels": [],
+              "projectCount": 0,
+              "issueTypes": [
+                ""
+              ]
+            },
+            "kyle.rollins@mongodb.com": {
+              "uniqueLabels": [],
+              "projectCount": 0,
+              "issueTypes": [
+                ""
+              ]
+            },
+            "cory.bullinger@mongodb.com": {
+              "uniqueLabels": [],
+              "projectCount": 0,
+              "issueTypes": [
+                ""
+              ]
+            }
+          },
+          "crossFunctionalContributors": []
+        }
+      },
+      "areasForImprovement": {
+        "cycleTime": {
+          "overall": {
+            "mean": 37.483333333333334,
+            "median": 10,
+            "p50": 10,
+            "p75": 49.25,
+            "p95": 135.8499999999999,
+            "min": 0,
+            "max": 279,
+            "stdDev": 56.566624926325204
+          },
+          "byPriority": {
+            "Minor - P4": {
+              "mean": 30.91304347826087,
+              "median": 10,
+              "p50": 10,
+              "p75": 43,
+              "p95": 115.5,
+              "min": 0,
+              "max": 171,
+              "stdDev": 42.34579496959297
+            },
+            "Critical - P2": {
+              "mean": 50.5,
+              "median": 3,
+              "p50": 3,
+              "p75": 51.25,
+              "p95": 167.04999999999993,
+              "min": 0,
+              "max": 196,
+              "stdDev": 84.01339178964268
+            },
+            "Major - P3": {
+              "mean": 62.5,
+              "median": 23.5,
+              "p50": 23.5,
+              "p75": 101.5,
+              "p95": 210.14999999999984,
+              "min": 0,
+              "max": 279,
+              "stdDev": 85.05674576422496
+            }
+          },
+          "outliers": [
+            {
+              "issue": {
+                "issueType": "",
+                "priority": "Major - P3",
+                "summary": "Create & Manage User API Keys page",
+                "labels": [],
+                "assignee": "kyle.rollins@mongodb.com",
+                "resolved": "2024-07-12T14:34:38.000Z",
+                "created": "2023-10-06T16:18:36.000Z",
+                "cycleTimeDays": 279,
+                "priorityLevel": 3,
+                "complexity": "low",
+                "projectLabels": [],
+                "isProactive": false,
+                "isReactive": false
+              },
+              "standardDeviations": 4.269596550637912
+            },
+            {
+              "issue": {
+                "issueType": "",
+                "priority": "Critical - P2",
+                "summary": "Clarify prerequisites for PRIMARY failover feature referenced in `Compact an Atlas Volume` doc",
+                "labels": [],
+                "assignee": "cory.bullinger@mongodb.com",
+                "resolved": "2024-07-12T13:31:09.000Z",
+                "created": "2023-12-29T10:51:35.000Z",
+                "cycleTimeDays": 196,
+                "priorityLevel": 2,
+                "complexity": "low",
+                "projectLabels": [],
+                "isProactive": false,
+                "isReactive": false
+              },
+              "standardDeviations": 2.8023002410542532
+            },
+            {
+              "issue": {
+                "issueType": "",
+                "priority": "Minor - P4",
+                "summary": "Update quick start page",
+                "labels": [],
+                "assignee": "kyle.rollins@mongodb.com",
+                "resolved": "2024-01-09T20:01:46.000Z",
+                "created": "2023-07-21T19:10:56.000Z",
+                "cycleTimeDays": 171,
+                "priorityLevel": 4,
+                "complexity": "low",
+                "projectLabels": [],
+                "isProactive": false,
+                "isReactive": false
+              },
+              "standardDeviations": 2.360343521300139
+            }
+          ],
+          "quarterlyTrend": [
+            {
+              "quarter": "Q1 2024",
+              "avgCycleTime": 39
+            },
+            {
+              "quarter": "Q2 2024",
+              "avgCycleTime": 20
+            },
+            {
+              "quarter": "Q3 2024",
+              "avgCycleTime": 76
+            },
+            {
+              "quarter": "Q4 2024",
+              "avgCycleTime": 61
+            }
+          ]
+        },
+        "learningCurve": [
+          {
+            "pattern": "BAAS",
+            "occurrences": [
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Minor - P4",
+                  "summary": "[BAAS] Increase JWT md byte limit to 4096",
+                  "labels": [],
+                  "assignee": "dachary.carey@mongodb.com",
+                  "resolved": "2024-04-15T22:29:27.000Z",
+                  "created": "2024-03-15T19:45:46.000Z",
+                  "cycleTimeDays": 31,
+                  "priorityLevel": 4,
+                  "complexity": "low",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 31,
+                "order": 1
+              },
+              {
+                "issue": {
+                  "issueType": "",
+                  "priority": "Major - P3",
+                  "summary": "[BAAS] Client requests through private link should bypass app's IP Access List",
+                  "labels": [],
+                  "assignee": "kyle.rollins@mongodb.com",
+                  "resolved": "2024-05-23T18:09:44.000Z",
+                  "created": "2024-05-02T17:32:40.000Z",
+                  "cycleTimeDays": 21,
+                  "priorityLevel": 3,
+                  "complexity": "low",
+                  "projectLabels": [],
+                  "isProactive": false,
+                  "isReactive": false
+                },
+                "cycleTime": 21,
+                "order": 2
+              }
+            ],
+            "averageCycleTime": 26,
+            "firstCycleTime": 31,
+            "lastCycleTime": 21,
+            "improvementPercentage": 32
+          }
+        ],
+        "unplannedWork": {
+          "reactiveCount": 0,
+          "plannedCount": 60,
+          "reactivePoints": 0,
+          "plannedPoints": 56,
+          "reactivePercentage": 0,
+          "monthlyTrend": [
+            {
+              "month": "Jan 2024",
+              "reactivePoints": 0,
+              "plannedPoints": 0
+            },
+            {
+              "month": "Feb 2024",
+              "reactivePoints": 0,
+              "plannedPoints": 0
+            },
+            {
+              "month": "Mar 2024",
+              "reactivePoints": 0,
+              "plannedPoints": 5
+            },
+            {
+              "month": "Apr 2024",
+              "reactivePoints": 0,
+              "plannedPoints": 22
+            },
+            {
+              "month": "May 2024",
+              "reactivePoints": 0,
+              "plannedPoints": 11
+            },
+            {
+              "month": "Jun 2024",
+              "reactivePoints": 0,
+              "plannedPoints": 1
+            },
+            {
+              "month": "Jul 2024",
+              "reactivePoints": 0,
+              "plannedPoints": 5
+            },
+            {
+              "month": "Aug 2024",
+              "reactivePoints": 0,
+              "plannedPoints": 2
+            },
+            {
+              "month": "Sep 2024",
+              "reactivePoints": 0,
+              "plannedPoints": 1
+            },
+            {
+              "month": "Oct 2024",
+              "reactivePoints": 0,
+              "plannedPoints": 4
+            },
+            {
+              "month": "Dec 2024",
+              "reactivePoints": 0,
+              "plannedPoints": 5
+            }
+          ],
+          "byPerson": {
+            "caleb.thompson@mongodb.com": {
+              "reactivePoints": 0,
+              "plannedPoints": 11
+            },
+            "dachary.carey@mongodb.com": {
+              "reactivePoints": 0,
+              "plannedPoints": 34
+            },
+            "kyle.rollins@mongodb.com": {
+              "reactivePoints": 0,
+              "plannedPoints": 10
+            },
+            "cory.bullinger@mongodb.com": {
+              "reactivePoints": 0,
+              "plannedPoints": 1
+            }
+          }
+        },
+        "workInProgress": {
+          "byMonth": [
+            {
+              "month": "Jan 2024",
+              "avgCycleTime": 47,
+              "longRunningCount": 1,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Feb 2024",
+              "avgCycleTime": 126,
+              "longRunningCount": 1,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Mar 2024",
+              "avgCycleTime": 22,
+              "longRunningCount": 1,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Apr 2024",
+              "avgCycleTime": 13,
+              "longRunningCount": 0,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "May 2024",
+              "avgCycleTime": 23,
+              "longRunningCount": 3,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Jun 2024",
+              "avgCycleTime": 46,
+              "longRunningCount": 1,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Jul 2024",
+              "avgCycleTime": 99,
+              "longRunningCount": 5,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Aug 2024",
+              "avgCycleTime": 6,
+              "longRunningCount": 0,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Sep 2024",
+              "avgCycleTime": 8,
+              "longRunningCount": 0,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Oct 2024",
+              "avgCycleTime": 3,
+              "longRunningCount": 0,
+              "concurrentProjects": 0
+            },
+            {
+              "month": "Dec 2024",
+              "avgCycleTime": 120,
+              "longRunningCount": 2,
+              "concurrentProjects": 0
+            }
+          ],
+          "bottleneckMonths": [
+            "Feb 2024",
+            "Jul 2024",
+            "Dec 2024"
+          ],
+          "seasonalInsights": [
+            "Q4 shows slower cycle times, likely due to holidays and end-of-year activities.",
+            "14 items took longer than 60 days to resolve. Consider breaking down large tasks."
+          ]
+        },
+        "estimationAccuracy": {
+          "accuracyPercentage": 0,
+          "overEstimationRatio": 0,
+          "underEstimationRatio": 0,
+          "byPerson": {},
+          "byWorkType": {}
+        },
+        "priorityAlignment": {
+          "distribution": {
+            "Minor - P4": {
+              "count": 46,
+              "storyPoints": 45,
+              "percentage": 80
+            },
+            "Critical - P2": {
+              "count": 4,
+              "storyPoints": 3,
+              "percentage": 5
+            },
+            "Major - P3": {
+              "count": 10,
+              "storyPoints": 8,
+              "percentage": 14
+            }
+          },
+          "avgCycleTimeByPriority": {
+            "Minor - P4": 31,
+            "Critical - P2": 51,
+            "Major - P3": 63
+          },
+          "recommendations": [
+            "Critical (P2) items take longer to resolve than Minor (P4) items. Consider prioritizing P2s more aggressively.",
+            "80% of effort is on Minor (P4) work. Consider declining or elevating priority for some items.",
+            "Only 5% of effort is on Critical (P2) work. Ensure high-priority items are properly identified."
+          ]
+        },
+        "teamBalance": {
+          "byPerson": {
+            "caleb.thompson@mongodb.com": {
+              "totalPoints": 11,
+              "issueCount": 9,
+              "avgPointsPerIssue": 1.2
+            },
+            "dachary.carey@mongodb.com": {
+              "totalPoints": 34,
+              "issueCount": 30,
+              "avgPointsPerIssue": 1.1
+            },
+            "kyle.rollins@mongodb.com": {
+              "totalPoints": 10,
+              "issueCount": 13,
+              "avgPointsPerIssue": 0.8
+            },
+            "cory.bullinger@mongodb.com": {
+              "totalPoints": 1,
+              "issueCount": 8,
+              "avgPointsPerIssue": 0.1
+            }
+          },
+          "avgPointsPerPerson": 14,
+          "loadImbalances": [
+            {
+              "person": "dachary.carey@mongodb.com",
+              "variance": 142.85714285714286
+            },
+            {
+              "person": "cory.bullinger@mongodb.com",
+              "variance": -92.85714285714286
+            },
+            {
+              "person": "kyle.rollins@mongodb.com",
+              "variance": -28.57142857142857
+            },
+            {
+              "person": "caleb.thompson@mongodb.com",
+              "variance": -21.428571428571427
+            }
+          ]
+        }
+      }
+    }
+  }
+};
+    
+    // Store chart instances globally for reinitialization
+    const chartInstances = {};
+    
+    // Year switching logic
+    let currentYearData = analysisData;
+    let isYearSwitchEnabled = false;
+
+    if (analysisData.yearData && analysisData.yearData.years.length >= 2) {
+      isYearSwitchEnabled = true;
+      
+      // Use current year's data as the initial display instead of combined data
+      currentYearData = analysisData.yearData.currentYearData;
+      
+      // Show year selector
+      const yearSelectorContainer = document.getElementById('yearSelectorContainer');
+      yearSelectorContainer.style.display = 'flex';
+      
+      // Populate year selector
+      const yearSelector = document.getElementById('yearSelector');
+      analysisData.yearData.years.forEach(year => {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        yearSelector.appendChild(option);
+      });
+      
+      // Set default to current year
+      yearSelector.value = analysisData.yearData.currentYear;
+      
+      // Add change listener
+      yearSelector.addEventListener('change', (e) => {
+        const selectedYear = parseInt(e.target.value);
+        switchToYear(selectedYear);
+      });
+    }
+
+    function switchToYear(year) {
+      if (!analysisData.yearData) return;
+      
+      // Determine which dataset to use
+      if (year === analysisData.yearData.currentYear) {
+        currentYearData = analysisData.yearData.currentYearData;
+      } else if (year === analysisData.yearData.previousYear) {
+        currentYearData = analysisData.yearData.previousYearData;
+      } else {
+        return; // Unknown year
+      }
+      
+      // Update summary metrics
+      updateSummaryMetrics(currentYearData);
+      
+      // Destroy existing charts
+      Object.values(chartInstances).forEach(chart => {
+        if (chart) chart.destroy();
+      });
+      
+      // Reinitialize all charts with new data
+      initializeCharts(currentYearData);
+      
+      // Update helper content sections with year-specific data but preserve comparison
+      updateHelperContentWithYearData(currentYearData);
+    }
+
+    function updateSummaryMetrics(data) {
+      document.getElementById('totalIssues').textContent = data.summary.totalIssues;
+      document.getElementById('totalPoints').textContent = data.summary.totalStoryPoints;
+      document.getElementById('teamSize').textContent = data.summary.uniqueAssignees.length;
+      document.getElementById('avgCycleTime').textContent = 
+        Math.round(data.areasForImprovement.cycleTime.overall.mean) + ' days';
+    }
+
+    function updateHelperContent(data) {
+      
+    // Year-over-Year Comparison
+    if (data.yearComparison) {
+      const yoySection = document.getElementById('yearComparisonSection');
+      if (yoySection) {
+        yoySection.style.display = 'block';
+        
+        document.getElementById('currentYear').textContent = data.yearComparison.currentYear;
+        document.getElementById('previousYear').textContent = data.yearComparison.previousYear;
+        
+        // Issues
+        document.getElementById('comp-issues-current').textContent = data.yearComparison.comparison.issues.current;
+        document.getElementById('comp-issues-previous').textContent = data.yearComparison.comparison.issues.previous;
+        const issuesChange = document.getElementById('comp-issues-change');
+        issuesChange.textContent = (data.yearComparison.comparison.issues.percentChange > 0 ? '+' : '') + 
+          data.yearComparison.comparison.issues.percentChange.toFixed(0) + '%';
+        issuesChange.className = 'change-indicator ' + 
+          (data.yearComparison.comparison.issues.percentChange > 5 ? 'positive' : 
+           data.yearComparison.comparison.issues.percentChange < -5 ? 'negative' : 'neutral');
+        
+        // Story Points
+        document.getElementById('comp-points-current').textContent = data.yearComparison.comparison.storyPoints.current.toFixed(0);
+        document.getElementById('comp-points-previous').textContent = data.yearComparison.comparison.storyPoints.previous.toFixed(0);
+        const pointsChange = document.getElementById('comp-points-change');
+        pointsChange.textContent = (data.yearComparison.comparison.storyPoints.percentChange > 0 ? '+' : '') + 
+          data.yearComparison.comparison.storyPoints.percentChange.toFixed(0) + '%';
+        pointsChange.className = 'change-indicator ' + 
+          (data.yearComparison.comparison.storyPoints.percentChange > 5 ? 'positive' : 
+           data.yearComparison.comparison.storyPoints.percentChange < -5 ? 'negative' : 'neutral');
+        
+        // Cycle Time (inverse - lower is better)
+        document.getElementById('comp-cycle-current').textContent = data.yearComparison.comparison.avgCycleTime.current.toFixed(0) + ' days';
+        document.getElementById('comp-cycle-previous').textContent = data.yearComparison.comparison.avgCycleTime.previous.toFixed(0) + ' days';
+        const cycleChange = document.getElementById('comp-cycle-change');
+        cycleChange.textContent = (data.yearComparison.comparison.avgCycleTime.percentChange > 0 ? '+' : '') + 
+          data.yearComparison.comparison.avgCycleTime.percentChange.toFixed(0) + '%';
+        cycleChange.className = 'change-indicator ' + 
+          (data.yearComparison.comparison.avgCycleTime.percentChange < -5 ? 'positive' : 
+           data.yearComparison.comparison.avgCycleTime.percentChange > 5 ? 'negative' : 'neutral');
+        
+        // High Complexity
+        document.getElementById('comp-complexity-current').textContent = data.yearComparison.comparison.highComplexityItems.current;
+        document.getElementById('comp-complexity-previous').textContent = data.yearComparison.comparison.highComplexityItems.previous;
+        const complexityChange = document.getElementById('comp-complexity-change');
+        complexityChange.textContent = (data.yearComparison.comparison.highComplexityItems.percentChange > 0 ? '+' : '') + 
+          data.yearComparison.comparison.highComplexityItems.percentChange.toFixed(0) + '%';
+        complexityChange.className = 'change-indicator ' + 
+          (data.yearComparison.comparison.highComplexityItems.percentChange > 5 ? 'positive' : 
+           data.yearComparison.comparison.highComplexityItems.percentChange < -5 ? 'negative' : 'neutral');
+        
+        // Proactive
+        document.getElementById('comp-proactive-current').textContent = data.yearComparison.comparison.proactivePercentage.current.toFixed(0) + '%';
+        document.getElementById('comp-proactive-previous').textContent = data.yearComparison.comparison.proactivePercentage.previous.toFixed(0) + '%';
+        const proactiveChange = document.getElementById('comp-proactive-change');
+        proactiveChange.textContent = (data.yearComparison.comparison.proactivePercentage.percentChange > 0 ? '+' : '') + 
+          data.yearComparison.comparison.proactivePercentage.percentChange.toFixed(0) + '%';
+        proactiveChange.className = 'change-indicator ' + 
+          (data.yearComparison.comparison.proactivePercentage.percentChange > 5 ? 'positive' : 
+           data.yearComparison.comparison.proactivePercentage.percentChange < -5 ? 'negative' : 'neutral');
+        
+        // Estimation
+        document.getElementById('comp-estimation-current').textContent = data.yearComparison.comparison.estimationAccuracy.current.toFixed(0) + '%';
+        document.getElementById('comp-estimation-previous').textContent = data.yearComparison.comparison.estimationAccuracy.previous.toFixed(0) + '%';
+        const estimationChange = document.getElementById('comp-estimation-change');
+        estimationChange.textContent = (data.yearComparison.comparison.estimationAccuracy.percentChange > 0 ? '+' : '') + 
+          data.yearComparison.comparison.estimationAccuracy.percentChange.toFixed(0) + '%';
+        estimationChange.className = 'change-indicator ' + 
+          (data.yearComparison.comparison.estimationAccuracy.percentChange > 5 ? 'positive' : 
+           data.yearComparison.comparison.estimationAccuracy.percentChange < -5 ? 'negative' : 'neutral');
+        
+        // Insights
+        if (data.yearComparison.insights.improvements.length > 0) {
+          document.getElementById('improvementsCard').style.display = 'block';
+          document.getElementById('improvementsList').innerHTML = 
+            data.yearComparison.insights.improvements.map(i => '<li>' + i + '</li>').join('');
+        }
+        
+        if (data.yearComparison.insights.regressions.length > 0) {
+          document.getElementById('regressionsCard').style.display = 'block';
+          document.getElementById('regressionsList').innerHTML = 
+            data.yearComparison.insights.regressions.map(r => '<li>' + r + '</li>').join('');
+        }
+      }
+    }
+    
+    // Project Impact Table
+    const projectTable = document.getElementById('projectImpactTable');
+    if (projectTable && data.celebratingWork.projectImpact.length > 0) {
+      let tableHTML = '<table><thead><tr><th>Project</th><th>Story Points</th><th>Issues</th><th>Avg Points/Issue</th><th>Duration</th></tr></thead><tbody>';
+      data.celebratingWork.projectImpact.forEach(p => {
+        tableHTML += `<tr>
+          <td>${p.projectName}</td>
+          <td>${p.totalStoryPoints}</td>
+          <td>${p.issueCount}</td>
+          <td>${p.avgPointsPerIssue.toFixed(1)}</td>
+          <td>${p.durationDays} days</td>
+        </tr>`;
+      });
+      tableHTML += '</tbody></table>';
+      projectTable.innerHTML = tableHTML;
+    }
+    
+    // Versatility Info
+    const versatilityInfo = document.getElementById('versatilityInfo');
+    if (versatilityInfo) {
+      const crossFunctional = data.celebratingWork.teamVersatility.crossFunctionalContributors;
+      if (crossFunctional.length > 0) {
+        versatilityInfo.innerHTML = `
+          <h4>🌟 Cross-Functional Contributors</h4>
+          <p>The following team members worked across 3+ project themes:</p>
+          <ul>${crossFunctional.map(p => '<li>' + p + '</li>').join('')}</ul>
+        `;
+      } else {
+        versatilityInfo.innerHTML = '<p>No cross-functional contributors identified (need 3+ project themes)</p>';
+      }
+    }
+    
+    // Cycle Time Outliers
+    const outliersDiv = document.getElementById('cycleTimeOutliers');
+    if (outliersDiv && data.areasForImprovement.cycleTime.outliers.length > 0) {
+      const outliers = data.areasForImprovement.cycleTime.outliers.slice(0, 5);
+      outliersDiv.innerHTML = `
+        <h4>⚠️ Top Cycle Time Outliers</h4>
+        <ul>${outliers.map(o => 
+          '<li><strong>' + o.issue.summary + '</strong> - ' + o.issue.cycleTimeDays + ' days (' + o.standardDeviations.toFixed(1) + 'σ)</li>'
+        ).join('')}</ul>
+      `;
+    }
+    
+    // Priority Recommendations
+    const recommendationsDiv = document.getElementById('priorityRecommendations');
+    if (recommendationsDiv && data.areasForImprovement.priorityAlignment.recommendations.length > 0) {
+      recommendationsDiv.innerHTML = `
+        <h4>💡 Recommendations</h4>
+        <ul>${data.areasForImprovement.priorityAlignment.recommendations.map(r => '<li>' + r + '</li>').join('')}</ul>
+      `;
+    }
+    
+    // Load Balance Info
+    const loadBalanceInfo = document.getElementById('loadBalanceInfo');
+    if (loadBalanceInfo && data.areasForImprovement.teamBalance.loadImbalances.length > 0) {
+      const imbalances = data.areasForImprovement.teamBalance.loadImbalances;
+      loadBalanceInfo.innerHTML = `
+        <h4>⚖️ Load Imbalances Detected</h4>
+        <p>The following team members have workload variance &gt;20% from average:</p>
+        <ul>${imbalances.map(i => 
+          '<li><strong>' + i.person + '</strong>: ' + (i.variance > 0 ? '+' : '') + i.variance.toFixed(0) + '% from average</li>'
+        ).join('')}</ul>
+      `;
+    }
+    
+    // Seasonal Insights
+    const seasonalDiv = document.getElementById('seasonalInsights');
+    if (seasonalDiv && data.areasForImprovement.workInProgress.seasonalInsights.length > 0) {
+      seasonalDiv.innerHTML = `
+        <h4>📅 Seasonal Insights</h4>
+        <ul>${data.areasForImprovement.workInProgress.seasonalInsights.map(s => '<li>' + s + '</li>').join('')}</ul>
+      `;
+    }
+    
+    // Learning Curves
+    const learningSection = document.getElementById('learningCurveSection');
+    const learningContent = document.getElementById('learningCurveContent');
+    if (learningContent && data.areasForImprovement.learningCurve.length > 0) {
+      let html = '';
+      data.areasForImprovement.learningCurve.slice(0, 3).forEach(lc => {
+        const improvement = lc.improvementPercentage > 0 ? '📈 Improved' : '📉 Slower';
+        const color = lc.improvementPercentage > 0 ? '#27ae60' : '#e74c3c';
+        html += `
+          <div class="info-box" style="border-left-color: ${color}">
+            <h4>${lc.pattern} (${lc.occurrences.length} occurrences)</h4>
+            <p>
+              First: ${lc.firstCycleTime} days | 
+              Last: ${lc.lastCycleTime} days | 
+              <strong style="color: ${color}">${improvement} ${Math.abs(lc.improvementPercentage)}%</strong>
+            </p>
+          </div>
+        `;
+      });
+      learningContent.innerHTML = html;
+    } else if (learningSection) {
+      learningSection.style.display = 'none';
+    }
+  
+    }
+
+    function updateHelperContentWithYearData(yearSpecificData) {
+      // Create a merged object that has year-specific data but keeps the comparison
+      const mergedData = {
+        ...yearSpecificData,
+        yearComparison: analysisData.yearComparison
+      };
+      updateHelperContent(mergedData);
+    }
+
+    function initializeCharts(data) {
+      
+    // Helper functions
+    function truncate(text, maxLength) {
+      if (text.length <= maxLength) return text;
+      return text.substring(0, maxLength - 3) + "...";
+    }
+    
+    // Chart formatters embedded
+    const formatters = {
+    formatProjectImpactChart: function formatProjectImpactChart(result) {
+    const projects = result.celebratingWork.projectImpact;
+    return {
+        labels: projects.map((p) => p.projectName),
+        datasets: [
+            {
+                label: "Story Points",
+                data: projects.map((p) => p.totalStoryPoints),
+                backgroundColor: "#3498db",
+                borderColor: "#2980b9",
+                borderWidth: 1,
+            },
+        ],
+    };
+},
+    formatComplexityDistributionChart: function formatComplexityDistributionChart(result) {
+    const complexity = result.celebratingWork.complexityConquered;
+    return {
+        labels: ["High (≥8 pts)", "Medium (3-7 pts)", "Low (1-2 pts)"],
+        datasets: [
+            {
+                label: "Issues",
+                data: [
+                    complexity.distribution.high,
+                    complexity.distribution.medium,
+                    complexity.distribution.low,
+                ],
+                backgroundColor: ["#e74c3c", "#f39c12", "#2ecc71"],
+                borderWidth: 2,
+                borderColor: "#fff",
+            },
+        ],
+    };
+},
+    formatTopWinsChart: function formatTopWinsChart(result) {
+    const topWins = result.celebratingWork.complexityConquered.topTenBiggestWins.slice(0, 10);
+    return {
+        labels: topWins.map((w) => truncate(w.summary, 40)),
+        datasets: [
+            {
+                label: "Story Points",
+                data: topWins.map((w) => w.storyPoints),
+                backgroundColor: "#9b59b6",
+                borderColor: "#8e44ad",
+                borderWidth: 1,
+            },
+        ],
+    };
+},
+    formatProactiveRatioChart: function formatProactiveRatioChart(result) {
+    const proactive = result.celebratingWork.proactiveScore;
+    return {
+        labels: ["Proactive", "Reactive"],
+        datasets: [
+            {
+                label: "Story Points",
+                data: [proactive.proactivePoints, proactive.reactivePoints],
+                backgroundColor: ["#27ae60", "#e67e22"],
+                borderWidth: 2,
+                borderColor: "#fff",
+            },
+        ],
+    };
+},
+    formatProactiveTrendChart: function formatProactiveTrendChart(result) {
+    const trend = result.celebratingWork.proactiveScore.monthlyTrend;
+    return {
+        labels: trend.map((t) => t.month),
+        datasets: [
+            {
+                label: "Proactive",
+                data: trend.map((t) => t.proactivePoints),
+                backgroundColor: "rgba(46, 204, 113, 0.2)",
+                borderColor: "#27ae60",
+                borderWidth: 2,
+            },
+            {
+                label: "Reactive",
+                data: trend.map((t) => t.reactivePoints),
+                backgroundColor: "rgba(230, 126, 34, 0.2)",
+                borderColor: "#e67e22",
+                borderWidth: 2,
+            },
+        ],
+    };
+},
+    formatCycleTimeByPriorityChart: function formatCycleTimeByPriorityChart(result) {
+    const byPriority = result.areasForImprovement.cycleTime.byPriority;
+    const priorities = Object.keys(byPriority);
+    const avgCycleTimes = priorities.map((p) => Math.round(byPriority[p].mean));
+    return {
+        labels: priorities,
+        datasets: [
+            {
+                label: "Avg Cycle Time (days)",
+                data: avgCycleTimes,
+                backgroundColor: "#3498db",
+                borderColor: "#2980b9",
+                borderWidth: 1,
+            },
+        ],
+    };
+},
+    formatCycleTimeTrendChart: function formatCycleTimeTrendChart(result) {
+    const trend = result.areasForImprovement.cycleTime.quarterlyTrend;
+    return {
+        labels: trend.map((t) => t.quarter),
+        datasets: [
+            {
+                label: "Avg Cycle Time (days)",
+                data: trend.map((t) => t.avgCycleTime),
+                backgroundColor: "rgba(52, 152, 219, 0.2)",
+                borderColor: "#3498db",
+                borderWidth: 2,
+            },
+        ],
+    };
+},
+    formatUnplannedWorkChart: function formatUnplannedWorkChart(result) {
+    const unplanned = result.areasForImprovement.unplannedWork;
+    return {
+        labels: ["Reactive", "Planned"],
+        datasets: [
+            {
+                label: "Story Points",
+                data: [unplanned.reactivePoints, unplanned.plannedPoints],
+                backgroundColor: ["#e74c3c", "#2ecc71"],
+                borderWidth: 2,
+                borderColor: "#fff",
+            },
+        ],
+    };
+},
+    formatUnplannedTrendChart: function formatUnplannedTrendChart(result) {
+    const trend = result.areasForImprovement.unplannedWork.monthlyTrend;
+    return {
+        labels: trend.map((t) => t.month),
+        datasets: [
+            {
+                label: "Reactive",
+                data: trend.map((t) => t.reactivePoints),
+                backgroundColor: "rgba(231, 76, 60, 0.2)",
+                borderColor: "#e74c3c",
+                borderWidth: 2,
+            },
+            {
+                label: "Planned",
+                data: trend.map((t) => t.plannedPoints),
+                backgroundColor: "rgba(46, 204, 113, 0.2)",
+                borderColor: "#2ecc71",
+                borderWidth: 2,
+            },
+        ],
+    };
+},
+    formatPriorityDistributionChart: function formatPriorityDistributionChart(result) {
+    const distribution = result.areasForImprovement.priorityAlignment.distribution;
+    const priorities = Object.keys(distribution);
+    const points = priorities.map((p) => distribution[p].storyPoints);
+    return {
+        labels: priorities,
+        datasets: [
+            {
+                label: "Story Points",
+                data: points,
+                backgroundColor: ["#e74c3c", "#f39c12", "#3498db", "#95a5a6"],
+                borderWidth: 2,
+                borderColor: "#fff",
+            },
+        ],
+    };
+},
+    formatPriorityCycleTimeChart: function formatPriorityCycleTimeChart(result) {
+    const avgCycleTime = result.areasForImprovement.priorityAlignment.avgCycleTimeByPriority;
+    const priorities = Object.keys(avgCycleTime);
+    const cycleTimes = priorities.map((p) => avgCycleTime[p]);
+    return {
+        labels: priorities,
+        datasets: [
+            {
+                label: "Avg Cycle Time (days)",
+                data: cycleTimes,
+                backgroundColor: "#e67e22",
+                borderColor: "#d35400",
+                borderWidth: 1,
+            },
+        ],
+    };
+},
+    formatTeamBalanceChart: function formatTeamBalanceChart(result) {
+    const byPerson = result.areasForImprovement.teamBalance.byPerson;
+    const people = Object.keys(byPerson);
+    const points = people.map((p) => byPerson[p].totalPoints);
+    return {
+        labels: people,
+        datasets: [
+            {
+                label: "Total Story Points",
+                data: points,
+                backgroundColor: "#9b59b6",
+                borderColor: "#8e44ad",
+                borderWidth: 1,
+            },
+        ],
+    };
+},
+    formatEstimationAccuracyChart: function formatEstimationAccuracyChart(result) {
+    const estimation = result.areasForImprovement.estimationAccuracy;
+    return {
+        labels: ["Accurate (±20%)", "Over-estimated", "Under-estimated"],
+        datasets: [
+            {
+                label: "Percentage",
+                data: [
+                    estimation.accuracyPercentage,
+                    estimation.overEstimationRatio,
+                    estimation.underEstimationRatio,
+                ],
+                backgroundColor: ["#2ecc71", "#3498db", "#f39c12"],
+                borderWidth: 2,
+                borderColor: "#fff",
+            },
+        ],
+    };
+},
+    formatEstimationByPersonChart: function formatEstimationByPersonChart(result) {
+    const byPerson = result.areasForImprovement.estimationAccuracy.byPerson;
+    const people = Object.keys(byPerson);
+    const accuracies = people.map((p) => byPerson[p].accuracyPercentage);
+    return {
+        labels: people,
+        datasets: [
+            {
+                label: "Accuracy %",
+                data: accuracies,
+                backgroundColor: "#1abc9c",
+                borderColor: "#16a085",
+                borderWidth: 1,
+            },
+        ],
+    };
+},
+    formatWIPPatternsChart: function formatWIPPatternsChart(result) {
+    const wip = result.areasForImprovement.workInProgress.byMonth;
+    return {
+        labels: wip.map((w) => w.month),
+        datasets: [
+            {
+                label: "Avg Cycle Time (days)",
+                data: wip.map((w) => w.avgCycleTime),
+                backgroundColor: "rgba(155, 89, 182, 0.2)",
+                borderColor: "#9b59b6",
+                borderWidth: 2,
+            },
+        ],
+    };
+}
+  };
+    
+    // Chart configs embedded
+    
+    function getBarChartConfig(horizontal = false) {
+      return {
+        indexAxis: horizontal ? 'y' : 'x',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            padding: 12,
+            titleFont: { size: 14 },
+            bodyFont: { size: 13 }
+          }
+        },
+        scales: {
+          y: { beginAtZero: true, ticks: { font: { size: 12 } } },
+          x: { ticks: { font: { size: 12 } } }
+        }
+      };
+    }
+    
+    function getLineChartConfig() {
+      return {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top', labels: { font: { size: 12 } } },
+          tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            padding: 12,
+            titleFont: { size: 14 },
+            bodyFont: { size: 13 }
+          }
+        },
+        scales: {
+          y: { beginAtZero: true, ticks: { font: { size: 12 } } },
+          x: { ticks: { font: { size: 11 }, maxRotation: 45, minRotation: 45 } }
+        }
+      };
+    }
+    
+    function getDoughnutChartConfig() {
+      return {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'right', labels: { font: { size: 12 }, padding: 15 } },
+          tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            padding: 12,
+            titleFont: { size: 14 },
+            bodyFont: { size: 13 },
+            callbacks: {
+              label: function(context) {
+                const label = context.label || '';
+                const value = context.parsed || 0;
+                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                return label + ': ' + value + ' (' + percentage + '%)';
+              }
+            }
+          }
+        }
+      };
+    }
+  
+    
+    // Initialize charts
+    
+    chartInstances['projectImpactChart'] = new Chart(document.getElementById('projectImpactChart'), {
+      type: 'bar',
+      data: formatters.formatProjectImpactChart(data),
+      options: getBarChartConfig()
+    });
+  
+
+
+    chartInstances['complexityDistributionChart'] = new Chart(document.getElementById('complexityDistributionChart'), {
+      type: 'doughnut',
+      data: formatters.formatComplexityDistributionChart(data),
+      options: getDoughnutChartConfig()
+    });
+  
+
+
+    chartInstances['topWinsChart'] = new Chart(document.getElementById('topWinsChart'), {
+      type: 'bar',
+      data: formatters.formatTopWinsChart(data),
+      options: getBarChartConfig(true)
+    });
+  
+
+
+    chartInstances['proactiveRatioChart'] = new Chart(document.getElementById('proactiveRatioChart'), {
+      type: 'doughnut',
+      data: formatters.formatProactiveRatioChart(data),
+      options: getDoughnutChartConfig()
+    });
+  
+
+
+    chartInstances['proactiveTrendChart'] = new Chart(document.getElementById('proactiveTrendChart'), {
+      type: 'line',
+      data: formatters.formatProactiveTrendChart(data),
+      options: getLineChartConfig()
+    });
+  
+
+
+    chartInstances['cycleTimeByPriorityChart'] = new Chart(document.getElementById('cycleTimeByPriorityChart'), {
+      type: 'bar',
+      data: formatters.formatCycleTimeByPriorityChart(data),
+      options: getBarChartConfig()
+    });
+  
+
+
+    chartInstances['cycleTimeTrendChart'] = new Chart(document.getElementById('cycleTimeTrendChart'), {
+      type: 'line',
+      data: formatters.formatCycleTimeTrendChart(data),
+      options: getLineChartConfig()
+    });
+  
+
+
+    chartInstances['unplannedWorkChart'] = new Chart(document.getElementById('unplannedWorkChart'), {
+      type: 'doughnut',
+      data: formatters.formatUnplannedWorkChart(data),
+      options: getDoughnutChartConfig()
+    });
+  
+
+
+    chartInstances['unplannedTrendChart'] = new Chart(document.getElementById('unplannedTrendChart'), {
+      type: 'line',
+      data: formatters.formatUnplannedTrendChart(data),
+      options: getLineChartConfig()
+    });
+  
+
+
+    chartInstances['priorityDistributionChart'] = new Chart(document.getElementById('priorityDistributionChart'), {
+      type: 'doughnut',
+      data: formatters.formatPriorityDistributionChart(data),
+      options: getDoughnutChartConfig()
+    });
+  
+
+
+    chartInstances['priorityCycleTimeChart'] = new Chart(document.getElementById('priorityCycleTimeChart'), {
+      type: 'bar',
+      data: formatters.formatPriorityCycleTimeChart(data),
+      options: getBarChartConfig()
+    });
+  
+
+
+    chartInstances['teamBalanceChart'] = new Chart(document.getElementById('teamBalanceChart'), {
+      type: 'bar',
+      data: formatters.formatTeamBalanceChart(data),
+      options: getBarChartConfig()
+    });
+  
+
+
+    chartInstances['estimationAccuracyChart'] = new Chart(document.getElementById('estimationAccuracyChart'), {
+      type: 'doughnut',
+      data: formatters.formatEstimationAccuracyChart(data),
+      options: getDoughnutChartConfig()
+    });
+  
+
+
+    chartInstances['estimationByPersonChart'] = new Chart(document.getElementById('estimationByPersonChart'), {
+      type: 'bar',
+      data: formatters.formatEstimationByPersonChart(data),
+      options: getBarChartConfig()
+    });
+  
+
+
+    chartInstances['wipPatternsChart'] = new Chart(document.getElementById('wipPatternsChart'), {
+      type: 'line',
+      data: formatters.formatWIPPatternsChart(data),
+      options: getLineChartConfig()
+    });
+  
+  
+    }
+
+    // Populate initial summary metrics (use currentYearData which may be year-specific)
+    document.getElementById('totalIssues').textContent = currentYearData.summary.totalIssues;
+    document.getElementById('totalPoints').textContent = currentYearData.summary.totalStoryPoints;
+    document.getElementById('teamSize').textContent = currentYearData.summary.uniqueAssignees.length;
+    document.getElementById('avgCycleTime').textContent = 
+      Math.round(currentYearData.areasForImprovement.cycleTime.overall.mean) + ' days';
+
+    // Initialize all charts with initial data (use currentYearData)
+    initializeCharts(currentYearData);
+    
+    // Initialize helper content
+    if (isYearSwitchEnabled) {
+      // Use year-specific data with comparison preserved
+      updateHelperContentWithYearData(currentYearData);
+    } else {
+      // No year switching, use full analysisData
+      updateHelperContent(analysisData);
+    }
+  </script>
+</body>
+</html>

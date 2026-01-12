@@ -7,6 +7,22 @@ import type { JiraIssue, EstimationMetrics } from "../types.js";
 
 /**
  * Analyze estimation accuracy
+ *
+ * Compares estimated story points to actual story points delivered
+ * to understand estimation patterns. An estimate is considered "accurate"
+ * if the actual points are within ±20% of the estimate.
+ *
+ * Also breaks down accuracy by person and work type (proactive vs reactive)
+ * to identify where estimation is strong or needs improvement.
+ *
+ * @param issues - Array of Jira issues with estimation data
+ * @returns Estimation metrics including accuracy percentage and breakdowns
+ *
+ * @example
+ * ```typescript
+ * const metrics = analyzeEstimation(issues);
+ * console.log(`Team accuracy: ${metrics.accuracyPercentage}%`);
+ * ```
  */
 export function analyzeEstimation(issues: JiraIssue[]): EstimationMetrics {
   // Filter issues that have both estimate and actual points
