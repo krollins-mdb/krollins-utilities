@@ -18,6 +18,25 @@ const PROJECT_LABELS = [
 ];
 
 /**
+ * Configurable complexity thresholds
+ */
+let COMPLEXITY_THRESHOLDS = {
+  high: 8,
+  medium: 3,
+};
+
+/**
+ * Set custom complexity thresholds
+ */
+export function setComplexityThresholds(
+  highThreshold: number,
+  mediumThreshold: number
+): void {
+  COMPLEXITY_THRESHOLDS.high = highThreshold;
+  COMPLEXITY_THRESHOLDS.medium = mediumThreshold;
+}
+
+/**
  * Transform parsed issues into enriched JiraIssue objects with derived fields
  *
  * @param parsedIssues - Array of parsed issues from CSV
@@ -91,8 +110,8 @@ function extractPriorityLevel(priority: string): number {
 
 /**
  * Determine complexity based on story points
- * High: >= 8 points
- * Medium: 3-7 points
+ * High: >= 8 points (configurable)
+ * Medium: >= 3 points (configurable)
  * Low: 1-2 points
  */
 function determineComplexity(storyPoints?: number): "high" | "medium" | "low" {
@@ -100,9 +119,9 @@ function determineComplexity(storyPoints?: number): "high" | "medium" | "low" {
     return "low"; // Default for items without points
   }
 
-  if (storyPoints >= 8) {
+  if (storyPoints >= COMPLEXITY_THRESHOLDS.high) {
     return "high";
-  } else if (storyPoints >= 3) {
+  } else if (storyPoints >= COMPLEXITY_THRESHOLDS.medium) {
     return "medium";
   } else {
     return "low";
