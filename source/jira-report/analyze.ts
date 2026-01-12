@@ -15,6 +15,7 @@ import { analyzeWorkInProgress } from "./analyzers/workInProgress.js";
 import { analyzeEstimation } from "./analyzers/estimation.js";
 import { analyzePriority } from "./analyzers/priority.js";
 import { analyzeTeamBalance } from "./analyzers/teamBalance.js";
+import { analyzeVelocity } from "./analyzers/velocity.js";
 import { detectYears, compareYears } from "./analyzers/yearComparison.js";
 
 /**
@@ -53,6 +54,9 @@ export function analyzeIssues(issues: JiraIssue[]): AnalysisResult {
 
   const teamVersatility = analyzeVersatility(issues);
   console.log("  ✓ Team versatility analysis complete");
+
+  const velocity = analyzeVelocity(issues);
+  console.log("  ✓ Velocity analysis complete");
 
   const cycleTime = analyzeCycleTime(issues);
   console.log("  ✓ Cycle time analysis complete");
@@ -126,12 +130,14 @@ export function analyzeIssues(issues: JiraIssue[]): AnalysisResult {
         end: endDate,
       },
       uniqueAssignees,
+      averageVelocity: velocity.averageVelocity,
     },
     celebratingWork: {
       projectImpact,
       complexityConquered,
       proactiveScore,
       teamVersatility,
+      velocity,
     },
     areasForImprovement: {
       cycleTime,
@@ -162,18 +168,22 @@ function runAnalysisForIssues(issues: JiraIssue[]): AnalysisResult {
   const endDate = new Date(Math.max(...dates.map((d) => d.getTime())));
   const uniqueAssignees = [...new Set(issues.map((issue) => issue.assignee))];
 
+  const velocity = analyzeVelocity(issues);
+
   return {
     summary: {
       totalIssues,
       totalStoryPoints,
       dateRange: { start: startDate, end: endDate },
       uniqueAssignees,
+      averageVelocity: velocity.averageVelocity,
     },
     celebratingWork: {
       projectImpact: analyzeProjectImpact(issues),
       complexityConquered: analyzeComplexity(issues),
       proactiveScore: analyzeProactive(issues),
       teamVersatility: analyzeVersatility(issues),
+      velocity,
     },
     areasForImprovement: {
       cycleTime: analyzeCycleTime(issues),

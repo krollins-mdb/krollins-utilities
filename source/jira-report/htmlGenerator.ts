@@ -172,6 +172,16 @@ function generateChartInitCode(result: AnalysisResult): string {
     )
   );
 
+  // Velocity Chart
+  charts.push(
+    generateChartCode(
+      "velocityChart",
+      "bar",
+      "formatters.formatVelocityChart(data)",
+      "getBarChartConfig()"
+    )
+  );
+
   // Cycle Time by Priority Chart
   charts.push(
     generateChartCode(
@@ -383,6 +393,16 @@ function generateHelperContent(result: AnalysisResult): string {
           (data.yearComparison.comparison.estimationAccuracy.percentChange > 5 ? 'positive' : 
            data.yearComparison.comparison.estimationAccuracy.percentChange < -5 ? 'negative' : 'neutral');
         
+        // Velocity
+        document.getElementById('comp-velocity-current').textContent = data.yearComparison.comparison.averageVelocity.current.toFixed(1) + ' pts/mo';
+        document.getElementById('comp-velocity-previous').textContent = data.yearComparison.comparison.averageVelocity.previous.toFixed(1) + ' pts/mo';
+        const velocityChange = document.getElementById('comp-velocity-change');
+        velocityChange.textContent = (data.yearComparison.comparison.averageVelocity.percentChange > 0 ? '+' : '') + 
+          data.yearComparison.comparison.averageVelocity.percentChange.toFixed(0) + '%';
+        velocityChange.className = 'change-indicator ' + 
+          (data.yearComparison.comparison.averageVelocity.percentChange > 5 ? 'positive' : 
+           data.yearComparison.comparison.averageVelocity.percentChange < -5 ? 'negative' : 'neutral');
+        
         // Insights
         if (data.yearComparison.insights.improvements.length > 0) {
           document.getElementById('improvementsCard').style.display = 'block';
@@ -402,6 +422,14 @@ function generateHelperContent(result: AnalysisResult): string {
 
   return `
     ${yearComparisonScript}
+    
+    // Velocity
+    if (data.celebratingWork && data.celebratingWork.velocity) {
+      const avgVelEl = document.getElementById('avgVelocity');
+      if (avgVelEl) {
+        avgVelEl.textContent = data.celebratingWork.velocity.averageVelocity;
+      }
+    }
     
     // Project Impact Table
     ${generateProjectTableScript()}
@@ -437,6 +465,7 @@ function serializeFormatters(): string {
     formatTopWinsChart: ${formatters.formatTopWinsChart.toString()},
     formatProactiveRatioChart: ${formatters.formatProactiveRatioChart.toString()},
     formatProactiveTrendChart: ${formatters.formatProactiveTrendChart.toString()},
+    formatVelocityChart: ${formatters.formatVelocityChart.toString()},
     formatCycleTimeByPriorityChart: ${formatters.formatCycleTimeByPriorityChart.toString()},
     formatCycleTimeTrendChart: ${formatters.formatCycleTimeTrendChart.toString()},
     formatUnplannedWorkChart: ${formatters.formatUnplannedWorkChart.toString()},
@@ -604,6 +633,7 @@ function updateSummaryMetrics(data) {
   document.getElementById('totalIssues').textContent = data.summary.totalIssues;
   document.getElementById('totalPoints').textContent = data.summary.totalStoryPoints;
   document.getElementById('teamSize').textContent = data.summary.uniqueAssignees.length;
+  document.getElementById('avgVelocitySummary').textContent = data.summary.averageVelocity + ' pts/mo';
   document.getElementById('avgCycleTime').textContent = 
     Math.round(data.areasForImprovement.cycleTime.overall.mean) + ' days';
 }
@@ -631,6 +661,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('totalIssues').textContent = currentYearData.summary.totalIssues;
   document.getElementById('totalPoints').textContent = currentYearData.summary.totalStoryPoints;
   document.getElementById('teamSize').textContent = currentYearData.summary.uniqueAssignees.length;
+  document.getElementById('avgVelocitySummary').textContent = currentYearData.summary.averageVelocity + ' pts/mo';
   document.getElementById('avgCycleTime').textContent = 
     Math.round(currentYearData.areasForImprovement.cycleTime.overall.mean) + ' days';
 

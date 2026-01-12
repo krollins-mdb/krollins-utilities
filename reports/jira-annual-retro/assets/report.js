@@ -1,5 +1,5 @@
 // Jira Retrospective Report - JavaScript
-// Generated on 1/12/2026, 12:40:41 PM
+// Generated on 1/12/2026, 12:56:00 PM
 
 // Embedded analysis data
 const analysisData = {
@@ -15,7 +15,8 @@ const analysisData = {
       "dachary.carey@mongodb.com",
       "kyle.rollins@mongodb.com",
       "cory.bullinger@mongodb.com"
-    ]
+    ],
+    "averageVelocity": 68.4
   },
   "celebratingWork": {
     "projectImpact": [
@@ -1209,6 +1210,132 @@ const analysisData = {
         "kyle.rollins@mongodb.com",
         "cory.bullinger@mongodb.com"
       ]
+    },
+    "velocity": {
+      "monthlyVelocity": [
+        {
+          "month": "Jan 2024",
+          "storyPoints": 39.5,
+          "issueCount": 60
+        },
+        {
+          "month": "Feb 2024",
+          "storyPoints": 33,
+          "issueCount": 47
+        },
+        {
+          "month": "Mar 2024",
+          "storyPoints": 19.5,
+          "issueCount": 45
+        },
+        {
+          "month": "Apr 2024",
+          "storyPoints": 27,
+          "issueCount": 41
+        },
+        {
+          "month": "May 2024",
+          "storyPoints": 23,
+          "issueCount": 35
+        },
+        {
+          "month": "Jun 2024",
+          "storyPoints": 16,
+          "issueCount": 21
+        },
+        {
+          "month": "Jul 2024",
+          "storyPoints": 43,
+          "issueCount": 45
+        },
+        {
+          "month": "Aug 2024",
+          "storyPoints": 57,
+          "issueCount": 29
+        },
+        {
+          "month": "Sep 2024",
+          "storyPoints": 79,
+          "issueCount": 39
+        },
+        {
+          "month": "Oct 2024",
+          "storyPoints": 111,
+          "issueCount": 43
+        },
+        {
+          "month": "Nov 2024",
+          "storyPoints": 77,
+          "issueCount": 27
+        },
+        {
+          "month": "Dec 2024",
+          "storyPoints": 39,
+          "issueCount": 14
+        },
+        {
+          "month": "Jan 2025",
+          "storyPoints": 83,
+          "issueCount": 28
+        },
+        {
+          "month": "Feb 2025",
+          "storyPoints": 36,
+          "issueCount": 12
+        },
+        {
+          "month": "Mar 2025",
+          "storyPoints": 46,
+          "issueCount": 11
+        },
+        {
+          "month": "Apr 2025",
+          "storyPoints": 91,
+          "issueCount": 25
+        },
+        {
+          "month": "May 2025",
+          "storyPoints": 84,
+          "issueCount": 29
+        },
+        {
+          "month": "Jun 2025",
+          "storyPoints": 71.5,
+          "issueCount": 30
+        },
+        {
+          "month": "Jul 2025",
+          "storyPoints": 128,
+          "issueCount": 48
+        },
+        {
+          "month": "Aug 2025",
+          "storyPoints": 134,
+          "issueCount": 37
+        },
+        {
+          "month": "Sep 2025",
+          "storyPoints": 154,
+          "issueCount": 52
+        },
+        {
+          "month": "Oct 2025",
+          "storyPoints": 110,
+          "issueCount": 39
+        },
+        {
+          "month": "Nov 2025",
+          "storyPoints": 71,
+          "issueCount": 26
+        },
+        {
+          "month": "Dec 2025",
+          "storyPoints": 68,
+          "issueCount": 31
+        }
+      ],
+      "averageVelocity": 68.4,
+      "totalMonths": 24
     }
   },
   "areasForImprovement": {
@@ -4340,6 +4467,12 @@ const analysisData = {
         "previous": 0,
         "change": 70,
         "percentChange": 0
+      },
+      "averageVelocity": {
+        "current": 89.7,
+        "previous": 47,
+        "change": 42.7,
+        "percentChange": 90.85106382978724
       }
     },
     "insights": {
@@ -4347,7 +4480,8 @@ const analysisData = {
         "Completed 91% more story points (1077 vs 564)",
         "Cycle time improved by 40% (43 vs 72 days)",
         "Tackled 271% more high-complexity items (26 vs 7)",
-        "Proactive work increased to 82% (up from 32%)"
+        "Proactive work increased to 82% (up from 32%)",
+        "Average velocity increased by 91% (89.7 vs 47.0 pts/mo)"
       ],
       "regressions": [
         "Delivered 17% fewer issues (368 vs 446)"
@@ -4374,7 +4508,8 @@ const analysisData = {
           "cory.bullinger@mongodb.com",
           "dachary.carey@mongodb.com",
           "kyle.rollins@mongodb.com"
-        ]
+        ],
+        "averageVelocity": 89.7
       },
       "celebratingWork": {
         "projectImpact": [
@@ -5268,6 +5403,72 @@ const analysisData = {
             "cory.bullinger@mongodb.com",
             "dachary.carey@mongodb.com"
           ]
+        },
+        "velocity": {
+          "monthlyVelocity": [
+            {
+              "month": "Jan 2025",
+              "storyPoints": 83,
+              "issueCount": 28
+            },
+            {
+              "month": "Feb 2025",
+              "storyPoints": 36,
+              "issueCount": 12
+            },
+            {
+              "month": "Mar 2025",
+              "storyPoints": 46,
+              "issueCount": 11
+            },
+            {
+              "month": "Apr 2025",
+              "storyPoints": 91,
+              "issueCount": 25
+            },
+            {
+              "month": "May 2025",
+              "storyPoints": 84,
+              "issueCount": 29
+            },
+            {
+              "month": "Jun 2025",
+              "storyPoints": 71.5,
+              "issueCount": 30
+            },
+            {
+              "month": "Jul 2025",
+              "storyPoints": 128,
+              "issueCount": 48
+            },
+            {
+              "month": "Aug 2025",
+              "storyPoints": 134,
+              "issueCount": 37
+            },
+            {
+              "month": "Sep 2025",
+              "storyPoints": 154,
+              "issueCount": 52
+            },
+            {
+              "month": "Oct 2025",
+              "storyPoints": 110,
+              "issueCount": 39
+            },
+            {
+              "month": "Nov 2025",
+              "storyPoints": 71,
+              "issueCount": 26
+            },
+            {
+              "month": "Dec 2025",
+              "storyPoints": 68,
+              "issueCount": 31
+            }
+          ],
+          "averageVelocity": 89.7,
+          "totalMonths": 12
         }
       },
       "areasForImprovement": {
@@ -6809,7 +7010,8 @@ const analysisData = {
           "dachary.carey@mongodb.com",
           "kyle.rollins@mongodb.com",
           "cory.bullinger@mongodb.com"
-        ]
+        ],
+        "averageVelocity": 47
       },
       "celebratingWork": {
         "projectImpact": [
@@ -7344,6 +7546,72 @@ const analysisData = {
             "kyle.rollins@mongodb.com",
             "cory.bullinger@mongodb.com"
           ]
+        },
+        "velocity": {
+          "monthlyVelocity": [
+            {
+              "month": "Jan 2024",
+              "storyPoints": 39.5,
+              "issueCount": 60
+            },
+            {
+              "month": "Feb 2024",
+              "storyPoints": 33,
+              "issueCount": 47
+            },
+            {
+              "month": "Mar 2024",
+              "storyPoints": 19.5,
+              "issueCount": 45
+            },
+            {
+              "month": "Apr 2024",
+              "storyPoints": 27,
+              "issueCount": 41
+            },
+            {
+              "month": "May 2024",
+              "storyPoints": 23,
+              "issueCount": 35
+            },
+            {
+              "month": "Jun 2024",
+              "storyPoints": 16,
+              "issueCount": 21
+            },
+            {
+              "month": "Jul 2024",
+              "storyPoints": 43,
+              "issueCount": 45
+            },
+            {
+              "month": "Aug 2024",
+              "storyPoints": 57,
+              "issueCount": 29
+            },
+            {
+              "month": "Sep 2024",
+              "storyPoints": 79,
+              "issueCount": 39
+            },
+            {
+              "month": "Oct 2024",
+              "storyPoints": 111,
+              "issueCount": 43
+            },
+            {
+              "month": "Nov 2024",
+              "storyPoints": 77,
+              "issueCount": 27
+            },
+            {
+              "month": "Dec 2024",
+              "storyPoints": 39,
+              "issueCount": 14
+            }
+          ],
+          "averageVelocity": 47,
+          "totalMonths": 12
         }
       },
       "areasForImprovement": {
@@ -9303,6 +9571,7 @@ function updateSummaryMetrics(data) {
   document.getElementById('totalIssues').textContent = data.summary.totalIssues;
   document.getElementById('totalPoints').textContent = data.summary.totalStoryPoints;
   document.getElementById('teamSize').textContent = data.summary.uniqueAssignees.length;
+  document.getElementById('avgVelocitySummary').textContent = data.summary.averageVelocity + ' pts/mo';
   document.getElementById('avgCycleTime').textContent = 
     Math.round(data.areasForImprovement.cycleTime.overall.mean) + ' days';
 }
@@ -9379,6 +9648,16 @@ function updateHelperContent(data) {
           (data.yearComparison.comparison.estimationAccuracy.percentChange > 5 ? 'positive' : 
            data.yearComparison.comparison.estimationAccuracy.percentChange < -5 ? 'negative' : 'neutral');
         
+        // Velocity
+        document.getElementById('comp-velocity-current').textContent = data.yearComparison.comparison.averageVelocity.current.toFixed(1) + ' pts/mo';
+        document.getElementById('comp-velocity-previous').textContent = data.yearComparison.comparison.averageVelocity.previous.toFixed(1) + ' pts/mo';
+        const velocityChange = document.getElementById('comp-velocity-change');
+        velocityChange.textContent = (data.yearComparison.comparison.averageVelocity.percentChange > 0 ? '+' : '') + 
+          data.yearComparison.comparison.averageVelocity.percentChange.toFixed(0) + '%';
+        velocityChange.className = 'change-indicator ' + 
+          (data.yearComparison.comparison.averageVelocity.percentChange > 5 ? 'positive' : 
+           data.yearComparison.comparison.averageVelocity.percentChange < -5 ? 'negative' : 'neutral');
+        
         // Insights
         if (data.yearComparison.insights.improvements.length > 0) {
           document.getElementById('improvementsCard').style.display = 'block';
@@ -9394,6 +9673,14 @@ function updateHelperContent(data) {
       }
     }
     
+    
+    // Velocity
+    if (data.celebratingWork && data.celebratingWork.velocity) {
+      const avgVelEl = document.getElementById('avgVelocity');
+      if (avgVelEl) {
+        avgVelEl.textContent = data.celebratingWork.velocity.averageVelocity;
+      }
+    }
     
     // Project Impact Table
     
@@ -9601,16 +9888,31 @@ function initializeCharts(data) {
             {
                 label: "Proactive",
                 data: trend.map((t) => t.proactivePoints),
-                backgroundColor: "rgba(46, 204, 113, 0.2)",
+                backgroundColor: "#27ae60",
                 borderColor: "#27ae60",
                 borderWidth: 2,
             },
             {
                 label: "Reactive",
                 data: trend.map((t) => t.reactivePoints),
-                backgroundColor: "rgba(230, 126, 34, 0.2)",
+                backgroundColor: "#e67e22",
                 borderColor: "#e67e22",
                 borderWidth: 2,
+            },
+        ],
+    };
+},
+    formatVelocityChart: function formatVelocityChart(result) {
+    const velocity = result.celebratingWork.velocity.monthlyVelocity;
+    return {
+        labels: velocity.map((v) => v.month),
+        datasets: [
+            {
+                label: "Story Points",
+                data: velocity.map((v) => v.storyPoints),
+                backgroundColor: "#3498db",
+                borderColor: "#2980b9",
+                borderWidth: 1,
             },
         ],
     };
@@ -9899,6 +10201,14 @@ function initializeCharts(data) {
   
 
 
+    chartInstances['velocityChart'] = new Chart(document.getElementById('velocityChart'), {
+      type: 'bar',
+      data: formatters.formatVelocityChart(data),
+      options: getBarChartConfig()
+    });
+  
+
+
     chartInstances['cycleTimeByPriorityChart'] = new Chart(document.getElementById('cycleTimeByPriorityChart'), {
       type: 'bar',
       data: formatters.formatCycleTimeByPriorityChart(data),
@@ -9986,6 +10296,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('totalIssues').textContent = currentYearData.summary.totalIssues;
   document.getElementById('totalPoints').textContent = currentYearData.summary.totalStoryPoints;
   document.getElementById('teamSize').textContent = currentYearData.summary.uniqueAssignees.length;
+  document.getElementById('avgVelocitySummary').textContent = currentYearData.summary.averageVelocity + ' pts/mo';
   document.getElementById('avgCycleTime').textContent = 
     Math.round(currentYearData.areasForImprovement.cycleTime.overall.mean) + ' days';
 

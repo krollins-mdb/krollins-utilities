@@ -104,16 +104,36 @@ export function formatProactiveTrendChart(result: AnalysisResult): ChartData {
       {
         label: "Proactive",
         data: trend.map((t) => t.proactivePoints),
-        backgroundColor: "rgba(46, 204, 113, 0.2)",
+        backgroundColor: "#27ae60",
         borderColor: "#27ae60",
         borderWidth: 2,
       },
       {
         label: "Reactive",
         data: trend.map((t) => t.reactivePoints),
-        backgroundColor: "rgba(230, 126, 34, 0.2)",
+        backgroundColor: "#e67e22",
         borderColor: "#e67e22",
         borderWidth: 2,
+      },
+    ],
+  };
+}
+
+/**
+ * Format team velocity for bar chart
+ */
+export function formatVelocityChart(result: AnalysisResult): ChartData {
+  const velocity = result.celebratingWork.velocity.monthlyVelocity;
+
+  return {
+    labels: velocity.map((v) => v.month),
+    datasets: [
+      {
+        label: "Story Points",
+        data: velocity.map((v) => v.storyPoints),
+        backgroundColor: "#3498db",
+        borderColor: "#2980b9",
+        borderWidth: 1,
       },
     ],
   };

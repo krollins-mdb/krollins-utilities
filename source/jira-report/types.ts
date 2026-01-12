@@ -255,6 +255,19 @@ export interface BalanceMetrics {
 }
 
 /**
+ * Team velocity metrics
+ */
+export interface VelocityMetrics {
+  monthlyVelocity: Array<{
+    month: string;
+    storyPoints: number;
+    issueCount: number;
+  }>;
+  averageVelocity: number;
+  totalMonths: number;
+}
+
+/**
  * Year-over-year comparison metrics
  */
 export interface YearComparisonMetrics {
@@ -297,6 +310,12 @@ export interface YearComparisonMetrics {
       change: number;
       percentChange: number;
     };
+    averageVelocity: {
+      current: number;
+      previous: number;
+      change: number;
+      percentChange: number;
+    };
   };
   insights: {
     improvements: string[];
@@ -316,12 +335,14 @@ export interface AnalysisResult {
       end: Date;
     };
     uniqueAssignees: string[];
+    averageVelocity: number;
   };
   celebratingWork: {
     projectImpact: ProjectImpactMetrics[];
     complexityConquered: ComplexityMetrics;
     proactiveScore: ProactiveMetrics;
     teamVersatility: VersatilityMetrics;
+    velocity: VelocityMetrics;
   };
   areasForImprovement: {
     cycleTime: CycleTimeMetrics;

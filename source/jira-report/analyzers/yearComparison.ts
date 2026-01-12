@@ -59,6 +59,11 @@ export function compareYears(
     previousYearResult.areasForImprovement.estimationAccuracy.accuracyPercentage
   );
 
+  const velocityComparison = calculateChange(
+    currentYearResult.summary.averageVelocity,
+    previousYearResult.summary.averageVelocity
+  );
+
   // Generate insights
   const insights = generateInsights({
     issues: issuesComparison,
@@ -67,6 +72,7 @@ export function compareYears(
     highComplexity: highComplexityComparison,
     proactive: proactiveComparison,
     estimation: estimationComparison,
+    velocity: velocityComparison,
   });
 
   return {
@@ -79,6 +85,7 @@ export function compareYears(
       highComplexityItems: highComplexityComparison,
       proactivePercentage: proactiveComparison,
       estimationAccuracy: estimationComparison,
+      averageVelocity: velocityComparison,
     },
     insights,
   };
@@ -109,6 +116,7 @@ function generateInsights(metrics: {
   highComplexity: ReturnType<typeof calculateChange>;
   proactive: ReturnType<typeof calculateChange>;
   estimation: ReturnType<typeof calculateChange>;
+  velocity: ReturnType<typeof calculateChange>;
 }): { improvements: string[]; regressions: string[] } {
   const improvements: string[] = [];
   const regressions: string[] = [];
@@ -206,6 +214,25 @@ function generateInsights(metrics: {
       `Estimation accuracy declined to ${metrics.estimation.current.toFixed(
         0
       )}% (down from ${metrics.estimation.previous.toFixed(0)}%)`
+    );
+  }
+
+  // Average velocity
+  if (metrics.velocity.percentChange > 10) {
+    improvements.push(
+      `Average velocity increased by ${Math.abs(
+        metrics.velocity.percentChange
+      ).toFixed(0)}% (${metrics.velocity.current.toFixed(
+        1
+      )} vs ${metrics.velocity.previous.toFixed(1)} pts/mo)`
+    );
+  } else if (metrics.velocity.percentChange < -10) {
+    regressions.push(
+      `Average velocity decreased by ${Math.abs(
+        metrics.velocity.percentChange
+      ).toFixed(0)}% (${metrics.velocity.current.toFixed(
+        1
+      )} vs ${metrics.velocity.previous.toFixed(1)} pts/mo)`
     );
   }
 

@@ -57,6 +57,10 @@ export function generateReportHTML(data: TemplateData): string {
           <p class="metric-value" id="teamSize">-</p>
         </div>
         <div class="metric-card">
+          <h3>Avg Velocity</h3>
+          <p class="metric-value" id="avgVelocitySummary">-</p>
+        </div>
+        <div class="metric-card">
           <h3>Avg Cycle Time</h3>
           <p class="metric-value" id="avgCycleTime">-</p>
         </div>
@@ -127,6 +131,15 @@ export function generateReportHTML(data: TemplateData): string {
             </div>
             <span class="previous-value">Previous: <span id="comp-estimation-previous">-</span></span>
           </div>
+          
+          <div class="comparison-card">
+            <h4>Avg Velocity</h4>
+            <div class="comparison-values">
+              <span class="current-value" id="comp-velocity-current">-</span>
+              <span class="change-indicator" id="comp-velocity-change">-</span>
+            </div>
+            <span class="previous-value">Previous: <span id="comp-velocity-previous">-</span></span>
+          </div>
         </div>
       </div>
 
@@ -177,6 +190,16 @@ export function generateReportHTML(data: TemplateData): string {
           <div class="chart-container half">
             <canvas id="proactiveTrendChart"></canvas>
           </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Team Velocity</h3>
+        <p class="subsection-description">
+          Story points delivered per month. Average velocity: <strong id="avgVelocity">-</strong> pts/month
+        </p>
+        <div class="chart-container">
+          <canvas id="velocityChart"></canvas>
         </div>
       </div>
 
