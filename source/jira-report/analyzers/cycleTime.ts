@@ -73,9 +73,10 @@ export function analyzeCycleTime(issues: JiraIssue[]): CycleTimeMetrics {
   const quarterlyTrend = Array.from(quarterlyData.entries())
     .map(([quarter, times]) => ({
       quarter,
-      avgCycleTime: Math.round(
-        times.reduce((sum, t) => sum + t, 0) / times.length
-      ),
+      avgCycleTime:
+        times.length > 0
+          ? Math.round(times.reduce((sum, t) => sum + t, 0) / times.length)
+          : 0,
     }))
     .sort((a, b) => {
       // Sort chronologically

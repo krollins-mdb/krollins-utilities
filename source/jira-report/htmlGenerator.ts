@@ -4,10 +4,19 @@
  */
 
 import { writeFile, mkdir } from "fs/promises";
-import { dirname, basename, join } from "path";
+import { dirname, basename, join, resolve } from "path";
 import type { AnalysisResult } from "./types.js";
 import { generateReportHTML, getStyles } from "./templates/reportTemplate.js";
 import * as formatters from "./chartFormatters.js";
+import {
+  generateProjectTableScript,
+  generateVersatilityScript,
+  generateCycleTimeOutliersScript,
+  generatePriorityRecommendationsScript,
+  generateLoadBalanceScript,
+  generateSeasonalInsightsScript,
+  generateLearningCurvesScript,
+} from "./templates/contentTemplates.js";
 
 /**
  * Generate and save HTML report
@@ -22,7 +31,7 @@ import * as formatters from "./chartFormatters.js";
  * @param analysisResult - Complete analysis results from analyzeIssues()
  * @param outputPath - Path where HTML file should be written
  * @param title - Report title displayed in HTML (default: "Team Retrospective")
- * @throws Error if file write fails
+ * @throws Error if file write fails or path is invalid
  *
  * @example
  * ```typescript
@@ -37,11 +46,21 @@ export async function generateHTMLReport(
 ): Promise<void> {
   console.log("🎨 Generating HTML report...\n");
 
-  // Create report directory structure
-  const reportDir = outputPath.replace(/\.html$/, "");
-  const assetsDir = join(reportDir, "assets");
+  // Sanitize output path to prevent path traversal attacks
+  const sanitizedName = basename(outputPath).replace(/[^a-zA-Z0-9-_\.]/g, "-");
+  const reportDir = sanitizedName.replace(/\.html$/, "");
 
-  await mkdir(reportDir, { recursive: true });
+  // Ensure output is within the current working directory
+  const safePath = resolve(process.cwd(), reportDir);
+  if (!safePath.startsWith(resolve(process.cwd()))) {
+    throw new Error(
+      "Security Error: Output path must be within the current directory"
+    );
+  }
+
+  const assetsDir = join(safePath, "assets");
+
+  await mkdir(safePath, { recursive: true });
   await mkdir(assetsDir, { recursive: true });
 
   // Serialize analysis data to JSON
@@ -81,7 +100,7 @@ export async function generateHTMLReport(
   });
 
   // Write HTML file
-  await writeFile(join(reportDir, "index.html"), html, "utf-8");
+  await writeFile(join(safePath, "index.html"), html, "utf-8");
 
   console.log(`✅ HTML report generated: ${reportDir}/\n`);
   console.log(`   📄 index.html`);
@@ -286,7 +305,8 @@ function generateChartCode(
  * Generate helper content (tables, lists, etc.)
  */
 function generateHelperContent(result: AnalysisResult): string {
-  return `
+  const yearComparisonScript = result.yearComparison
+    ? `
     // Year-over-Year Comparison
     if (data.yearComparison) {
       const yoySection = document.getElementById('yearComparisonSection');
@@ -370,105 +390,32 @@ function generateHelperContent(result: AnalysisResult): string {
         }
       }
     }
+    `
+    : "";
+
+  return `
+    ${yearComparisonScript}
     
     // Project Impact Table
-    const projectTable = document.getElementById('projectImpactTable');
-    if (projectTable && data.celebratingWork.projectImpact.length > 0) {
-      let tableHTML = '<table><thead><tr><th>Project</th><th>Story Points</th><th>Issues</th><th>Avg Points/Issue</th><th>Duration</th></tr></thead><tbody>';
-      data.celebratingWork.projectImpact.forEach(p => {
-        tableHTML += \`<tr>
-          <td>\${p.projectName}</td>
-          <td>\${p.totalStoryPoints}</td>
-          <td>\${p.issueCount}</td>
-          <td>\${p.avgPointsPerIssue.toFixed(1)}</td>
-          <td>\${p.durationDays} days</td>
-        </tr>\`;
-      });
-      tableHTML += '</tbody></table>';
-      projectTable.innerHTML = tableHTML;
-    }
+    ${generateProjectTableScript()}
     
     // Versatility Info
-    const versatilityInfo = document.getElementById('versatilityInfo');
-    if (versatilityInfo) {
-      const crossFunctional = data.celebratingWork.teamVersatility.crossFunctionalContributors;
-      if (crossFunctional.length > 0) {
-        versatilityInfo.innerHTML = \`
-          <h4>🌟 Cross-Functional Contributors</h4>
-          <p>The following team members worked across 3+ project themes:</p>
-          <ul>\${crossFunctional.map(p => '<li>' + p + '</li>').join('')}</ul>
-        \`;
-      } else {
-        versatilityInfo.innerHTML = '<p>No cross-functional contributors identified (need 3+ project themes)</p>';
-      }
-    }
+    ${generateVersatilityScript()}
     
     // Cycle Time Outliers
-    const outliersDiv = document.getElementById('cycleTimeOutliers');
-    if (outliersDiv && data.areasForImprovement.cycleTime.outliers.length > 0) {
-      const outliers = data.areasForImprovement.cycleTime.outliers.slice(0, 5);
-      outliersDiv.innerHTML = \`
-        <h4>⚠️ Top Cycle Time Outliers</h4>
-        <ul>\${outliers.map(o => 
-          '<li><strong>' + o.issue.summary + '</strong> - ' + o.issue.cycleTimeDays + ' days (' + o.standardDeviations.toFixed(1) + 'σ)</li>'
-        ).join('')}</ul>
-      \`;
-    }
+    ${generateCycleTimeOutliersScript()}
     
     // Priority Recommendations
-    const recommendationsDiv = document.getElementById('priorityRecommendations');
-    if (recommendationsDiv && data.areasForImprovement.priorityAlignment.recommendations.length > 0) {
-      recommendationsDiv.innerHTML = \`
-        <h4>💡 Recommendations</h4>
-        <ul>\${data.areasForImprovement.priorityAlignment.recommendations.map(r => '<li>' + r + '</li>').join('')}</ul>
-      \`;
-    }
+    ${generatePriorityRecommendationsScript()}
     
     // Load Balance Info
-    const loadBalanceInfo = document.getElementById('loadBalanceInfo');
-    if (loadBalanceInfo && data.areasForImprovement.teamBalance.loadImbalances.length > 0) {
-      const imbalances = data.areasForImprovement.teamBalance.loadImbalances;
-      loadBalanceInfo.innerHTML = \`
-        <h4>⚖️ Load Imbalances Detected</h4>
-        <p>The following team members have workload variance &gt;20% from average:</p>
-        <ul>\${imbalances.map(i => 
-          '<li><strong>' + i.person + '</strong>: ' + (i.variance > 0 ? '+' : '') + i.variance.toFixed(0) + '% from average</li>'
-        ).join('')}</ul>
-      \`;
-    }
+    ${generateLoadBalanceScript()}
     
     // Seasonal Insights
-    const seasonalDiv = document.getElementById('seasonalInsights');
-    if (seasonalDiv && data.areasForImprovement.workInProgress.seasonalInsights.length > 0) {
-      seasonalDiv.innerHTML = \`
-        <h4>📅 Seasonal Insights</h4>
-        <ul>\${data.areasForImprovement.workInProgress.seasonalInsights.map(s => '<li>' + s + '</li>').join('')}</ul>
-      \`;
-    }
+    ${generateSeasonalInsightsScript()}
     
     // Learning Curves
-    const learningSection = document.getElementById('learningCurveSection');
-    const learningContent = document.getElementById('learningCurveContent');
-    if (learningContent && data.areasForImprovement.learningCurve.length > 0) {
-      let html = '';
-      data.areasForImprovement.learningCurve.slice(0, 3).forEach(lc => {
-        const improvement = lc.improvementPercentage > 0 ? '📈 Improved' : '📉 Slower';
-        const color = lc.improvementPercentage > 0 ? '#27ae60' : '#e74c3c';
-        html += \`
-          <div class="info-box" style="border-left-color: \${color}">
-            <h4>\${lc.pattern} (\${lc.occurrences.length} occurrences)</h4>
-            <p>
-              First: \${lc.firstCycleTime} days | 
-              Last: \${lc.lastCycleTime} days | 
-              <strong style="color: \${color}">\${improvement} \${Math.abs(lc.improvementPercentage)}%</strong>
-            </p>
-          </div>
-        \`;
-      });
-      learningContent.innerHTML = html;
-    } else if (learningSection) {
-      learningSection.style.display = 'none';
-    }
+    ${generateLearningCurvesScript()}
   `;
 }
 

@@ -4,6 +4,18 @@
  */
 
 /**
+ * Chart.js tooltip context type
+ * Minimal type definition for Chart.js TooltipItem
+ */
+interface TooltipContext {
+  label: string;
+  parsed: number;
+  dataset: {
+    data: number[];
+  };
+}
+
+/**
  * Get configuration for bar charts
  */
 export function getBarChartConfig(horizontal: boolean = false) {
@@ -122,7 +134,7 @@ export function getDoughnutChartConfig() {
           size: 13,
         },
         callbacks: {
-          label: function (context: any) {
+          label: function (context: TooltipContext) {
             const label = context.label || "";
             const value = context.parsed || 0;
             const total = context.dataset.data.reduce(

@@ -77,13 +77,16 @@ export function analyzeEstimation(issues: JiraIssue[]): EstimationMetrics {
     const accurate = personIssues.filter(
       (issue) => Math.abs(issue.estimationError!) <= 0.2
     );
-    const accuracyPct = Math.round(
-      (accurate.length / personIssues.length) * 100
-    );
+    const accuracyPct =
+      personIssues.length > 0
+        ? Math.round((accurate.length / personIssues.length) * 100)
+        : 0;
 
     const avgError =
-      personIssues.reduce((sum, issue) => sum + issue.estimationError!, 0) /
-      personIssues.length;
+      personIssues.length > 0
+        ? personIssues.reduce((sum, issue) => sum + issue.estimationError!, 0) /
+          personIssues.length
+        : 0;
 
     byPerson[person] = {
       accuracyPercentage: accuracyPct,
@@ -97,12 +100,17 @@ export function analyzeEstimation(issues: JiraIssue[]): EstimationMetrics {
 
   Object.entries(typeGroups).forEach(([type, typeIssues]) => {
     const errors = typeIssues.map((issue) => issue.estimationError!);
-    const avgError = errors.reduce((sum, err) => sum + err, 0) / errors.length;
+    const avgError =
+      errors.length > 0
+        ? errors.reduce((sum, err) => sum + err, 0) / errors.length
+        : 0;
 
     // Calculate variance
     const squaredDiffs = errors.map((err) => Math.pow(err - avgError, 2));
     const variance =
-      squaredDiffs.reduce((sum, diff) => sum + diff, 0) / errors.length;
+      errors.length > 0
+        ? squaredDiffs.reduce((sum, diff) => sum + diff, 0) / errors.length
+        : 0;
 
     byWorkType[type] = {
       avgError: Math.round(avgError * 100) / 100,

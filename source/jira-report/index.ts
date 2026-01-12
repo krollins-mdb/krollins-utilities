@@ -14,6 +14,45 @@ import {
 } from "./transformer.js";
 import type { JiraIssue } from "./types.js";
 
+/**
+ * Parse and validate year input
+ */
+function parseYear(value: string): number {
+  const year = parseInt(value, 10);
+  const currentYear = new Date().getFullYear();
+
+  if (isNaN(year)) {
+    throw new Error(`Invalid year: "${value}". Must be a number.`);
+  }
+
+  if (year < 2000 || year > currentYear + 10) {
+    throw new Error(
+      `Invalid year: ${year}. Must be between 2000 and ${currentYear + 10}.`
+    );
+  }
+
+  return year;
+}
+
+/**
+ * Parse and validate story point threshold
+ */
+function parseThreshold(value: string): number {
+  const threshold = parseFloat(value);
+
+  if (isNaN(threshold)) {
+    throw new Error(`Invalid threshold: "${value}". Must be a number.`);
+  }
+
+  if (threshold < 0) {
+    throw new Error(
+      `Invalid threshold: ${threshold}. Must be a positive number.`
+    );
+  }
+
+  return threshold;
+}
+
 const program = new Command();
 
 program
@@ -22,20 +61,20 @@ program
   .version("1.0.0")
   .requiredOption("-i, --input <path>", "Path to Jira CSV export file")
   .option("-o, --output <path>", "Output HTML file path", "report.html")
-  .option("-y, --year <year>", "Filter by year", parseInt)
+  .option("-y, --year <year>", "Filter by year", parseYear)
   .option("-a, --assignee <email>", "Filter by assignee email")
   .option("-p, --project <label>", "Filter by project label")
   .option("-t, --title <title>", "Report title", "Team Retrospective")
   .option(
     "--high-threshold <points>",
     "Story points threshold for high complexity (default: 8)",
-    parseFloat,
+    parseThreshold,
     8
   )
   .option(
     "--medium-threshold <points>",
     "Story points threshold for medium complexity (default: 3)",
-    parseFloat,
+    parseThreshold,
     3
   )
   .parse(process.argv);
@@ -57,6 +96,14 @@ async function main() {
 
     // Configure complexity thresholds
     if (options.highThreshold || options.mediumThreshold) {
+      // Validate threshold relationship
+      if (options.mediumThreshold >= options.highThreshold) {
+        console.error(
+          `❌ Error: medium-threshold (${options.mediumThreshold}) must be less than high-threshold (${options.highThreshold})`
+        );
+        process.exit(1);
+      }
+
       setComplexityThresholds(options.highThreshold, options.mediumThreshold);
       console.log(
         `⚙️  Custom thresholds: High ≥${options.highThreshold}pts, Medium ≥${options.mediumThreshold}pts\n`

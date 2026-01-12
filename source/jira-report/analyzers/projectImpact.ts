@@ -47,7 +47,8 @@ export function analyzeProjectImpact(
       (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
     );
 
-    const avgPointsPerIssue = totalStoryPoints / projectIssues.length;
+    const avgPointsPerIssue =
+      projectIssues.length > 0 ? totalStoryPoints / projectIssues.length : 0;
 
     projectMetrics.push({
       projectName,
