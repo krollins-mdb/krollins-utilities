@@ -120,9 +120,12 @@ async function main() {
     const { generateHTMLReport } = await import("./htmlGenerator.js");
     await generateHTMLReport(analysisResult, options.output, options.title);
 
+    // Get the directory name from the output path
+    const reportDir = options.output.replace(/\.html$/, "");
+
     console.log("✅ Report Complete!");
     console.log(
-      `   Open ${options.output} in your browser to view the report.`
+      `   Open ${reportDir}/index.html in your browser to view the report.`
     );
   } catch (error) {
     console.error(

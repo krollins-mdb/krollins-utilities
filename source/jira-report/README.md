@@ -34,7 +34,11 @@ Or compile TypeScript manually:
 node dist/source/jira-report/index.js --input jira-export.csv
 ```
 
-This generates `report.html` in the current directory.
+This generates a `report/` directory containing:
+
+- `index.html` - Main report page
+- `assets/report.css` - Stylesheet
+- `assets/report.js` - Interactive JavaScript
 
 ### Advanced Options
 
@@ -48,12 +52,14 @@ node dist/source/jira-report/index.js \
   --medium-threshold 2
 ```
 
+This generates a `2024-retrospective/` directory (the `.html` extension is replaced with a directory).
+
 ### Command-Line Options
 
 | Option                        | Description                             | Default              |
 | ----------------------------- | --------------------------------------- | -------------------- |
 | `-i, --input <path>`          | Path to Jira CSV export file (required) | -                    |
-| `-o, --output <path>`         | Output HTML file path                   | `report.html`        |
+| `-o, --output <path>`         | Output directory name (without .html)   | `report.html`        |
 | `-t, --title <title>`         | Report title                            | `Team Retrospective` |
 | `-y, --year <year>`           | Filter by year                          | All years            |
 | `-a, --assignee <email>`      | Filter by assignee email                | All assignees        |
@@ -187,6 +193,8 @@ node dist/source/jira-report/index.js \
   --output 2024-report.html
 ```
 
+Generates `2024-report/index.html`
+
 ### Filter by Team Member
 
 ```bash
@@ -209,16 +217,29 @@ node dist/source/jira-report/index.js \
 
 ## Output
 
-The tool generates a single, self-contained HTML file that includes:
+The tool generates a report directory with separated concerns:
 
-- ✅ All data embedded as JSON
+**Directory Structure:**
+
+```
+report-name/
+├── index.html          # Main HTML structure (8-12KB)
+└── assets/
+    ├── report.css      # All styling rules (~8KB)
+    └── report.js       # Data, charts, and interactivity (~140KB)
+```
+
+**Features:**
+
+- ✅ All data embedded in JavaScript
 - ✅ Chart.js loaded from CDN
 - ✅ Interactive visualizations
 - ✅ Responsive design (mobile/tablet/desktop)
 - ✅ Print-friendly styles
-- ✅ No external dependencies needed to view
+- ✅ Separated CSS and JS for better organization
+- ✅ Browser-cacheable assets
 
-Simply open the HTML file in any modern web browser.
+Simply open `index.html` in any modern web browser. The entire directory is self-contained and portable.
 
 ## Architecture
 
@@ -229,7 +250,7 @@ source/jira-report/
 ├── parser.ts                   # CSV parsing
 ├── transformer.ts              # Data transformation & filtering
 ├── analyze.ts                  # Analysis orchestrator
-├── htmlGenerator.ts            # HTML generation
+├── htmlGenerator.ts            # HTML/CSS/JS generation & file writing
 ├── chartFormatters.ts          # Chart data formatting
 ├── chartConfigs.ts             # Chart.js configurations
 ├── analyzers/                  # Individual metric analyzers

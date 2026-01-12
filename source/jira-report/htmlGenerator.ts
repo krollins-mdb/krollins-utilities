@@ -3,9 +3,10 @@
  * Generates complete HTML report from analysis results
  */
 
-import { writeFile } from "fs/promises";
+import { writeFile, mkdir } from "fs/promises";
+import { dirname, basename, join } from "path";
 import type { AnalysisResult } from "./types.js";
-import { generateReportHTML } from "./templates/reportTemplate.js";
+import { generateReportHTML, getStyles } from "./templates/reportTemplate.js";
 import * as formatters from "./chartFormatters.js";
 
 /**
@@ -36,6 +37,13 @@ export async function generateHTMLReport(
 ): Promise<void> {
   console.log("🎨 Generating HTML report...\n");
 
+  // Create report directory structure
+  const reportDir = outputPath.replace(/\.html$/, "");
+  const assetsDir = join(reportDir, "assets");
+
+  await mkdir(reportDir, { recursive: true });
+  await mkdir(assetsDir, { recursive: true });
+
   // Serialize analysis data to JSON
   const analysisDataJson = JSON.stringify(analysisResult, null, 2);
 
@@ -44,6 +52,20 @@ export async function generateHTMLReport(
 
   // Generate helper content code
   const helperContentCode = generateHelperContent(analysisResult);
+
+  // Generate separate files
+  const cssContent = getStyles();
+  const jsContent = generateJavaScript(
+    analysisDataJson,
+    chartInitCode,
+    helperContentCode
+  );
+
+  // Write CSS file
+  await writeFile(join(assetsDir, "report.css"), cssContent, "utf-8");
+
+  // Write JavaScript file
+  await writeFile(join(assetsDir, "report.js"), jsContent, "utf-8");
 
   // Generate HTML
   const html = generateReportHTML({
@@ -58,10 +80,14 @@ export async function generateHTMLReport(
     helperContentCode,
   });
 
-  // Write to file
-  await writeFile(outputPath, html, "utf-8");
+  // Write HTML file
+  await writeFile(join(reportDir, "index.html"), html, "utf-8");
 
-  console.log(`✅ HTML report generated: ${outputPath}\n`);
+  console.log(`✅ HTML report generated: ${reportDir}/\n`);
+  console.log(`   📄 index.html`);
+  console.log(`   📁 assets/`);
+  console.log(`      - report.css`);
+  console.log(`      - report.js\n`);
 }
 
 /**
@@ -541,4 +567,130 @@ function serializeChartConfigs(): string {
       };
     }
   `;
+}
+
+/**
+ * Generate JavaScript file content
+ */
+function generateJavaScript(
+  analysisDataJson: string,
+  chartInitCode: string,
+  helperContentCode: string
+): string {
+  return `// Jira Retrospective Report - JavaScript
+// Generated on ${new Date().toLocaleString()}
+
+// Embedded analysis data
+const analysisData = ${analysisDataJson};
+
+// Store chart instances globally for reinitialization
+const chartInstances = {};
+
+// Year switching logic
+let currentYearData = analysisData;
+let isYearSwitchEnabled = false;
+
+if (analysisData.yearData && analysisData.yearData.years.length >= 2) {
+  isYearSwitchEnabled = true;
+  
+  // Use current year's data as the initial display instead of combined data
+  currentYearData = analysisData.yearData.currentYearData;
+  
+  // Show year selector
+  const yearSelectorContainer = document.getElementById('yearSelectorContainer');
+  yearSelectorContainer.style.display = 'flex';
+  
+  // Populate year selector
+  const yearSelector = document.getElementById('yearSelector');
+  analysisData.yearData.years.forEach(year => {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    yearSelector.appendChild(option);
+  });
+  
+  // Set default to current year
+  yearSelector.value = analysisData.yearData.currentYear;
+  
+  // Add change listener
+  yearSelector.addEventListener('change', (e) => {
+    const selectedYear = parseInt(e.target.value);
+    switchToYear(selectedYear);
+  });
+}
+
+function switchToYear(year) {
+  if (!analysisData.yearData) return;
+  
+  // Determine which dataset to use
+  if (year === analysisData.yearData.currentYear) {
+    currentYearData = analysisData.yearData.currentYearData;
+  } else if (year === analysisData.yearData.previousYear) {
+    currentYearData = analysisData.yearData.previousYearData;
+  } else {
+    return; // Unknown year
+  }
+  
+  // Update summary metrics
+  updateSummaryMetrics(currentYearData);
+  
+  // Destroy existing charts
+  Object.values(chartInstances).forEach(chart => {
+    if (chart) chart.destroy();
+  });
+  
+  // Reinitialize all charts with new data
+  initializeCharts(currentYearData);
+  
+  // Update helper content sections with year-specific data but preserve comparison
+  updateHelperContentWithYearData(currentYearData);
+}
+
+function updateSummaryMetrics(data) {
+  document.getElementById('totalIssues').textContent = data.summary.totalIssues;
+  document.getElementById('totalPoints').textContent = data.summary.totalStoryPoints;
+  document.getElementById('teamSize').textContent = data.summary.uniqueAssignees.length;
+  document.getElementById('avgCycleTime').textContent = 
+    Math.round(data.areasForImprovement.cycleTime.overall.mean) + ' days';
+}
+
+function updateHelperContent(data) {
+  ${helperContentCode}
+}
+
+function updateHelperContentWithYearData(yearSpecificData) {
+  // Create a merged object that has year-specific data but keeps the comparison
+  const mergedData = {
+    ...yearSpecificData,
+    yearComparison: analysisData.yearComparison
+  };
+  updateHelperContent(mergedData);
+}
+
+function initializeCharts(data) {
+  ${chartInitCode}
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+  // Populate initial summary metrics (use currentYearData which may be year-specific)
+  document.getElementById('totalIssues').textContent = currentYearData.summary.totalIssues;
+  document.getElementById('totalPoints').textContent = currentYearData.summary.totalStoryPoints;
+  document.getElementById('teamSize').textContent = currentYearData.summary.uniqueAssignees.length;
+  document.getElementById('avgCycleTime').textContent = 
+    Math.round(currentYearData.areasForImprovement.cycleTime.overall.mean) + ' days';
+
+  // Initialize all charts with initial data (use currentYearData)
+  initializeCharts(currentYearData);
+  
+  // Initialize helper content
+  if (isYearSwitchEnabled) {
+    // Use year-specific data with comparison preserved
+    updateHelperContentWithYearData(currentYearData);
+  } else {
+    // No year switching, use full analysisData
+    updateHelperContent(analysisData);
+  }
+});
+`;
 }
