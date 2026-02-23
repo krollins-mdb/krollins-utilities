@@ -12,3 +12,4 @@ mongodb-realm/
 /*.lock
 testFiles/
 !testFiles/README.md
+source/ref-finder/output/
