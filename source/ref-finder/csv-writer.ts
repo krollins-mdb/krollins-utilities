@@ -11,7 +11,6 @@ import type { RefReportRow } from "./types.js";
 
 /** CSV column headers matching the README specification. */
 const CSV_HEADERS = [
-  "ref-name",
   "ref-string",
   "docs-project",
   "source-page",
@@ -37,7 +36,6 @@ function escapeCSVField(value: string): string {
  */
 function rowToFields(row: RefReportRow): string[] {
   return [
-    row.refName,
     row.refString,
     row.docsProject,
     row.sourcePage,

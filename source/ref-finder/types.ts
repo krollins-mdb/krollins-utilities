@@ -31,6 +31,7 @@ export interface RefInvocation {
 
 /** A fully resolved row for the output CSV. */
 export interface RefReportRow {
+  /** Internal ref name used for matching (not written to CSV) */
   refName: string;
   refString: string;
   docsProject: string;

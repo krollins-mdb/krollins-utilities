@@ -12,7 +12,8 @@
     "create-aws-redirects": "npx ts-node source/createAwsRedirects.ts",
     "github-metrics": "npx ts-node source/github-metrics/index.ts",
     "jira-report": "tsc && node dist/source/jira-report/index.js",
-    "ref-finder": "tsc && node dist/source/ref-finder/index.js"
+    "ref-finder": "tsc && node dist/source/ref-finder/index.js",
+    "url-resolver": "tsc && node dist/source/url-resolver/index.js"
   },
   "keywords": [],
   "author": "",
