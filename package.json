@@ -10,7 +10,7 @@
     "update-script": "npx ts-node source/addNoRobots.ts",
     "remove-noindex-script": "npx ts-node source/removeNoIndex.ts",
     "create-aws-redirects": "npx ts-node source/createAwsRedirects.ts",
-    "github-metrics": "npx ts-node source/github-metrics/index.ts",
+    "github-metrics": "tsc && node dist/source/github-metrics/index.js",
     "jira-report": "tsc && node dist/source/jira-report/index.js",
     "ref-finder": "tsc && node dist/source/ref-finder/index.js",
     "url-resolver": "tsc && node dist/source/url-resolver/index.js"

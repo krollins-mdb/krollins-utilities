@@ -7,6 +7,18 @@ export interface MetricFields {
   watchers: number;
 }
 
+export interface ReferralSource {
+  referrer: string;
+  count: number;
+  uniques: number;
+}
+
+export interface TopPath {
+  path: string;
+  count: number;
+  uniques: number;
+}
+
 export interface CollectionMetrics extends MetricFields {
   collectionName: string;
 }
@@ -18,6 +30,9 @@ export interface MonthlyMetrics extends MetricFields {
   newStars?: number;
   newForks?: number;
   newWatchers?: number;
+  // Traffic detail (may be empty for older months)
+  referralSources: ReferralSource[];
+  topPaths: TopPath[];
 }
 
 export interface CollectionMonthlyMetrics {

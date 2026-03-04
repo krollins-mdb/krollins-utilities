@@ -19,11 +19,16 @@ import {
   printMonthlyReport,
   printGrandTotalMonthlyReport,
 } from "./reporter.js";
+import { writeHTMLReport } from "./html-writer.js";
 
-// Load environment variables from the .env file in the same directory as this script
+// Load environment variables from the .env file in the source directory
+// When compiled, this runs from dist/source/github-metrics/, so we need to go back to source
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-dotenv.config({ path: path.join(__dirname, ".env") });
+const envPath = __dirname.includes("/dist/")
+  ? path.join(__dirname.replace("/dist/", "/"), ".env")
+  : path.join(__dirname, ".env");
+dotenv.config({ path: envPath });
 
 async function main() {
   const uri = process.env.MONGODB_URI;
@@ -86,6 +91,17 @@ async function main() {
       // Combine all collections and print grand total monthly report
       const combinedMonthlyMetrics = combineMonthlyMetrics(allMonthlyMetrics);
       printGrandTotalMonthlyReport(combinedMonthlyMetrics);
+
+      // Write HTML report
+      console.log("\n🎨 Generating HTML report...");
+      const timestamp = new Date().toISOString().split("T")[0];
+      const htmlPath = `./reports/github-metrics/${timestamp}_github-metrics.html`;
+      await writeHTMLReport(
+        allMonthlyMetrics,
+        combinedMonthlyMetrics,
+        htmlPath,
+      );
+      console.log(`\n✅ HTML report written:\n   - ${htmlPath}`);
     }
   } catch (error) {
     console.error("Error:", error);
