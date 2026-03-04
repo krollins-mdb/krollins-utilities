@@ -2,133 +2,28 @@ import { MongoClient } from "mongodb";
 import * as dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import type {
+  CollectionMetrics,
+  CollectionMonthlyMetrics,
+  ReportType,
+} from "./types.js";
+import { COLLECTIONS } from "./constants.js";
+import {
+  aggregateCollectionMetrics,
+  aggregateMonthlyMetrics,
+  combineMonthlyMetrics,
+} from "./aggregator.js";
+import {
+  printCollectionReport,
+  printGrandTotalReport,
+  printMonthlyReport,
+  printGrandTotalMonthlyReport,
+} from "./reporter.js";
 
 // Load environment variables from the .env file in the same directory as this script
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.join(__dirname, ".env") });
-
-interface MetricFields {
-  clones: number;
-  viewCount: number;
-  uniqueViews: number;
-  stars: number;
-  forks: number;
-  watchers: number;
-}
-
-interface CollectionMetrics extends MetricFields {
-  collectionName: string;
-}
-
-const COLLECTIONS = [
-  "mongodb_sample-app-java-mflix",
-  "mongodb_sample-app-python-mflix",
-  "mongodb_sample-app-nodejs-mflix",
-];
-
-const FIELDS_TO_SUM: (keyof MetricFields)[] = [
-  "clones",
-  "viewCount",
-  "uniqueViews",
-];
-
-const FIELDS_TO_MAX: (keyof MetricFields)[] = ["stars", "forks", "watchers"];
-
-async function aggregateCollectionMetrics(
-  client: MongoClient,
-  dbName: string,
-  collectionName: string
-): Promise<CollectionMetrics> {
-  const db = client.db(dbName);
-  const collection = db.collection(collectionName);
-
-  const documents = await collection.find({}).toArray();
-
-  const metrics: MetricFields = {
-    clones: 0,
-    viewCount: 0,
-    uniqueViews: 0,
-    stars: 0,
-    forks: 0,
-    watchers: 0,
-  };
-
-  for (const doc of documents) {
-    // Sum these fields
-    for (const field of FIELDS_TO_SUM) {
-      if (typeof doc[field] === "number") {
-        metrics[field] += doc[field];
-      }
-    }
-    // Find max for these fields
-    for (const field of FIELDS_TO_MAX) {
-      if (typeof doc[field] === "number") {
-        metrics[field] = Math.max(metrics[field], doc[field]);
-      }
-    }
-  }
-
-  return {
-    collectionName,
-    ...metrics,
-  };
-}
-
-function printCollectionReport(metrics: CollectionMetrics): void {
-  console.log(`\n${"=".repeat(60)}`);
-  console.log(`Collection: ${metrics.collectionName}`);
-  console.log("=".repeat(60));
-  console.log(`  Clones (total):        ${metrics.clones.toLocaleString()}`);
-  console.log(`  View Count (total):    ${metrics.viewCount.toLocaleString()}`);
-  console.log(
-    `  Unique Views (total):  ${metrics.uniqueViews.toLocaleString()}`
-  );
-  console.log(`  Stars (max):           ${metrics.stars.toLocaleString()}`);
-  console.log(`  Forks (max):           ${metrics.forks.toLocaleString()}`);
-  console.log(`  Watchers (max):        ${metrics.watchers.toLocaleString()}`);
-}
-
-function printGrandTotalReport(allMetrics: CollectionMetrics[]): void {
-  const grandTotals: MetricFields = {
-    clones: 0,
-    viewCount: 0,
-    uniqueViews: 0,
-    stars: 0,
-    forks: 0,
-    watchers: 0,
-  };
-
-  for (const metrics of allMetrics) {
-    // Sum these fields across collections
-    for (const field of FIELDS_TO_SUM) {
-      grandTotals[field] += metrics[field];
-    }
-    // Sum max values from each collection for these fields
-    for (const field of FIELDS_TO_MAX) {
-      grandTotals[field] += metrics[field];
-    }
-  }
-
-  console.log(`\n${"=".repeat(60)}`);
-  console.log(`GRAND TOTALS (All Collections)`);
-  console.log("=".repeat(60));
-  console.log(
-    `  Clones (total):        ${grandTotals.clones.toLocaleString()}`
-  );
-  console.log(
-    `  View Count (total):    ${grandTotals.viewCount.toLocaleString()}`
-  );
-  console.log(
-    `  Unique Views (total):  ${grandTotals.uniqueViews.toLocaleString()}`
-  );
-  console.log(`  Stars (max):           ${grandTotals.stars.toLocaleString()}`);
-  console.log(`  Forks (max):           ${grandTotals.forks.toLocaleString()}`);
-  console.log(
-    `  Watchers (max):        ${grandTotals.watchers.toLocaleString()}`
-  );
-  console.log("=".repeat(60));
-}
 
 async function main() {
   const uri = process.env.MONGODB_URI;
@@ -139,6 +34,12 @@ async function main() {
     process.exit(1);
   }
 
+  // Parse command-line arguments
+  const args = process.argv.slice(2);
+  const reportType: ReportType = args.includes("--monthly")
+    ? "monthly"
+    : "grand-totals";
+
   const client = new MongoClient(uri);
 
   try {
@@ -146,26 +47,59 @@ async function main() {
     await client.connect();
     console.log("Connected successfully!");
 
-    const allMetrics: CollectionMetrics[] = [];
+    if (reportType === "grand-totals") {
+      console.log("\n📊 Generating Grand Totals Report (All-Time)...\n");
+      const allMetrics: CollectionMetrics[] = [];
 
-    for (const collectionName of COLLECTIONS) {
-      console.log(`\nProcessing collection: ${collectionName}...`);
-      const metrics = await aggregateCollectionMetrics(
-        client,
-        dbName,
-        collectionName
-      );
-      allMetrics.push(metrics);
-      printCollectionReport(metrics);
+      for (const collectionName of COLLECTIONS) {
+        console.log(`Fetching collection: ${collectionName}...`);
+        const metrics = await aggregateCollectionMetrics(
+          client,
+          dbName,
+          collectionName,
+        );
+        allMetrics.push(metrics);
+      }
+
+      // Print individual collection reports
+      for (const metrics of allMetrics) {
+        printCollectionReport(metrics);
+      }
+
+      // Print grand totals
+      printGrandTotalReport(allMetrics);
+    } else {
+      console.log("\n📈 Generating Monthly Metrics Report...\n");
+      const allMonthlyMetrics: CollectionMonthlyMetrics[] = [];
+
+      for (const collectionName of COLLECTIONS) {
+        console.log(`Fetching collection: ${collectionName}...`);
+        const monthlyMetrics = await aggregateMonthlyMetrics(
+          client,
+          dbName,
+          collectionName,
+        );
+        allMonthlyMetrics.push(monthlyMetrics);
+        printMonthlyReport(monthlyMetrics);
+      }
+
+      // Combine all collections and print grand total monthly report
+      const combinedMonthlyMetrics = combineMonthlyMetrics(allMonthlyMetrics);
+      printGrandTotalMonthlyReport(combinedMonthlyMetrics);
     }
-
-    printGrandTotalReport(allMetrics);
   } catch (error) {
     console.error("Error:", error);
     process.exit(1);
   } finally {
     await client.close();
     console.log("\nConnection closed.");
+  }
+
+  // Print usage info
+  if (reportType === "grand-totals") {
+    console.log("\n💡 Tip: Run with --monthly flag to see monthly metrics");
+  } else {
+    console.log("\n💡 Tip: Run without --monthly flag to see grand totals");
   }
 }
 
