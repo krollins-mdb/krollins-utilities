@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sample App Engagement Stories — 2025-11 to 2026-03</title>
+  <link rel="stylesheet" href="assets/report.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="report-header">
+    <h1>📊 Sample App Engagement Stories</h1>
+    <p class="subtitle">2025-11 to 2026-03 &middot; Generated 2026-03-04</p>
+  </header>
+
+  <main>
+
+    <!-- Executive Summary -->
+    <section id="summary">
+      <h2>Executive Summary</h2>
+      <div class="metric-grid" id="metricGrid"></div>
+    </section>
+
+    <!-- Story 1: High-Intent Users -->
+    <section id="high-intent" class="story-section">
+      <h2>🎯 High-Intent Users, Not Casual Browsers</h2>
+      <p class="story-lead">
+        These aren't tire-kickers. An unusually high share of visitors clone the
+        repos and navigate deep into the source code — signals of genuine build intent.
+      </p>
+
+      <div id="highIntentInsights"></div>
+
+      <div class="chart-row">
+        <div class="chart-container">
+          <h4>Clone-to-View Ratio Over Time</h4>
+          <canvas id="chartCloneRatio"></canvas>
+        </div>
+        <div class="chart-container">
+          <h4>Page-View Depth Distribution</h4>
+          <canvas id="chartPathDepth"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story 2: What Developers Really Want -->
+    <section id="connection-code" class="story-section">
+      <h2>🔗 What Developers Really Want: Connection Code</h2>
+      <p class="story-lead">
+        Across all three language repos, the most-visited files are database
+        connection and configuration code — the very first thing a developer needs
+        to get up and running with MongoDB.
+      </p>
+
+      <div id="connectionCodeInsights"></div>
+
+      <div class="chart-container">
+        <h4>Most-Viewed Paths (Latest Month)</h4>
+        <canvas id="chartTopPaths"></canvas>
+      </div>
+
+      <div class="chart-row">
+        <div class="chart-container">
+          <h4>Views by File Category (All-Time)</h4>
+          <canvas id="chartCategoryBreakdown"></canvas>
+        </div>
+        <div class="chart-container">
+          <h4>Top Files per Repository</h4>
+          <div id="perRepoPathsTable"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story 3: Growth Trajectory -->
+    <section id="growth" class="story-section">
+      <h2>📈 Consistent Growth Trajectory</h2>
+      <p class="story-lead">
+        From launch through the most recent data, views and unique visitors have
+        climbed steadily — a sign that the sample apps are reaching and retaining
+        an expanding audience.
+      </p>
+
+      <div id="growthInsights"></div>
+
+      <div class="chart-container">
+        <h4>Combined Views Over Time</h4>
+        <canvas id="chartViewsOverTime"></canvas>
+      </div>
+
+      <div class="chart-row">
+        <div class="chart-container">
+          <h4>Month-over-Month Change (%)</h4>
+          <canvas id="chartMoMChange"></canvas>
+        </div>
+        <div class="chart-container">
+          <h4>Views by Repository</h4>
+          <canvas id="chartPerRepoViews"></canvas>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="report-footer">
+    <p>Data source: GitHub Traffic API via MongoDB Atlas &middot; Report generated 2026-03-04</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  <script src="assets/report.js"></script>
+</body>
+</html>
