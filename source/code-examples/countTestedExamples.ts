@@ -243,7 +243,7 @@ const ghApi = (path: string): unknown => {
   }
 };
 
-const generatePipelineReport = () => {
+const generatePipelineReport = (verbose: boolean) => {
   console.log("\nFetching open PRs from GitHub...");
 
   const search = ghApi(
@@ -257,7 +257,7 @@ const generatePipelineReport = () => {
 
   const aggregateCounts: DirectoryCounts = {};
   let aggregateTotal = 0;
-  const prResults: { number: number; title: string; user: string; counts: DirectoryCounts; total: number }[] = [];
+  const prResults: { number: number; title: string; user: string; counts: DirectoryCounts; total: number; files: string[] }[] = [];
 
   for (const pr of search.items) {
     const files = ghApi(
@@ -277,7 +277,7 @@ const generatePipelineReport = () => {
     const counts = bucketByDirectory(addedFiles);
     const total = Object.values(counts).reduce((s, n) => s + n, 0);
 
-    prResults.push({ number: pr.number, title: pr.title, user: pr.user.login, counts, total });
+    prResults.push({ number: pr.number, title: pr.title, user: pr.user.login, counts, total, files: addedFiles });
 
     for (const [key, count] of Object.entries(counts)) {
       aggregateCounts[key] = (aggregateCounts[key] ?? 0) + count;
@@ -294,9 +294,15 @@ const generatePipelineReport = () => {
 
   for (const pr of prResults) {
     console.log(`PR #${pr.number} — ${pr.title} (@${pr.user})`);
-    const sorted = Object.entries(pr.counts).sort(([a], [b]) => a.localeCompare(b));
-    for (const [dir, count] of sorted) {
-      console.log(`  ${dir.padEnd(28)} ${count.toString().padStart(5)} files`);
+    if (verbose) {
+      for (const file of pr.files.sort()) {
+        console.log(`  ${file.slice(subPath.length + 1)}`);
+      }
+    } else {
+      const sorted = Object.entries(pr.counts).sort(([a], [b]) => a.localeCompare(b));
+      for (const [dir, count] of sorted) {
+        console.log(`  ${dir.padEnd(28)} ${count.toString().padStart(5)} files`);
+      }
     }
     console.log(`  ${"Subtotal".padEnd(28)} ${pr.total.toString().padStart(5)} files`);
     console.log();
@@ -318,6 +324,7 @@ const toISODate = (d: Date): string => d.toISOString().slice(0, 10);
 
 const lastDays = args.includes("--last-7-days");
 const pipeline = args.includes("--pipeline");
+const verbose = args.includes("--verbose");
 
 if (startDate || endDate) {
   if (!startDate || !endDate) {
@@ -332,7 +339,7 @@ if (startDate || endDate) {
   start.setDate(start.getDate() - 7);
   generateRangeReport(toISODate(start), toISODate(end));
 } else if (pipeline) {
-  generatePipelineReport();
+  generatePipelineReport(verbose);
 } else {
   await generateSnapshotReport();
 }
