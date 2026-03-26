@@ -14,7 +14,9 @@
     "github-stories": "tsc && node dist/source/github-metrics/story-report/index.js",
     "jira-report": "tsc && node dist/source/jira-report/index.js",
     "ref-finder": "tsc && node dist/source/ref-finder/index.js",
-    "url-resolver": "tsc && node dist/source/url-resolver/index.js"
+    "url-resolver": "tsc && node dist/source/url-resolver/index.js",
+    "count-tested-examples": "tsc && node dist/source/code-examples/countTestedExamples.js",
+    "count-tested-examples-7-days": "tsc && node dist/source/code-examples/countTestedExamples.js --last-7-days"
   },
   "keywords": [],
   "author": "",
