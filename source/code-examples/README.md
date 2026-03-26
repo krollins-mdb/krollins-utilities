@@ -16,6 +16,9 @@ npm run count-tested-examples -- --last-7-days
 # Compare two points in time
 npm run count-tested-examples -- --start 2025-08-01 --end 2025-12-01
 
+# Show examples in open PRs (pipeline)
+npm run count-tested-examples -- --pipeline
+
 # Override the directory to search for the repo (default: ~/Documents/GitHub)
 npm run count-tested-examples -- /path/to/search --start 2025-08-01 --end 2025-12-01
 ```
@@ -50,6 +53,21 @@ Total                              144     397     +253
 
 Start commit: a68fbf8bd3 (2025-08-01)
 End commit:   4b439838b0 (2025-12-01)
+```
+
+**Pipeline mode:**
+
+```
+=== Code Examples in Pipeline (1 open PRs) ===
+
+PR #18806 — DOCSP-58228: Migrate EF Core code examples to Grove pattern (@mongoKart)
+  csharp/ef-core                  43 files
+  Subtotal                        43 files
+
+----------------------------------------
+csharp/ef-core                    43 files
+----------------------------------------
+Total (all PRs)                   43 files
 ```
 
 ## Notes
