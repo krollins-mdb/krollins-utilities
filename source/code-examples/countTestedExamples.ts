@@ -228,56 +228,62 @@ const generateRangeReport = (start: string, end: string) => {
 
 // --- Pipeline report (open PRs adding tested examples) ---
 
-type PrFile = { filename: string; status: string };
-type PrSearchItem = { number: number; title: string; user: { login: string } };
-type PrSearchResponse = { total_count: number; items: PrSearchItem[] };
+type PrInfo = { number: number; title: string; sha: string; user: string };
 
-const ghApi = (path: string): unknown => {
+const fetchOpenPrs = (): PrInfo[] => {
+  const twoWeeksAgo = new Date();
+  twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+  const cutoff = twoWeeksAgo.toISOString();
+
   try {
-    return JSON.parse(
-      execSync(`gh api '${path}'`, { encoding: "utf8" }),
-    );
+    const output = execSync(
+      `gh api 'repos/10gen/docs-mongodb-internal/pulls?state=open&per_page=100' --paginate --jq '.[] | select(.draft == false and .updated_at >= "${cutoff}") | [.number, .head.sha, .user.login, .title] | @tsv'`,
+      { encoding: "utf8", maxBuffer: 10 * 1024 * 1024 },
+    ).trim();
+    if (!output) return [];
+    return output.split("\n").map((line) => {
+      const [num, sha, user, ...titleParts] = line.split("\t");
+      return { number: parseInt(num), sha, user, title: titleParts.join("\t") };
+    });
   } catch {
-    console.error(`Error: gh API call failed for ${path}`);
+    console.error("Error: Failed to fetch open PRs via gh CLI.");
     process.exit(1);
   }
 };
 
-const generatePipelineReport = (verbose: boolean) => {
-  console.log("\nFetching open PRs from GitHub...");
-
-  const search = ghApi(
-    `search/issues?q=repo:10gen/docs-mongodb-internal+is:pr+is:open+content/code-examples/tested&per_page=100`,
-  ) as PrSearchResponse;
-
-  if (search.total_count === 0) {
-    console.log("\nNo open PRs found that add tested code examples.\n");
-    return;
+const getAddedTestedFiles = (headSha: string): string[] => {
+  try {
+    const output = execSync(
+      `git -C "${repoRoot}" diff --name-only --diff-filter=A origin/main...${headSha} -- "${subPath}/"`,
+      { encoding: "utf8", stdio: ["pipe", "pipe", "pipe"] },
+    ).trim();
+    return output ? output.split("\n") : [];
+  } catch {
+    // SHA may not be locally available (e.g. force-pushed or from a fork)
+    return [];
   }
+};
+
+const generatePipelineReport = (verbose: boolean) => {
+  console.log("\nFetching remote branches...");
+  execSync(`git -C "${repoRoot}" fetch origin`, { stdio: "ignore" });
+
+  console.log("Fetching open PRs from GitHub...");
+  const allPrs = fetchOpenPrs();
+  console.log(`Checking ${allPrs.length} open PRs for tested code examples...`);
 
   const aggregateCounts: DirectoryCounts = {};
   let aggregateTotal = 0;
   const prResults: { number: number; title: string; user: string; counts: DirectoryCounts; total: number; files: string[] }[] = [];
 
-  for (const pr of search.items) {
-    const files = ghApi(
-      `repos/10gen/docs-mongodb-internal/pulls/${pr.number}/files?per_page=100`,
-    ) as PrFile[];
-
-    const addedFiles = files
-      .filter(
-        (f) =>
-          f.status === "added" &&
-          f.filename.startsWith("content/code-examples/tested/"),
-      )
-      .map((f) => f.filename);
-
+  for (const pr of allPrs) {
+    const addedFiles = getAddedTestedFiles(pr.sha);
     if (addedFiles.length === 0) continue;
 
     const counts = bucketByDirectory(addedFiles);
     const total = Object.values(counts).reduce((s, n) => s + n, 0);
 
-    prResults.push({ number: pr.number, title: pr.title, user: pr.user.login, counts, total, files: addedFiles });
+    prResults.push({ number: pr.number, title: pr.title, user: pr.user, counts, total, files: addedFiles });
 
     for (const [key, count] of Object.entries(counts)) {
       aggregateCounts[key] = (aggregateCounts[key] ?? 0) + count;

@@ -16,6 +16,7 @@
     "ref-finder": "tsc && node dist/source/ref-finder/index.js",
     "url-resolver": "tsc && node dist/source/url-resolver/index.js",
     "count-tested-examples": "tsc && node dist/source/code-examples/countTestedExamples.js",
+    "count-tested-examples-pipeline": "tsc && node dist/source/code-examples/countTestedExamples.js --pipeline",
     "count-tested-examples-7-days": "tsc && node dist/source/code-examples/countTestedExamples.js --last-7-days",
     "analyze-backports": "tsc && node dist/source/analyze-backports/analyze-backports.js",
     "analyze-backports-report": "tsc && node dist/source/analyze-backports/analyze-backports.js --report"
