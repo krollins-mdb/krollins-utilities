@@ -13,8 +13,12 @@ const getArg = (flag: string): string | undefined => {
 const startDate = getArg("--start");
 const endDate = getArg("--end");
 const searchRoot =
-  args.find((a) => !a.startsWith("--") && args[args.indexOf(a) - 1] !== "--start" && args[args.indexOf(a) - 1] !== "--end") ||
-  process.env.HOME + "/Documents/GitHub";
+  args.find(
+    (a) =>
+      !a.startsWith("--") &&
+      args[args.indexOf(a) - 1] !== "--start" &&
+      args[args.indexOf(a) - 1] !== "--end",
+  ) || process.env.HOME + "/Documents/GitHub";
 
 // --- Repo/path discovery ---
 
@@ -140,12 +144,16 @@ const generateSnapshotReport = async () => {
   let total = 0;
 
   try {
-    const entries = await fs.promises.readdir(basePath, { withFileTypes: true });
+    const entries = await fs.promises.readdir(basePath, {
+      withFileTypes: true,
+    });
 
     for (const entry of entries) {
       if (entry.isDirectory()) {
         const dirPath = path.join(basePath, entry.name);
-        const subEntries = await fs.promises.readdir(dirPath, { withFileTypes: true });
+        const subEntries = await fs.promises.readdir(dirPath, {
+          withFileTypes: true,
+        });
         const hasSubdirectories = subEntries.some((e) => e.isDirectory());
 
         if (hasSubdirectories) {
@@ -192,7 +200,10 @@ const generateRangeReport = (start: string, end: string) => {
   const startCounts = bucketByDirectory(startFiles);
   const endCounts = bucketByDirectory(endFiles);
 
-  const allKeys = new Set([...Object.keys(startCounts), ...Object.keys(endCounts)]);
+  const allKeys = new Set([
+    ...Object.keys(startCounts),
+    ...Object.keys(endCounts),
+  ]);
   const sorted = [...allKeys].sort((a, b) => a.localeCompare(b));
 
   const startTotal = Object.values(startCounts).reduce((s, n) => s + n, 0);
@@ -216,7 +227,8 @@ const generateRangeReport = (start: string, end: string) => {
   }
 
   console.log("-".repeat(56));
-  const netStr = netTotal === 0 ? "" : netTotal > 0 ? `+${netTotal}` : `${netTotal}`;
+  const netStr =
+    netTotal === 0 ? "" : netTotal > 0 ? `+${netTotal}` : `${netTotal}`;
   console.log(
     `${"Total".padEnd(30)} ${startTotal.toString().padStart(7)} ${endTotal.toString().padStart(7)} ${netStr.padStart(8)}`,
   );
@@ -228,7 +240,14 @@ const generateRangeReport = (start: string, end: string) => {
 
 // --- Pipeline report (open PRs adding tested examples) ---
 
-type PrInfo = { number: number; title: string; sha: string; user: string };
+type PrInfo = {
+  number: number;
+  title: string;
+  sha: string;
+  user: string;
+  baseBranch: string;
+  headBranch: string;
+};
 
 const fetchOpenPrs = (): PrInfo[] => {
   const twoWeeksAgo = new Date();
@@ -237,13 +256,21 @@ const fetchOpenPrs = (): PrInfo[] => {
 
   try {
     const output = execSync(
-      `gh api 'repos/10gen/docs-mongodb-internal/pulls?state=open&per_page=100' --paginate --jq '.[] | select(.draft == false and .updated_at >= "${cutoff}") | [.number, .head.sha, .user.login, .title] | @tsv'`,
+      `gh api 'repos/10gen/docs-mongodb-internal/pulls?state=open&per_page=100' --paginate --jq '.[] | select(.draft == false and .updated_at >= "${cutoff}") | [.number, .head.sha, .user.login, .base.ref, .head.ref, .title] | @tsv'`,
       { encoding: "utf8", maxBuffer: 10 * 1024 * 1024 },
     ).trim();
     if (!output) return [];
     return output.split("\n").map((line) => {
-      const [num, sha, user, ...titleParts] = line.split("\t");
-      return { number: parseInt(num), sha, user, title: titleParts.join("\t") };
+      const [num, sha, user, baseBranch, headBranch, ...titleParts] =
+        line.split("\t");
+      return {
+        number: parseInt(num),
+        sha,
+        user,
+        baseBranch,
+        headBranch,
+        title: titleParts.join("\t"),
+      };
     });
   } catch {
     console.error("Error: Failed to fetch open PRs via gh CLI.");
@@ -251,10 +278,10 @@ const fetchOpenPrs = (): PrInfo[] => {
   }
 };
 
-const getAddedTestedFiles = (headSha: string): string[] => {
+const getAddedTestedFiles = (headSha: string, baseBranch: string): string[] => {
   try {
     const output = execSync(
-      `git -C "${repoRoot}" diff --name-only --diff-filter=A origin/main...${headSha} -- "${subPath}/"`,
+      `git -C "${repoRoot}" diff --name-only --diff-filter=A origin/${baseBranch}...${headSha} -- "${subPath}/"`,
       { encoding: "utf8", stdio: ["pipe", "pipe", "pipe"] },
     ).trim();
     return output ? output.split("\n") : [];
@@ -274,16 +301,33 @@ const generatePipelineReport = (verbose: boolean) => {
 
   const aggregateCounts: DirectoryCounts = {};
   let aggregateTotal = 0;
-  const prResults: { number: number; title: string; user: string; counts: DirectoryCounts; total: number; files: string[] }[] = [];
+  const prResults: {
+    number: number;
+    title: string;
+    user: string;
+    counts: DirectoryCounts;
+    total: number;
+    files: string[];
+  }[] = [];
 
   for (const pr of allPrs) {
-    const addedFiles = getAddedTestedFiles(pr.sha);
+    // Skip feature branch PRs — their constituent PRs are counted individually
+    if (pr.headBranch.startsWith("feature/")) continue;
+
+    const addedFiles = getAddedTestedFiles(pr.sha, pr.baseBranch);
     if (addedFiles.length === 0) continue;
 
     const counts = bucketByDirectory(addedFiles);
     const total = Object.values(counts).reduce((s, n) => s + n, 0);
 
-    prResults.push({ number: pr.number, title: pr.title, user: pr.user, counts, total, files: addedFiles });
+    prResults.push({
+      number: pr.number,
+      title: pr.title,
+      user: pr.user,
+      counts,
+      total,
+      files: addedFiles,
+    });
 
     for (const [key, count] of Object.entries(counts)) {
       aggregateCounts[key] = (aggregateCounts[key] ?? 0) + count;
@@ -296,31 +340,46 @@ const generatePipelineReport = (verbose: boolean) => {
     return;
   }
 
-  console.log(`\n=== Code Examples in Pipeline (${prResults.length} open PRs) ===\n`);
+  console.log(
+    `\n=== Code Examples in Pipeline (${prResults.length} open PRs) ===\n`,
+  );
 
   for (const pr of prResults) {
     console.log(`PR #${pr.number} — ${pr.title} (@${pr.user})`);
+    console.log(
+      `https://github.com/10gen/docs-mongodb-internal/pull/${pr.number}`,
+    );
     if (verbose) {
       for (const file of pr.files.sort()) {
         console.log(`  ${file.slice(subPath.length + 1)}`);
       }
     } else {
-      const sorted = Object.entries(pr.counts).sort(([a], [b]) => a.localeCompare(b));
+      const sorted = Object.entries(pr.counts).sort(([a], [b]) =>
+        a.localeCompare(b),
+      );
       for (const [dir, count] of sorted) {
-        console.log(`  ${dir.padEnd(28)} ${count.toString().padStart(5)} files`);
+        console.log(
+          `  ${dir.padEnd(28)} ${count.toString().padStart(5)} files`,
+        );
       }
     }
-    console.log(`  ${"Subtotal".padEnd(28)} ${pr.total.toString().padStart(5)} files`);
+    console.log(
+      `  ${"Subtotal".padEnd(28)} ${pr.total.toString().padStart(5)} files`,
+    );
     console.log();
   }
 
   console.log("-".repeat(40));
-  const aggSorted = Object.entries(aggregateCounts).sort(([a], [b]) => a.localeCompare(b));
+  const aggSorted = Object.entries(aggregateCounts).sort(([a], [b]) =>
+    a.localeCompare(b),
+  );
   for (const [dir, count] of aggSorted) {
     console.log(`${dir.padEnd(30)} ${count.toString().padStart(5)} files`);
   }
   console.log("-".repeat(40));
-  console.log(`${"Total (all PRs)".padEnd(30)} ${aggregateTotal.toString().padStart(5)} files`);
+  console.log(
+    `${"Total (all PRs)".padEnd(30)} ${aggregateTotal.toString().padStart(5)} files`,
+  );
   console.log();
 };
 
@@ -335,7 +394,9 @@ const verbose = args.includes("--verbose");
 if (startDate || endDate) {
   if (!startDate || !endDate) {
     console.error("Error: Both --start and --end are required for range mode.");
-    console.error("Usage: countTestedExamples.ts --start 2025-01-01 --end 2025-06-01");
+    console.error(
+      "Usage: countTestedExamples.ts --start 2025-01-01 --end 2025-06-01",
+    );
     process.exit(1);
   }
   generateRangeReport(startDate, endDate);
